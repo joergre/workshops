@@ -1,0 +1,66 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Regression Models in R
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     dataclass@help.hmdc.harvard.edu
+#+DATE:      
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+* Introduction
+
+** Workshop description
+
+- This is an intermediate/advanced R course
+- Appropriate for those with basic knowledge of R
+- This is not a statistics course! 
+- Learning objectives:
+  - Learn the R formula interface
+  - Specify factor contrasts to test specific hypotheses
+  - Perform model comparisons
+  - Run and interpret variety of regression models in R
+
+
+* Einführung in Docker
+* Zum Schluss
+
+** Helfe mir, den Kurs besser zu machen!
+- Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
+- Der Kurs existiert für Dich -- sage mir, was Du brauchst! 
+- * Wrap-up
+
+** Help us make this workshop better!
+- Please take a moment to fill out a very short 
+feedback form 
+- These workshops exist for you -- tell us what you need! 
+- http://goo.gl/forms/04cJw2mtBB
+
+** Weitere Informationsquellen
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example

@@ -1,0 +1,74 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Docker
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+* Einführung in Docker
+** Was ist Docker
+Docker ist eine Virtualisierung, die auf fast allen Betriebssystemen verfügbar ist. Die Unterstützung auf 
+- Unix-Betriebssystemen ist besonders gut. 
+- Auf OS X - Geräten ist die Unterstützung durch eine Virtualisierung gelöst. 
+- Microsoft arbeitet daran, dass die Windows-systeme Docker sehr bald unterstützen. 
+- Selbst für Smartphones gibt es Lösungen, die allerdings nicht für den produktiven Einsatz geeignet sind.
+
+** Vorteile
+
+- Mehrere Systeme auf einem Computer
+- Bessere Ressourcennutzung
+  - CPU
+  - Speicherplatz (RAM wie Festspeicher)
+- Sicherheit
+- Ressourcenschonender als bisherige Virtualisierungen
+- Einstieg in Continous Delivery und DevOPs
+- Keine besondere Hardwarespezifikationen
+- Kein veränderter Kernel
+- Open Source
+
+
+* Zum Schluss
+
+** Helfe mir, den Kurs besser zu machen!
+- Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
+- Der Kurs existiert für Dich -- sage mir, was Du brauchst! 
+- * Wrap-up
+
+** Help us make this workshop better!
+- Please take a moment to fill out a very short 
+feedback form 
+- These workshops exist for you -- tell us what you need! 
+- http://goo.gl/forms/04cJw2mtBB
+
+** Weitere Informationsquellen
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example

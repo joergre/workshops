@@ -1,0 +1,55 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+# NOTE: refer to the README file if you are unfamiliar with emacs or orgmode.
+
+# Customize the PROPERTY and EXCLUDE_TAGS below depending on the type
+# of export (see the README file for details). After setting the exports 
+# property and/or the EXCLUDE_TAGS, place the curser on the poperty line 
+# and press C-c C-c
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+
+
+
+
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+
+* Introduction
+
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example
+
