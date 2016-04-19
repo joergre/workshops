@@ -3,17 +3,17 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-04-18 Mon 12:14 -->
+<!-- 2016-04-19 Tue 22:30 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Regression Models in R</title>
+<title>Einführung in Docker</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Jörg Reuter" />
 <link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://gist.githubusercontent.com/joergre/bfe1204da87a7227c13f8064e71dbd02/raw/473932eeff11495e7c7311517507bf648828fe80/readtheorg.js"></script>
-<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../git.png" alt="Fork me on GitHub"></a>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -63,7 +63,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Regression Models in R</h1>
+<h1 class="title">Einführung in Docker</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -74,11 +74,10 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#orgheadline3">Einführung in Docker</a></li>
-<li><a href="#orgheadline7">Zum Schluss</a>
+<li><a href="#orgheadline6">Zum Schluss</a>
 <ul>
 <li><a href="#orgheadline4">Helfe mir, den Kurs besser zu machen!</a></li>
-<li><a href="#orgheadline5">Help us make this workshop better!</a></li>
-<li><a href="#orgheadline6">Weitere Informationsquellen</a></li>
+<li><a href="#orgheadline5">Weitere Informationsquellen</a></li>
 </ul>
 </li>
 </ul>
@@ -110,39 +109,96 @@ for the JavaScript code in this tag.
 
 <div id="outline-container-orgheadline3" class="outline-2">
 <h2 id="orgheadline3">Einführung in Docker</h2>
+<div class="outline-text-2" id="text-orgheadline3">
+<p>
+Wir laden das Image von Ubuntu 14.04 herunter:
+</p>
+
+<p>
+Anzeige der lokal vorhanden Images:
+</p>
+
+<pre class="example">
+docker images
+</pre>
+
+<p>
+Zugriff auf die Shell
+</p>
+
+<pre class="example">
+docker run -t -i ubuntu:14.04 bash
+</pre>
+
+<p>
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+</p>
+<pre class="example">
+docker ps
+</pre>
+
+<p>
+um sich den Namen des laufenden Docker Container anzeigen zu lassen 
+Docker Container anhalten (hungy<sub>euklid</sub> ist der Name der jeweiligen Maschine):
+</p>
+
+<pre class="example">
+docker stop hungry_euclid
+</pre>
+
+<p>
+Gestoppten Container neu starten:
+</p>
+
+<pre class="example">
+docker start -i hungry_euclid
+</pre>
+
+<p>
+Container löschen:
+</p>
+
+<pre class="example">
+docker stop hungry_euclid
+docker rm hungry_euclid
+</pre>
+
+<p>
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d &#x2013;name nginx nginx
+</p>
+
+<pre class="example">
+docker ps -s
+</pre>
+
+<p>
+Alle laufenden und gestoppten Container löschen:
+</p>
+
+<pre class="example">
+docker ps -qa|xargs docker rm -f
+</pre>
 </div>
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">Zum Schluss</h2>
-<div class="outline-text-2" id="text-orgheadline7">
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6">Zum Schluss</h2>
+<div class="outline-text-2" id="text-orgheadline6">
 </div><div id="outline-container-orgheadline4" class="outline-3">
 <h3 id="orgheadline4">Helfe mir, den Kurs besser zu machen!</h3>
 <div class="outline-text-3" id="text-orgheadline4">
 <ul class="org-ul">
 <li>Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.</li>
 <li>Der Kurs existiert für Dich &#x2013; sage mir, was Du brauchst!</li>
-<li>* Wrap-up</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">Help us make this workshop better!</h3>
-<div class="outline-text-3" id="text-orgheadline5">
-<ul class="org-ul">
-<li>Please take a moment to fill out a very short</li>
-</ul>
-<p>
-feedback form 
-</p>
-<ul class="org-ul">
-<li>These workshops exist for you &#x2013; tell us what you need!</li>
 <li><a href="http://goo.gl/forms/04cJw2mtBB">http://goo.gl/forms/04cJw2mtBB</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">Weitere Informationsquellen</h3>
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Weitere Informationsquellen</h3>
 </div>
 </div>
 </div>

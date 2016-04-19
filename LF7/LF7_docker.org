@@ -1,7 +1,7 @@
 # -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
-#+TITLE:     Regression Models in R
+#+TITLE:     Einführung in Docker
 #+AUTHOR:    Jörg Reuter
-#+EMAIL:     dataclass@help.hmdc.harvard.edu
+#+EMAIL:     joerg@reuter.sc
 #+DATE:      
 #+PROPERTY: exports both
 #+EXCLUDE_TAGS: noexport mitsetup
@@ -24,98 +24,79 @@
     options(digits = 3)
   }
 #+end_src
-* Introduction
-
-** Workshop description
-
-- This is an intermediate/advanced R course
-- Appropriate for those with basic knowledge of R
-- This is not a statistics course! 
-- Learning objectives:
-  - Learn the R formula interface
-  - Specify factor contrasts to test specific hypotheses
-  - Perform model comparisons
-  - Run and interpret variety of regression models in R
-
 
 * Einführung in Docker
 Wir laden das Image von Ubuntu 14.04 herunter:
 
 #+name: setupR
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker pull ubuntu:14.04
-#+end_src bash
+#+END_EXAMPLE
 
 Anzeige der lokal vorhanden Images:
 
 #+name: local_Images
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker images
-#+end_src bash
+#+END_EXAMPLE
 
 Zugriff auf die Shell
 
 #+name: dockerrun
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker run -t -i ubuntu:14.04 bash
-#+end_src bash
+#+END_EXAMPLE
 
 Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
 Von einer zweiten Konsole:
 #+name: dockerps
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker ps
-#+end_src bash
+#+END_EXAMPLE
 
 um sich den Namen des laufenden Docker Container anzeigen zu lassen 
 Docker Container anhalten (hungy_euklid ist der Name der jeweiligen Maschine):
 
 #+name: docker stop
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker stop hungry_euclid
-#+end_src bash
+#+END_EXAMPLE
 
 Gestoppten Container neu starten:
 
 #+name: dockerstart
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker start -i hungry_euclid
-#+end_src bash
+#+END_EXAMPLE
 
 Container löschen:
 
 #+name: dockerloeschen
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker stop hungry_euclid
 docker rm hungry_euclid
-#+end_src bash
+#+END_EXAMPLE
 
 Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
 docker run -d --name nginx nginx
 
 #+name: dockerpss
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker ps -s
-#+end_src bash
+#+END_EXAMPLE
 
 Alle laufenden und gestoppten Container löschen:
 
 #+name: dockerdelete
-#+begin_src bash
+#+BEGIN_EXAMPLE
 docker ps -qa|xargs docker rm -f
-#+end_src bash
+#+END_EXAMPLE
 
 * Zum Schluss
 
 ** Helfe mir, den Kurs besser zu machen!
 - Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
 - Der Kurs existiert für Dich -- sage mir, was Du brauchst! 
-- * Wrap-up
-
-** Help us make this workshop better!
-- Please take a moment to fill out a very short 
-feedback form 
-- These workshops exist for you -- tell us what you need! 
 - http://goo.gl/forms/04cJw2mtBB
 
 ** Weitere Informationsquellen

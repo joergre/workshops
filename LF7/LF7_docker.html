@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-04-19 Tue 10:00 -->
+<!-- 2016-04-19 Tue 22:35 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Regression Models in R</title>
+<title>Einführung in Docker</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Jörg Reuter" />
 <link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
@@ -63,181 +63,114 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Regression Models in R</h1>
+<h1 class="title">Einführung in Docker</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline2">Introduction</a>
+<li><a href="#orgheadline1">Einführung in Docker</a></li>
+<li><a href="#orgheadline4">Zum Schluss</a>
 <ul>
-<li><a href="#orgheadline1">Workshop description</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline3">Einführung in Docker</a></li>
-<li><a href="#orgheadline7">Zum Schluss</a>
-<ul>
-<li><a href="#orgheadline4">Helfe mir, den Kurs besser zu machen!</a></li>
-<li><a href="#orgheadline5">Help us make this workshop better!</a></li>
-<li><a href="#orgheadline6">Weitere Informationsquellen</a></li>
+<li><a href="#orgheadline2">Helfe mir, den Kurs besser zu machen!</a></li>
+<li><a href="#orgheadline3">Weitere Informationsquellen</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">Introduction</h2>
-<div class="outline-text-2" id="text-orgheadline2">
-</div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1">Workshop description</h3>
-<div class="outline-text-3" id="text-orgheadline1">
-<ul class="org-ul">
-<li>This is an intermediate/advanced R course</li>
-<li>Appropriate for those with basic knowledge of R</li>
-<li>This is not a statistics course!</li>
-<li>Learning objectives:
-<ul class="org-ul">
-<li>Learn the R formula interface</li>
-<li>Specify factor contrasts to test specific hypotheses</li>
-<li>Perform model comparisons</li>
-<li>Run and interpret variety of regression models in R</li>
-</ul></li>
-</ul>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Einführung in Docker</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Einführung in Docker</h2>
+<div class="outline-text-2" id="text-orgheadline1">
 <p>
 Wir laden das Image von Ubuntu 14.04 herunter:
-</p>
-
-<p>
-#+begin<sub>src</sub> bash
-docker pull ubuntu:14.04
-#+end<sub>src</sub> bash
 </p>
 
 <p>
 Anzeige der lokal vorhanden Images:
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
+<pre class="example">
 docker images
-#+end<sub>src</sub> bash
-</p>
+</pre>
 
 <p>
 Zugriff auf die Shell
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
+<pre class="example">
 docker run -t -i ubuntu:14.04 bash
-#+end<sub>src</sub> bash
-</p>
+</pre>
 
 <p>
 Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
 Von einer zweiten Konsole:
 </p>
-<p>
-#+begin<sub>src</sub> bash
+<pre class="example">
 docker ps
-#+end<sub>src</sub> bash
-</p>
+</pre>
 
 <p>
 um sich den Namen des laufenden Docker Container anzeigen zu lassen 
 Docker Container anhalten (hungy<sub>euklid</sub> ist der Name der jeweiligen Maschine):
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
-docker stop hungry<sub>euclid</sub>
-#+end<sub>src</sub> bash
-</p>
+<pre class="example">
+docker stop hungry_euclid
+</pre>
 
 <p>
 Gestoppten Container neu starten:
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
-docker start -i hungry<sub>euclid</sub>
-#+end<sub>src</sub> bash
-</p>
+<pre class="example">
+docker start -i hungry_euclid
+</pre>
 
 <p>
 Container löschen:
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
-docker stop hungry<sub>euclid</sub>
-docker rm hungry<sub>euclid</sub>
-#+end<sub>src</sub> bash
-</p>
+<pre class="example">
+docker stop hungry_euclid
+docker rm hungry_euclid
+</pre>
 
 <p>
 Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
 docker run -d &#x2013;name nginx nginx
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
+<pre class="example">
 docker ps -s
-#+end<sub>src</sub> bash
-</p>
+</pre>
 
 <p>
 Alle laufenden und gestoppten Container löschen:
 </p>
 
-<p>
-#+begin<sub>src</sub> bash
+<pre class="example">
 docker ps -qa|xargs docker rm -f
-#+end<sub>src</sub> bash
-</p>
+</pre>
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">Zum Schluss</h2>
-<div class="outline-text-2" id="text-orgheadline7">
-</div><div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">Helfe mir, den Kurs besser zu machen!</h3>
-<div class="outline-text-3" id="text-orgheadline4">
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4">Zum Schluss</h2>
+<div class="outline-text-2" id="text-orgheadline4">
+</div><div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">Helfe mir, den Kurs besser zu machen!</h3>
+<div class="outline-text-3" id="text-orgheadline2">
 <ul class="org-ul">
 <li>Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.</li>
 <li>Der Kurs existiert für Dich &#x2013; sage mir, was Du brauchst!</li>
-<li>* Wrap-up</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">Help us make this workshop better!</h3>
-<div class="outline-text-3" id="text-orgheadline5">
-<ul class="org-ul">
-<li>Please take a moment to fill out a very short</li>
-</ul>
-<p>
-feedback form 
-</p>
-<ul class="org-ul">
-<li>These workshops exist for you &#x2013; tell us what you need!</li>
 <li><a href="http://goo.gl/forms/04cJw2mtBB">http://goo.gl/forms/04cJw2mtBB</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">Weitere Informationsquellen</h3>
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Weitere Informationsquellen</h3>
 </div>
 </div>
 </div>

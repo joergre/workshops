@@ -1,4 +1,4 @@
-% Created 2016-04-19 Tue 22:24
+% Created 2016-04-19 Tue 10:01
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -16,10 +16,10 @@
 \usepackage{hyperref}
 \author{Jörg Reuter}
 \date{}
-\title{Einführung in Docker}
+\title{Regression Models in R}
 \hypersetup{
  pdfauthor={Jörg Reuter},
- pdftitle={Einführung in Docker},
+ pdftitle={Regression Models in R},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 24.5.1 (Org mode 8.3.4)}, 
@@ -54,72 +54,60 @@
 \label{sec:orgheadline3}
 Wir laden das Image von Ubuntu 14.04 herunter:
 
+\#+begin\(_{\text{src}}\) bash
+docker pull ubuntu:14.04
+\#+end\(_{\text{src}}\) bash
+
 Anzeige der lokal vorhanden Images:
 
-\phantomsection
-\label{orgexampleblock1}
-\begin{verbatim}
+\#+begin\(_{\text{src}}\) bash
 docker images
-\end{verbatim}
+\#+end\(_{\text{src}}\) bash
 
 Zugriff auf die Shell
 
-\phantomsection
-\label{orgexampleblock2}
-\begin{verbatim}
+\#+begin\(_{\text{src}}\) bash
 docker run -t -i ubuntu:14.04 bash
-\end{verbatim}
+\#+end\(_{\text{src}}\) bash
 
 Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
 Von einer zweiten Konsole:
-\phantomsection
-\label{orgexampleblock3}
-\begin{verbatim}
+\#+begin\(_{\text{src}}\) bash
 docker ps
-\end{verbatim}
+\#+end\(_{\text{src}}\) bash
 
 um sich den Namen des laufenden Docker Container anzeigen zu lassen 
 Docker Container anhalten (hungy\(_{\text{euklid}}\) ist der Name der jeweiligen Maschine):
 
-\phantomsection
-\label{orgexampleblock4}
-\begin{verbatim}
-docker stop hungry_euclid
-\end{verbatim}
+\#+begin\(_{\text{src}}\) bash
+docker stop hungry\(_{\text{euclid}}\)
+\#+end\(_{\text{src}}\) bash
 
 Gestoppten Container neu starten:
 
-\phantomsection
-\label{orgexampleblock5}
-\begin{verbatim}
-docker start -i hungry_euclid
-\end{verbatim}
+\#+begin\(_{\text{src}}\) bash
+docker start -i hungry\(_{\text{euclid}}\)
+\#+end\(_{\text{src}}\) bash
 
 Container löschen:
 
-\phantomsection
-\label{orgexampleblock6}
-\begin{verbatim}
-docker stop hungry_euclid
-docker rm hungry_euclid
-\end{verbatim}
+\#+begin\(_{\text{src}}\) bash
+docker stop hungry\(_{\text{euclid}}\)
+docker rm hungry\(_{\text{euclid}}\)
+\#+end\(_{\text{src}}\) bash
 
 Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
 docker run -d --name nginx nginx
 
-\phantomsection
-\label{orgexampleblock7}
-\begin{verbatim}
+\#+begin\(_{\text{src}}\) bash
 docker ps -s
-\end{verbatim}
+\#+end\(_{\text{src}}\) bash
 
 Alle laufenden und gestoppten Container löschen:
 
-\phantomsection
-\label{orgexampleblock8}
-\begin{verbatim}
+\#+begin\(_{\text{src}}\) bash
 docker ps -qa|xargs docker rm -f
-\end{verbatim}
+\#+end\(_{\text{src}}\) bash
 
 \section*{Zum Schluss}
 \label{sec:orgheadline7}
