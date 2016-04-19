@@ -1,0 +1,48 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Unix
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+
+* Einführung
+** Vorbemerkung
+Unix wurde Ende der 1960er Jahre entwickelt und weißt eine sehr grosse Vielfalt unterschiedlicher Richtungen auf die sich teils stark unterscheiden. Eine Übersicht der Unix-Entwicklung gibt es hier: https://upload.wikimedia.org/wikipedia/commons/7/77/Unix_history-simple.svg.
+
+Wir werden in diesem Kurs einige grundlegende Eigenschaften von Unix entdecken, die prinzipiell unabhängig von der jeweilig eingesetzten Version sind. Um in jeder Umgebung ein System zu haben mit dem man ein wenig experimentieren kann ohne es installieren zu müssen oder Programme zu installieren und auf der anderen Seite kostenlos ist, finde ich http://c9.io ganz gut. Hier ist ein komplettes Linux-System in einem Browser verfügbar. Die Leistung des Systems reicht locker für diesen Workshop aus. Einfach anmelden und eine kostenlose virtuelle Maschiene anlegen. Prinzipiell gehen beliebig viele aber nur die erste ist bei der kostenlosen Mitgliedschaft kostenlos. Ich habe auch bisher keine Werbung oder andere unerwünschte E-Mails bekommen, aber es kann auch eine Wegwerf-Email zur Anmeldung verwendet werden. 
+
+
+
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example
+

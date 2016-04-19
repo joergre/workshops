@@ -42,7 +42,7 @@
 
 ;; display images in the orgmode buffer automatically
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-
+(global-visual-line-mode t)
 ;; convenience function to export headings to markdown chapters for upload to datacamp
 (defun my-exp-to-datacamp (course)
   "Export org mode file to form suitable for upload to datacamp.org."

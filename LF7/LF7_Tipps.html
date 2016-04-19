@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-04-19 Tue 02:04 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Einführung in Python</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Jörg Reuter" />
+<link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://gist.githubusercontent.com/joergre/bfe1204da87a7227c13f8064e71dbd02/raw/473932eeff11495e7c7311517507bf648828fe80/readtheorg.js"></script>
+<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../git.png" alt="Fork me on GitHub"></a>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Einführung in Python</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline5">Remote-Desktop im Browser</a>
+<ul>
+<li><a href="#orgheadline1">Motivation</a></li>
+<li><a href="#orgheadline2">Installation von Guacomole</a></li>
+<li><a href="#orgheadline3">Reverseproxy</a></li>
+<li><a href="#orgheadline4">SSL</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5">Remote-Desktop im Browser</h2>
+<div class="outline-text-2" id="text-orgheadline5">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1">Motivation</h3>
+<div class="outline-text-3" id="text-orgheadline1">
+<p>
+Häufig möchte man auf einem Server per RDP, VNC etc. zugreifen aber scheitert daran dass die entsprechende Programme nicht installiert sind oder die entsprechenden Ports nicht offen sind. Hier hilft das Programm Guacamole. Guacamole ist ein HTML5 Clientless Remote Desktop und stellt als "Relay-Server" eine Verbindung zwischen dem Browser des Benutzers und dem Server her. Die Geschwindigkeit und Drstellungsschärfe ist beeindruckend. Auch Ton etc. werden problemlos übertragen. Das Programm ist Open Source und benötigt einen Server (Tomcat). Ein kleiner vServer reicht aber bereits. Als Zugabe ermöglicht Guacomole auch die Verwaltung vieler Verbindungen inkl. Passwort- oder Key-Authentifizierung. Die Website des Projekts: <a href="http://guac-dev.org/">http://guac-dev.org/</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">Installation von Guacomole</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+<p>
+Ich habe diese kurze Anleitung verwendet: <a href="http://chasewright.com/guacamole-with-mysql-on-ubuntu/">http://chasewright.com/guacamole-with-mysql-on-ubuntu/</a>. 
+Ich habe einen VServer von <a href="https://www.digitalocean.com/">https://www.digitalocean.com/</a> verwendet (kleinster Server reicht völlig)
+Der Server ist dann erreichbar unter <a href="http://139.59.130.78:8080/guacamole/">http://139.59.130.78:8080/guacamole/</a> wobei 139.59.130.78 durch die eigene IP-Adresse ersetzt werden muss.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Reverseproxy</h3>
+<div class="outline-text-3" id="text-orgheadline3">
+<p>
+Um jetzt den Port umzlegen auf einen Port der auch von normalen Webseiten verwendet wird, richten wir unter ApAche einen Reverseproxy ein. Beim aufruf eines bestimmten Verzeichnisses über Port 80 wird dieser dann automatisch an den Webserver weitergeleitet. Hier die Anleitung: <a href="https://www.digitalocean.com/community/tutorials/how-to-use-apache-http-server-as-reverse-proxy-using-mod_proxy-extension">https://www.digitalocean.com/community/tutorials/how-to-use-apache-http-server-as-reverse-proxy-using-mod_proxy-extension</a>. Ich selbst habe diese Konfigdatei zum testen im Einsatz gehabt: 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock1">&lt;VirtualHost *:80&gt;
+    ProxyPreserveHost On
+        ProxyPass / http://127.0.0.1:8080/
+            ProxyPassReverse / http://127.0.0.1:8080/
+    ServerName localhost
+&lt;/VirtualHost&gt;
+&lt;VirtualHost *:443&gt;
+    SSLEngine on
+        SSLCertificateFile /etc/ssl/certs/apache.crt
+        SSLCertificateKeyFile /etc/ssl/private/apache.key
+        ProxyPass / http://127.0.0.1:8080/
+        ProxyPassReverse / http://127.0.0.1:8080/
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">SSL</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<p>
+Um Proxyserver zu tunneln oder die Inhalte sicher durch das Netz zu tunneln ist ein SSL-Tunnel von Vorteil. Ich habe dazu diese Anleitung verwendet: <a href="https://wiki.ubuntuusers.de/Apache/SSL/">https://wiki.ubuntuusers.de/Apache/SSL/</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons Lizenzvertrag' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/80x15.png' /></a><br />Dieses Werk ist lizenziert unter einer <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.</p> <p> Zur Verfügung gestellt von  <a href='http://ferdinand-braun-schule.de'> Jörg Reuter - Ferdinand-Braun-Schule Fulda</a> <br></br> <a href='http://ferdinand-braun-schule.de'><img style='margin-left: auto; margin-right: auto;' alt='Ferdinand-Braun-Schule Fulda' title='FBS Logo' src='http://www.ferdinand-braun-schule.de/fileadmin/files/images/Grafiken/FBS_Logo.gif'></img></a></p>
+</div>
+</body>
+</html>
