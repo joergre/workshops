@@ -1,0 +1,136 @@
+% Created 2016-04-19 Tue 10:01
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Jörg Reuter}
+\date{}
+\title{Regression Models in R}
+\hypersetup{
+ pdfauthor={Jörg Reuter},
+ pdftitle={Regression Models in R},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.5.1 (Org mode 8.3.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section*{Introduction}
+\label{sec:orgheadline2}
+
+\subsection*{Workshop description}
+\label{sec:orgheadline1}
+
+\begin{itemize}
+\item This is an intermediate/advanced R course
+\item Appropriate for those with basic knowledge of R
+\item This is not a statistics course!
+\item Learning objectives:
+\begin{itemize}
+\item Learn the R formula interface
+\item Specify factor contrasts to test specific hypotheses
+\item Perform model comparisons
+\item Run and interpret variety of regression models in R
+\end{itemize}
+\end{itemize}
+
+
+\section*{Einführung in Docker}
+\label{sec:orgheadline3}
+Wir laden das Image von Ubuntu 14.04 herunter:
+
+\#+begin\(_{\text{src}}\) bash
+docker pull ubuntu:14.04
+\#+end\(_{\text{src}}\) bash
+
+Anzeige der lokal vorhanden Images:
+
+\#+begin\(_{\text{src}}\) bash
+docker images
+\#+end\(_{\text{src}}\) bash
+
+Zugriff auf die Shell
+
+\#+begin\(_{\text{src}}\) bash
+docker run -t -i ubuntu:14.04 bash
+\#+end\(_{\text{src}}\) bash
+
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+\#+begin\(_{\text{src}}\) bash
+docker ps
+\#+end\(_{\text{src}}\) bash
+
+um sich den Namen des laufenden Docker Container anzeigen zu lassen 
+Docker Container anhalten (hungy\(_{\text{euklid}}\) ist der Name der jeweiligen Maschine):
+
+\#+begin\(_{\text{src}}\) bash
+docker stop hungry\(_{\text{euclid}}\)
+\#+end\(_{\text{src}}\) bash
+
+Gestoppten Container neu starten:
+
+\#+begin\(_{\text{src}}\) bash
+docker start -i hungry\(_{\text{euclid}}\)
+\#+end\(_{\text{src}}\) bash
+
+Container löschen:
+
+\#+begin\(_{\text{src}}\) bash
+docker stop hungry\(_{\text{euclid}}\)
+docker rm hungry\(_{\text{euclid}}\)
+\#+end\(_{\text{src}}\) bash
+
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d --name nginx nginx
+
+\#+begin\(_{\text{src}}\) bash
+docker ps -s
+\#+end\(_{\text{src}}\) bash
+
+Alle laufenden und gestoppten Container löschen:
+
+\#+begin\(_{\text{src}}\) bash
+docker ps -qa|xargs docker rm -f
+\#+end\(_{\text{src}}\) bash
+
+\section*{Zum Schluss}
+\label{sec:orgheadline7}
+
+\subsection*{Helfe mir, den Kurs besser zu machen!}
+\label{sec:orgheadline4}
+\begin{itemize}
+\item Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
+\item Der Kurs existiert für Dich -- sage mir, was Du brauchst!
+\item * Wrap-up
+\end{itemize}
+
+\subsection*{Help us make this workshop better!}
+\label{sec:orgheadline5}
+\begin{itemize}
+\item Please take a moment to fill out a very short
+\end{itemize}
+feedback form 
+\begin{itemize}
+\item These workshops exist for you -- tell us what you need!
+\item \url{http://goo.gl/forms/04cJw2mtBB}
+\end{itemize}
+
+\subsection*{Weitere Informationsquellen}
+\label{sec:orgheadline6}
+\end{document}

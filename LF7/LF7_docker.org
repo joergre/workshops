@@ -39,6 +39,72 @@
 
 
 * Einführung in Docker
+Wir laden das Image von Ubuntu 14.04 herunter:
+
+#+name: setupR
+#+begin_src bash
+docker pull ubuntu:14.04
+#+end_src bash
+
+Anzeige der lokal vorhanden Images:
+
+#+name: local_Images
+#+begin_src bash
+docker images
+#+end_src bash
+
+Zugriff auf die Shell
+
+#+name: dockerrun
+#+begin_src bash
+docker run -t -i ubuntu:14.04 bash
+#+end_src bash
+
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+#+name: dockerps
+#+begin_src bash
+docker ps
+#+end_src bash
+
+um sich den Namen des laufenden Docker Container anzeigen zu lassen 
+Docker Container anhalten (hungy_euklid ist der Name der jeweiligen Maschine):
+
+#+name: docker stop
+#+begin_src bash
+docker stop hungry_euclid
+#+end_src bash
+
+Gestoppten Container neu starten:
+
+#+name: dockerstart
+#+begin_src bash
+docker start -i hungry_euclid
+#+end_src bash
+
+Container löschen:
+
+#+name: dockerloeschen
+#+begin_src bash
+docker stop hungry_euclid
+docker rm hungry_euclid
+#+end_src bash
+
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d --name nginx nginx
+
+#+name: dockerpss
+#+begin_src bash
+docker ps -s
+#+end_src bash
+
+Alle laufenden und gestoppten Container löschen:
+
+#+name: dockerdelete
+#+begin_src bash
+docker ps -qa|xargs docker rm -f
+#+end_src bash
+
 * Zum Schluss
 
 ** Helfe mir, den Kurs besser zu machen!
