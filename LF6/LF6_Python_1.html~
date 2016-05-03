@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-04-20 Wed 10:01 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Einführung in Python</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Jörg Reuter" />
+<link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://gist.githubusercontent.com/joergre/bfe1204da87a7227c13f8064e71dbd02/raw/473932eeff11495e7c7311517507bf648828fe80/readtheorg.js"></script>
+<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../git.png" alt="Fork me on GitHub"></a>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Einführung in Python</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">Einleitung</a>
+<ul>
+<li><a href="#orgheadline2">UML-Diagrammme</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline3">Programmieren</a>
+<ul>
+<li><a href="#orgheadline4">Aufgabe 2.1:</a></li>
+<li><a href="#orgheadline5">Bedingte Anweisung</a></li>
+<li><a href="#orgheadline6">Aufgabe 2.2</a></li>
+<li><a href="#orgheadline7">While-/ Until-Schleife</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Einleitung</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+Programmieren kann eine sehr frustrierende Angelegenheit sein mit vielen Problemen und Hindernissen. Um die Probleme und Hindernisse klein zu halten, sind alle Aufgaben in Partnerarbeit zu erledigen. Untersuchungen ergaben, dass das bestehen von Abschlussprüfungen erheblich besser ausfällt, wenn die Schüler konsequent in Partnerarbeit Aufgaben lösten (Teague, Donna und Paul Roe. Learning to Program. From Pear-Shaped to  Pairs. In: CSEDU 2009. Proceedings of the First International Conference on Computer Supported Education. Volume 2. Lissabon: INSTICC, 2009.)
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">UML-Diagrammme</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+<p>
+UML-Diagramme werden eingesetzt um eine Software zu modellieren und sind nach ISO/IEC 19505 standardisiert. UML unterteilt sich hierbei in sieben Strukturdigramme und sieben Verhaltensdiagramme, sieh hierzu <a href="http://de.wikipedia.org/wiki/Unified_Modeling_Language">http://de.wikipedia.org/wiki/Unified_Modeling_Language</a>.
+</p>
+
+<p>
+Die große Anzahl von möglichen Diagrammen verwirrt bei dem ersten Kontakt mit UML. Welches Strukturdiagramm und welches Verhaltensdiagramm setze ich jetzt ein?
+</p>
+
+<p>
+Um die Erstellung eines UML-Diagramms zu vereinfachen, gibt es eine große Anzahl von Programmen. Einen schönen Vergleich verschiedener Programme zur Erstellung von UML-Diagramme wurde im Februar 2012 auf der Internetseite <a href="http://www.pro-linux.de/artikel/2/1556/1,seite-1.html%5BPro-Linux">http://www.pro-linux.de/artikel/2/1556/1,seite-1.html%5BPro-Linux</a>] veröffentlicht. Hier kristallisieren sich zwei empfehlenswerte Programme heraus: Dia und Visual Paradigm. Dia ist Opensource und kann bei den meisten Distributionen über den Paket-Manager installiert werden. <a href="http://www.visual-paradigm.com/download/vpuml.jsp%5BVisual">http://www.visual-paradigm.com/download/vpuml.jsp%5BVisual</a> Paradigm] ist für den Einsatz in Bildungseinrichtungen kostenlos, aber nicht Opensource.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="orgsrcblock1"><span style="color: #a020f0;">print</span>(<span style="color: #8b2252;">"Hallo Welt"</span>)     <span style="color: #b22222;">#</span><span style="color: #b22222;">Hello World ausgeben</span>
+</pre>
+</div>
+
+<pre class="example">
+Hallo Welt
+</pre>
+
+<p>
+Anmerkung:
+Text nach dem '#'-Zeichen kommt ist ein Kommentar.
+Wir verwenden zum programmieren eine kostenlose virtuelle Maschine von <a href="https://c9.io/">https://c9.io/</a> (siehe auch <a href="https://en.wikipedia.org/wiki/Cloud9_IDE">https://en.wikipedia.org/wiki/Cloud9_IDE</a>)
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3">Programmieren</h2>
+<div class="outline-text-2" id="text-orgheadline3">
+<p>
+Programmieren bedeutet, Anweisungen in einer bestimmten Sprache zu schreiben.
+</p>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">Aufgabe 2.1:</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<p>
+Beschreibe in kurzen Anweisungen den Weg von der Ferdinand-Braun-Schule zum Klinikum Fulda (<a href="http://goo.gl/ypP053">http://goo.gl/ypP053</a>).  Schreibe jede Anweisung in eine getrennte Zeile und setze am Ende kein Satzzeichen.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Bedingte Anweisung</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+<pre class="example">
+if (Bedingung):
+    Anweisungen, die ausgeführt werden, wenn die Bedingung zutrifft;
+else:
+    Anweisungen, die ausgeführt werden, wenn die Bedingung falsch ist;
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Aufgabe 2.2</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<p>
+Verwende die Lösung von Aufgabe 2.1. Füge jetzt nach obigen Schema einen Abschnitte ein, der eine alternative Routenführung bei Sperrung oder Stau in der Dr.-Dietz-Straße vorsieht.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">While-/ Until-Schleife</h3>
+<div class="outline-text-3" id="text-orgheadline7">
+<pre class="example">
+while (Bedingung):
+   Anweisung
+</pre>
+
+<p>
+Die Anweisung wird solange ausgeführt, bis die Bedingung falsch wird.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons Lizenzvertrag' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/80x15.png' /></a><br />Dieses Werk ist lizenziert unter einer <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.</p> <p> Zur Verfügung gestellt von  <a href='http://ferdinand-braun-schule.de'> Jörg Reuter - Ferdinand-Braun-Schule Fulda</a> <br></br> <a href='http://ferdinand-braun-schule.de'><img style='margin-left: auto; margin-right: auto;' alt='Ferdinand-Braun-Schule Fulda' title='FBS Logo' src='http://www.ferdinand-braun-schule.de/fileadmin/files/images/Grafiken/FBS_Logo.gif'></img></a></p>
+</div>
+</body>
+</html>

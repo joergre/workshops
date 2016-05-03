@@ -1,6 +1,7 @@
 ;; make R save and restore instead of using sessions; this gives the input and output as displayed by the R console
 (setq-local org-babel-R-command "R --silent --save --restore")
-
+(global-set-key [C-mouse-4] 'text-scale-increase)
+(global-set-key [C-mouse-5] 'text-scale-decrease)
 ;; don't let orgmode resize images (this means you must set them to the correct size when generating!)
 (setq-local org-latex-image-default-option "")
 
@@ -15,6 +16,10 @@
 
 ;; no section numbers
 (setq-local org-export-with-section-numbers nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ditaa . t))) ; this line activates ditaa
 
 ;; resize images
 (setq org-image-actual-width '(600))
@@ -99,3 +104,4 @@ mode              : selfcontained
   (setq org-export-filter-src-block-functions (delete 'my-md-src-block-replace org-export-filter-src-block-functions))
   (setq org-export-filter-keyword-functions (delete 'my-md-keyword-replace org-export-filter-keyword-functions))
   nil nil)
+(require 'org)

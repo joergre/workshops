@@ -1,0 +1,93 @@
+ -*- eval: (save-excursion (org-babel-goto-named-src-block
+"workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+
+* Remote-Desktop im Browser
+
+** Motivation
+Häufig möchte man auf einem Server per RDP, VNC etc. zugreifen aber scheitert daran dass die entsprechende Programme nicht installiert sind oder die entsprechenden Ports nicht offen sind. Hier hilft das Programm Guacamole. Guacamole ist ein HTML5 Clientless Remote Desktop und stellt als "Relay-Server" eine Verbindung zwischen dem Browser des Benutzers und dem Server her. Die Geschwindigkeit und Drstellungsschärfe ist beeindruckend. Auch Ton etc. werden problemlos übertragen. Das Programm ist Open Source und benötigt einen Server (Tomcat). Ein kleiner vServer reicht aber bereits. Als Zugabe ermöglicht Guacomole auch die Verwaltung vieler Verbindungen inkl. Passwort- oder Key-Authentifizierung. Die Website des Projekts: http://guac-dev.org/.
+
+** Installation von Guacomole  
+Ich habe diese kurze Anleitung verwendet: http://chasewright.com/guacamole-with-mysql-on-ubuntu/. 
+Ich habe einen VServer von https://www.digitalocean.com verwendet (kleinster Server reicht völlig)
+Der Server ist dann erreichbar unter http://139.59.130.78:8080/guacamole/ wobei 139.59.130.78 durch die eigene IP-Adresse ersetzt werden muss.
+
+** Reverseproxy
+Um jetzt den Port umzlegen auf einen Port der auch von normalen Webseiten verwendet wird, richten wir unter ApAche einen Reverseproxy ein. Beim aufruf eines bestimmten Verzeichnisses über Port 80 wird dieser dann automatisch an den Webserver weitergeleitet. Hier die Anleitung: https://www.digitalocean.com/community/tutorials/how-to-use-apache-http-server-as-reverse-proxy-using-mod_proxy-extension. Ich selbst habe diese Konfigdatei zum testen im Einsatz gehabt: 
+
+#+name: 000-default.conf
+#+begin_src bash
+<VirtualHost *:80>
+    ProxyPreserveHost On
+        ProxyPass / http://127.0.0.1:8080/
+	    ProxyPassReverse / http://127.0.0.1:8080/
+    ServerName localhost
+</VirtualHost>
+<VirtualHost *:443>
+    SSLEngine on
+        SSLCertificateFile /etc/ssl/certs/apache.crt
+	SSLCertificateKeyFile /etc/ssl/private/apache.key
+	ProxyPass / http://127.0.0.1:8080/
+	ProxyPassReverse / http://127.0.0.1:8080/
+#+end_src
+
+** SSL
+Um Proxyserver zu tunneln oder die Inhalte sicher durch das Netz zu tunneln ist ein SSL-Tunnel von Vorteil. Ich habe dazu diese Anleitung verwendet: https://wiki.ubuntuusers.de/Apache/SSL/
+
+
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example
+

@@ -4,21 +4,8 @@
 #+EMAIL:     joerg@reuter.sc
 #+DATE:      
 
-# NOTE: refer to the README file if you are unfamiliar with emacs or orgmode.
-
-# Customize the PROPERTY and EXCLUDE_TAGS below depending on the type
-# of export (see the README file for details). After setting the exports 
-# property and/or the EXCLUDE_TAGS, place the curser on the poperty line 
-# and press C-c C-c
-
 #+PROPERTY: exports both
 #+EXCLUDE_TAGS: noexport mitsetup
-
-
-
-
-
-
 #+SETUPFILE: ../workshopPreamble.org
 
 #+name: workshopPreamble
@@ -40,6 +27,287 @@
 
 
 * Introduction
+** Scanner
+*** Erster Verbindungsaufbau
+Rechner werden in einem Netzwerk über Socket eindeutig identifiziert. Über Ports werden bestimmte Dienste bei einem Server angesprochen, z.B. Port 80 ist standardmäßig eine unverschlüsselte Verbindung zu einem Webserver. Beim Verbindngsaufbau wird auf dem Client-Computer ein Port größer 1024 geöffnet und empfängt die vom Server geschickten Daten (https://de.wikipedia.org/wiki/Transmission_Control_Protocol). Die Kombination aus Client(IP/Port)-Server(IP/Port) bezeichnet die Verbindung eindeutig. Dies ermöglicht z.B. das bei öffnen der gleichen Webseite in verschiedenen Tabs eines Browser die Daten eindeutig jedem Tab zugeordnet werden können. Diese Kombination aus Client(IP/Port)-Server(IP/Port) bezeichnet man als Socket und sorgt dafür, dass der Kommunikationskanal eindeutig angesprochen werden kann.
+Um in Python die Kommunilkation über Sockets abwickeln zu können, muss das Modul Socket importiert werden.
+
+#+name: Socket1 
+#+begin_src python :export both
+import socket #Import Socket  
+socket.setdefaulttimeout(2) # Warte 2 Sekunden aus Antwort 
+s = socket.socket() # Speichere den Handler der Verbindung in s
+s.connect(("ochristen.de",21)) # Verbinde Dich mit dem Server ochristen.de auf Port 22    
+banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
+print(banner) # Gebe die Willkomensnachricht aus
+#+end_src    
+
+#+RESULTS: Socket1
+#+begin_example
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 14 of 100 allowed.
+220-Local time is now 11:19. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+
+#+end_example
+
+#+RESULTS:
+
+*** Fehlerbehandlung
+Mit dem Befehlsaufbau
+
+#+name: Fehlerbehandlung
+#+begin_src example :export none 
+try:
+   ........
+except:
+   ........
+#+end_src
+
+Können Fehler abgefangen werden. Der Block unter try wird ausgeführt und bei einem Fehler wird der Block except ausgeführt. Beispielsweise wird unten versucht die Verbindung zum Server ochristen.dk aufzubauen. Da es diesen Server nicht gibt wird die Fehlerbehandlung abgearbeitet und gibt eine Fehlermeldung aus.
+
+#+Name SocketFehlerbehandlung
+#+begin_src python :export both
+
+import socket
+try:
+    socket.setdefaulttimeout(2)
+    s = socket.socket()
+    #   s.connect(("ochristen.de",21))
+    s.connect(("ochristen.dk",21))
+    banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
+    print(banner) # Gebe die Willkomensnachricht aus
+except:
+    print ('[-] Error = Timed out')
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[-] Error = Timed out
+#+end_example
+
+#+RESULTS: Fehlerbehandlung
+
+Hingeggen wird mit der richtigen Adresse keine Fehlermeldung ausgegeben:
+
+#+Name Socket_Fehlerbehandlung2
+#+begin_src python :export both
+
+import socket
+try:
+    socket.setdefaulttimeout(2)
+    s = socket.socket()
+    #   s.connect(("ochristen.de",21))
+    s.connect(("ochristen.de",21))
+    banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
+    print(banner) # Gebe die Willkomensnachricht aus
+except:
+    print ('[-] Error = Timed out')
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 12 of 100 allowed.
+220-Local time is now 11:26. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+
+#+end_example
+
+Manchmal möchte man den Fhlercode Erfahren. Dies kann durch except in einer Variablen übergeben werden. Im folgenden Beispiel lautete die Variable e:
+
+#+Name SocketFehlerbehandlung2
+#+begin_src python :export both
+
+import socket
+try:
+    socket.setdefaulttimeout(2)
+    s = socket.socket()
+    #   s.connect(("ochristen.de",21))
+    s.connect(("strato.de",21))
+    banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
+    print(banner) # Gebe die Willkomensnachricht aus
+except Exception, e:
+    print ('[-] Error = '+str(e))
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[-] Error = [Errno 111] Connection refused
+#+end_example
+
+*** Funktion definieren
+Manchmal ist es sinnvoll häufig gebrauchten Code in Funktionen zusammen zufassen um diesen immer wieder verwenden zu können.
+Wir definieren jetzt eine Funktion mit dem Namen Banner. Die Funktion wird mit den Parametern IP und Port aufgerufen und gibt als Antwort entweder die Reaktion des Servers wieder oder bei Feher einen leeren String.
+
+#+Name SocketFunktion
+#+begin_src python :export both
+import socket
+# Funktion 1: Banner. Holt den Banner des FTP-Servers.
+
+def Banner(ip, port):
+    try:
+        socket.setdefaulttimeout(2)
+	s = socket.socket()
+	s.connect((ip,port))
+	banner = s.recv(1024)
+	return banner
+    except:
+	return
+print(Banner('ochristen.de',21))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 11 of 100 allowed.
+220-Local time is now 12:22. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+
+#+end_example
+
+Durch den efehl def gefolgt von einem Namen und in Klammern der zu erwarteten Parameter wird eine Funktion definiert. Der aufruf der Funktion erfolgt über Name() wobei die erwarteten Parameter in der Klamer angegeben werden.
+
+Wir programmieren jetzt noch eine zweite Funktion, die überprüft ob der Banner einen bestimmten Rückgabewert hat und wenn ja eine bestimmte Meldung ausgibt. Wenn der Server nicht regiert wird die Meldung 'Kein Dienst ausgeben' und wenn der String nicht enthalten ist aber der Server reagiert wird eine andere Meldung ausgegeben.
+#+Name SocketFunktion2
+#+begin_src python :export both
+import socket
+# Funktion 1: Banner. Holt den Banner des FTP-Servers.
+
+def Banner(ip, port):
+    try:
+        socket.setdefaulttimeout(2)
+        s = socket.socket()
+        s.connect((ip,port))
+        banner = s.recv(1024)
+        return banner
+    except Exception, e:
+        print('[+] Kein FTP-Server auf '+server+' Port 21: '+str(e))
+        return
+
+def check(banner):
+    if 'Pure-FTPd' in banner:
+        print('[-] '+server+' Pure-FTPd ist angreifbar')
+    else:
+        print('[+] '+server+' FTP Server ist nicht angreifbar')
+
+SERVER = ['ochristen.de', 'strato.de', 'ochristen.dk', 'michael-roth-software.de']
+for server in SERVER:
+    banner = Banner(server,21) 
+    if banner:
+         check(banner)
+    
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[-] ochristen.de Pure-FTPd ist angreifbar
+[+] Kein FTP-Server auf strato.de Port 21: [Errno 111] Connection refused
+[+] Kein FTP-Server auf ochristen.dk Port 21: [Errno -2] Name or service not known
+[+] michael-roth-software.de FTP Server ist nicht angreifbar
+#+end_example
+
+Wir überprüfen in diesem Beispiel 4 Server die in der Liste SERVER abgespeichert sind. Wir rufen die Namen nacheinander über die for-Schleife ab und fürhren dann jeweils die Funktion Banner und check durch und geben dann jeweils das Ergebnis aus. Wir sehen, dass wie werwartet, bei dem Server ochristen,de die Funktion check den gesuchten String findet. Bei strato.de wird der Server gefunden aber kein FTP-Server. Dem gegenüber existiert der Server ochristen.dk nicht und insofern ist der Name nicht bekannt. Und beim Server michael-roth-software.de wird der gesuchte String in der FTP-Ausgabe des Servers nicht gefunden.
+
+**** Darstellung als Pseudocode 
+
+Es gibt verschiedene Formen der Darstellung oder Veranschaulichung eines Programms. Eine Möglichkeit istdie Darstellung in Pseudocode. Gerade vor Beginn des Programierens ist die Darstelung in Pseudocode sinnvoll um sich zu verdeutlichen, welche Funktionen das Programm benötigt. Für Pseudocode gibt es keie feste Form, sondern es soll möglichst nah an der Alltagssprache das Problem beschreiben. Es können Elemente der Zielsprache verwendet werden, muss aber nicht sein. Es können auch Elemente verwendet werden, bei denen die Umsetzung in der jeweiligen Programiersprache noch nicht klar ist.
+
+Ein Beispiel für das obige Programm in Pseudocode:
+
+#+BEGIN_SRC EXAMPLE
+Funktion 1:
+    Versuche einen stream socket s zu erstellen
+        Erfolg:
+	    Gebe die Serversignatur zurück
+	Misserfolg:
+	    Gebe Fehlermeldun aus
+
+Funktion 2:
+    Überprüfe Variable auf eine Zeichenkette (String)
+        Zeichenkette enthalten:
+	    Gebe Meldung aus, dass Server eine Sicherheitslücke hat
+	Zeichenkete nicht enthalte:
+	    Gebe Medung aus, dass Server in Ordnung ist
+
+Main:
+    Solange Liste SERVER Elemente enthält:
+        Rufe Funktion 1 auf
+	Überprüfe auf Rückgabe
+	    Wenn Rückgabewertvorhanden:
+	        Rufe Funktion 2 auf
+#+END_SRC
+
+**** Darstellung als Programmablaufplan (Flowchart) 
+
+Das gleiche Programm als Programmablaufplan. Weitere Informationen: https://de.wikipedia.org/wiki/Programmablaufplan
+
+#+BEGIN_SRC ditaa :file images/socket_pap.png
+                                  /-----------------------------------------\
+                                  |                                         |
+                                  |                                         |    Nein
++-------------------------------->| Enthält Liste Server noch ein Element?  |-------------+
+|	                          |                                         |             |
+|                                 |                                         |             |
+|	                          |                                {c}      |             | 
+|	                          \-----------------------------------------/             |
+|                                                      |                                  |
+|                                                      | Ja                               |
+|                                  /-----------------------------------------\            |
+|	                           |                                         |            | 
+|    Nein                          |                                         |            |
++<---------------------------------|  Versuche einen Socket zu erstellen.    |            |
+|	                           |             Erfolgreich?                |            |                   
+|	                           |                                 {c}     |            |    
+|	                           |                                         |            |    
+|	                           \-----------------------------------------/            |    
+|                                                       |                                 |    
+|                                                       | Ja                              |    
+|    /----------------------\      /-----------------------------------------\            |    
+|    |	                    |      |                                         |            |    
+|    | Ausgabe: Verwundbar  | Nein |                                         |            |
+|<---|	                    |<-----|            Signatur ok?                 |            |           
+|    |             {io}     |      |                                         |            |
+|    |                      |      |                                         |            |
+|    |                      |      |            {c}                          |            |
+|    \----------------------/      \-----------------------------------------/            |
+|                                                       |                                 |    
+|                                                       | Ja                              |    
+|                                  /--------------------------------------\               |
+|	                           |                                      |               |
+|	                           | Ausgabe: Server i. O.                |               |
++<---------------------------------|                                      |               |
+                                   |                                      |               |
+                                   |                                      |               |
+ 	                           |               {io}                   |               |
+ 	                           \--------------------------------------/               |
+                                                                                          |
+                                                                                          |
+                                                                                          |
+                                    +-----------------------------\                       |
+                                    |                             |                       |
+                                    |                             |                       |
+                                    |           STOP              |<----------------------+
+                                    |                       {o}   |
+                                    |                             |
+                                    |                             |
+                                    +-----------------------------+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:images/socket_pap.png]]
+P. S.: Wenn Ihr aauch solche Diagramme zeichnen möchtet: https://www.dokuwiki.org/plugin:ditaa und http://ditaa.sourceforge.net/
 
 * Cleanup							   :noexport:
 #+name: cleanitallup
@@ -53,3 +321,5 @@
 > 
 #+end_example
 
+* Ideen :nonexport
+http://informatik.bildung-rp.de/fileadmin/user_upload/informatik.bildung-rp.de/Weiterbildung/WB_12/WB_XII_5_Sockets_in_Python.pdf

@@ -1,0 +1,124 @@
+% Created 2016-04-20 Wed 10:32
+\documentclass[presentation]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{default}
+\author{Jörg Reuter}
+\date{}
+\title{Einführung in Python}
+\hypersetup{
+ pdfauthor={Jörg Reuter},
+ pdftitle={Einführung in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.5.1 (Org mode 8.3.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\begin{frame}[fragile,label={sec:orgheadline1}]{Einleitung}
+ Programmieren kann eine sehr frustrierende Angelegenheit sein mit vielen Problemen und Hindernissen. Um die Probleme und Hindernisse klein zu halten, sind alle Aufgaben in Partnerarbeit zu erledigen. Untersuchungen ergaben, dass das bestehen von Abschlussprüfungen erheblich besser ausfällt, wenn die Schüler konsequent in Partnerarbeit Aufgaben lösten (Teague, Donna und Paul Roe. Learning to Program. From Pear-Shaped to  Pairs. In: CSEDU 2009. Proceedings of the First International Conference on Computer Supported Education. Volume 2. Lissabon: INSTICC, 2009.)
+
+\begin{block}{UML-Diagrammme}
+UML-Diagramme werden eingesetzt um eine Software zu modellieren und sind nach ISO/IEC 19505 standardisiert. UML unterteilt sich hierbei in sieben Strukturdigramme und sieben Verhaltensdiagramme, sieh hierzu \url{http://de.wikipedia.org/wiki/Unified_Modeling_Language}.
+
+Die große Anzahl von möglichen Diagrammen verwirrt bei dem ersten Kontakt mit UML. Welches Strukturdiagramm und welches Verhaltensdiagramm setze ich jetzt ein?
+
+Um die Erstellung eines UML-Diagramms zu vereinfachen, gibt es eine große Anzahl von Programmen. Einen schönen Vergleich verschiedener Programme zur Erstellung von UML-Diagramme wurde im Februar 2012 auf der Internetseite \url{http://www.pro-linux.de/artikel/2/1556/1,seite-1.html} veröffentlicht. Hier kristallisieren sich zwei empfehlenswerte Programme heraus: Dia und Visual Paradigm. Dia ist Opensource und kann bei den meisten Distributionen über den Paket-Manager installiert werden. \url{http://www.visual-paradigm.com/download/vpuml.jsp} ist für den Einsatz in Bildungseinrichtungen kostenlos, aber nicht Opensource.
+
+\begin{verbatim}
+print("Hallo Welt")     #Hello World ausgeben
+\end{verbatim}
+
+\begin{verbatim}
+Hallo Welt
+\end{verbatim}
+
+Anmerkung:
+Text nach dem '\#'-Zeichen kommt ist ein Kommentar.
+Wir verwenden zum programmieren eine kostenlose virtuelle Maschine von \url{https://c9.io} (siehe auch \url{https://en.wikipedia.org/wiki/Cloud9_IDE})
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:orgheadline2}]{Programmieren}
+ Programmieren bedeutet, Anweisungen in einer bestimmten Sprache zu schreiben.
+
+\begin{block}{Aufgabe 2.1:}
+Beschreibe in kurzen Anweisungen den Weg von der Ferdinand-Braun-Schule zum Klinikum Fulda (\url{http://goo.gl/ypP053}).  Schreibe jede Anweisung in eine getrennte Zeile und setze am Ende kein Satzzeichen.
+\end{block}
+
+\begin{block}{Bedingte Anweisung}
+\phantomsection
+\label{orgexampleblock1}
+\begin{verbatim}
+if (Bedingung):
+    Anweisungen, die ausgeführt werden, wenn die Bedingung zutrifft;
+else:
+    Anweisungen, die ausgeführt werden, wenn die Bedingung falsch ist;
+\end{verbatim}
+\end{block}
+
+
+\begin{block}{Aufgabe 2.2}
+Verwende die Lösung von Aufgabe 2.1. Füge jetzt nach obigen Schema einen Abschnitte ein, der eine alternative Routenführung bei Sperrung oder Stau in der Dr.-Dietz-Straße vorsieht.
+\end{block}
+
+\begin{block}{While-/ Until-Schleife}
+\phantomsection
+\label{orgexampleblock2}
+\begin{verbatim}
+while (Bedingung):
+   Anweisung
+\end{verbatim}
+
+Die Anweisung wird solange ausgeführt, bis die Bedingung falsch wird.
+\end{block}
+
+\begin{block}{Aufgabe 2.3}
+Schreibe eine Anweisung, die beschreibt:
+Solange Du Hunger hast, läufst Du zum Supermarkt und kaufst ein Stück Käse. Das Stück Käse isst Du auf dem Weg nach Hause.
+\end{block}
+
+\begin{block}{Aufgabe 2.4}
+Wandele die Aufgabe aus 2.3 so ab, dass die Anweisung so lange ausgeführt wird, wie das Hungergefühl vorhanden ist und Geld in der Hosentasche ist. Trifft eine von beiden Bedingungen nicht mehr zu, soll der Vorgang abgebrochen werden.
+\end{block}
+
+\begin{block}{For-Schleife}
+Der Code enthält die Anweisung 5 Stück Käse in den Einkaufswagen zu legen.
+
+\phantomsection
+\label{orgexampleblock3}
+\begin{verbatim}
+For (i=0; i<5; i++)
+    Lege ein Stück Käse in den Einkaufswagen
+\end{verbatim}
+
+i ist eine Variable, die mit i=0 auf 0 gesetzt wird. Die Anweisung wird so lange ausgeführt, so lange der Ausdruck i<5 wahr ist. Bei jedem Durchlauf wird i um eins erhöht (i++). Anzumerken ist, wenn ein "Anweisungsblock" nur aus einer Anweisung besteht, kann die geschweifte Klammer weggelassen werden.
+\end{block}
+
+\begin{block}{Aufgabe 2.5}
+Wandele das Bespiel "For-Schleife", so ab, dass die For-Anweisung durch eine While-Schleife ersetzt wird.
+\end{block}
+
+\begin{block}{Aufgabe 2.6}
+Schreibe ein Programm, das die Arbeitsweise von Modulo erklärt.
+\end{block}
+\end{frame}
+\end{document}
