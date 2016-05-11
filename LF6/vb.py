@@ -27,7 +27,7 @@ try:
         cmd1 = os.system("wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -")
     else:
         cmd1 = os.system("wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -")    
-        cmd1 = os.system("apt-get update >> vb.log")
+    cmd1 = os.system("apt-get update >> vb.log")
 except:
     print("Repository hinzufügen fehlgeschlagen")
     print("Unexpected error:", sys.exc_info()[0])
@@ -64,9 +64,9 @@ try:
         cmd1 = os.system("apt-get -y install apache2-utils >> vb.log")
 # Neues Modul ab Ubuntu 16.04: https://sourceforge.net/p/phpvirtualbox/discussion/help/thread/ae25b8e7/
         cmd1 = os.system("apt-get -y install php7.0-xml >> vb.log")
-        cmd1 = os.system("apt-get -y install php-soap")
-        cmd1 = os.system("apt-get -y install php7.0-soap")
-        cmd1 = os.system("apt-get -y install libapache2-mod-php")
+        cmd1 = os.system("apt-get -y install php-soap >>vb.log")
+        cmd1 = os.system("apt-get -y install php7.0-soap >> vb.log")
+        cmd1 = os.system("apt-get -y install libapache2-mod-php >> vb.log")
     else:
         cmd1 = os.system("apt-get -y install php5 php5-mysql >> vb.log")
         cmd1 = os.system("apt-get -y install apache2 >> vb.log")
