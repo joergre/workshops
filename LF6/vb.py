@@ -58,12 +58,18 @@ except:
 try:
     print("Web-Server installieren ..")
     if lsb == "xenial":
-        cmd1 = os.system("apt-get -y install php7.0 php7.0-mysql apache2 apache2-utils >> vb.log")
+        cmd1 = os.system("apt-get -y install php7.0 apache2-utils >> vb.log")
+        cmd1 = os.system("apt-get -y install php7.0-mysql >> vb.log")
+        cmd1 = os.system("apt-get -y install apache2 >> vb.log")
+        cmd1 = os.system("apt-get -y install apache2-utils >> vb.log")
 # Neues Modul ab Ubuntu 16.04: https://sourceforge.net/p/phpvirtualbox/discussion/help/thread/ae25b8e7/
-        cmd1 = os.system("apt-get -y install php7.0-xml")
+        cmd1 = os.system("apt-get -y install php7.0-xml >> vb.log")
     else:
-        cmd1 = os.system("apt-get install php5 php5-mysql apache2 apache2-utils vb.log")
-    cmd1 = os.system("wget 'http://sourceforge.net/projects/phpvirtualbox/files/latest/download' --content-disposition")
+        cmd1 = os.system("apt-get -y install php5 php5-mysql >> vb.log")
+        cmd1 = os.system("apt-get -y install apache2 >> vb.log")
+        cmd1 = os.system("apt-get -y install apache2-utils >> vb.log")
+        cmd1 = os.system("apt-get -y install php5-mysql >> vb.log")
+    cmd1 = os.system("wget 'http://sourceforge.net/projects/phpvirtualbox/files/latest/download' --content-disposition >> vb.log")
     cmd1 = os.system ("apt-get -y install unzip >> vb.log")
     cmd1 = os.system("unzip -o phpvirtualbox-5.0-5.zip -d /var/www/html >> vb.log")
     cmd1 = os.system("ln -s /var/www/html/phpvirtualbox-5.0-5 /var/www/html/phpvirtualbox")
