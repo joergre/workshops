@@ -64,6 +64,9 @@ try:
         cmd1 = os.system("apt-get -y install apache2-utils >> vb.log")
 # Neues Modul ab Ubuntu 16.04: https://sourceforge.net/p/phpvirtualbox/discussion/help/thread/ae25b8e7/
         cmd1 = os.system("apt-get -y install php7.0-xml >> vb.log")
+        cmd1 = os.system("apt-get -y install php-soap")
+        cmd1 = os.system("apt-get -y install php7.0-soap")
+        cmd1 = os.system("apt-get -y install libapache2-mod-php")
     else:
         cmd1 = os.system("apt-get -y install php5 php5-mysql >> vb.log")
         cmd1 = os.system("apt-get -y install apache2 >> vb.log")
