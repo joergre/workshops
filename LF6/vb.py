@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 import os, subprocess
 import sys, traceback
 import crypt
+
 # Passwort für den User vbox
-password ="fbs"
+print("Dieses Skript installiert VirtualBox und phpVirtualBox auf dem System")
+print("Es ist zu unterscheiden zwischen dem Benutzer unter dem die Anwendung läuft und dem benutzer, der sich auf der Weboberfläche anmeldet.")
+print("Die Anmeldung auf der Weboberfläche ist zu beginn admin/admin und wird aufgerufen über IP/phpvirtualbox bzw. Servername/phpviertualbox")
+print("Sie werden jetzt nach dem Passwort gefragt für den Benutzer vbox. Der Benutzer vbox ist der Benutzer unter dem die Anwendung VirtualBox ausgeführt wird.")
+password = input("Bitte geben Sie das Passwort für den Benutzer vbox ein:")
+pass1 = "'"+password+"'"
 print("UPDATE")
 try:
     cmd1 = os.system("apt-get update > vb.log && sudo apt-get upgrade -y >> vb.log")
@@ -81,14 +86,11 @@ try:
     cmd1 = os.system("/sbin/rcvboxdrv setup")
     cmd1 = os.system("service vboxweb-service start")
     cmd1 = os.system("cp /var/www/html/phpvirtualbox/config.php-example /var/www/html/phpvirtualbox/config.php")
-#    cmd1 = os.system("sed s/\'pass\'/\'fbs\'/ /var/www/html/phpvirtualbox/config.php > /var/www/html/phpvirtualbox/config.php")
 #Datei einlesen
     f = open('/var/www/html/phpvirtualbox/config.php','r')
     filedata = f.read()
     f.close()
-
-    newdata = filedata.replace("'pass'","'fbs'")
-
+    newdata = filedata.replace("'pass'",pass1)
     f = open('/var/www/html/phpvirtualbox/config.php','w')
     f.write(newdata)
     f.close()
