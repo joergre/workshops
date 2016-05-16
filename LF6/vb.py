@@ -6,10 +6,17 @@ import crypt
 
 # Passwort für den User vbox
 print("Dieses Skript installiert VirtualBox und phpVirtualBox auf dem System")
-print("Es ist zu unterscheiden zwischen dem Benutzer unter dem die Anwendung läuft und dem benutzer, der sich auf der Weboberfläche anmeldet.")
-print("Die Anmeldung auf der Weboberfläche ist zu beginn admin/admin und wird aufgerufen über IP/phpvirtualbox bzw. Servername/phpviertualbox")
+print("Es ist zu unterscheiden zwischen dem Benutzer unter dem die Anwendung läuft und dem Benutzer, der sich auf der Weboberfläche anmeldet.")
+print("Die Anmeldung auf der Weboberfläche ist zu Beginn admin/admin und wird aufgerufen über IP/phpvirtualbox bzw. Servername/phpvirtualbox")
 print("Sie werden jetzt nach dem Passwort gefragt für den Benutzer vbox. Der Benutzer vbox ist der Benutzer unter dem die Anwendung VirtualBox ausgeführt wird.")
+
+print ( "This script installed VirtualBox and phpVirtualBox on the system")
+print ( "It is necessary to distinguish between the user under which the application is running and the user who logs on to the web interface.")
+print ( "The registration on the web interface is called at the beginning admin / admin and is under IP/phpvirtualbox or ServerName/phpvirtualbox")
+print ( "You are now asked for the password for the user vbox. The user is the user vbox under which VirtualBox is running.")
+print ("Please enter the password for the user vbox a:")
 password = input("Bitte geben Sie das Passwort für den Benutzer vbox ein:")
+
 pass1 = "'"+password+"'"
 print("UPDATE")
 try:
