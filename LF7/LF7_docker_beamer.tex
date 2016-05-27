@@ -13,20 +13,16 @@
 
 \frame{\titlepage} 
 
-\frame{\frametitle{Inhaltsverzeichnis}\tableofcontents} 
-
-\section{Einführung} 
 \frame{\frametitle{Docker - Alter Wein in neuen Schläuchen?} 
-Gib te schon lange:
+Gibt es schon lange:
 \begin{itemize}
-\item Containe (OpenVZ, Solris Zones, LXC)r
-\item chroot jail
+    \item Containe (OpenVZ, Solris Zones, LXC)r
+    \item chroot jail
 \end{itemize}
 und hatten alle Ihre Nachteile ...
-    
 }
-\subsection{Warum Docker}
-\frame{ 
+
+\frame{\frametitle{Vorteile von Docker} 
 \begin{itemize}
     \item Docker ist sehr "leichtgewichtig" z.B. 2500 WebServer unter Docker auf einem Rasberry Pi 2: \url{https://blog.docker.com/2015/10/raspberry-pi-dockercon-challenge-winner/})
     \item Docker verwendet modernste Kernel-Feauture wie:
@@ -41,8 +37,6 @@ und hatten alle Ihre Nachteile ...
 \end{itemize}    
 }
 
-
-\section{Komponenten von Docker} 
 \frame{\frametitle{Docker besteht aus fünf Teilen:}
 \begin{itemize}
     \item Docker Client
@@ -54,15 +48,18 @@ und hatten alle Ihre Nachteile ...
 Aufbau: \url{https://docs.docker.com/engine/installation/images/win_docker_host.svg}
 }
 
-
-
-
-
-\section{Hier wird Dir geholfen}
+\frame{\frametitle{An die Tastatur}
+Herunter laden der notwendigen Schlüssel und Präsentation:
+\begin{itemize}
+    \item Schlüssel und Unterlagen: \url{https://github.com/joergre/workshops.git} \pause
+    \item Essenbestellung\pause
+    \item Putty für Windows: \url{http://www.putty.org} \pause 
+    \item iTerm2 für Mac: \url{https://www.iterm2.com/}\pause
+\end{itemize} 
+}
 
 
 \frame{\frametitle{Websites}
-
 \begin{itemize}
     \item Docker Homepage (\url{https://www.docker.com})\pause
     \item Docker Hub (\url{https://hub.docker.com}) \pause
@@ -85,7 +82,6 @@ Aufbau: \url{https://docs.docker.com/engine/installation/images/win_docker_host.
 \end{itemize}
 }
 
-\section{Installation} 
 \frame{\frametitle{Targets}
 \begin{itemize}
     \item Alles mit Linux
@@ -97,16 +93,15 @@ Aufbau: \url{https://docs.docker.com/engine/installation/images/win_docker_host.
     \item Google Compute Engine
 \end{itemize}
 }
-\subsection{Einschränkung Targets}
+
 \frame{\frametitle{Einschränkungen}
 \begin{itemize}
     \item 64-bit
     \item Linux-Kernel ab 3.8
 \end{itemize}
+}
 
-\section{Installation von Docker}
 \frame{\frametitle{Befehle - Voraussetzung}
-
 \begin{itemize}
     \item apt-get update \pause
     \item apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\pause
@@ -114,5 +109,5 @@ Aufbau: \url{https://docs.docker.com/engine/installation/images/win_docker_host.
     \item apt update
     \item apt install -y docker-engine
 \end{itemize}
-
+}
 \end{document}
