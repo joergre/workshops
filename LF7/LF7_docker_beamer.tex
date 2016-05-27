@@ -66,15 +66,7 @@ Herunter laden der notwendigen Schlüssel und Präsentation:
 
 \section{Hier wird Dir gehlofen}
 \frame{\frametitle{Websites}
-\begin{itemize}
-    \item Docker Homepage (\url{https://www.docker.com})\pause
-    \item Docker Hub (\url{https://hub.docker.com}) \pause
-    \item Docker Blog (\url{https://blog.docker.com}) \pause
-    \item Docker Dukumentation ({\url{https://docs.docker.com})\pause
-    \item Docker "Getting Started Guide" (\url{https://docs.docker.com/mac/})\pause
-    \item Docker Code - Github (\url{https://github.com/docker/docker})\pause
-    \item Docker Forge -  Sammulung von Tools (\url{https://github.com/dockerforge}) \pause
-\end{itemize}
+h
 }
 
 
@@ -111,6 +103,12 @@ Herunter laden der notwendigen Schlüssel und Präsentation:
 \section{Installation von Docker}
 \frame{\frametitle{Befehle - Voraussetzung}
 
-
+\begin{itemize}
+    \item apt-get update \pause
+    \item apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\pause
+    \item echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list\pause
+    \item apt update
+    \item apt install -y docker-engine
+\end{itemize}
 
 \end{document}
