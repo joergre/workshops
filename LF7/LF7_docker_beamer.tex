@@ -1,0 +1,125 @@
+\documentclass{beamer}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}	
+\usepackage[english,ngerman]{babel} 
+% Kyrillisch und Deutsche Zeichensatz
+\usepackage{colortbl}
+\usepackage{eurosym}
+\usepackage{beamerthemesplit}
+\begin{document}
+\title{Einführung in Docker} 
+\author{Jörg Reuter}
+\date{\today} 
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Inhaltsverzeichnis}\tableofcontents} 
+
+\section{Einführung} 
+\frame{\frametitle{Docker - Alter Wein in neuen Schläuchen?} 
+Gib te schon lange:
+\begin{itemize}
+\item Containe (OpenVZ, Solris Zones, LXC)r
+\item chroot jail
+\end{itemize}
+und hatten alle Ihre Nachteile ...
+    
+}
+\subsection{Warum Docker}
+\frame{ 
+\begin{itemize}
+    \item Docker ist sehr "leichtgewichtig" z.B. 2500 WebServer unter Docker auf einem Rasberry Pi 2: \url{https://blog.docker.com/2015/10/raspberry-pi-dockercon-challenge-winner/})
+    \item Docker verwendet modernste Kernel-Feauture wie:
+    \begin{itemize}
+        \item eigenes Netzwerk
+        \item Eigene Gruppen und Namespaces
+        \item Eigener Speicher
+        \item Eigenes Ressourcenmangment
+        \item Extrem einfacher Zugriff auf Container. 
+        \item container können als Textdatei weitergeben werden
+    \end{itemize}
+\end{itemize}    
+}
+
+
+\section{Komponenten von Docker} 
+\frame{\frametitle{Docker besteht aus fünf Teilen:}
+\begin{itemize}
+    \item Docker Client
+    \item Docker Images  
+    \item Register
+    \item Docker Container
+    \item Docker Dämon/Server
+\end{itemize} 
+Aufbau: \url{https://docs.docker.com/engine/installation/images/win_docker_host.svg}
+}
+
+\frame{\frametitle{ mit Pausen}
+\begin{itemize}
+\item  Einf\"uhrungskurs in \LaTeX \pause 
+\item  Kurs 2 \pause 
+\item  Seminararbeiten und Pr\"asentationen mit \LaTeX \pause 
+\item  Die Beamerclass
+\end{itemize} 
+}
+
+\subsection{Listen II}
+\frame{\frametitle{Numerierte Liste}
+\begin{enumerate}
+\item  Einf\"uhrungskurs in \LaTeX 
+\item  Kurs 2
+\item  Seminararbeiten und Pr\"asentationen mit \LaTeX 
+\item  Die Beamerclass
+\end{enumerate}
+}
+\frame{\frametitle{Numerierte Liste mit Pausen}
+\begin{enumerate}
+\item  Einf\"uhrungskurs in \LaTeX \pause 
+\item  Kurs 2 \pause 
+\item  Seminararbeiten und Pr\"asentationen mit \LaTeX \pause 
+\item  Die Beamerclass
+\end{enumerate}
+}
+
+\section{Abschnitt Nr.3} 
+\subsection{Tabellen}
+\frame{\frametitle{Tabellen}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Zeitpunkt} & \textbf{Kursleiter} & \textbf{Titel} \\
+\hline
+WS 04/05 & Sascha Frank &  Erste Schritte mit \LaTeX  \\
+\hline
+SS 05 & Sascha Frank & \LaTeX \ Kursreihe \\
+\hline
+\end{tabular}}
+
+
+\frame{\frametitle{Tabellen mit Pause}
+\begin{tabular}{c c c}
+A & B & C \\ 
+\pause 
+1 & 2 & 3 \\  
+\pause 
+A & B & C \\ 
+\end{tabular} }
+
+
+\section{Abschnitt Nr. 4}
+\subsection{Bl\"ocke}
+\frame{\frametitle{Bl\"ocke}
+
+\begin{block}{Blocktitel}
+Blocktext 
+\end{block}
+
+\begin{exampleblock}{Blocktitel}
+Blocktext 
+\end{exampleblock}
+
+
+\begin{alertblock}{Blocktitel}
+Blocktext 
+\end{alertblock}
+}
+\end{document}
