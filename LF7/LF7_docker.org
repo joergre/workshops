@@ -26,6 +26,11 @@
 #+end_src
 
 * Einführung in Docker
+** Warum Docker
+Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ
+
+
+
 Wir laden das Image von Ubuntu 14.04 herunter:
 
 #+name: setupR
@@ -91,6 +96,8 @@ Alle laufenden und gestoppten Container löschen:
 #+BEGIN_EXAMPLE
 docker ps -qa|xargs docker rm -f
 #+END_EXAMPLE
+
+
 
 * Zum Schluss
 

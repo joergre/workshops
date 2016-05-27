@@ -1,0 +1,91 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in DJANGO
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+
+* Einleitung
+** Warum Django
+Django ist ein Framework für die Entwicklung von Websites. Es steht unter BSD-Lizenz zur Verfügung und ist einer der am weitesten verbreiteten Frameworks für Websites. Das besondere an Django ist einerseits die verwendete Programmiersprach (Python) wir auch das  arbeiten mit Views und es legt Wert auf die Wiederverwendbarkeit der einzelnen Komponenten. Eine Besonderheit, die die Wiederverwendbarkeit steigert, ist dass die einzelnen Komponeten keine URLs erzeugen auf die direkt zugegriffen werden kann. Alle Zugriffspunkte auf eine Website werden zentral für die gesamte Website verwaltet. 
+
+** Setting
+Wir programmieren unter der Weboberfläche C9.io. Die Oberfläche ermöglicht eine ansprechende und kostenlose IDE in der Cloud. Die Anmeldung läuft problemlos ab und erfordert nur eine E-Mail-Adresse. Es können auch wegwerf-EMails verwendet werden. Dann ist allerding ein Rücksetzen des Passworts nicht mehr möglich.
+
+*** Anlegen der virtuellen Maschine
+Die virtuellen Server mit dem wir arbeiten wird von C9 (Cloud9) kostenlos zur Verfügung gestellt. Cloud 9 scheint im englischen das Synonym für Wolke 7 im deutsachen zu sein. 
+
+Zum anlegen der virtuellen Maschine gehen wir im Dashboard auf die Kachel "Create new workspace" aus. Im nächsten Fenster geben wir der virtuellen Maschine einen Namen (z.B. django, Achtung: nur kleine Buchstaben erlaubt!) und ev. eine kurze Beschreibeung wie "Ich möchte SQL und Python lernen". Bei der Auswahl zwischen "Private" und "Public" könnt Ihr Euch etwas aussuchen. Empfohlen wird Private aber es ist nur eine private Maschine beim kostenlosen Account möglich.
+
+Um Django zu konfigurieren geben wir als ersten in einer Konsole (unterer Bildschirmhälfte) ein:
+
+#+Name SocketFunktion2
+#+begin_src bash :export 
+python manage.py migrate
+python manage.py runserver $IP:$PORT
+#+end_src
+
+Django läuft übrigens sowohl unter Python 2.x wie auch unter Python 3.x. Nach Betätigung des grünen Pfeiles oben geht ein Browserfenster auf und zeigt die aktuelle Djangoseite. Natürlich kommt momentan nur die Django Startseite.
+
+*** Installation von Django
+Wenn die virtuelle Maschine von Cloud 9 verwendet wird, dann kann dieser Schritt übersprugen werden. er dient nur dazu, zu erklären wie Django ausserhalb von Cloud 9 verwendet werden kann.
+
+Ich zeige kurz die Installation von Django auf einem virtuellen Linux-Server (Ubuntu 16.04). Die Installation sollte auf allen Linux/Unix/BSD-Systemen ähnlich ablaufen. Auch unter Windows ist die Installation kein Problem, zeige ich hier aber nicht.
+
+
+
+
+
+
+
+
+#+Name SocketFunktion2
+#+begin_src python :export both
+import socket
+# Funktion 1: Banner. Holt den Banner des FTP-Servers.
+
+def Banner(ip, port):
+    try:
+        socket.setdefaulttimeout(2)
+        s = socket.socket()
+        s.connect((ip,port))
+        banner = s.recv(1024)
+        return banner
+    except Exception, e:
+        print('[+] Kein FTP-Server auf '+server+' Port 21: '+str(e))
+        return
+
+def check(banner):
+    if 'Pure-FTPd' in banner:
+        print('[-] '+server+' Pure-FTPd ist angreifbar')
+    else:
+        print('[+] '+server+' FTP Server ist nicht angreifbar')
+
+SERVER = ['ochristen.de', 'strato.de', 'ochristen.dk', 'michael-roth-software.de']
+for server in SERVER:
+    banner = Banner(server,21) 
+    if banner:
+         check(banner)
+    
+#+end_src
