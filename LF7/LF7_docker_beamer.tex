@@ -31,12 +31,12 @@ und hatten alle Ihre Nachteile ...
     \item Docker ist sehr "leichtgewichtig" z.B. 2500 WebServer unter Docker auf einem Rasberry Pi 2: \url{https://blog.docker.com/2015/10/raspberry-pi-dockercon-challenge-winner/})
     \item Docker verwendet modernste Kernel-Feauture wie:
     \begin{itemize}
-        \item eigenes Netzwerk
-        \item Eigene Gruppen und Namespaces
-        \item Eigener Speicher
-        \item Eigenes Ressourcenmangment
+        \item eigenes Netzwerk.
+        \item Eigene Gruppen und Namespaces.
+        \item Eigener Speicher.
+        \item Eigenes Ressourcenmangment.
         \item Extrem einfacher Zugriff auf Container. 
-        \item container können als Textdatei weitergeben werden
+        \item Container können als Textdatei weitergeben werden.
     \end{itemize}
 \end{itemize}    
 }
@@ -54,64 +54,70 @@ und hatten alle Ihre Nachteile ...
 Aufbau: \url{https://docs.docker.com/engine/installation/images/win_docker_host.svg}
 }
 
-\frame{\frametitle{ mit Pausen}
+\frame{\frametitle{An die Tastatur}
+Herunter laden der notwendigen Schlüssel und Präsentation:
 \begin{itemize}
-\item  Einf\"uhrungskurs in \LaTeX \pause 
-\item  Kurs 2 \pause 
-\item  Seminararbeiten und Pr\"asentationen mit \LaTeX \pause 
-\item  Die Beamerclass
+\item Schlüssel und Unterlagen: \url{https://github.com/joergre/workshops.git} \pause
+\item Essenbestellung\pause
+\item Putty für Windows: \url{http://www.putty.org} \pause 
+\item iTerm2 für Mac: \url{https://www.iterm2.com/}\pause
+
 \end{itemize} 
 }
 
-\subsection{Listen II}
-\frame{\frametitle{Numerierte Liste}
-\begin{enumerate}
-\item  Einf\"uhrungskurs in \LaTeX 
-\item  Kurs 2
-\item  Seminararbeiten und Pr\"asentationen mit \LaTeX 
-\item  Die Beamerclass
-\end{enumerate}
-}
-\frame{\frametitle{Numerierte Liste mit Pausen}
-\begin{enumerate}
-\item  Einf\"uhrungskurs in \LaTeX \pause 
-\item  Kurs 2 \pause 
-\item  Seminararbeiten und Pr\"asentationen mit \LaTeX \pause 
-\item  Die Beamerclass
-\end{enumerate}
+\section{Hier wird Dir gehlofen}
+\frame{\frametitle{Websites}
+\begin{itemize}
+    \item Docker Homepage (\url{https://www.docker.com})\pause
+    \item Docker Hub (\url{https://hub.docker.com}) \pause
+    \item Docker Blog (\url{https://blog.docker.com}) \pause
+    \item Docker Dukumentation ({\url{https://docs.docker.com})\pause
+    \item Docker "Getting Started Guide" (\url{https://docs.docker.com/mac/})\pause
+    \item Docker Code - Github (\url{https://github.com/docker/docker})\pause
+    \item Docker Forge -  Sammulung von Tools (\url{https://github.com/dockerforge}) \pause
+\end{itemize}
 }
 
-\section{Abschnitt Nr.3} 
-\subsection{Tabellen}
-\frame{\frametitle{Tabellen}
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Zeitpunkt} & \textbf{Kursleiter} & \textbf{Titel} \\
-\hline
-WS 04/05 & Sascha Frank &  Erste Schritte mit \LaTeX  \\
-\hline
-SS 05 & Sascha Frank & \LaTeX \ Kursreihe \\
-\hline
-\end{tabular}}
+\frame{\frametitle{Sonstige Hilfen im Netz}
+\begin{itemize}
+    \item Docker Mailing-Liste (\url{https://groups.google.com/forum/#!forum/docker-user})\pause 
+    \item Docker auf IRC (irc.freenode.net Kanal: #docker) \pause 
+    \item Docker auf Twitter (\url{https://twitter.com/docker})\pause 
+    \item Docker auf StackOverflow (\url{https://stockoverflow.com/search?q=docker})
+    \item Homepage von Docker: (\url{https://docker.com})
+\end{enumerate}
+}
 
+\section{Installation} 
+\frame{\frametitle{Targets}
+\begin{itemize}
+    \item Alles mit Linux
+    \item BSD experimentell, läuft aber problemlos
+    \item Windows Server ab 2016
+    \item Mac und Windows (ab 7.1): Docker Toolbox
+    \item Amazon EC2
+    \item Racksppace Cloud
+    \item Google Compute Engine
+    \item ...
+\end{itemize}
+}
+\subsection{Einschränkung Targets}
+\frame{\frametitle{Einschränkungen}
+\begin{itemize}
+    \item 64-bit
+    \item Linux-Kernel ab 3.8
+\end{itemize}
 
-\frame{\frametitle{Tabellen mit Pause}
-\begin{tabular}{c c c}
-A & B & C \\ 
-\pause 
-1 & 2 & 3 \\  
-\pause 
-A & B & C \\ 
-\end{tabular} }
+\section{Installation von Docker}
+\frame{\frametitle{Befehle - Voraussetzung}
 
-
-\section{Abschnitt Nr. 4}
-\subsection{Bl\"ocke}
-\frame{\frametitle{Bl\"ocke}
-
-\begin{block}{Blocktitel}
-Blocktext 
-\end{block}
+\begin{itemize}
+    \item apt-get update \pause
+    \item apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\pause
+    \item echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list\pause
+    \item apt update
+    \item apt install -y docker-engine
+\end{itemize}
 
 \begin{exampleblock}{Blocktitel}
 Blocktext 
