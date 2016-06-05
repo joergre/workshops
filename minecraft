@@ -1,0 +1,1 @@
+docker run -d -v /home/core/mc:/data -e SPAWN_NPCS=true -e UID=500 -e GID=500 -e GENERATE_STRUCTURES=true -e ENABLE_COMMAND_BLOCK=true -e OPS=die_mandarine,papa_mandarine -e TYPE=BUKKIT -e ENABLE_COMMAND_BLOCK=true -e VERSION=1.8 -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
