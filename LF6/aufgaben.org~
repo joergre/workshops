@@ -1,0 +1,97 @@
+# -*- org-babel-python-command: "python3"; -*-
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+* Vorbemerkung
+Ich habe einen Workspace auf Cloud 9 erstellt. Ich würde gerne schauen wie die Zusammenarbeit im Team funktioniert. 
+
+Editor: https://ide.c9.io/joergre/aufgaben
+Files: https://preview.c9users.io/joergre/aufgaben
+
+Alle Aufgaben sind in Python3 zu erfüllen.
+
+* Aufgabe 2 - Gruppe 2
+
+Um Schwachstellen in der verwendeten Infrastruktur zu finden ist es meist eine gute Idee, sich sein Umfeld genau anzuschauen. Ein erster Schritt ist es, sein Umfeld nach offenen TCP-Ports abzusuchen. Wie erwarten hier nicht, wie beim dem Scanner in der Schule, dass ein Dienst mit einer Statusmeldung antwortet.
+
+Es gibt zwei Varianten:
+
+1.) Port-Scan: Er funktioniert auf der Basis von TCP-SYN-Paketen die zu dem Target (der gescannte Computer) geschickt werden. Bei erhalt einer TCP-ACK-Antwort ist es wahrscheinlich, dass auf diesem Port ein Dienst läuft.
+2.) TCP-Verbindungsscan: Es wird ein vollständiger 3-Wege-Handshake durchgeführt um sicherzustellen, dasssowohl Port als auch Dienst verfügbar sind.
+
+Wir beschränken uns in der Aufgabe auf einen Port-Scan.
+
+Python-Bibliothek die benötigt wird: http://docs.Python.org/library/socket.html
+
+Ablauf des Programms:
+1.) Übergabe von Hostname und eine durch Komma getrennte Liste mit den Ports.
+2.) Übertragen des Hostnamen in eine IP-Adresse
+3.) Aufbau einer Verbindung zum Host und einem Port
+4.) Senden von Dummy-Daten an den Port
+5.) Auslesen der Server-Antwort
+
+Die Übergabe der IP-Adresse und Portnummern soll über die Konsole erfolgen.
+
+* Aufgabe 3 - Gruppe 3
+Die Passwörter der Benutzer werden in der Datei /etc/shadow abgelegt. Zu beachten ist, dass die Passwörter als Hash abgelegt werden und daher es durchaus möglich ist mehrere Passwörter den gleichen Hash generieren.
+
+Um den Vorgang zu verstehen, erzeugen wie einen User fbs:
+
+#+name: create_user
+#+begin_src bash :export both
+sudo adduser fbs
+#+end_src
+
+Benutzer anlegen mit dem Namen "fbs" und Passwort "fbs". Für Python muss das Modul passlib installiert werden:
+
+#+name: install_paasslib
+#+begin_src bash :export both 
+sudo apt-get install python3-passlib
+#+end_src
+
+Passwörter werden in der Datei /etc/shadow abgelegt. Die Zeile für den User fbs sieht dann wie folgt aus:
+
+fbs:$6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/:16954:0:99999:7:::
+
+fbs ist der Benutzername. $6$ ist der Algorithmus, dabei sind folgende Einträge möglich:
+
+| $1$  | MD5      |
+| $2a$ | Blowfish |
+| $5$  | SHA-256  |
+| $6$  | SHA-512  |
+
+Der Salt kommt nach der Algorithmus-ID: F3paVtSt und wird für jedes  Passwort neu erstellt. Das Passwort hat abhängig vom Algorithmus eine feste Zeichenlänge:
+
+| MD5    | 22 |
+| SH-256 | 43 |
+| SH-512 | 86 |
+
+Das Programm berechnet den Hash des entsprechenden Algorithmus mit dem entsprechenden Hash:
+
+#+name: passwd
+#+begin_src python :export both 
+# -*- coding: utf-8 -*-
+# Vor Auführung: sudo apt-get install python3-passlib
+from passlib.hash import sha512_crypt
+import crypt
+encPass = crypt.crypt("fbs","$6$F3paVtSt")
+print(encPass)
+#+end_src
+
+#+RESULTS: passwd
+#+begin_example
+$6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/
+#+end_example
+

@@ -5,6 +5,16 @@
 ;; don't let orgmode resize images (this means you must set them to the correct size when generating!)
 (setq-local org-latex-image-default-option "")
 
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+;; all python code be safe
+(defun my-org-confirm-babel-evaluate (lang body)
+(not (string= lang "python")))
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
 ;; don't insert default css
 (setq-local org-html-head-include-default-style nil)
 

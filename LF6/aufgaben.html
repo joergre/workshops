@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-06-02 Do 17:10 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Einführung in Python</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Jörg Reuter" />
+<link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://gist.githubusercontent.com/joergre/bfe1204da87a7227c13f8064e71dbd02/raw/473932eeff11495e7c7311517507bf648828fe80/readtheorg.js"></script>
+<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../git.png" alt="Fork me on GitHub"></a>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Einführung in Python</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">Vorbemerkung</a></li>
+<li><a href="#orgheadline2">Aufgabe 2 - Gruppe 2</a></li>
+<li><a href="#orgheadline3">Aufgabe 3 - Gruppe 3</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Vorbemerkung</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+Ich habe einen Workspace auf Cloud 9 erstellt. Ich würde gerne schauen wie die Zusammenarbeit im Team funktioniert. 
+</p>
+
+<p>
+Editor: <a href="https://ide.c9.io/joergre/aufgaben">https://ide.c9.io/joergre/aufgaben</a>
+Files: <a href="https://preview.c9users.io/joergre/aufgaben">https://preview.c9users.io/joergre/aufgaben</a>
+</p>
+
+<p>
+Alle Aufgaben sind in Python3 zu erfüllen.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">Aufgabe 2 - Gruppe 2</h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<p>
+Um Schwachstellen in der verwendeten Infrastruktur zu finden ist es meist eine gute Idee, sich sein Umfeld genau anzuschauen. Ein erster Schritt ist es, sein Umfeld nach offenen TCP-Ports abzusuchen. Wie erwarten hier nicht, wie beim dem Scanner in der Schule, dass ein Dienst mit einer Statusmeldung antwortet.
+</p>
+
+<p>
+Es gibt zwei Varianten:
+</p>
+
+<p>
+1.) Port-Scan: Er funktioniert auf der Basis von TCP-SYN-Paketen die zu dem Target (der gescannte Computer) geschickt werden. Bei erhalt einer TCP-ACK-Antwort ist es wahrscheinlich, dass auf diesem Port ein Dienst läuft.
+2.) TCP-Verbindungsscan: Es wird ein vollständiger 3-Wege-Handshake durchgeführt um sicherzustellen, dasssowohl Port als auch Dienst verfügbar sind.
+</p>
+
+<p>
+Wir beschränken uns in der Aufgabe auf einen Port-Scan.
+</p>
+
+<p>
+Python-Bibliothek die benötigt wird: <a href="http://docs.python.org/library/socket.html">http://docs.python.org/library/socket.html</a>
+</p>
+
+<p>
+Ablauf des Programms:
+1.) Übergabe von Hostname und eine durch Komma getrennte Liste mit den Ports.
+2.) Übertragen des Hostnamen in eine IP-Adresse
+3.) Aufbau einer Verbindung zum Host und einem Port
+4.) Senden von Dummy-Daten an den Port
+5.) Auslesen der Server-Antwort
+</p>
+
+<p>
+Die Übergabe der IP-Adresse und Portnummern soll über die Konsole erfolgen.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3">Aufgabe 3 - Gruppe 3</h2>
+<div class="outline-text-2" id="text-orgheadline3">
+<p>
+Die Passwörter der Benutzer werden in der Datei /etc/shadow abgelegt. Zu beachten ist, dass die Passwörter als Hash abgelegt werden und daher es durchaus möglich ist mehrere Passwörter den gleichen Hash generieren.
+</p>
+
+<p>
+Um den Vorgang zu verstehen, erzeugen wie einen User fbs:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock1">sudo adduser fbs
+</pre>
+</div>
+
+<p>
+Benutzer anlegen mit dem Namen "fbs" und Passwort "fbs". Für Python muss das Modul passlib installiert werden:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock2">sudo apt-get install python3-passlib
+</pre>
+</div>
+
+<p>
+Passwörter werden in der Datei /etc/shadow abgelegt. Die Zeile für den User fbs sieht dann wie folgt aus:
+</p>
+
+<p>
+fbs:$6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/:16954:0:99999:7:::
+</p>
+
+<p>
+fbs ist der Benutzername. \(6\) ist der Algorithmus, dabei sind folgende Einträge möglich:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">\(1\)</td>
+<td class="org-left">MD5</td>
+</tr>
+
+<tr>
+<td class="org-left">\(2a\)</td>
+<td class="org-left">Blowfish</td>
+</tr>
+
+<tr>
+<td class="org-left">\(5\)</td>
+<td class="org-left">SHA-256</td>
+</tr>
+
+<tr>
+<td class="org-left">\(6\)</td>
+<td class="org-left">SHA-512</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Der Salt kommt nach der Algorithmus-ID: F3paVtSt und wird für jedes  Passwort neu erstellt. Das Passwort hat abhängig vom Algorithmus eine feste Zeichenlänge:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">MD5</td>
+<td class="org-right">22</td>
+</tr>
+
+<tr>
+<td class="org-left">SH-256</td>
+<td class="org-right">43</td>
+</tr>
+
+<tr>
+<td class="org-left">SH-512</td>
+<td class="org-right">86</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Das Programm berechnet den Hash des entsprechenden Algorithmus mit dem entsprechenden Hash:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="orgsrcblock3"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Vor Auf&#252;hrung: sudo apt-get install python3-passlib</span>
+<span style="color: #a020f0;">from</span> passlib.<span style="color: #483d8b;">hash</span> <span style="color: #a020f0;">import</span> sha512_crypt
+<span style="color: #a020f0;">import</span> crypt
+<span style="color: #a0522d;">encPass</span> = crypt.crypt(<span style="color: #8b2252;">"fbs"</span>,<span style="color: #8b2252;">"$6$F3paVtSt"</span>)
+<span style="color: #a020f0;">print</span>(encPass)
+</pre>
+</div>
+
+<pre class="example">
+$6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons Lizenzvertrag' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/80x15.png' /></a><br />Dieses Werk ist lizenziert unter einer <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.</p> <p> Zur Verfügung gestellt von  <a href='http://ferdinand-braun-schule.de'> Jörg Reuter - Ferdinand-Braun-Schule Fulda</a> <br></br> <a href='http://ferdinand-braun-schule.de'><img style='margin-left: auto; margin-right: auto;' alt='Ferdinand-Braun-Schule Fulda' title='FBS Logo' src='http://www.ferdinand-braun-schule.de/fileadmin/files/images/Grafiken/FBS_Logo.gif'></img></a></p>
+</div>
+</body>
+</html>
