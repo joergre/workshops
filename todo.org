@@ -1,0 +1,22 @@
+* Emacs als Desktop
+http://www.howardism.org/Technical/Emacs/new-window-manager.html#fn.4
+* Bücher
+http://118.193.222.200/
+
+* Basteln Pi-Cluster
+** Netzteil:
+https://www.amazon.de/Schaltnetzteil-LED-Netzteil-60W-MeanWell-RS-75-5/dp/B00MWQDO80/ref=sr_1_10?ie=UTF8&qid=1465205062&sr=8-10&keywords=meanwell+5v
+5V 12 A 23,38
+* App ODB2
+- Torque
+* WS 2016
+- LF 10 OS 4 A
+- LF 06 OS 2 0
+- LF 07 OS 2 0
+- LF 07 OS 2 2
+- LF 07 MI 2 0
+- LF 10 MI 4 2
+- LF 07 MI 2 1
+- LF 07 MI 2 1
+- LF 06 MI 2 1
+- LF XX US 2 1
