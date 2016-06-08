@@ -80,8 +80,6 @@ A(0,6)
 
 ** Aufgabe
 1.) Erstelle ein Programm dass alle Werte von (0/0) bis (4/6) berechnet (soweit möglich).
-2.) Erkläre woran die Problematik der Funktion zu erkennen ist. Warum ist die Ackermann-Funktion so schwer zu berechnen?
-
 
 
 * Aufgabe 2 - Gruppe 2
@@ -318,7 +316,7 @@ if __name__ == '__main__':
 * Aufgabe 5 - ZIP
 Erstellen einer Zip-Datei unter Unix mit Passwort:
 #+name: zip1
-#+begin_src bash :export                                                                                                                                               
+#+begin_src bash :export  both                                                                                                                                             
 zip --encrypt file.zip files
 #+end_src
 oder
@@ -327,4 +325,26 @@ oder
 zip --password (password) file.zip files
 #+end_src
 
-Zip Datei test.zip wurde mit dem Passwort ASCII erstellt (für Testzwecke).
+Die Zip-Datei evil.zip wurde mit dem Passwort ASCII erstellt. In der Zip-Datei ist eine Datei mit dem Namen 'evil.py' enthalten.
+Eine Zip-Datei entpacken:
+
+#+name: zip_entpacken
+#+BEGIN_SRC python: export both
+import zipfile
+zFile = zipfile.ZipFile("evil.zip")
+zFile.extractall(pwd=b"ASCII")
+#+END_SRC
+
+Entpacken mit flaschem Passwort und abfangen des Fehlers. Fehlermeldung wird ausgegeben.
+#+namw_ zip_fehler 
+#+BEGIN_SRC python
+import zipfile
+import sys
+zFile = zipfile.ZipFile("evil.zip")
+try:
+    zFile.extractall(pwd=b"bloedsinn")
+except:
+        print(sys.exc_info()[0])
+#+END_SRC
+
+Entpacken mit Passwörtern aus einer Datei:
