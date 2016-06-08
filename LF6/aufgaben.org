@@ -85,26 +85,51 @@ A(0,6)
 
 
 * Aufgabe 2 - Gruppe 2
+Lade bitte das pdf von http://www.wired.com/images_blogs/threatlevel/2010/12/ANONOPS_The_Press_Release.pdf herunter.
+Fürhre aus das PDF das folgende Skript aus:
+#+name: WLAN
+#+begin_src python :export both 
+# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import pyPdf
+import optparse
+from pyPdf import PdfFileReader
 
-Um Schwachstellen in der verwendeten Infrastruktur zu finden ist es meist eine gute Idee, sich sein Umfeld genau anzuschauen. Ein erster Schritt ist es, sein Umfeld nach offenen TCP-Ports abzusuchen. Wie erwarten hier nicht, wie beim dem Scanner in der Schule, dass ein Dienst mit einer Statusmeldung antwortet.
 
-Es gibt zwei Varianten:
+def printMeta(fileName):
+    pdfFile = PdfFileReader(file(fileName, 'rb'))
+    docInfo = pdfFile.getDocumentInfo()
+    print '[*] PDF MetaData For: ' + str(fileName)
+    for metaItem in docInfo:
+        print '[+] ' + metaItem + ':' + docInfo[metaItem]
 
-1.) Port-Scan: Er funktioniert auf der Basis von TCP-SYN-Paketen die zu dem Target (der gescannte Computer) geschickt werden. Bei erhalt einer TCP-ACK-Antwort ist es wahrscheinlich, dass auf diesem Port ein Dienst läuft.
-2.) TCP-Verbindungsscan: Es wird ein vollständiger 3-Wege-Handshake durchgeführt um sicherzustellen, dasssowohl Port als auch Dienst verfügbar sind.
 
-Wir beschränken uns in der Aufgabe auf einen Port-Scan.
+def main():
+    parser = optparse.OptionParser('usage %prog "+\
+      "-F <PDF file name>')
+    parser.add_option('-F', dest='fileName', type='string',\
+      help='specify PDF file name')
 
-Python-Bibliothek die benötigt wird: http://docs.Python.org/library/socket.html
+    (options, args) = parser.parse_args()
+    fileName = options.fileName
+    if fileName == None:
+        print parser.usage
+        exit(0)
+    else:
+        printMeta(fileName)
 
-Ablauf des Programms:
-1.) Übergabe von Hostname und eine durch Komma getrennte Liste mit den Ports.
-2.) Übertragen des Hostnamen in eine IP-Adresse
-3.) Aufbau einer Verbindung zum Host und einem Port
-4.) Senden von Dummy-Daten an den Port
-5.) Auslesen der Server-Antwort
 
-Die Übergabe der IP-Adresse und Portnummern soll über die Konsole erfolgen.
+if __name__ == '__main__':
+    main()
+#+end_src
+
+Achtung: Bitte die Bibliothek PyPDF installieren
+Aufagbe:
+- Worum geht es in dem PDF? Erkundige Dich nach der Geschichte.
+- Stelle die Funktionsweise de Programms dar.
 
 * Aufgabe 3 - Shadow - FERTIG
 
@@ -199,50 +224,107 @@ print(complete_list)
 ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'aa', 'ba', 'ca', 'da', 'ea', 'fa', 'ga', 'ha', 'ia', 'ja', 'ka', 'la', 'ma', 'na', 'oa', 'pa', 'qa', 'ra', 'sa', 'ta', 'ua', 'va', 'wa', 'xa', 'ya', 'za', 'ab', 'bb', 'cb', 'db', 'eb', 'fb', 'gb', 'hb', 'ib', 'jb', 'kb', 'lb', 'mb', 'nb', 'ob', 'pb', 'qb', 'rb', 'sb', 'tb', 'ub', 'vb', 'wb', 'xb', 'yb', 'zb', 'ac', 'bc', 'cc', 'dc', 'ec', 'fc', 'gc', 'hc', 'ic', 'jc', 'kc', 'lc', 'mc', 'nc', 'oc', 'pc', 'qc', 'rc', 'sc', 'tc', 'uc', 'vc', 'wc', 'xc', 'yc', 'zc', 'ad', 'bd', 'cd', 'dd', 'ed', 'fd', 'gd', 'hd', 'id', 'jd', 'kd', 'ld', 'md', 'nd', 'od', 'pd', 'qd', 'rd', 'sd', 'td', 'ud', 'vd', 'wd', 'xd', 'yd', 'zd', 'ae', 'be', 'ce', 'de', 'ee', 'fe', 'ge', 'he', 'ie', 'je', 'ke', 'le', 'me', 'ne', 'oe', 'pe', 'qe', 're', 'se', 'te', 'ue', 've', 'we', 'xe', 'ye', 'ze', 'af', 'bf', 'cf', 'df', 'ef', 'ff', 'gf', 'hf', 'if', 'jf', 'kf', 'lf', 'mf', 'nf', 'of', 'pf', 'qf', 'rf', 'sf', 'tf', 'uf', 'vf', 'wf', 'xf', 'yf', 'zf', 'ag', 'bg', 'cg', 'dg', 'eg', 'fg', 'gg', 'hg', 'ig', 'jg', 'kg', 'lg', 'mg', 'ng', 'og', 'pg', 'qg', 'rg', 'sg', 'tg', 'ug', 'vg', 'wg', 'xg', 'yg', 'zg', 'ah', 'bh', 'ch', 'dh', 'eh', 'fh', 'gh', 'hh', 'ih', 'jh', 'kh', 'lh', 'mh', 'nh', 'oh', 'ph', 'qh', 'rh', 'sh', 'th', 'uh', 'vh', 'wh', 'xh', 'yh', 'zh', 'ai', 'bi', 'ci', 'di', 'ei', 'fi', 'gi', 'hi', 'ii', 'ji', 'ki', 'li', 'mi', 'ni', 'oi', 'pi', 'qi', 'ri', 'si', 'ti', 'ui', 'vi', 'wi', 'xi', 'yi', 'zi', 'aj', 'bj', 'cj', 'dj', 'ej', 'fj', 'gj', 'hj', 'ij', 'jj', 'kj', 'lj', 'mj', 'nj', 'oj', 'pj', 'qj', 'rj', 'sj', 'tj', 'uj', 'vj', 'wj', 'xj', 'yj', 'zj', 'ak', 'bk', 'ck', 'dk', 'ek', 'fk', 'gk', 'hk', 'ik', 'jk', 'kk', 'lk', 'mk', 'nk', 'ok', 'pk', 'qk', 'rk', 'sk', 'tk', 'uk', 'vk', 'wk', 'xk', 'yk', 'zk', 'al', 'bl', 'cl', 'dl', 'el', 'fl', 'gl', 'hl', 'il', 'jl', 'kl', 'll', 'ml', 'nl', 'ol', 'pl', 'ql', 'rl', 'sl', 'tl', 'ul', 'vl', 'wl', 'xl', 'yl', 'zl', 'am', 'bm', 'cm', 'dm', 'em', 'fm', 'gm', 'hm', 'im', 'jm', 'km', 'lm', 'mm', 'nm', 'om', 'pm', 'qm', 'rm', 'sm', 'tm', 'um', 'vm', 'wm', 'xm', 'ym', 'zm', 'an', 'bn', 'cn', 'dn', 'en', 'fn', 'gn', 'hn', 'in', 'jn', 'kn', 'ln', 'mn', 'nn', 'on', 'pn', 'qn', 'rn', 'sn', 'tn', 'un', 'vn', 'wn', 'xn', 'yn', 'zn', 'ao', 'bo', 'co', 'do', 'eo', 'fo', 'go', 'ho', 'io', 'jo', 'ko', 'lo', 'mo', 'no', 'oo', 'po', 'qo', 'ro', 'so', 'to', 'uo', 'vo', 'wo', 'xo', 'yo', 'zo', 'ap', 'bp', 'cp', 'dp', 'ep', 'fp', 'gp', 'hp', 'ip', 'jp', 'kp', 'lp', 'mp', 'np', 'op', 'pp', 'qp', 'rp', 'sp', 'tp', 'up', 'vp', 'wp', 'xp', 'yp', 'zp', 'aq', 'bq', 'cq', 'dq', 'eq', 'fq', 'gq', 'hq', 'iq', 'jq', 'kq', 'lq', 'mq', 'nq', 'oq', 'pq', 'qq', 'rq', 'sq', 'tq', 'uq', 'vq', 'wq', 'xq', 'yq', 'zq', 'ar', 'br', 'cr', 'dr', 'er', 'fr', 'gr', 'hr', 'ir', 'jr', 'kr', 'lr', 'mr', 'nr', 'or', 'pr', 'qr', 'rr', 'sr', 'tr', 'ur', 'vr', 'wr', 'xr', 'yr', 'zr', 'as', 'bs', 'cs', 'ds', 'es', 'fs', 'gs', 'hs', 'is', 'js', 'ks', 'ls', 'ms', 'ns', 'os', 'ps', 'qs', 'rs', 'ss', 'ts', 'us', 'vs', 'ws', 'xs', 'ys', 'zs', 'at', 'bt', 'ct', 'dt', 'et', 'ft', 'gt', 'ht', 'it', 'jt', 'kt', 'lt', 'mt', 'nt', 'ot', 'pt', 'qt', 'rt', 'st', 'tt', 'ut', 'vt', 'wt', 'xt', 'yt', 'zt', 'au', 'bu', 'cu', 'du', 'eu', 'fu', 'gu', 'hu', 'iu', 'ju', 'ku', 'lu', 'mu', 'nu', 'ou', 'pu', 'qu', 'ru', 'su', 'tu', 'uu', 'vu', 'wu', 'xu', 'yu', 'zu', 'av', 'bv', 'cv', 'dv', 'ev', 'fv', 'gv', 'hv', 'iv', 'jv', 'kv', 'lv', 'mv', 'nv', 'ov', 'pv', 'qv', 'rv', 'sv', 'tv', 'uv', 'vv', 'wv', 'xv', 'yv', 'zv', 'aw', 'bw', 'cw', 'dw', 'ew', 'fw', 'gw', 'hw', 'iw', 'jw', 'kw', 'lw', 'mw', 'nw', 'ow', 'pw', 'qw', 'rw', 'sw', 'tw', 'uw', 'vw', 'ww', 'xw', 'yw', 'zw', 'ax', 'bx', 'cx', 'dx', 'ex', 'fx', 'gx', 'hx', 'ix', 'jx', 'kx', 'lx', 'mx', 'nx', 'ox', 'px', 'qx', 'rx', 'sx', 'tx', 'ux', 'vx', 'wx', 'xx', 'yx', 'zx', 'ay', 'by', 'cy', 'dy', 'ey', 'fy', 'gy', 'hy', 'iy', 'jy', 'ky', 'ly', 'my', 'ny', 'oy', 'py', 'qy', 'ry', 'sy', 'ty', 'uy', 'vy', 'wy', 'xy', 'yy', 'zy', 'az', 'bz', 'cz', 'dz', 'ez', 'fz', 'gz', 'hz', 'iz', 'jz', 'kz', 'lz', 'mz', 'nz', 'oz', 'pz', 'qz', 'rz', 'sz', 'tz', 'uz', 'vz', 'wz', 'xz', 'yz', 'zz']
 #+end_example
 
-* Aufgabe 4 - Zip - FERTIG
-** Aufgabe
-Entwickle ein Programm, dass 
-- Nach FTP-Servern mit anonymen FTP-Zugriff sucht.
-- Bei Servern die keinen Zugriff haben, die Wörter aus der Datei  German.dic ausprobiert.
-- Eine IP-Range eingestellt werden kann, die automatisch nach anonymen FTP-Zugriff abgesucht wird.
+* Aufgabe 4 - WLAN unter Windows
+Das Programm untersucht alle auf einem Windows-PC abgespeicherten WLAN-Netzwerke und gibt die entsprechende Ort aus um ein Bewegungsprofil des Nutzers anzulegen.
+** Aufgabe:
+Bitte führe das Programm aus (auf einem Windows-Computer). Notiere Dir bitte die Version des Betriebssystems. Bei erfolgreicher Ausführung erkläre bitte seine Funktion. Im Fehlerfalle bitte eine E-Mail an mich.
 
-Ergänzung für eine sehr gute Leistung
--------------------------------------
-Ergänze das Programm zusätzlich um eine Bruceforce Methode. Die Methode soll die Konfiguration erlauben:
- 
-- Nur Große Buchstaben
-- Nur kleine Buchstaben
-- Große- und Kleine Buchstaben
-- Kleine Buchstaben mit Zahlen
-- Große Buchstaben mit Zahlen
-- Buchstaben, Zahlen und Sonderzeichen
-
-und die Möglichkeit der Passwortlänge sowohl Minimal wie maximal haben. 
-
-Dann sollen die Passwörter der Reihe nach durchgetestet werden.
-
-#+name: ftp_cracker
+#+name: WLAN
 #+begin_src python :export both 
 # -*- coding: utf-8 -*-
-import ftplib
-def anon(hostname):
-    try:
-        ftp=ftplib.FTP(hostname, timeout=60)
-        ftp.login('anonymous','me@your.com')
-        print('\n[*] '+str(hostname)+' FTP Anonymous erfolgreich')
-        ftp.quit()
-        return True
-    except:
-        print('\n[-] '+str(hostname)+' FTP Anonymous fehlgeschlagen')
-        return False
-        
-host = 'ftp.rz.uni-wuerzburg.de'
-anon(host)
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+import optparse
+import mechanize
+import urllib
+import re
+import urlparse
+from _winreg import *
+
+
+def val2addr(val):
+    addr = ''
+    for ch in val:
+        addr += '%02x ' % ord(ch)
+    addr = addr.strip(' ').replace(' ', ':')[0:17]
+    return addr
+
+
+def wiglePrint(username, password, netid):
+    browser = mechanize.Browser()
+    browser.open('http://wigle.net')
+    reqData = urllib.urlencode({'credential_0': username,
+                               'credential_1': password})
+    browser.open('https://wigle.net/gps/gps/main/login', reqData)
+    params = {}
+    params['netid'] = netid
+    reqParams = urllib.urlencode(params)
+    respURL = 'http://wigle.net/gps/gps/main/confirmquery/'
+    resp = browser.open(respURL, reqParams).read()
+    mapLat = 'N/A'
+    mapLon = 'N/A'
+    rLat = re.findall(r'maplat=.*\&', resp)
+    if rLat:
+        mapLat = rLat[0].split('&')[0].split('=')[1]
+    rLon = re.findall(r'maplon=.*\&', resp)
+    if rLon:
+        mapLon = rLon[0].split
+    print '[-] Lat: ' + mapLat + ', Lon: ' + mapLon
+
+
+def printNets(username, password):
+    net = "SOFTWARE\Microsoft\Windows NT\CurrentVersion"+\
+          "\NetworkList\Signatures\Unmanaged"
+    key = OpenKey(HKEY_LOCAL_MACHINE, net)
+    print '\n[*] Networks You have Joined.'
+    for i in range(100):
+        try:
+            guid = EnumKey(key, i)
+            netKey = OpenKey(key, str(guid))
+            (n, addr, t) = EnumValue(netKey, 5)
+            (n, name, t) = EnumValue(netKey, 4)
+            macAddr = val2addr(addr)
+            netName = str(name)
+            print '[+] ' + netName + '  ' + macAddr
+            wiglePrint(username, password, macAddr)
+            CloseKey(netKey)
+        except:
+            break
+
+
+def main():
+    parser = optparse.OptionParser('usage %prog '+\
+      '-u <wigle username> -p <wigle password>')
+    parser.add_option('-u', dest='username', type='string',
+                      help='specify wigle password')
+    parser.add_option('-p', dest='password', type='string',
+                      help='specify wigle username')
+    (options, args) = parser.parse_args()
+    username = options.username
+    password = options.password
+    if username == None or password == None:
+        print parser.usage
+        exit(0)
+    else:
+        printNets(username, password)
+
+
+if __name__ == '__main__':
+    main()
+
+#+begin_src 
+* Aufgabe 5 - ZIP
+Erstellen einer Zip-Datei unter Unix mit Passwort:
+#+name: zip1
+#+begin_src bash :export                                                                                                                                               
+zip --encrypt file.zip files
+#+end_src
+oder
+#+name: zip2
+#+begin_src bash :export both 
+zip --password (password) file.zip files
 #+end_src
 
-#+RESULTS: ftp_cracker
-#+begin_example
-
-[*] ftp.rz.uni-wuerzburg.de FTP Anonymous erfolgreich
-#+end_example
-
+Zip Datei test.zip wurde mit dem Passwort ASCII erstellt (für Testzwecke).
