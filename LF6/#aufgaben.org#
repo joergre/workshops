@@ -325,4 +325,7 @@ oder
 zip --password (password) file.zip files
 #+end_src
 
-Zip Datei test.zip wurde mit dem Passwort ASCII erstellt (für Testzwecke).
+Die Zip-Datei evil.zip wurde mit dem Passwort ASCII erstellt. In der Zip-Datei ist eine Datei mit dem Namen 'evil.py' enthalten.
+
+
+ 
