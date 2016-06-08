@@ -80,6 +80,8 @@ A(0,6)
 
 ** Aufgabe
 1.) Erstelle ein Programm dass alle Werte von (0/0) bis (4/6) berechnet (soweit möglich).
+2.) Erkläre woran die Problematik der Funktion zu erkennen ist. Warum ist die Ackermann-Funktion so schwer zu berechnen?
+
 
 
 * Aufgabe 2 - Gruppe 2
