@@ -1,0 +1,111 @@
+* Geburtstagsparadoxon
+Wikipedia: https://de.wikipedia.org/wiki/Geburtstagsparadoxon
+
+Wir simulieren das Geburtstagsproblem wieder in der Gestalt, dass sowohl Anwendungsentwicklung und Netzwerktechnik Hand in Hand gehen.
+
+** Aufgabe 1: 
+- Bitte versehen den Quellcode mit sinnvollen Kommentaren. 
+- Bitte erstelle zu dem Quellcode ein Pseudocode, Struktogramm oder Programmablaufplan (PAP)
+
+** Programm Geburtstagsparadoxon
+Quelle: https://github.com/jennyfar/Birthday-Problem
+
+#+BEGIN_SRC
+#!/usr/bin/env python
+
+import math, random, sys, json
+from decimal import Decimal as dml
+
+print ("Dieses Programm simuliert das Geburtstagsparadoxon mit Zufallszahlen ")
+print ("zwischen 1 und 365.\n")
+
+# Die Anzahl der Leute pro Versuch
+people = int(sys.argv[1])
+# Die Anzahl der Versuche
+trials = int(sys.argv[2])
+n_trials = trials
+
+matches = 0
+nomatches = 0
+total_trials = trials
+
+def findmatches( numbers ):
+    s = set()
+    ans = False
+    for number in numbers:
+        if numbers.count(number) > 1:
+            s.add(number)
+            ans = True
+    return ans, s
+
+while trials > 0:
+    trials -= 1
+    
+    # Seed random erhöht die Zufallsverteilung
+    random.seed()
+    
+    # Erzeugt eine Liste mit der Länge der Anzahl der Leute und erzeugt jeweils eine Zufallszahl zwischen 1 und 365
+    numbers = [random.randrange(1,366) for i in range(people)]
+        
+    a,b = findmatches(numbers)
+    
+    if a == True:
+        matches += 1
+    
+
+result = dml(matches) / dml(total_trials) * 100
+expected =  (1 - dml(math.factorial(365)) / ( 365**people * math.factorial(365-people)))*100
+if result != 0:
+    pe = abs( (expected - dml(result) ) / dml(result)) * 100
+else:
+    print ("\n Bitte erhöhe die Anzal der Versuche! \n")
+    sys.exit()
+
+output_json = json.dumps({'Gesamtzahl der Versuche':n_trials, 'Anzahl der Personen': people, 'Anzahl der erfolgreichen Versuche':matches, 'Prozentualer Anteil der erfolgreichen Versuche': str(round(result,4)), 'Erwartete erfolgreiche Versuche':str(round(expected,4)), 'Fehler in Prozent':str(round(pe,4))})
+print(output_json)
+#+END_SRC
+** Aufgabe 2
+- Welche Version wird mit dem offiziellen Python-Repoitory (https://registry.hub.docker.com/_/python/) ausgeliefert?
+
+#+BEGIN_SRC 
+docker run python python --version
+#+END_SRC
+
+- Erstelle ein Docker-Container in dem das Script direkt ausgeführt wird und der sich nach der Abarbeitung wieder beendet. Das Skript soll im Verzeichnis /src liegen. Es gibt verschiedene wege dahin (COPY oder mounten mit -v).
+- Rufe das Skript im Container mit den Werten 25 10 auf! Kopere das Ergebniss.
+
+Tips:
+
+- Aufruf eines Befehls im Container Python: docker run python ls
+
+** Aufgabe 3
+
+Erkläre mit Hilfe des obigen Wikipedia-Artikels und dem Artikel über Kollisionsangriffe (https://de.wikipedia.org/wiki/Kollisionsangriff) die Bedeutung des Geburtstagsproblems für die Erzeugung von Hashwerten.
+
+
+** MD5-Kollision
+
+Wie funktioniert ein Hash: http://www.unixwiz.net/techtips/iguide-crypto-hashes.html
+Anleitung für Dateien: http://natmchugh.blogspot.de/2015/02/create-your-own-md5-collisions.html
+3-Wege-Kollision: http://natmchugh.blogspot.de/2014/11/three-way-md5-collision.html
+Weitere Collisionn Demos: http://www.mathstat.dal.ca/~selinger/md5collision/
+
+Kürzeste Kollision:
+
+#+BEGIN_SRC 
+from array import array
+from hashlib import md5
+
+input1 = array('I',  [0x6165300e,0x87a79a55,0xf7c60bd0,0x34febd0b,0x6503cf04,
+    0x854f709e,0xfb0fc034,0x874c9c65,0x2f94cc40,0x15a12deb,0x5c15f4a3,0x490786bb,
+    0x6d658673,0xa4341f7d,0x8fd75920,0xefd18d5a])
+
+input2 = array('I', [x^y for x,y in zip(input1,
+    [0, 0, 0, 0, 0, 1<<10, 0, 0, 0, 0, 1<<31, 0, 0, 0, 0, 0])])
+print("Input 1: ", input1)
+print("Input 2: ", input2)
+print("MD5 von Input 1: ", md5(input1).hexdigest())
+print("MD5 von Input 2: ", md5(input1).hexdigest())
+print("Ops")
+#+END_SRC
+
