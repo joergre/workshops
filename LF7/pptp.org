@@ -15,6 +15,7 @@ sudo apt-get install network-manager-openvpn network-manager-openvpn-gnome netwo
 # Secrets for authentication using CHAP
 # client        server  secret                  IP addresses
 fbs       PPTP  fbs     *
+#+END_SRC
 
-Beendet salle pptp-VPN-Verbindungen
+Beendet alle pptp-VPN-Verbindungen
 killall pppd
