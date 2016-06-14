@@ -1,0 +1,8 @@
+# Tabelle für Benutzerkonten erstellen
+create table users (id INT UNSIGNED AUTO_INCREMENT NOT NULL, username VARCHAR(128) NOT NULL, domain VARCHAR(128) NOT NULL, password VARCHAR(128) NOT NULL, UNIQUE (id), PRIMARY KEY (username, domain) );
+
+# Tabelle für Domains
+create table domains (id INT UNSIGNED AUTO_INCREMENT NOT NULL, domain VARCHAR(128) NOT NULL, UNIQUE (id), PRIMARY KEY (domain));
+
+# Tabelle für Aliase
+create table aliases (id INT UNSIGNED AUTO_INCREMENT NOT NULL, source VARCHAR(128) NOT NULL, destination VARCHAR(128) NOT NULL, UNIQUE (id), PRIMARY KEY (source, destination) );
