@@ -1,29 +1,33 @@
-** Installation VPN-Server
-** chap-secret
+** Installation PPTP-Server
+
+*** Warnung
+Achtung, das PPTP-Protokoll ist unsicher! Es sollte nach Möglichkeit durch aktuellere Protokolle ersetzt werden.
+
+*** chap-secret
 
 #+BEGIN_SRC
 # client        server  secret                  IP addresses
 fbs * fbs *
 #+END_SRC
 
-** Docker-Container starten
+*** Docker-Container starten
 #+BEGIN_SRC
 docker run --name pptpd -d --privileged --net=host -v /home/core/chap-secrets:/etc/ppp/chap-secrets mobtitude/vpn-pptp
 #+END_SRC
 
 
-** Installation des VPN-Clients
+*** Installation des VPN-Clients
 
 #+BEGIN_SRC
 sudo apt-get install network-manager-openvpn network-manager-openvpn-gnome network-manager-pptp network-manager-pptp-gnome network-manager-vpnc network-manager-vpnc-gnome network-manager-openconnect network-manager-openconnect-gnome
 #+END_SRC
 
-** Konfigurations-Dateien::
+*** Konfigurations-Dateien::
 - /etc/ppp/peers/vpn1
 - /etc/ppp/chap-secrets 
 #+END_SRC
 
-** Inhalt der Datei chap-secrets
+*** Inhalt der Datei chap-secrets
 
 #+BEGIN_SRC
 # Secrets for authentication using CHAP
@@ -31,7 +35,7 @@ sudo apt-get install network-manager-openvpn network-manager-openvpn-gnome netwo
 fbs       PPTP  fbs     *
 #+END_SRC
 
-** Inhalt der Datei vpn1
+*** Inhalt der Datei vpn1
 
 #+BEGIN_SRC
 pty "pptp 46.101.154.80 --nolaunchpppd"
@@ -42,13 +46,19 @@ file /etc/ppp/options.pptp
 ipparam vpn1
 #+END_SRC
 
-* Verbindiungsaufbau (Debug-Modus)
+*** Verbindiungsaufbau (Debug-Modus)
 
 #+BEGIN_SRC
 pon vpn1 debug dump logfd 2 nodetach
 #+END_SRC
 
-** Beenden aller PPTP-Verbindungen
+*** Verbindungsaufbau (Normal-Modus)
+
+#+BEGIN_SRC
+pon vpn1&
+#+END_SRC
+
+*** Beenden aller PPTP-Verbindungen
 
 #+BEGIN_SRC
 killall pppd
