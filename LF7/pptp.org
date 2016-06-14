@@ -7,6 +7,14 @@ sudo apt-get install network-manager-openvpn network-manager-openvpn-gnome netwo
 ** Konfigurations-Dateien::
 - /etc/ppp/peers/vpn1
 - /etc/ppp/chap-secrets 
+#+END_SRC
+
+** Inhalt der Datei chap-secrets
+
+#+BEGIN_SRC
+# Secrets for authentication using CHAP
+# client        server  secret                  IP addresses
+fbs       PPTP  fbs     *
 
 Beendet salle pptp-VPN-Verbindungen
 killall pppd
