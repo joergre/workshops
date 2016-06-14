@@ -1,3 +1,17 @@
+** Installation VPN-Server
+** chap-secret
+
+#+BEGIN_SRC
+# client        server  secret                  IP addresses
+fbs * fbs *
+#+END_SRC
+
+** Docker-Container starten
+#+BEGIN_SRC
+docker run --name pptpd -d --privileged --net=host -v /home/core/chap-secrets:/etc/ppp/chap-secrets mobtitude/vpn-pptp
+#+END_SRC
+
+
 ** Installation des VPN-Clients
 
 #+BEGIN_SRC
@@ -34,5 +48,8 @@ ipparam vpn1
 pon vpn1 debug dump logfd 2 nodetach
 #+END_SRC
 
-Beendet alle pptp-VPN-Verbindungen
+** Beenden aller PPTP-Verbindungen
+
+#+BEGIN_SRC
 killall pppd
+#+END_SRC
