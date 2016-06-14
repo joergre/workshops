@@ -28,5 +28,11 @@ file /etc/ppp/options.pptp
 ipparam vpn1
 #+END_SRC
 
+* Verbindiungsaufbau (Debug-Modus)
+
+#+BEGIN_SRC
+pon vpn1 debug dump logfd 2 nodetach
+#+END_SRC
+
 Beendet alle pptp-VPN-Verbindungen
 killall pppd
