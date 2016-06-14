@@ -17,5 +17,16 @@ sudo apt-get install network-manager-openvpn network-manager-openvpn-gnome netwo
 fbs       PPTP  fbs     *
 #+END_SRC
 
+** Inhalt der Datei vpn1
+
+#+BEGIN_SRC
+pty "pptp 46.101.154.80 --nolaunchpppd"
+name fbs
+remotename PPTP
+require-mppe-128
+file /etc/ppp/options.pptp
+ipparam vpn1
+#+END_SRC
+
 Beendet alle pptp-VPN-Verbindungen
 killall pppd
