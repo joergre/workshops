@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-06-02 Do 17:10 -->
+<!-- 2016-06-13 Mo 18:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Einführung in Python</title>
@@ -91,8 +91,23 @@ for the JavaScript code in this tag.
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">Vorbemerkung</a></li>
-<li><a href="#orgheadline2">Aufgabe 2 - Gruppe 2</a></li>
-<li><a href="#orgheadline3">Aufgabe 3 - Gruppe 3</a></li>
+<li><a href="#orgheadline2">Aufgabe 1</a>
+<ul>
+<li><a href="#orgheadline3">Aufgabe</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline4">Aufgabe 2 - Gruppe 2</a></li>
+<li><a href="#orgheadline5">Aufgabe 3 - Shadow - FERTIG</a>
+<ul>
+<li><a href="#orgheadline6">Aufgabe:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">Aufgabe 4 - WLAN unter Windows</a>
+<ul>
+<li><a href="#orgheadline8">Aufgabe:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">Aufgabe 5 - ZIP</a></li>
 </ul>
 </div>
 </div>
@@ -105,58 +120,156 @@ Ich habe einen Workspace auf Cloud 9 erstellt. Ich würde gerne schauen wie die 
 </p>
 
 <p>
-Editor: <a href="https://ide.c9.io/joergre/aufgaben">https://ide.c9.io/joergre/aufgaben</a>
-Files: <a href="https://preview.c9users.io/joergre/aufgaben">https://preview.c9users.io/joergre/aufgaben</a>
+Editor: [<a href="https://ide.c9.io/joergre/aufgaben">https://ide.c9.io/joergre/aufgaben</a>]
+Files: [<a href="https://preview.c9users.io/joergre/aufgaben">https://preview.c9users.io/joergre/aufgaben</a>]
 </p>
 
 <p>
-Alle Aufgaben sind in Python3 zu erfüllen.
+Alle Aufgaben sind in Python3 zu programmieren.
 </p>
 </div>
 </div>
+
 
 <div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">Aufgabe 2 - Gruppe 2</h2>
+<h2 id="orgheadline2">Aufgabe 1</h2>
 <div class="outline-text-2" id="text-orgheadline2">
 <p>
-Um Schwachstellen in der verwendeten Infrastruktur zu finden ist es meist eine gute Idee, sich sein Umfeld genau anzuschauen. Ein erster Schritt ist es, sein Umfeld nach offenen TCP-Ports abzusuchen. Wie erwarten hier nicht, wie beim dem Scanner in der Schule, dass ein Dienst mit einer Statusmeldung antwortet.
+Mitte der 30er Jahren stellte man sich die Frage, welche Aufgaben ein Computer berechnen kann. Insbesondere die Frage, ob die Dauer der benötigten Rechenzeit vorher bereits abgeschätzt werden kann. Woran können Funktionen erkannt werden, die problematisch sind?
+1926 erfand Herr Ackermann eine Funktion, die bis heute die grenzen der Berechnebarkeit von prinzipiell berechenbaren Fuktionen aufzeigt und Kritierien enthält, die zumindest andeuten, dass die Funktion problematisch ist. Außer für Test beim Compilerbau hat die Funktion keinen praktischen Nutzen und wird nur in der theoretischen Informatik verwendet.
 </p>
 
 <p>
-Es gibt zwei Varianten:
+Erklärung der Ackermann-Fuktion (englisch, bitte auch Beschreibung beachten. Es gibt dort noch eine Fortsetzung): [<a href="https://youtu.be/i7sm9dzFtEI">https://youtu.be/i7sm9dzFtEI</a>]
+Erklärung (deutsch, Beweisführung müsst Ihr nicht beachten): [<a href="https://youtu.be/VZz7m91XxoM">https://youtu.be/VZz7m91XxoM</a>]
+Computersimulation der Ackermann-Fuktion: [<a href="http://www.gfredericks.com/sandbox/arith/ackermann">http://www.gfredericks.com/sandbox/arith/ackermann</a>]
 </p>
 
 <p>
-1.) Port-Scan: Er funktioniert auf der Basis von TCP-SYN-Paketen die zu dem Target (der gescannte Computer) geschickt werden. Bei erhalt einer TCP-ACK-Antwort ist es wahrscheinlich, dass auf diesem Port ein Dienst läuft.
-2.) TCP-Verbindungsscan: Es wird ein vollständiger 3-Wege-Handshake durchgeführt um sicherzustellen, dasssowohl Port als auch Dienst verfügbar sind.
+Beispiel in Python:
 </p>
 
-<p>
-Wir beschränken uns in der Aufgabe auf einen Port-Scan.
-</p>
+<div class="org-src-container">
 
-<p>
-Python-Bibliothek die benötigt wird: <a href="http://docs.python.org/library/socket.html">http://docs.python.org/library/socket.html</a>
-</p>
+<pre class="src src-python" id="orgsrcblock1"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">A</span>(m, n, s=<span style="color: #8b2252;">"%s"</span>):
+    <span style="color: #a020f0;">print</span>(s % (<span style="color: #8b2252;">"A(%d,%d)"</span> % (m, n)))
+    <span style="color: #a020f0;">if</span> m == 0:
+        <span style="color: #a020f0;">return</span> n + 1
+    <span style="color: #a020f0;">if</span> n == 0:
+        <span style="color: #a020f0;">return</span> A(m - 1, 1, s)
+    n2 = A(m, n - 1, s % (<span style="color: #8b2252;">"A(%d,%%s)"</span> % (m - 1)))
+    <span style="color: #a020f0;">return</span> A(m - 1, n2, s)
 
-<p>
-Ablauf des Programms:
-1.) Übergabe von Hostname und eine durch Komma getrennte Liste mit den Ports.
-2.) Übertragen des Hostnamen in eine IP-Adresse
-3.) Aufbau einer Verbindung zum Host und einem Port
-4.) Senden von Dummy-Daten an den Port
-5.) Auslesen der Server-Antwort
-</p>
+<span style="color: #a020f0;">print</span>(A(2,2))
+</pre>
+</div>
 
+<pre class="example">
+A(2,2)
+A(1,A(2,1))
+A(1,A(1,A(2,0)))
+A(1,A(1,A(1,1)))
+A(1,A(1,A(0,A(1,0))))
+A(1,A(1,A(0,A(0,1))))
+A(1,A(1,A(0,2)))
+A(1,A(1,3))
+A(1,A(0,A(1,2)))
+A(1,A(0,A(0,A(1,1))))
+A(1,A(0,A(0,A(0,A(1,0)))))
+A(1,A(0,A(0,A(0,A(0,1)))))
+A(1,A(0,A(0,A(0,2))))
+A(1,A(0,A(0,3)))
+A(1,A(0,4))
+A(1,5)
+A(0,A(1,4))
+A(0,A(0,A(1,3)))
+A(0,A(0,A(0,A(1,2))))
+A(0,A(0,A(0,A(0,A(1,1)))))
+A(0,A(0,A(0,A(0,A(0,A(1,0))))))
+A(0,A(0,A(0,A(0,A(0,A(0,1))))))
+A(0,A(0,A(0,A(0,A(0,2)))))
+A(0,A(0,A(0,A(0,3))))
+A(0,A(0,A(0,4)))
+A(0,A(0,5))
+A(0,6)
+7
+</pre>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Aufgabe</h3>
+<div class="outline-text-3" id="text-orgheadline3">
 <p>
-Die Übergabe der IP-Adresse und Portnummern soll über die Konsole erfolgen.
+1.) Erstelle ein Programm dass alle Werte von (0/0) bis (4/6) berechnet (soweit möglich).
 </p>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Aufgabe 3 - Gruppe 3</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4">Aufgabe 2 - Gruppe 2</h2>
+<div class="outline-text-2" id="text-orgheadline4">
+<p>
+Lade bitte das pdf von [<a href="http://www.wired.com/images_blogs/threatlevel/2010/12/ANONOPS_The_Press_Release.pdf">http://www.wired.com/images_blogs/threatlevel/2010/12/ANONOPS_The_Press_Release.pdf</a>] herunter.
+Fürhre aus das PDF das folgende Skript aus:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python" id="orgsrcblock2"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #b22222;">#</span><span style="color: #b22222;">!/usr/bin/python</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #b22222;">#</span><span style="color: #b22222;">!/usr/bin/python</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #a020f0;">import</span> pyPdf
+<span style="color: #a020f0;">import</span> optparse
+<span style="color: #a020f0;">from</span> pyPdf <span style="color: #a020f0;">import</span> PdfFileReader
+
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">printMeta</span>(fileName):
+    <span style="color: #a0522d;">pdfFile</span> = PdfFileReader(<span style="color: #483d8b;">file</span>(fileName, <span style="color: #8b2252;">'rb'</span>))
+    <span style="color: #a0522d;">docInfo</span> = pdfFile.getDocumentInfo()
+    <span style="color: #a020f0;">print</span> <span style="color: #8b2252;">'[*] PDF MetaData For: '</span> + <span style="color: #483d8b;">str</span>(fileName)
+    <span style="color: #a020f0;">for</span> metaItem <span style="color: #a020f0;">in</span> docInfo:
+        <span style="color: #a020f0;">print</span> <span style="color: #8b2252;">'[+] '</span> + metaItem + <span style="color: #8b2252;">':'</span> + docInfo[metaItem]
+
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">main</span>():
+    <span style="color: #a0522d;">parser</span> = optparse.OptionParser(<span style="color: #8b2252;">'usage %prog "+\</span>
+<span style="color: #8b2252;">      "-F &lt;PDF file name&gt;'</span>)
+    parser.add_option(<span style="color: #8b2252;">'-F'</span>, dest=<span style="color: #8b2252;">'fileName'</span>, <span style="color: #483d8b;">type</span>=<span style="color: #8b2252;">'string'</span>,\
+      <span style="color: #483d8b;">help</span>=<span style="color: #8b2252;">'specify PDF file name'</span>)
+
+    (options, args) = parser.parse_args()
+    <span style="color: #a0522d;">fileName</span> = options.fileName
+    <span style="color: #a020f0;">if</span> fileName == <span style="color: #008b8b;">None</span>:
+        <span style="color: #a020f0;">print</span> parser.usage
+        <span style="color: #008b8b;">exit</span>(0)
+    <span style="color: #a020f0;">else</span>:
+        printMeta(fileName)
+
+
+<span style="color: #a020f0;">if</span> <span style="color: #483d8b;">__name__</span> == <span style="color: #8b2252;">'__main__'</span>:
+    main()
+</pre>
+</div>
+
+<p>
+Achtung: Bitte die Bibliothek PyPDF installieren
+Aufagbe:
+</p>
+<ul class="org-ul">
+<li>Worum geht es in dem PDF? Erkundige Dich nach der Geschichte.</li>
+<li>Stelle die Funktionsweise de Programms dar.</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5">Aufgabe 3 - Shadow - FERTIG</h2>
+<div class="outline-text-2" id="text-orgheadline5">
 <p>
 Die Passwörter der Benutzer werden in der Datei /etc/shadow abgelegt. Zu beachten ist, dass die Passwörter als Hash abgelegt werden und daher es durchaus möglich ist mehrere Passwörter den gleichen Hash generieren.
 </p>
@@ -167,7 +280,7 @@ Um den Vorgang zu verstehen, erzeugen wie einen User fbs:
 
 <div class="org-src-container">
 
-<pre class="src src-bash" id="orgsrcblock1">sudo adduser fbs
+<pre class="src src-bash" id="orgsrcblock3">sudo adduser fbs
 </pre>
 </div>
 
@@ -177,7 +290,7 @@ Benutzer anlegen mit dem Namen "fbs" und Passwort "fbs". Für Python muss das Mo
 
 <div class="org-src-container">
 
-<pre class="src src-bash" id="orgsrcblock2">sudo apt-get install python3-passlib
+<pre class="src src-bash" id="orgsrcblock4">sudo apt-get install python3-passlib
 </pre>
 </div>
 
@@ -185,9 +298,12 @@ Benutzer anlegen mit dem Namen "fbs" und Passwort "fbs". Für Python muss das Mo
 Passwörter werden in der Datei /etc/shadow abgelegt. Die Zeile für den User fbs sieht dann wie folgt aus:
 </p>
 
-<p>
-fbs:$6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/:16954:0:99999:7:::
-</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">fbs:$<span style="color: #a0522d;">6</span>$<span style="color: #a0522d;">F3paVtSt</span>$<span style="color: #a0522d;">YhQiVqcS9uafpq9rqV4bCuntnJu6Zo</span>/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/:16954:0:99999:7:::
+</pre>
+</div>
+
 
 <p>
 fbs ist der Benutzername. \(6\) ist der Algorithmus, dabei sind folgende Einträge möglich:
@@ -260,7 +376,7 @@ Das Programm berechnet den Hash des entsprechenden Algorithmus mit dem entsprech
 
 <div class="org-src-container">
 
-<pre class="src src-python" id="orgsrcblock3"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<pre class="src src-python" id="orgsrcblock5"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
 <span style="color: #b22222;"># </span><span style="color: #b22222;">Vor Auf&#252;hrung: sudo apt-get install python3-passlib</span>
 <span style="color: #a020f0;">from</span> passlib.<span style="color: #483d8b;">hash</span> <span style="color: #a020f0;">import</span> sha512_crypt
 <span style="color: #a020f0;">import</span> crypt
@@ -272,6 +388,228 @@ Das Programm berechnet den Hash des entsprechenden Algorithmus mit dem entsprech
 <pre class="example">
 $6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/
 </pre>
+
+<p>
+Der Salt wurde unter anderem eingeführt, dass nicht direkt die Hash-Werte verglichen werden können. Es gibt für MD5 z.B. grosse Tabellen in denen für alle möglichen Passworte die Hashwerte abgelegt wurden.
+</p>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Aufgabe:</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<p>
+Bitte ergänze obiges Programm in der Form, dass es eine gegebene shadow Datei (im Original) einliest und versucht mit Hilfe des (wirklich simplen) Wörterbuchs das Passwort zu erraten. Bei einem Treffer soll dann Benutzername und Passwort ausgegeben werden. Das Programm soll mindestens 2 Funktionen haben: main() und testPass(). Die Datei main() öffnet die Datei shadow und liest diese zeilenweise ein.  Die Funktion testPass() überprüft die Passwörter mit Hilfe der Wortdatei "German.dic". Das Programm ist ausführlich zu kommentieren.
+</p>
+
+<p>
+Ergänzung für eine sehr gute Leistung
+</p>
+<hr  />
+<p>
+Ergänze das Programm zusätzlich um eine Bruceforce Methode. Die Methode soll die Konfiguration erlauben:
+</p>
+
+<ul class="org-ul">
+<li>Nur Große Buchstaben</li>
+<li>Nur kleine Buchstaben</li>
+<li>Große- und Kleine Buchstaben</li>
+<li>Kleine Buchstaben mit Zahlen</li>
+<li>Große Buchstaben mit Zahlen</li>
+<li>Buchstaben, Zahlen und Sonderzeichen</li>
+</ul>
+
+<p>
+und die Möglichkeit der Passwortlänge sowohl Minimal wie maximal haben. 
+</p>
+
+<p>
+Dann sollen die Passwörter der Reihe nach durchgetestet werden.
+</p>
+
+<p>
+Hinweis:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="orgsrcblock6"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #a0522d;">your_list</span> = <span style="color: #8b2252;">'abcdefghijklmnopqrstuvwxyz'</span>
+<span style="color: #a0522d;">complete_list</span> = []
+<span style="color: #a020f0;">for</span> current <span style="color: #a020f0;">in</span> <span style="color: #483d8b;">range</span>(2):
+    <span style="color: #a0522d;">a</span> = [i <span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> your_list]
+    <span style="color: #a020f0;">for</span> y <span style="color: #a020f0;">in</span> <span style="color: #483d8b;">range</span>(current):
+        <span style="color: #a0522d;">a</span> = [x+i <span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> your_list <span style="color: #a020f0;">for</span> x <span style="color: #a020f0;">in</span> a]
+    <span style="color: #a0522d;">complete_list</span> = complete_list+a
+<span style="color: #a020f0;">print</span>(complete_list)
+</pre>
+</div>
+
+<pre class="example">
+['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'aa', 'ba', 'ca', 'da', 'ea', 'fa', 'ga', 'ha', 'ia', 'ja', 'ka', 'la', 'ma', 'na', 'oa', 'pa', 'qa', 'ra', 'sa', 'ta', 'ua', 'va', 'wa', 'xa', 'ya', 'za', 'ab', 'bb', 'cb', 'db', 'eb', 'fb', 'gb', 'hb', 'ib', 'jb', 'kb', 'lb', 'mb', 'nb', 'ob', 'pb', 'qb', 'rb', 'sb', 'tb', 'ub', 'vb', 'wb', 'xb', 'yb', 'zb', 'ac', 'bc', 'cc', 'dc', 'ec', 'fc', 'gc', 'hc', 'ic', 'jc', 'kc', 'lc', 'mc', 'nc', 'oc', 'pc', 'qc', 'rc', 'sc', 'tc', 'uc', 'vc', 'wc', 'xc', 'yc', 'zc', 'ad', 'bd', 'cd', 'dd', 'ed', 'fd', 'gd', 'hd', 'id', 'jd', 'kd', 'ld', 'md', 'nd', 'od', 'pd', 'qd', 'rd', 'sd', 'td', 'ud', 'vd', 'wd', 'xd', 'yd', 'zd', 'ae', 'be', 'ce', 'de', 'ee', 'fe', 'ge', 'he', 'ie', 'je', 'ke', 'le', 'me', 'ne', 'oe', 'pe', 'qe', 're', 'se', 'te', 'ue', 've', 'we', 'xe', 'ye', 'ze', 'af', 'bf', 'cf', 'df', 'ef', 'ff', 'gf', 'hf', 'if', 'jf', 'kf', 'lf', 'mf', 'nf', 'of', 'pf', 'qf', 'rf', 'sf', 'tf', 'uf', 'vf', 'wf', 'xf', 'yf', 'zf', 'ag', 'bg', 'cg', 'dg', 'eg', 'fg', 'gg', 'hg', 'ig', 'jg', 'kg', 'lg', 'mg', 'ng', 'og', 'pg', 'qg', 'rg', 'sg', 'tg', 'ug', 'vg', 'wg', 'xg', 'yg', 'zg', 'ah', 'bh', 'ch', 'dh', 'eh', 'fh', 'gh', 'hh', 'ih', 'jh', 'kh', 'lh', 'mh', 'nh', 'oh', 'ph', 'qh', 'rh', 'sh', 'th', 'uh', 'vh', 'wh', 'xh', 'yh', 'zh', 'ai', 'bi', 'ci', 'di', 'ei', 'fi', 'gi', 'hi', 'ii', 'ji', 'ki', 'li', 'mi', 'ni', 'oi', 'pi', 'qi', 'ri', 'si', 'ti', 'ui', 'vi', 'wi', 'xi', 'yi', 'zi', 'aj', 'bj', 'cj', 'dj', 'ej', 'fj', 'gj', 'hj', 'ij', 'jj', 'kj', 'lj', 'mj', 'nj', 'oj', 'pj', 'qj', 'rj', 'sj', 'tj', 'uj', 'vj', 'wj', 'xj', 'yj', 'zj', 'ak', 'bk', 'ck', 'dk', 'ek', 'fk', 'gk', 'hk', 'ik', 'jk', 'kk', 'lk', 'mk', 'nk', 'ok', 'pk', 'qk', 'rk', 'sk', 'tk', 'uk', 'vk', 'wk', 'xk', 'yk', 'zk', 'al', 'bl', 'cl', 'dl', 'el', 'fl', 'gl', 'hl', 'il', 'jl', 'kl', 'll', 'ml', 'nl', 'ol', 'pl', 'ql', 'rl', 'sl', 'tl', 'ul', 'vl', 'wl', 'xl', 'yl', 'zl', 'am', 'bm', 'cm', 'dm', 'em', 'fm', 'gm', 'hm', 'im', 'jm', 'km', 'lm', 'mm', 'nm', 'om', 'pm', 'qm', 'rm', 'sm', 'tm', 'um', 'vm', 'wm', 'xm', 'ym', 'zm', 'an', 'bn', 'cn', 'dn', 'en', 'fn', 'gn', 'hn', 'in', 'jn', 'kn', 'ln', 'mn', 'nn', 'on', 'pn', 'qn', 'rn', 'sn', 'tn', 'un', 'vn', 'wn', 'xn', 'yn', 'zn', 'ao', 'bo', 'co', 'do', 'eo', 'fo', 'go', 'ho', 'io', 'jo', 'ko', 'lo', 'mo', 'no', 'oo', 'po', 'qo', 'ro', 'so', 'to', 'uo', 'vo', 'wo', 'xo', 'yo', 'zo', 'ap', 'bp', 'cp', 'dp', 'ep', 'fp', 'gp', 'hp', 'ip', 'jp', 'kp', 'lp', 'mp', 'np', 'op', 'pp', 'qp', 'rp', 'sp', 'tp', 'up', 'vp', 'wp', 'xp', 'yp', 'zp', 'aq', 'bq', 'cq', 'dq', 'eq', 'fq', 'gq', 'hq', 'iq', 'jq', 'kq', 'lq', 'mq', 'nq', 'oq', 'pq', 'qq', 'rq', 'sq', 'tq', 'uq', 'vq', 'wq', 'xq', 'yq', 'zq', 'ar', 'br', 'cr', 'dr', 'er', 'fr', 'gr', 'hr', 'ir', 'jr', 'kr', 'lr', 'mr', 'nr', 'or', 'pr', 'qr', 'rr', 'sr', 'tr', 'ur', 'vr', 'wr', 'xr', 'yr', 'zr', 'as', 'bs', 'cs', 'ds', 'es', 'fs', 'gs', 'hs', 'is', 'js', 'ks', 'ls', 'ms', 'ns', 'os', 'ps', 'qs', 'rs', 'ss', 'ts', 'us', 'vs', 'ws', 'xs', 'ys', 'zs', 'at', 'bt', 'ct', 'dt', 'et', 'ft', 'gt', 'ht', 'it', 'jt', 'kt', 'lt', 'mt', 'nt', 'ot', 'pt', 'qt', 'rt', 'st', 'tt', 'ut', 'vt', 'wt', 'xt', 'yt', 'zt', 'au', 'bu', 'cu', 'du', 'eu', 'fu', 'gu', 'hu', 'iu', 'ju', 'ku', 'lu', 'mu', 'nu', 'ou', 'pu', 'qu', 'ru', 'su', 'tu', 'uu', 'vu', 'wu', 'xu', 'yu', 'zu', 'av', 'bv', 'cv', 'dv', 'ev', 'fv', 'gv', 'hv', 'iv', 'jv', 'kv', 'lv', 'mv', 'nv', 'ov', 'pv', 'qv', 'rv', 'sv', 'tv', 'uv', 'vv', 'wv', 'xv', 'yv', 'zv', 'aw', 'bw', 'cw', 'dw', 'ew', 'fw', 'gw', 'hw', 'iw', 'jw', 'kw', 'lw', 'mw', 'nw', 'ow', 'pw', 'qw', 'rw', 'sw', 'tw', 'uw', 'vw', 'ww', 'xw', 'yw', 'zw', 'ax', 'bx', 'cx', 'dx', 'ex', 'fx', 'gx', 'hx', 'ix', 'jx', 'kx', 'lx', 'mx', 'nx', 'ox', 'px', 'qx', 'rx', 'sx', 'tx', 'ux', 'vx', 'wx', 'xx', 'yx', 'zx', 'ay', 'by', 'cy', 'dy', 'ey', 'fy', 'gy', 'hy', 'iy', 'jy', 'ky', 'ly', 'my', 'ny', 'oy', 'py', 'qy', 'ry', 'sy', 'ty', 'uy', 'vy', 'wy', 'xy', 'yy', 'zy', 'az', 'bz', 'cz', 'dz', 'ez', 'fz', 'gz', 'hz', 'iz', 'jz', 'kz', 'lz', 'mz', 'nz', 'oz', 'pz', 'qz', 'rz', 'sz', 'tz', 'uz', 'vz', 'wz', 'xz', 'yz', 'zz']
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7">Aufgabe 4 - WLAN unter Windows</h2>
+<div class="outline-text-2" id="text-orgheadline7">
+<p>
+Das Programm untersucht alle auf einem Windows-PC abgespeicherten WLAN-Netzwerke und gibt die entsprechende Ort aus um ein Bewegungsprofil des Nutzers anzulegen.
+</p>
+</div>
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">Aufgabe:</h3>
+<div class="outline-text-3" id="text-orgheadline8">
+<p>
+Bitte führe das Programm aus (auf einem Windows-Computer). Notiere Dir bitte die Version des Betriebssystems. Bei erfolgreicher Ausführung erkläre bitte seine Funktion. Im Fehlerfalle bitte eine E-Mail an mich.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="orgsrcblock7"><span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+<span style="color: #b22222;">#</span><span style="color: #b22222;">!/usr/bin/python</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">-*- coding: utf-8 -*-</span>
+
+<span style="color: #a020f0;">import</span> os
+<span style="color: #a020f0;">import</span> optparse
+<span style="color: #a020f0;">import</span> mechanize
+<span style="color: #a020f0;">import</span> urllib
+<span style="color: #a020f0;">import</span> re
+<span style="color: #a020f0;">import</span> urlparse
+<span style="color: #a020f0;">from</span> _winreg <span style="color: #a020f0;">import</span> *
+
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">val2addr</span>(val):
+    <span style="color: #a0522d;">addr</span> = <span style="color: #8b2252;">''</span>
+    <span style="color: #a020f0;">for</span> ch <span style="color: #a020f0;">in</span> val:
+        <span style="color: #a0522d;">addr</span> += <span style="color: #8b2252;">'%02x '</span> % <span style="color: #483d8b;">ord</span>(ch)
+    <span style="color: #a0522d;">addr</span> = addr.strip(<span style="color: #8b2252;">' '</span>).replace(<span style="color: #8b2252;">' '</span>, <span style="color: #8b2252;">':'</span>)[0:17]
+    <span style="color: #a020f0;">return</span> addr
+
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">wiglePrint</span>(username, password, netid):
+    <span style="color: #a0522d;">browser</span> = mechanize.Browser()
+    browser.<span style="color: #483d8b;">open</span>(<span style="color: #8b2252;">'http://wigle.net'</span>)
+    <span style="color: #a0522d;">reqData</span> = urllib.urlencode({<span style="color: #8b2252;">'credential_0'</span>: username,
+                               <span style="color: #8b2252;">'credential_1'</span>: password})
+    browser.<span style="color: #483d8b;">open</span>(<span style="color: #8b2252;">'https://wigle.net/gps/gps/main/login'</span>, reqData)
+    <span style="color: #a0522d;">params</span> = {}
+    <span style="color: #a0522d;">params</span>[<span style="color: #8b2252;">'netid'</span>] = netid
+    <span style="color: #a0522d;">reqParams</span> = urllib.urlencode(params)
+    <span style="color: #a0522d;">respURL</span> = <span style="color: #8b2252;">'http://wigle.net/gps/gps/main/confirmquery/'</span>
+    <span style="color: #a0522d;">resp</span> = browser.<span style="color: #483d8b;">open</span>(respURL, reqParams).read()
+    <span style="color: #a0522d;">mapLat</span> = <span style="color: #8b2252;">'N/A'</span>
+    <span style="color: #a0522d;">mapLon</span> = <span style="color: #8b2252;">'N/A'</span>
+    <span style="color: #a0522d;">rLat</span> = re.findall(r<span style="color: #8b2252;">'maplat=.*\&amp;'</span>, resp)
+    <span style="color: #a020f0;">if</span> rLat:
+        <span style="color: #a0522d;">mapLat</span> = rLat[0].split(<span style="color: #8b2252;">'&amp;'</span>)[0].split(<span style="color: #8b2252;">'='</span>)[1]
+    <span style="color: #a0522d;">rLon</span> = re.findall(r<span style="color: #8b2252;">'maplon=.*\&amp;'</span>, resp)
+    <span style="color: #a020f0;">if</span> rLon:
+        <span style="color: #a0522d;">mapLon</span> = rLon[0].split
+    <span style="color: #a020f0;">print</span> <span style="color: #8b2252;">'[-] Lat: '</span> + mapLat + <span style="color: #8b2252;">', Lon: '</span> + mapLon
+
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">printNets</span>(username, password):
+    <span style="color: #a0522d;">net</span> = <span style="color: #8b2252;">"SOFTWARE\Microsoft\Windows NT\CurrentVersion"</span>+\
+          <span style="color: #8b2252;">"\NetworkList\Signatures\Unmanaged"</span>
+    <span style="color: #a0522d;">key</span> = OpenKey(HKEY_LOCAL_MACHINE, net)
+    <span style="color: #a020f0;">print</span> <span style="color: #8b2252;">'\n[*] Networks You have Joined.'</span>
+    <span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> <span style="color: #483d8b;">range</span>(100):
+        <span style="color: #a020f0;">try</span>:
+            <span style="color: #a0522d;">guid</span> = EnumKey(key, i)
+            <span style="color: #a0522d;">netKey</span> = OpenKey(key, <span style="color: #483d8b;">str</span>(guid))
+            (n, addr, t) = EnumValue(netKey, 5)
+            (n, name, t) = EnumValue(netKey, 4)
+            <span style="color: #a0522d;">macAddr</span> = val2addr(addr)
+            <span style="color: #a0522d;">netName</span> = <span style="color: #483d8b;">str</span>(name)
+            <span style="color: #a020f0;">print</span> <span style="color: #8b2252;">'[+] '</span> + netName + <span style="color: #8b2252;">'  '</span> + macAddr
+            wiglePrint(username, password, macAddr)
+            CloseKey(netKey)
+        <span style="color: #a020f0;">except</span>:
+            <span style="color: #a020f0;">break</span>
+
+
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">main</span>():
+    <span style="color: #a0522d;">parser</span> = optparse.OptionParser(<span style="color: #8b2252;">'usage %prog '</span>+\
+      <span style="color: #8b2252;">'-u &lt;wigle username&gt; -p &lt;wigle password&gt;'</span>)
+    parser.add_option(<span style="color: #8b2252;">'-u'</span>, dest=<span style="color: #8b2252;">'username'</span>, <span style="color: #483d8b;">type</span>=<span style="color: #8b2252;">'string'</span>,
+                      <span style="color: #483d8b;">help</span>=<span style="color: #8b2252;">'specify wigle password'</span>)
+    parser.add_option(<span style="color: #8b2252;">'-p'</span>, dest=<span style="color: #8b2252;">'password'</span>, <span style="color: #483d8b;">type</span>=<span style="color: #8b2252;">'string'</span>,
+                      <span style="color: #483d8b;">help</span>=<span style="color: #8b2252;">'specify wigle username'</span>)
+    (options, args) = parser.parse_args()
+    <span style="color: #a0522d;">username</span> = options.username
+    <span style="color: #a0522d;">password</span> = options.password
+    <span style="color: #a020f0;">if</span> username == <span style="color: #008b8b;">None</span> <span style="color: #a020f0;">or</span> password == <span style="color: #008b8b;">None</span>:
+        <span style="color: #a020f0;">print</span> parser.usage
+        <span style="color: #008b8b;">exit</span>(0)
+    <span style="color: #a020f0;">else</span>:
+        printNets(username, password)
+
+
+<span style="color: #a020f0;">if</span> <span style="color: #483d8b;">__name__</span> == <span style="color: #8b2252;">'__main__'</span>:
+    main()
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9">Aufgabe 5 - ZIP</h2>
+<div class="outline-text-2" id="text-orgheadline9">
+<p>
+Erstellen einer Zip-Datei unter Unix mit Passwort:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock8">zip --encrypt file.zip files
+</pre>
+</div>
+
+<p>
+oder
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock9">zip --password (password) file.zip files
+</pre>
+</div>
+
+<p>
+Die Zip-Datei evil.zip wurde mit dem Passwort ASCII erstellt. In der Zip-Datei ist eine Datei mit dem Namen 'evil.py' enthalten.
+Eine Zip-Datei entpacken:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python:" id="orgsrcblock10">import zipfile
+zFile = zipfile.ZipFile("evil.zip")
+zFile.extractall(pwd=b"ASCII")
+</pre>
+</div>
+
+<p>
+Entpacken mit flaschem Passwort und abfangen des Fehlers. Fehlermeldung wird ausgegeben.
+#+namw_ zip<sub>fehler</sub> 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #a020f0;">import</span> zipfile
+<span style="color: #a020f0;">import</span> sys
+<span style="color: #a0522d;">zFile</span> = zipfile.ZipFile(<span style="color: #8b2252;">"evil.zip"</span>)
+<span style="color: #a020f0;">try</span>:
+    zFile.extractall(pwd=b<span style="color: #8b2252;">"bloedsinn"</span>)
+<span style="color: #a020f0;">except</span>:
+        <span style="color: #a020f0;">print</span>(sys.exc_info()[0])
+</pre>
+</div>
+
+<p>
+Entpacken mit Passwörtern aus einer Datei:
+</p>
 </div>
 </div>
 </div>

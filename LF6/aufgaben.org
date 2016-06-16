@@ -16,18 +16,20 @@
 * Vorbemerkung
 Ich habe einen Workspace auf Cloud 9 erstellt. Ich würde gerne schauen wie die Zusammenarbeit im Team funktioniert. 
 
-Editor: https://ide.c9.io/joergre/aufgaben
-Files: https://preview.c9users.io/joergre/aufgaben
+Editor: [https://ide.c9.io/joergre/aufgaben]
 
-Alle Aufgaben sind in Python3 zu erfüllen.
+Files: [https://preview.c9users.io/joergre/aufgaben]
 
-* Aufgabe 1 - Sind alle berechenbare Fuktionen vom Computer lösbar?
+Alle Aufgaben sind in Python3 zu programmieren.
+
+
+* Aufgabe 1 
 Mitte der 30er Jahren stellte man sich die Frage, welche Aufgaben ein Computer berechnen kann. Insbesondere die Frage, ob die Dauer der benötigten Rechenzeit vorher bereits abgeschätzt werden kann. Woran können Funktionen erkannt werden, die problematisch sind?
 1926 erfand Herr Ackermann eine Funktion, die bis heute die grenzen der Berechnebarkeit von prinzipiell berechenbaren Fuktionen aufzeigt und Kritierien enthält, die zumindest andeuten, dass die Funktion problematisch ist. Außer für Test beim Compilerbau hat die Funktion keinen praktischen Nutzen und wird nur in der theoretischen Informatik verwendet.
 
-Erklärung der Ackermann-Fuktion (englisch, bitte auch Beschreibung beachten. Es gibt dort noch eine Fortsetzung): https://youtu.be/i7sm9dzFtEI
-Erklärung (deutsch, Beweisführung müsst Ihr nicht beachten): https://youtu.be/VZz7m91XxoM
-Computersimulation der Ackermann-Fuktion: http://www.gfredericks.com/sandbox/arith/ackermann
+Erklärung der Ackermann-Fuktion (englisch, bitte auch Beschreibung beachten. Es gibt dort noch eine Fortsetzung): [https://youtu.be/i7sm9dzFtEI]
+Erklärung (deutsch, Beweisführung müsst Ihr nicht beachten): [https://youtu.be/VZz7m91XxoM]
+Computersimulation der Ackermann-Fuktion: [http://www.gfredericks.com/sandbox/arith/ackermann]
 
 Beispiel in Python:
 
@@ -83,7 +85,7 @@ A(0,6)
 
 
 * Aufgabe 2 - Gruppe 2
-Lade bitte das pdf von http://www.wired.com/images_blogs/threatlevel/2010/12/ANONOPS_The_Press_Release.pdf herunter.
+Lade bitte das pdf von [http://www.wired.com/images_blogs/threatlevel/2010/12/ANONOPS_The_Press_Release.pdf] herunter.
 Fürhre aus das PDF das folgende Skript aus:
 #+name: WLAN
 #+begin_src python :export both 
@@ -129,6 +131,7 @@ Aufagbe:
 - Worum geht es in dem PDF? Erkundige Dich nach der Geschichte.
 - Stelle die Funktionsweise de Programms dar.
 
+
 * Aufgabe 3 - Shadow - FERTIG
 
 Die Passwörter der Benutzer werden in der Datei /etc/shadow abgelegt. Zu beachten ist, dass die Passwörter als Hash abgelegt werden und daher es durchaus möglich ist mehrere Passwörter den gleichen Hash generieren.
@@ -149,7 +152,10 @@ sudo apt-get install python3-passlib
 
 Passwörter werden in der Datei /etc/shadow abgelegt. Die Zeile für den User fbs sieht dann wie folgt aus:
 
+#+BEGIN_SRC bash 
 fbs:$6$F3paVtSt$YhQiVqcS9uafpq9rqV4bCuntnJu6Zo/GEKKNTvzu25hnqmXgZqnHHgKU6napyoeL7WlAU3TMD9erwRyasjLPf/:16954:0:99999:7:::
+#+END_SRC
+
 
 fbs ist der Benutzername. $6$ ist der Algorithmus, dabei sind folgende Einträge möglich:
 
@@ -205,7 +211,7 @@ Dann sollen die Passwörter der Reihe nach durchgetestet werden.
 Hinweis:
 
 #+name: passwd_cracker
-#+begin_src python :export both 
+#+BEGIN_SRC python :export both 
 # -*- coding: utf-8 -*-
 your_list = 'abcdefghijklmnopqrstuvwxyz'
 complete_list = []
@@ -215,12 +221,13 @@ for current in range(2):
         a = [x+i for i in your_list for x in a]
     complete_list = complete_list+a
 print(complete_list)
-#+end_src
+#+END_SRC
 
 #+RESULTS: passwd_cracker
 #+begin_example
 ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'aa', 'ba', 'ca', 'da', 'ea', 'fa', 'ga', 'ha', 'ia', 'ja', 'ka', 'la', 'ma', 'na', 'oa', 'pa', 'qa', 'ra', 'sa', 'ta', 'ua', 'va', 'wa', 'xa', 'ya', 'za', 'ab', 'bb', 'cb', 'db', 'eb', 'fb', 'gb', 'hb', 'ib', 'jb', 'kb', 'lb', 'mb', 'nb', 'ob', 'pb', 'qb', 'rb', 'sb', 'tb', 'ub', 'vb', 'wb', 'xb', 'yb', 'zb', 'ac', 'bc', 'cc', 'dc', 'ec', 'fc', 'gc', 'hc', 'ic', 'jc', 'kc', 'lc', 'mc', 'nc', 'oc', 'pc', 'qc', 'rc', 'sc', 'tc', 'uc', 'vc', 'wc', 'xc', 'yc', 'zc', 'ad', 'bd', 'cd', 'dd', 'ed', 'fd', 'gd', 'hd', 'id', 'jd', 'kd', 'ld', 'md', 'nd', 'od', 'pd', 'qd', 'rd', 'sd', 'td', 'ud', 'vd', 'wd', 'xd', 'yd', 'zd', 'ae', 'be', 'ce', 'de', 'ee', 'fe', 'ge', 'he', 'ie', 'je', 'ke', 'le', 'me', 'ne', 'oe', 'pe', 'qe', 're', 'se', 'te', 'ue', 've', 'we', 'xe', 'ye', 'ze', 'af', 'bf', 'cf', 'df', 'ef', 'ff', 'gf', 'hf', 'if', 'jf', 'kf', 'lf', 'mf', 'nf', 'of', 'pf', 'qf', 'rf', 'sf', 'tf', 'uf', 'vf', 'wf', 'xf', 'yf', 'zf', 'ag', 'bg', 'cg', 'dg', 'eg', 'fg', 'gg', 'hg', 'ig', 'jg', 'kg', 'lg', 'mg', 'ng', 'og', 'pg', 'qg', 'rg', 'sg', 'tg', 'ug', 'vg', 'wg', 'xg', 'yg', 'zg', 'ah', 'bh', 'ch', 'dh', 'eh', 'fh', 'gh', 'hh', 'ih', 'jh', 'kh', 'lh', 'mh', 'nh', 'oh', 'ph', 'qh', 'rh', 'sh', 'th', 'uh', 'vh', 'wh', 'xh', 'yh', 'zh', 'ai', 'bi', 'ci', 'di', 'ei', 'fi', 'gi', 'hi', 'ii', 'ji', 'ki', 'li', 'mi', 'ni', 'oi', 'pi', 'qi', 'ri', 'si', 'ti', 'ui', 'vi', 'wi', 'xi', 'yi', 'zi', 'aj', 'bj', 'cj', 'dj', 'ej', 'fj', 'gj', 'hj', 'ij', 'jj', 'kj', 'lj', 'mj', 'nj', 'oj', 'pj', 'qj', 'rj', 'sj', 'tj', 'uj', 'vj', 'wj', 'xj', 'yj', 'zj', 'ak', 'bk', 'ck', 'dk', 'ek', 'fk', 'gk', 'hk', 'ik', 'jk', 'kk', 'lk', 'mk', 'nk', 'ok', 'pk', 'qk', 'rk', 'sk', 'tk', 'uk', 'vk', 'wk', 'xk', 'yk', 'zk', 'al', 'bl', 'cl', 'dl', 'el', 'fl', 'gl', 'hl', 'il', 'jl', 'kl', 'll', 'ml', 'nl', 'ol', 'pl', 'ql', 'rl', 'sl', 'tl', 'ul', 'vl', 'wl', 'xl', 'yl', 'zl', 'am', 'bm', 'cm', 'dm', 'em', 'fm', 'gm', 'hm', 'im', 'jm', 'km', 'lm', 'mm', 'nm', 'om', 'pm', 'qm', 'rm', 'sm', 'tm', 'um', 'vm', 'wm', 'xm', 'ym', 'zm', 'an', 'bn', 'cn', 'dn', 'en', 'fn', 'gn', 'hn', 'in', 'jn', 'kn', 'ln', 'mn', 'nn', 'on', 'pn', 'qn', 'rn', 'sn', 'tn', 'un', 'vn', 'wn', 'xn', 'yn', 'zn', 'ao', 'bo', 'co', 'do', 'eo', 'fo', 'go', 'ho', 'io', 'jo', 'ko', 'lo', 'mo', 'no', 'oo', 'po', 'qo', 'ro', 'so', 'to', 'uo', 'vo', 'wo', 'xo', 'yo', 'zo', 'ap', 'bp', 'cp', 'dp', 'ep', 'fp', 'gp', 'hp', 'ip', 'jp', 'kp', 'lp', 'mp', 'np', 'op', 'pp', 'qp', 'rp', 'sp', 'tp', 'up', 'vp', 'wp', 'xp', 'yp', 'zp', 'aq', 'bq', 'cq', 'dq', 'eq', 'fq', 'gq', 'hq', 'iq', 'jq', 'kq', 'lq', 'mq', 'nq', 'oq', 'pq', 'qq', 'rq', 'sq', 'tq', 'uq', 'vq', 'wq', 'xq', 'yq', 'zq', 'ar', 'br', 'cr', 'dr', 'er', 'fr', 'gr', 'hr', 'ir', 'jr', 'kr', 'lr', 'mr', 'nr', 'or', 'pr', 'qr', 'rr', 'sr', 'tr', 'ur', 'vr', 'wr', 'xr', 'yr', 'zr', 'as', 'bs', 'cs', 'ds', 'es', 'fs', 'gs', 'hs', 'is', 'js', 'ks', 'ls', 'ms', 'ns', 'os', 'ps', 'qs', 'rs', 'ss', 'ts', 'us', 'vs', 'ws', 'xs', 'ys', 'zs', 'at', 'bt', 'ct', 'dt', 'et', 'ft', 'gt', 'ht', 'it', 'jt', 'kt', 'lt', 'mt', 'nt', 'ot', 'pt', 'qt', 'rt', 'st', 'tt', 'ut', 'vt', 'wt', 'xt', 'yt', 'zt', 'au', 'bu', 'cu', 'du', 'eu', 'fu', 'gu', 'hu', 'iu', 'ju', 'ku', 'lu', 'mu', 'nu', 'ou', 'pu', 'qu', 'ru', 'su', 'tu', 'uu', 'vu', 'wu', 'xu', 'yu', 'zu', 'av', 'bv', 'cv', 'dv', 'ev', 'fv', 'gv', 'hv', 'iv', 'jv', 'kv', 'lv', 'mv', 'nv', 'ov', 'pv', 'qv', 'rv', 'sv', 'tv', 'uv', 'vv', 'wv', 'xv', 'yv', 'zv', 'aw', 'bw', 'cw', 'dw', 'ew', 'fw', 'gw', 'hw', 'iw', 'jw', 'kw', 'lw', 'mw', 'nw', 'ow', 'pw', 'qw', 'rw', 'sw', 'tw', 'uw', 'vw', 'ww', 'xw', 'yw', 'zw', 'ax', 'bx', 'cx', 'dx', 'ex', 'fx', 'gx', 'hx', 'ix', 'jx', 'kx', 'lx', 'mx', 'nx', 'ox', 'px', 'qx', 'rx', 'sx', 'tx', 'ux', 'vx', 'wx', 'xx', 'yx', 'zx', 'ay', 'by', 'cy', 'dy', 'ey', 'fy', 'gy', 'hy', 'iy', 'jy', 'ky', 'ly', 'my', 'ny', 'oy', 'py', 'qy', 'ry', 'sy', 'ty', 'uy', 'vy', 'wy', 'xy', 'yy', 'zy', 'az', 'bz', 'cz', 'dz', 'ez', 'fz', 'gz', 'hz', 'iz', 'jz', 'kz', 'lz', 'mz', 'nz', 'oz', 'pz', 'qz', 'rz', 'sz', 'tz', 'uz', 'vz', 'wz', 'xz', 'yz', 'zz']
 #+end_example
+
 
 * Aufgabe 4 - WLAN unter Windows
 Das Programm untersucht alle auf einem Windows-PC abgespeicherten WLAN-Netzwerke und gibt die entsprechende Ort aus um ein Bewegungsprofil des Nutzers anzulegen.
@@ -228,7 +235,7 @@ Das Programm untersucht alle auf einem Windows-PC abgespeicherten WLAN-Netzwerke
 Bitte führe das Programm aus (auf einem Windows-Computer). Notiere Dir bitte die Version des Betriebssystems. Bei erfolgreicher Ausführung erkläre bitte seine Funktion. Im Fehlerfalle bitte eine E-Mail an mich.
 
 #+name: WLAN
-#+begin_src python :export both 
+#+BEGIN_SRC python :export both 
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
@@ -311,40 +318,81 @@ def main():
 
 if __name__ == '__main__':
     main()
+#+END_SRC 
 
-#+begin_src 
 * Aufgabe 5 - ZIP
 Erstellen einer Zip-Datei unter Unix mit Passwort:
 #+name: zip1
 #+begin_src bash :export  both                                                                                                                                             
-zip --encrypt file.zip files
-#+end_src
+zip --encrypt evil.zip evil.txt
+#+END_SRC
+
+#+RESULTS: zip1
+
 oder
+
 #+name: zip2
-#+begin_src bash :export both 
-zip --password (password) file.zip files
-#+end_src
+#+BEGIN_SRC bash
+zip --password (password) evil.zip files
+#+END_SRC
 
 Die Zip-Datei evil.zip wurde mit dem Passwort ASCII erstellt. In der Zip-Datei ist eine Datei mit dem Namen 'evil.py' enthalten.
 Eine Zip-Datei entpacken:
 
 #+name: zip_entpacken
-#+BEGIN_SRC python: export both
+#+BEGIN_SRC python
 import zipfile
 zFile = zipfile.ZipFile("evil.zip")
-zFile.extractall(pwd=b"ASCII")
+zFile.extractall(pwd="ASCII")
 #+END_SRC
 
+#+RESULTS: zip_entpacken
+
 Entpacken mit flaschem Passwort und abfangen des Fehlers. Fehlermeldung wird ausgegeben.
-#+namw_ zip_fehler 
+#+name: zip_fehler 
 #+BEGIN_SRC python
 import zipfile
 import sys
 zFile = zipfile.ZipFile("evil.zip")
 try:
-    zFile.extractall(pwd=b"bloedsinn")
+    zFile.extractall(pwd="bloedsinn")
 except:
         print(sys.exc_info()[0])
 #+END_SRC
 
+#+RESULTS:
+#+begin_example
+<type 'exceptions.RuntimeError'>
+#+end_example
+
 Entpacken mit Passwörtern aus einer Datei:
+
+#+NAME zip_datei
+#+BEGIN_SRC python
+
+import zipfile
+import sys
+
+def entpackeDatei(zFile, passwort):
+    try:
+        zFile.extractall(pwd=passwort)
+	return password
+    except:
+        return
+
+def main():
+    zFile = zipFile.ZipFile('evil.zip')
+    passFile = open('German.dic')
+    for line in passFile.readline():
+        password = line.strip('\n')
+	versuch = extractFile(zFile, password)
+    if versuch:
+        print("[+] Passwort = "+passwort+"\n")
+	exit(0)
+
+main()
+
+#+END_SRC
+
+#+RESULTS:
+
