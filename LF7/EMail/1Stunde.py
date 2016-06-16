@@ -7,7 +7,7 @@ print("Kopiere: .my.cnf kann das Passwort und Benutzername von MySQL-Nutzern hin
 cmd1 = os.system("cp my.cnf ~/.my.cnf") 
 # Update Upgrade
 print("Update und Upgrade des Betriebssystems")
-print("Namen "mail" für den Server festlegen")
+print("Namen 'mail' für den Server festlegen")
 cmd1 = os.system("echo 'mail' > /etc/hostname")
 datei = open("/etc/hosts, "w")
     datei.write("127.0.0.1 mail.mysystems.tld mail localhost.localdomain localhost\n")
