@@ -4,7 +4,7 @@ import os, subprocess
 import sys, traceback
 import crypt
 print("Kopiere: .my.cnf kann das Passwort und Benutzername von MySQL-Nutzern hinterlegt werden. Achtung: Sicherheitsrisiko!")
-cp my.cnf ~/.my.cnf 
+cmd1 = os.system("cp my.cnf ~/.my.cnf") 
 # Update Upgrade
 print("Update und Upgrade des Betriebssystems")
 cmd1 = os.system("apt-get update -qq && sudo apt-get upgrade -y -qq")
