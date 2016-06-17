@@ -1,24 +1,21 @@
 import zipfile
 import sys
+from threading import Thread
 zFile = zipfile.ZipFile("evil.zip")
 
 def entpackeDatei(zFile, passwort):
     try:
         zFile.extractall(pwd=passwort)
-#        print("[-]"+passwort)
-        return passwort
+        print("[+]"+passwort+"\n")
     except:
-#        print(passwort+"\n")
-        return
+        print("[]"+passwort+"\n")
+        pass
 
 def main():
     passFile = open('German.dic')
     for line in passFile:
         passwort = line.rstrip()
-#        print("Passwort: "+passwort)
-        versuch = entpackeDatei(zFile, passwort)
-        if versuch:
-            print("[+] Passwort = "+passwort+"\n")
-            exit(0)
+        t =Thread(target= entpackeDatei, args =(zFile, passwort))
+        t.start()
 
 main()
