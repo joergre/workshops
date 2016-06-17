@@ -372,27 +372,34 @@ Entpacken mit Passwörtern aus einer Datei:
 
 import zipfile
 import sys
+zFile = zipfile.ZipFile("evil.zip")
 
 def entpackeDatei(zFile, passwort):
     try:
         zFile.extractall(pwd=passwort)
-	return password
+#        print("[-]"+passwort)
+        return passwort
     except:
+#        print(passwort+"\n")
         return
 
 def main():
-    zFile = zipFile.ZipFile('evil.zip')
     passFile = open('German.dic')
-    for line in passFile.readline():
-        password = line.strip('\n')
-	versuch = extractFile(zFile, password)
-    if versuch:
-        print("[+] Passwort = "+passwort+"\n")
-	exit(0)
+    for line in passFile:
+        passwort = line.rstrip()
+#        print("Passwort: "+passwort)
+        versuch = entpackeDatei(zFile, passwort)
+        if versuch:
+            print("[+] Passwort = "+passwort+"\n")
+            exit(0)
 
 main()
 
 #+END_SRC
 
 #+RESULTS:
+#+begin_example
+[+] Passwort = ASCII
+
+#+end_example
 
