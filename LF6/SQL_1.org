@@ -1,0 +1,169 @@
+* Einführung
+* Dr. Codds 12 Regeln
+We owe to Dr. Edgar F. Codd the concept of the relational model, from his 1970
+paper A Relational Model of Data for Large Shared Data Banks ( http://www.acm.
+org/classics/nov95/toc.html ). Dr. Codd later explained his model by defining
+a set of rules – the so-called Codd's Twelve rules ( http://en.wikipedia.org/
+wiki/Codd%27s_12_rules ). An ideal database management system (DBMS) would
+implement all those rules, but few if any do.
+
+* Beispiel
+Wir erstellen die Datenbank für ein Computergeschäft. Das Geschäft heißt "Fredy Braun Software" oder Abgekürzt FBS. Wir fangen an mit dem erfassen der Verkauften Hardware.
+
+Wir bekommen folgende Tabelle zur Verfügung gestellt:
+| Verkäufer     | Zeitraum       | Hersteller | Typ-Nummer | Bezeichnung und Jahr | Anzahl |
+|---------------+----------------+------------+------------+----------------------+--------|
+| Müller, Erwin | August 2016    | DELL       |            |                      |      3 |
+| Müller, Erwin | August 2016    | IBM        |            |                      |      7 |
+| Müller, Erwin | September 2016 | HP         |            |                      |      4 |
+| Baier, Klaus  | August 2016    | HP         |            |                      |      1 |
+| Baier, Klaus  | August 2016    | DELL       |            |                      |      1 |
+| Baier, Klaus  | September 2016 | SGI        |            |                      |      6 |
+
+Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
+| verkaeufer | hersteller | typ_nummer | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
+|------------+------------+------------+------------------+-------------+-------------|
+|            |            |            |                  |             |             |
+
+
+Um die Tabelle anlegen zu können müssen wir zerst eine Datenbank anlegen. Dies können wir entweder über die Weboberfläche phpMyAdmin machen oder aber über die Kommandozeile mit dem Befehl mysql -u root -pfbs. 
+
+Der Befehl dazu lautet:
+#+BEGIN_SRC SQL
+create database fbs;
+#+END_SRC
+
+Dann müssen wir die Datenbank zur Benutzung auswählen. Dies geschieht mit:
+#+BEGIN_SRC SQL
+use fbs;
+#+END_SRC
+
+und das Anlegen der Tabelle dann mit dem Befehl:
+#+BEGIN_SRC SQL
+CREATE TABLE verkauf (
+verkaeufer char(40) NOT NULL,
+hersteller char(40) NOT NULL,
+typ_nummer char(40) NOT NULL,
+bezeichnung_jahr char(40) NOT NULL,
+qtj_2016_08 int(11) NOT NULL,
+qtj_2016_09 int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+#+END_SRC
+geht auch utf statt latin1?
+
+Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
+#+BEGIN_SRC SQL
+INSERT INTO sales VALUES ('Müller, Erwin', 'DELL', '1A8','Mitsou 2007', 3 |
+| Müller, Erwin | August 2016    | IBM        |            |                      |      7 |
+| Müller, Erwin | September 2016 | HP         |            |                      |      4 |
+| Baier, Klaus  | August 2016    | HP         |            |                      |      1 |
+| Baier, Klaus  | August 2016    | DELL       |            |                      |      1 |
+| Baier, Klaus  | September 2016 | SGI        |            |                      |      6 |
+
+Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
+| verkaeufer | hersteller | typ_nummer | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
+|------------+------------+------------+------------------+-------------+-------------|
+|            |            |            |                  |             |             |
+
+
+Um die Tabelle anlegen zu können müssen wir zerst eine Datenbank anlegen. Dies können wir entweder über die Weboberfläche phpMyAdmin machen oder aber über die Kommandozeile mit dem Befehl mysql -u root -pfbs. 
+
+Der Befehl dazu lautet:
+#+BEGIN_SRC SQL
+create database fbs;
+#+END_SRC
+
+Dann müssen wir die Datenbank zur Benutzung auswählen. Dies geschieht mit:
+#+BEGIN_SRC SQL
+use fbs;
+#+END_SRC
+
+und das Anlegen der Tabelle dann mit dem Befehl:
+#+BEGIN_SRC SQL
+CREATE TABLE verkauf (
+verkaeufer char(40) NOT NULL,
+hersteller char(40) NOT NULL,
+typ_nummer char(40) NOT NULL,
+bezeichnung_jahr char(40) NOT NULL,
+qtj_2016_08 int(11) NOT NULL,
+qtj_2016_09 int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+#+END_SRC
+geht auch utf statt latin1?
+
+Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
+
+| Verkäufer     | Zeitraum       | Hersteller | Typ | Bezeichnung und Jahr | Anzahl |
+|---------------+----------------+------------+-----+----------------------+--------|
+| Müller, Erwin | August 2016    | HP         |     |                      |      7 |
+| Müller, Erwin | August 2016    | DELL       |     |                      |      8 |
+| Müller, Erwin | September 2016 | DELL       |     |                      |      1 |
+| Müller, Erwin | September 2016 | HP         |     |                      |      4 |
+| Baier, Klaus  | August 2016    | HP         |     |                      |      1 |
+| Baier, Klaus  | August 2016    | DELL       |     |                      |      1 |
+| Baier, Klaus  | September 2016 | SGI        |     |                      |      6 |
+
+Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
+
+| verkaeufer    | hersteller | typ_nummer | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
+|---------------+------------+------------+------------------+-------------+-------------|
+| Müller, Erwin | HP         |            |                  |           7 |           4 |
+| Müller, Erwin |            |            |                  |             |             |
+| Baier, Klaus  |            |            |                  |             |             |
+| Baier, Klaus  |            |            |                  |             |             |
+| Baier, Klaus  |            |            |                  |             |             |
+|               |            |            |                  |             |             |
+
+** Aufgabe:  
+Bitte fülle die Tabelle vollständig aus.
+ 
+Um die Tabelle anlegen zu können müssen wir zerst eine Datenbank anlegen. Dies können wir entweder über die Weboberfläche phpMyAdmin machen oder aber über die Kommandozeile mit dem Befehl mysql -u root -pfbs. 
+
+Der Befehl dazu lautet:
+#+BEGIN_SRC SQL
+create database fbs;
+#+END_SRC
+
+Dann müssen wir die Datenbank zur Benutzung auswählen. Dies geschieht mit:
+#+BEGIN_SRC SQL
+use fbs;
+#+END_SRC
+
+und das Anlegen der Tabelle dann mit dem Befehl:
+#+BEGIN_SRC SQL
+CREATE TABLE verkauf (
+verkaeufer char(40) NOT NULL,
+hersteller char(40) NOT NULL,
+typ_nummer char(40) NOT NULL,
+bezeichnung_jahr char(40) NOT NULL,
+qtj_2016_08 int(11) NOT NULL,
+qtj_2016_09 int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+#+END_SRC
+* TODO
+geht auch utf statt latin1?
+
+Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
+
+#+BEGIN_SRC SQL
+INSERT INTO sales VALUES ('Müller, Erwin', 'HP', '1A8','Mitsou 2007',7 , 4);
+#+END_SRC 
+
+** Aufgabe:
+Bitte trage die restlichen Zeilen, aus der Tabelle oben, ebenfalls in die Tabelle ein.
+
+** Probleme der Struktur
+In welcher Spalte speichern wir die Werte vom Oktober und November ab?
+
+Die anderen Probleme ergeben sich, wenn wir ein wenig mit der Tabelle herum spielen.
+
+* Max verkauf pro Verkäufer im August
+Wir wollen uns den maximalen Verkauf (in Stück) eines Computers pro Verkäufer im August anzeigen lassen.
+
+#+BEGIN_SRC SQL
+SELECT verkauf, max(qtj_2006_08)
+FROM verkauf
+GROUP BY verkaeufer
+#+END_SRC
+
+* Durchschnittliche Anzahl der Verkäufe pro Modell
