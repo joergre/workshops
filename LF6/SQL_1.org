@@ -93,26 +93,27 @@ geht auch utf statt latin1?
 
 Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
 
-| Verkäufer     | Zeitraum       | Hersteller | Typ | Bezeichnung und Jahr | Anzahl |
-|---------------+----------------+------------+-----+----------------------+--------|
-| Müller, Erwin | August 2016    | HP         |     |                      |      7 |
-| Müller, Erwin | August 2016    | DELL       |     |                      |      8 |
-| Müller, Erwin | September 2016 | DELL       |     |                      |      1 |
-| Müller, Erwin | September 2016 | HP         |     |                      |      4 |
-| Baier, Klaus  | August 2016    | HP         |     |                      |      1 |
-| Baier, Klaus  | August 2016    | DELL       |     |                      |      1 |
-| Baier, Klaus  | September 2016 | SGI        |     |                      |      6 |
+| Verkäufer     | Zeitraum       | Hersteller | Typ         | Bezeichnung und Jahr | Anzahl |
+|---------------+----------------+------------+-------------+----------------------+--------|
+| Müller, Erwin | August 2016    | HP         | Workstation | Z840 2016            |      7 |
+| Müller, Erwin | August 2016    | DELL       | Workstation | Precision 7910 2015  |      8 |
+| Müller, Erwin | September 2016 | DELL       | Workstation | Precision 7910 2015  |      1 |
+| Müller, Erwin | September 2016 | HP         | Server      | Z840 2016            |      4 |
+| Baier, Klaus  | August 2016    | HP         | Server      | Apollo 6500    2016  |      1 |
+| Baier, Klaus  | August 2016    | DELL       | Workstation | Precison 7910  2016  |      1 |
+| Baier, Klaus  | September 2016 | IBM        | Server      | Power E880     2016  |      6 |
+| Baier, Klaus  | September 2016 | HP         | Server      | Apollo 6500          |      2 |
 
 Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
 
-| verkaeufer    | hersteller | typ_nummer | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
-|---------------+------------+------------+------------------+-------------+-------------|
-| Müller, Erwin | HP         |            |                  |           7 |           4 |
-| Müller, Erwin |            |            |                  |             |             |
-| Baier, Klaus  |            |            |                  |             |             |
-| Baier, Klaus  |            |            |                  |             |             |
-| Baier, Klaus  |            |            |                  |             |             |
-|               |            |            |                  |             |             |
+| verkaeufer    | hersteller | typx        | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
+|---------------+------------+-------------+------------------+-------------+-------------|
+| Müller, Erwin | HP         | Workstation | Z840 2016        |           7 |           4 |
+| Müller, Erwin | DELL       | Workstation | Precison 7910    |           8 |           1 |
+| Baier, Klaus  | HP         | Server      | Apollo 6500      |           1 |           2 |
+| Baier, Klaus  | DELL       | Workstation | Precision 7910   |           1 |           1 |
+| Baier, Klaus  | IBM        | Server      | Power E880       |           0 |           6 |
+|                                                                                         |
 
 ** Aufgabe:  
 Bitte fülle die Tabelle vollständig aus.
