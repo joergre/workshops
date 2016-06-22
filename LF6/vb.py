@@ -55,7 +55,7 @@ try:
     cmd1 = os.system("apt-get install -qq --allow-unauthenticated dkms >> vb.log")
 #    cmd1 = os.system ("wget -q http://download.virtualbox.org/virtualbox/5.0.16/Oracle_VM_VirtualBox_Extension_Pack-5.0.16.vbox-extpack")
 #    cmd1 = os.system("VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.0.16.vbox-extpack >>vb.log")
-    version = subprocess.check_output(("vboxmanage -v", shell = True)
+    version = subprocess.check_output("vboxmanage -v", shell = True)
     version = str(version, 'utf-8').strip()
     version = version.split('r')
     version = version[0] 
