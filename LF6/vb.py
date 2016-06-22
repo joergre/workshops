@@ -20,12 +20,12 @@ password = input("Bitte geben Sie das Passwort für den Benutzer vbox ein:")
 pass1 = "'"+password+"'"
 print("UPDATE")
 try:
-    cmd1 = os.system("apt-get update > vb.log && sudo apt-get upgrade -y >> vb.log")
+    cmd1 = os.system("apt-get -y -qq update && sudo apt-get -y -qq upgrade")
 except:
     print("Update fehlgeschlagen!")
 try:
     print("Installation von einigen Basisprogrammen")
-    cmd1 = os.system("apt -y install screen emacs wget python-software-properties >> vb.log")
+    cmd1 = os.system("apt -y -qq install screen emacs wget python-software-properties")
 except:
     print("Installation fehlgeschlagen")
 try:
@@ -39,7 +39,7 @@ try:
         cmd1 = os.system("wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -")
     else:
         cmd1 = os.system("wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -")    
-    cmd1 = os.system("apt-get update >> vb.log")
+    cmd1 = os.system("apt-get -qq update")
 except:
     print("Repository hinzufügen fehlgeschlagen")
     print("Unexpected error:", sys.exc_info()[0])
@@ -48,12 +48,15 @@ try:
     print("Instalation VirtualBox")
     output = subprocess.check_output("uname -r", shell = True)
     Kernel = str(output, 'utf-8').strip()
-    cmd1 = os.system("apt-get install -y linux-headers-"+Kernel)
-    cmd1 = os.system("apt-get install -y build-essential virtualbox-5.0 dkms >> vb.log")
-    cmd1 = os.system("apt-get install -y --allow-unauthenticated virtualbox-5.0 >> vb.log")
-    cmd1 = os.system("apt-get install -y --allow-unauthenticated dkms >> vb.log")
-    cmd1 = os.system ("wget http://download.virtualbox.org/virtualbox/5.0.16/Oracle_VM_VirtualBox_Extension_Pack-5.0.16.vbox-extpack >>vb.log")
-    cmd1 = os.system("VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.0.16.vbox-extpack >>vb.log")
+    cmd1 = os.system("apt-get install -y -qq linux-headers-"+Kernel)
+    cmd1 = os.system("apt-get install -y -qq build-essential virtualbox-5.0 dkms")
+    cmd1 = os.system("apt-get install -y -qq --allow-unauthenticated virtualbox-5.0")
+    cmd1 = os.system("apt-get install -y -qq --allow-unauthenticated dkms >> vb.log")
+#    cmd1 = os.system ("wget -q http://download.virtualbox.org/virtualbox/5.0.16/Oracle_VM_VirtualBox_Extension_Pack-5.0.16.vbox-extpack")
+#    cmd1 = os.system("VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.0.16.vbox-extpack >>vb.log")
+    version = os.system("vboxmanage -v")
+    
+
     encPass = crypt.crypt(password,"22")
     cmd1 = os.system("useradd -m -p "+encPass+" vbox -G vboxusers")
 except:
@@ -70,23 +73,23 @@ except:
 try:
     print("Web-Server installieren ..")
     if lsb == "xenial":
-        cmd1 = os.system("apt-get -y install php7.0 apache2-utils >> vb.log")
-        cmd1 = os.system("apt-get -y install php7.0-mysql >> vb.log")
-        cmd1 = os.system("apt-get -y install apache2 >> vb.log")
-        cmd1 = os.system("apt-get -y install apache2-utils >> vb.log")
+        cmd1 = os.system("apt-get -y -qq install php7.0 apache2-utils")
+        cmd1 = os.system("apt-get -y -qq install php7.0-mysql")
+        cmd1 = os.system("apt-get -y -qq install apache2")
+        cmd1 = os.system("apt-get -y -qq install apache2-utils")
 # Neues Modul ab Ubuntu 16.04: https://sourceforge.net/p/phpvirtualbox/discussion/help/thread/ae25b8e7/
-        cmd1 = os.system("apt-get -y install php7.0-xml >> vb.log")
-        cmd1 = os.system("apt-get -y install php-soap >>vb.log")
-        cmd1 = os.system("apt-get -y install php7.0-soap >> vb.log")
-        cmd1 = os.system("apt-get -y install libapache2-mod-php >> vb.log")
+        cmd1 = os.system("apt-get -y -qq install php7.0-xml")
+        cmd1 = os.system("apt-get -y -qq install php-soap")
+        cmd1 = os.system("apt-get -y -qq install php7.0-soap")
+        cmd1 = os.system("apt-get -y -qq install libapache2-mod-php")
     else:
-        cmd1 = os.system("apt-get -y install php5 php5-mysql >> vb.log")
-        cmd1 = os.system("apt-get -y install apache2 >> vb.log")
-        cmd1 = os.system("apt-get -y install apache2-utils >> vb.log")
-        cmd1 = os.system("apt-get -y install php5-mysql >> vb.log")
-    cmd1 = os.system("wget 'http://sourceforge.net/projects/phpvirtualbox/files/latest/download' --content-disposition >> vb.log")
-    cmd1 = os.system ("apt-get -y install unzip >> vb.log")
-    cmd1 = os.system("unzip -o phpvirtualbox-5.0-5.zip -d /var/www/html >> vb.log")
+        cmd1 = os.system("apt-get -y -qq install php5 php5-mysql")
+        cmd1 = os.system("apt-get -y -qq install apache2")
+        cmd1 = os.system("apt-get -y -qq install apache2-utils")
+        cmd1 = os.system("apt-get -y -qq install php5-mysql")
+    cmd1 = os.system("wget -q 'http://sourceforge.net/projects/phpvirtualbox/files/latest/download' --content-disposition")
+    cmd1 = os.system ("apt-get -y -qq install unzip")
+    cmd1 = os.system("unzip -qq -o phpvirtualbox-5.0-5.zip -d /var/www/htm")
     cmd1 = os.system("ln -s /var/www/html/phpvirtualbox-5.0-5 /var/www/html/phpvirtualbox")
     cmd1 = os.system("chown -R www-data.www-data /var/www")
     cmd1 = os.system("service vboxweb-service stop")
