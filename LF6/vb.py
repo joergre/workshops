@@ -93,7 +93,7 @@ try:
         cmd1 = os.system("apt-get -q -y install php5-mysql")
     cmd1 = os.system("wget -q 'http://sourceforge.net/projects/phpvirtualbox/files/latest/download' --content-disposition")
     cmd1 = os.system ("apt-get -q -y install unzip")
-    cmd1 = os.system("unzip -q -y -o phpvirtualbox-5.0-5.zip -d /var/www/htm")
+    cmd1 = os.system("unzip -q -o phpvirtualbox-5.0-5.zip -d /var/www/html")
     cmd1 = os.system("ln -s /var/www/html/phpvirtualbox-5.0-5 /var/www/html/phpvirtualbox")
     cmd1 = os.system("chown -R www-data.www-data /var/www")
     cmd1 = os.system("service vboxweb-service stop")
