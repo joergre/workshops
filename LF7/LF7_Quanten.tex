@@ -1,0 +1,115 @@
+% Created 2016-08-02 Di 07:09
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\author{Jörg Reuter}
+\date{\{time(\%Y-\%m-\%d \%H:\%M:\%S)\}}
+\title{Einführung in die Quantencomputer}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.3.1 (Org mode 8.2.4)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section*{Einführung in Docker}
+\label{sec-1}
+\subsection*{Warum Docker}
+\label{sec-1-1}
+Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ
+
+
+
+Wir laden das Image von Ubuntu 14.04 herunter:
+
+Anzeige der lokal vorhanden Images:
+
+\label{local_Images}
+\begin{verbatim}
+docker images
+\end{verbatim}
+
+Zugriff auf die Shell
+
+\label{dockerrun}
+\begin{verbatim}
+docker run -t -i ubuntu:14.04 bash
+\end{verbatim}
+
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+\label{dockerps}
+\begin{verbatim}
+docker ps
+\end{verbatim}
+
+um sich den Namen des laufenden Docker Container anzeigen zu lassen 
+Docker Container anhalten (hungy$_{\text{euklid}}$ ist der Name der jeweiligen Maschine):
+
+\label{docker-stop}
+\begin{verbatim}
+docker stop hungry_euclid
+\end{verbatim}
+
+Gestoppten Container neu starten:
+
+\label{dockerstart}
+\begin{verbatim}
+docker start -i hungry_euclid
+\end{verbatim}
+
+Container löschen:
+
+\label{dockerloeschen}
+\begin{verbatim}
+docker stop hungry_euclid
+docker rm hungry_euclid
+\end{verbatim}
+
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d --name nginx nginx
+
+\label{dockerpss}
+\begin{verbatim}
+docker ps -s
+\end{verbatim}
+
+Alle laufenden und gestoppten Container löschen:
+
+\label{dockerdelete}
+\begin{verbatim}
+docker ps -qa|xargs docker rm -f
+\end{verbatim}
+
+
+\section*{Zum Schluss}
+\label{sec-2}
+
+\subsection*{Helfe mir, den Kurs besser zu machen!}
+\label{sec-2-1}
+\begin{itemize}
+\item Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
+\item Der Kurs existiert für Dich -- sage mir, was Du brauchst!
+\item \url{http://goo.gl/forms/04cJw2mtBB}
+\end{itemize}
+\subsection*{Weitere Informationsquellen}
+\label{sec-2-2}
+% Emacs 24.3.1 (Org mode 8.2.4)
+\end{document}

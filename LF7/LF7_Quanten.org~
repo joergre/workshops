@@ -1,0 +1,126 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in die Quantencomputer
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      2016-08-02
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+* Einführung in die Quantenmechanik
+** Lebt die Katze?
+Wir nehmen an, wir haben eine Katze
+#+Caption: Katze
+#+Name: fig:Katze
+[[./images/katze.jpg]]
+
+Wir können jetzt zwei Zustände definieren:
+
+1: Katze Lebt
+
+0: Katze ist Tod
+
+#+Name SocketFehlerbehandlung
+#+begin_src python :export both
+
+und haben hier ein Bit defeniert, wie wir es von Computern gewöhnt sind. Insbesondere nehmen wir an, dass es sowohl für uns wie für die Katze eindeutig ist, in welchem Zustand sich die Katze befindet.
+
+Wir brauchen jetzt eine Methode um die Katze von Zustand 1 in der Zustand 0 zu überführen. Diese Methode nennen wir Blausäure. Wir Konstruieren, um nicht selbst vergiftet zu werden,  einen Mechanismus, der mit Hilfe einer Schnur einen Hammer auslöst. Der Hammer wiederum zerstört ein Glasgefäß und die Blausäure kann entweichen und damit die Katze in den Zustand 0 überführen ohne das wir Gefahr laufen, den Zustand 0 zu erreichen.
+
+#+Caption: Methode Blausäure
+#+Name: Methode Blausäure
+[[./images/blau.png]]
+
+Wir laden das Image von Ubuntu 14.04 herunter:
+
+#+name: setupR
+#+BEGIN_EXAMPLE
+docker pull ubuntu:14.04
+#+END_EXAMPLE
+
+Anzeige der lokal vorhanden Images:
+
+#+name: local_Images
+#+BEGIN_EXAMPLE
+docker images
+#+END_EXAMPLE
+
+Zugriff auf die Shell
+
+#+name: dockerrun
+#+BEGIN_EXAMPLE
+docker run -t -i ubuntu:14.04 bash
+#+END_EXAMPLE
+
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+#+name: dockerps
+#+BEGIN_EXAMPLE
+docker ps
+#+END_EXAMPLE
+
+um sich den Namen des laufenden Docker Container anzeigen zu lassen 
+Docker Container anhalten (hungy_euklid ist der Name der jeweiligen Maschine):
+
+#+name: docker stop
+#+BEGIN_EXAMPLE
+docker stop hungry_euclid
+#+END_EXAMPLE
+
+Gestoppten Container neu starten:
+
+#+name: dockerstart
+#+BEGIN_EXAMPLE
+docker start -i hungry_euclid
+#+END_EXAMPLE
+
+Container löschen:
+
+#+name: dockerloeschen
+#+BEGIN_EXAMPLE
+docker stop hungry_euclid
+docker rm hungry_euclid
+#+END_EXAMPLE
+
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d --name nginx nginx
+
+#+name: dockerpss
+#+BEGIN_EXAMPLE
+docker ps -s
+#+END_EXAMPLE
+
+Alle laufenden und gestoppten Container löschen:
+
+#+name: dockerdelete
+#+BEGIN_EXAMPLE
+docker ps -qa|xargs docker rm -f
+#+END_EXAMPLE
+
+
+
+* Zum Schluss
+
+** Helfe mir, den Kurs besser zu machen!
+- Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
+- Der Kurs existiert für Dich -- sage mir, was Du brauchst! 
+- http://goo.gl/forms/04cJw2mtBB
+
+** Weitere Informationsquellen
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example

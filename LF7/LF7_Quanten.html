@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Einführung in die Quantencomputer</title>
+<!-- 2016-08-02 Di 07:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Jörg Reuter" />
+<link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://gist.githubusercontent.com/joergre/bfe1204da87a7227c13f8064e71dbd02/raw/473932eeff11495e7c7311517507bf648828fe80/readtheorg.js"></script>
+<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../git.png" alt="Fork me on GitHub"></a>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Einführung in die Quantencomputer</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Einführung in die Quantenmechanik</a>
+<ul>
+<li><a href="#sec-1-1">Lebt die Katze?</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Zum Schluss</a>
+<ul>
+<li><a href="#sec-2-1">Helfe mir, den Kurs besser zu machen!</a></li>
+<li><a href="#sec-2-2">Weitere Informationsquellen</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Einführung in die Quantenmechanik</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Lebt die Katze?</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Wir nehmen an, wir haben eine Katze
+</p>
+
+<div id="fig:Katze" class="figure">
+<p><img src="./images/katze.jpg" alt="katze.jpg" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Katze</p>
+</div>
+
+<p>
+Wir können jetzt zwei Zustände definieren:
+</p>
+
+<p>
+1: Katze Lebt
+</p>
+
+<p>
+0: Katze ist Tod
+</p>
+
+<p>
+und haben hier ein Bit defeniert, wie wir es von Computern gewöhnt sind. Insbesondere nehmen wir an, dass es sowohl für uns wie für die Katze eindeutig ist, in welchem Zustand sich die Katze befindet.
+</p>
+
+<p>
+Wir brauchen jetzt eine Methode um die Katze von Zustand 1 in der Zustand 0 zu überführen. Diese Methode nennen wir Blausäure. Wir Konstruieren, um nicht selbst vergiftet zu werden,  einen Mechanismus, der mit Hilfe einer Schnur einen Hammer auslöst. Der Hammer wiederum zerstört ein Glasgefäß und die Blausäure kann entweichen und damit die Katze in den Zustand 0 überführen ohne das wir Gefahr laufen, den Zustand 0 zu erreichen.
+</p>
+
+
+<div id="Methode-Blaus-ure" class="figure">
+<p><img src="./images/blau.png" alt="blau.png" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Methode Blausäure</p>
+</div>
+
+<p>
+Wir laden das Image von Ubuntu 14.04 herunter:
+</p>
+
+<pre class="example">
+docker pull ubuntu:14.04
+</pre>
+
+<p>
+Anzeige der lokal vorhanden Images:
+</p>
+
+<pre class="example">
+docker images
+</pre>
+
+<p>
+Zugriff auf die Shell
+</p>
+
+<pre class="example">
+docker run -t -i ubuntu:14.04 bash
+</pre>
+
+<p>
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+</p>
+<pre class="example">
+docker ps
+</pre>
+
+<p>
+um sich den Namen des laufenden Docker Container anzeigen zu lassen 
+Docker Container anhalten (hungy<sub>euklid</sub> ist der Name der jeweiligen Maschine):
+</p>
+
+<pre class="example">
+docker stop hungry_euclid
+</pre>
+
+<p>
+Gestoppten Container neu starten:
+</p>
+
+<pre class="example">
+docker start -i hungry_euclid
+</pre>
+
+<p>
+Container löschen:
+</p>
+
+<pre class="example">
+docker stop hungry_euclid
+docker rm hungry_euclid
+</pre>
+
+<p>
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d &#x2013;name nginx nginx
+</p>
+
+<pre class="example">
+docker ps -s
+</pre>
+
+<p>
+Alle laufenden und gestoppten Container löschen:
+</p>
+
+<pre class="example">
+docker ps -qa|xargs docker rm -f
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Zum Schluss</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Helfe mir, den Kurs besser zu machen!</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.
+</li>
+<li>Der Kurs existiert für Dich &#x2013; sage mir, was Du brauchst! 
+</li>
+<li><a href="http://goo.gl/forms/04cJw2mtBB">http://goo.gl/forms/04cJw2mtBB</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Weitere Informationsquellen</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p><a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons Lizenzvertrag' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/80x15.png' /></a><br />Dieses Werk ist lizenziert unter einer <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.</p> <p> Zur Verfügung gestellt von  <a href='http://ferdinand-braun-schule.de'> Jörg Reuter - Ferdinand-Braun-Schule Fulda</a> <br></br> <a href='http://ferdinand-braun-schule.de'><img style='margin-left: auto; margin-right: auto;' alt='Ferdinand-Braun-Schule Fulda' title='FBS Logo' src='http://www.ferdinand-braun-schule.de/fileadmin/files/images/Grafiken/FBS_Logo.gif'></img></a></p>
+</div>
+</body>
+</html>
