@@ -1,8 +1,0 @@
-* Einführung
-* Dr. Codds 12 Regeln
-We owe to Dr. Edgar F. Codd the concept of the relational model, from his 1970
-paper A Relational Model of Data for Large Shared Data Banks ( http://www.acm.
-org/classics/nov95/toc.html ). Dr. Codd later explained his model by defining
-a set of rules – the so-called Codd's Twelve rules ( http://en.wikipedia.org/
-wiki/Codd%27s_12_rules ). An ideal database management system (DBMS) would
-implement all those rules, but few if any do.
