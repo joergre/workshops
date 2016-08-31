@@ -1,4 +1,38 @@
+* Installlation von Gate One
+docker run -t --name=gateone -p 443:8000 liftoff/gateone
+
 * Einführung
+Daten werden in Datenbanken abgelegt. Jede Datenbank besteht aus Tabellen. Jede Tabelle besteht aus Feldern.
+Ein Beispiel einer Tabelle innerhalb einer Datenbank:
+| verkaeufer | hersteller | typ_nummer | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
+|------------+------------+------------+------------------+-------------+-------------|
+|            |            |            |                  |             |             |
+
+Eine Zeile in einer Tabelle wird als Eintrag oder "Record" bezeichnet. Im Statistischen Umfeld werden die Zeilen als Fall und die Spalten als Variable bezeichnet.
+Es gibt eine Vielzahl öffentlicher Datenbanken, die verschiedene Daten zur Verfügung stellen. Es gibt auch sogenannte Sample- Datenbanken die zum erlernen von SQL erschaffen wurden und sogenannte Stress-Datenbanken die zum Testen von Datenbankservern entworfen wurden. Eine der bekanntesten Datenbanken zum erlernen von SQL ist Sakila (https://dev.mysql.com/doc/sakila/en/).
+Die Struktur der Datenbank ist hier zu finden: https://dev.mysql.com/doc/employee/en/sakila-structure.html
+
+** Installation eiunes SQL-Servers
+Maria-DB als Docker
+In den Ordner $(pwd)/init-db kommt der Dumb der Datenbank:
+
+
+https://hub.docker.com/_/mariadb/
+Befehl: 
+docker run -v $(pwd)/init-db:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=fbs -e MYSQL_DATABASE=sakila -e MYSQL_PASSWORD=fbs mariadb
+
+Einspielen der Daten:
+https://dev.mysql.com/doc/employee/en/employees-installation.html
+
+Externer Zugriff:
+https://mariadb.com/kb/en/mariadb/configuring-mariadb-for-remote-client-access/
+
+PhpMyAdmin:
+https://hub.docker.com/r/phpmyadmin/phpmyadmin/
+Hier besonders: 
+docker run --name myadmin -d -p 8080:80 -e PMA_ARBITRARY=1 phpmyadmin/phpmyadmin
+
+
 * Dr. Codds 12 Regeln
 We owe to Dr. Edgar F. Codd the concept of the relational model, from his 1970
 paper A Relational Model of Data for Large Shared Data Banks ( http://www.acm.
