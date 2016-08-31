@@ -1,0 +1,941 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-08-31 Mi 11:30 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Einführung in Python</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Jörg Reuter" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://gist.githubusercontent.com/joergre/bfe1204da87a7227c13f8064e71dbd02/raw/473932eeff11495e7c7311517507bf648828fe80/readtheorg.js"></script>
+<a href="https://github.com/joergre/workshops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../git.png" alt="Fork me on GitHub"></a>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Einführung in Python</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Installlation von Gate One</a></li>
+<li><a href="#orgheadline3">2. Einführung</a>
+<ul>
+<li><a href="#orgheadline2">2.1. Installation eiunes SQL-Servers</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline4">3. Dr. Codds 12 Regeln</a></li>
+<li><a href="#orgheadline6">4. Beispiel</a>
+<ul>
+<li><a href="#orgheadline5">4.1. Aufgabe:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">5. <span class="todo nilTODO">TODO</span> </a>
+<ul>
+<li><a href="#orgheadline7">5.1. Aufgabe:</a></li>
+<li><a href="#orgheadline8">5.2. Probleme der Struktur</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">6. Max verkauf pro Verkäufer im August</a></li>
+<li><a href="#orgheadline11">7. Durchschnittliche Anzahl der Verkäufe pro Modell</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Installlation von Gate One</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+
+<pre class="src src-BASH">docker run -t --name=gateone -p 443:8000 liftoff/gateone
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">2</span> Einführung</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Daten werden in Datenbanken abgelegt. Jede Datenbank besteht aus Tabellen. Jede Tabelle besteht aus Feldern.
+Ein Beispiel einer Tabelle innerhalb einer Datenbank:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">verkaeufer</th>
+<th scope="col" class="org-left">hersteller</th>
+<th scope="col" class="org-left">typ-nummer</th>
+<th scope="col" class="org-left">bezeichnung-jahr</th>
+<th scope="col" class="org-left">qtj-2016-08</th>
+<th scope="col" class="org-left">qtj-2016-09</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Eine Zeile in einer Tabelle wird als Eintrag oder "Record" bezeichnet. Im Statistischen Umfeld werden die Zeilen als Fall und die Spalten als Variable bezeichnet.
+Es gibt eine Vielzahl öffentlicher Datenbanken, die verschiedene Daten zur Verfügung stellen. Es gibt auch sogenannte Sample- Datenbanken die zum erlernen von SQL erschaffen wurden und sogenannte Stress-Datenbanken die zum Testen von Datenbankservern entworfen wurden. Eine der bekanntesten Datenbanken zum erlernen von SQL ist Sakila (<a href="https://dev.mysql.com/doc/sakila/en/">https://dev.mysql.com/doc/sakila/en/</a>).
+Die Struktur der Datenbank ist hier zu finden: <a href="https://dev.mysql.com/doc/employee/en/sakila-structure.html">https://dev.mysql.com/doc/employee/en/sakila-structure.html</a>
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Installation eiunes SQL-Servers</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Maria-DB als Docker
+In den Ordner $(pwd)/init-db kommt der Dumb der Datenbank:
+</p>
+
+
+<p>
+<a href="https://hub.docker.com/_/mariadb/">https://hub.docker.com/_/mariadb/</a>
+Befehl: 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-BASH">docker run -v $(pwd)/init-db:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=fbs -e MYSQL_DATABASE=sakila -e MYSQL_PASSWORD=fbs mariadb
+</pre>
+</div>
+
+<p>
+Einspielen der Daten:
+<a href="https://dev.mysql.com/doc/employee/en/employees-installation.html">https://dev.mysql.com/doc/employee/en/employees-installation.html</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-BASH">git clone https://github.com/datacharmer/test_db
+mkdir init-db
+cp test_db/employees.sql init-db/
+</pre>
+</div>
+
+<p>
+Externer Zugriff:
+<a href="https://mariadb.com/kb/en/mariadb/configuring-mariadb-for-remote-client-access/">https://mariadb.com/kb/en/mariadb/configuring-mariadb-for-remote-client-access/</a>
+</p>
+
+<p>
+PhpMyAdmin:
+<a href="https://hub.docker.com/r/phpmyadmin/phpmyadmin/">https://hub.docker.com/r/phpmyadmin/phpmyadmin/</a>
+Hier besonders: 
+docker run &#x2013;name myadmin -d -p 8080:80 -e PMA<sub>ARBITRARY</sub>=1 phpmyadmin/phpmyadmin
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">3</span> Dr. Codds 12 Regeln</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+We owe to Dr. Edgar F. Codd the concept of the relational model, from his 1970
+paper A Relational Model of Data for Large Shared Data Banks ( <a href="http://www.acm/">http://www.acm/</a>.
+org/classics/nov95/toc.html ). Dr. Codd later explained his model by defining
+a set of rules – the so-called Codd's Twelve rules ( <a href="http://en.wikipedia.org/">http://en.wikipedia.org/</a>
+wiki/Codd%27s<sub>12</sub><sub>rules</sub> ). An ideal database management system (DBMS) would
+implement all those rules, but few if any do.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">4</span> Beispiel</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Wir erstellen die Datenbank für ein Computergeschäft. Das Geschäft heißt "Fredy Braun Software" oder Abgekürzt FBS. Wir fangen an mit dem erfassen der Verkauften Hardware.
+</p>
+
+<p>
+Wir bekommen folgende Tabelle zur Verfügung gestellt:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Verkäufer</th>
+<th scope="col" class="org-left">Zeitraum</th>
+<th scope="col" class="org-left">Hersteller</th>
+<th scope="col" class="org-left">Typ-Nummer</th>
+<th scope="col" class="org-left">Bezeichnung und Jahr</th>
+<th scope="col" class="org-right">Anzahl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">DELL</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">IBM</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">DELL</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">SGI</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">6</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">verkaeufer</th>
+<th scope="col" class="org-left">hersteller</th>
+<th scope="col" class="org-left">typ<sub>nummer</sub></th>
+<th scope="col" class="org-left">bezeichnung<sub>jahr</sub></th>
+<th scope="col" class="org-left">qtj<sub>2016</sub><sub>08</sub></th>
+<th scope="col" class="org-left">qtj<sub>2016</sub><sub>09</sub></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Um die Tabelle anlegen zu können müssen wir zerst eine Datenbank anlegen. Dies können wir entweder über die Weboberfläche phpMyAdmin machen oder aber über die Kommandozeile mit dem Befehl mysql -u root -pfbs. 
+</p>
+
+<p>
+Der Befehl dazu lautet:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">create database fbs;
+</pre>
+</div>
+
+<p>
+Dann müssen wir die Datenbank zur Benutzung auswählen. Dies geschieht mit:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">use fbs;
+</pre>
+</div>
+
+<p>
+und das Anlegen der Tabelle dann mit dem Befehl:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">CREATE TABLE verkauf (
+verkaeufer char(40) NOT NULL,
+hersteller char(40) NOT NULL,
+typ_nummer char(40) NOT NULL,
+bezeichnung_jahr char(40) NOT NULL,
+qtj_2016_08 int(11) NOT NULL,
+qtj_2016_09 int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+</pre>
+</div>
+<p>
+geht auch utf statt latin1?
+</p>
+
+<p>
+Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">INSERT INTO sales VALUES ('Müller, Erwin', 'DELL', '1A8','Mitsou 2007', 3 |
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">IBM</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">DELL</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">SGI</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">6</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">verkaeufer</th>
+<th scope="col" class="org-left">hersteller</th>
+<th scope="col" class="org-left">typ<sub>nummer</sub></th>
+<th scope="col" class="org-left">bezeichnung<sub>jahr</sub></th>
+<th scope="col" class="org-left">qtj<sub>2016</sub><sub>08</sub></th>
+<th scope="col" class="org-left">qtj<sub>2016</sub><sub>09</sub></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Um die Tabelle anlegen zu können müssen wir zerst eine Datenbank anlegen. Dies können wir entweder über die Weboberfläche phpMyAdmin machen oder aber über die Kommandozeile mit dem Befehl mysql -u root -pfbs. 
+</p>
+
+<p>
+Der Befehl dazu lautet:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">create database fbs;
+</pre>
+</div>
+
+<p>
+Dann müssen wir die Datenbank zur Benutzung auswählen. Dies geschieht mit:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">use fbs;
+</pre>
+</div>
+
+<p>
+und das Anlegen der Tabelle dann mit dem Befehl:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">CREATE TABLE verkauf (
+verkaeufer char(40) NOT NULL,
+hersteller char(40) NOT NULL,
+typ_nummer char(40) NOT NULL,
+bezeichnung_jahr char(40) NOT NULL,
+qtj_2016_08 int(11) NOT NULL,
+qtj_2016_09 int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+</pre>
+</div>
+<p>
+geht auch utf statt latin1?
+</p>
+
+<p>
+Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Verkäufer</th>
+<th scope="col" class="org-left">Zeitraum</th>
+<th scope="col" class="org-left">Hersteller</th>
+<th scope="col" class="org-left">Typ</th>
+<th scope="col" class="org-left">Bezeichnung und Jahr</th>
+<th scope="col" class="org-right">Anzahl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Z840 2016</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">DELL</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Precision 7910 2015</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">DELL</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Precision 7910 2015</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">Server</td>
+<td class="org-left">Z840 2016</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">Server</td>
+<td class="org-left">Apollo 6500    2016</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">August 2016</td>
+<td class="org-left">DELL</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Precison 7910  2016</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">IBM</td>
+<td class="org-left">Server</td>
+<td class="org-left">Power E880     2016</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">September 2016</td>
+<td class="org-left">HP</td>
+<td class="org-left">Server</td>
+<td class="org-left">Apollo 6500</td>
+<td class="org-right">2</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Die Tabelle müssen wir zur Verwendung in einer Datenbank etwas umformatieren:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">verkaeufer</th>
+<th scope="col" class="org-left">hersteller</th>
+<th scope="col" class="org-left">typx</th>
+<th scope="col" class="org-left">bezeichnung<sub>jahr</sub></th>
+<th scope="col" class="org-right">qtj<sub>2016</sub><sub>08</sub></th>
+<th scope="col" class="org-right">qtj<sub>2016</sub><sub>09</sub></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">HP</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Z840 2016</td>
+<td class="org-right">7</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">Müller, Erwin</td>
+<td class="org-left">DELL</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Precison 7910</td>
+<td class="org-right">8</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">HP</td>
+<td class="org-left">Server</td>
+<td class="org-left">Apollo 6500</td>
+<td class="org-right">1</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">DELL</td>
+<td class="org-left">Workstation</td>
+<td class="org-left">Precision 7910</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Baier, Klaus</td>
+<td class="org-left">IBM</td>
+<td class="org-left">Server</td>
+<td class="org-left">Power E880</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">4.1</span> Aufgabe:</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Bitte fülle die Tabelle vollständig aus.
+</p>
+
+<p>
+Um die Tabelle anlegen zu können müssen wir zerst eine Datenbank anlegen. Dies können wir entweder über die Weboberfläche phpMyAdmin machen oder aber über die Kommandozeile mit dem Befehl mysql -u root -pfbs. 
+</p>
+
+<p>
+Der Befehl dazu lautet:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">create database fbs;
+</pre>
+</div>
+
+<p>
+Dann müssen wir die Datenbank zur Benutzung auswählen. Dies geschieht mit:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">use fbs;
+</pre>
+</div>
+
+<p>
+und das Anlegen der Tabelle dann mit dem Befehl:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-SQL">CREATE TABLE verkauf (
+verkaeufer char(40) NOT NULL,
+hersteller char(40) NOT NULL,
+typ_nummer char(40) NOT NULL,
+bezeichnung_jahr char(40) NOT NULL,
+qtj_2016_08 int(11) NOT NULL,
+qtj_2016_09 int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">5</span> <span class="todo TODO">TODO</span> </h2>
+<div class="outline-text-2" id="text-5">
+<p>
+geht auch utf statt latin1?
+</p>
+
+<p>
+Nachdem wir die Tabelle angelegt haben, tragen wir  die Werte von der Tabelle oben ein:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-SQL">INSERT INTO sales VALUES ('Müller, Erwin', 'HP', '1A8','Mitsou 2007',7 , 4);
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">5.1</span> Aufgabe:</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Bitte trage die restlichen Zeilen, aus der Tabelle oben, ebenfalls in die Tabelle ein.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">5.2</span> Probleme der Struktur</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+In welcher Spalte speichern wir die Werte vom Oktober und November ab?
+</p>
+
+<p>
+Die anderen Probleme ergeben sich, wenn wir ein wenig mit der Tabelle herum spielen.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">6</span> Max verkauf pro Verkäufer im August</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Wir wollen uns den maximalen Verkauf (in Stück) eines Computers pro Verkäufer im August anzeigen lassen.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-SQL">SELECT verkauf, max(qtj_2006_08)
+FROM verkauf
+GROUP BY verkaeufer
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">7</span> Durchschnittliche Anzahl der Verkäufe pro Modell</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Jörg Reuter</p>
+<p class="date">Created: 2016-08-31 Mi 11:30</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

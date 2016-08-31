@@ -34,7 +34,7 @@ docker run -t --name=gateone -p 443:8000 liftoff/gateone
 * Einführung
 Daten werden in Datenbanken abgelegt. Jede Datenbank besteht aus Tabellen. Jede Tabelle besteht aus Feldern.
 Ein Beispiel einer Tabelle innerhalb einer Datenbank:
-| verkaeufer | hersteller | typ_nummer | bezeichnung_jahr | qtj_2016_08 | qtj_2016_09 |
+| verkaeufer | hersteller | typ-nummer | bezeichnung-jahr | qtj-2016-08 | qtj-2016-09 |
 |------------+------------+------------+------------------+-------------+-------------|
 |            |            |            |                  |             |             |
 
