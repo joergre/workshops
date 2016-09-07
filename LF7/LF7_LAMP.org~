@@ -1,0 +1,74 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Installation LAMP
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+
+* Einführung
+LAMP ist die Abkürzung für Linux Apache MariDB PHP und damit meist die erste Installation auf einem Server. MariaDB ist ein forge von MySQL. Früher stand das M für MySQL. Als Linux verwenden wir Ubuntu 16.04
+
+** Installation von Apache 
+Apache ist der Webserver und dient dazu, Inahltsseiten im Internet zur Verfügung zu stellen. Eine Installation fängt immer mit einem Update des Systems an. Der erste Befehl aktualisiert die Paketlisten auf dem System. Der zweite Befehl führt dann die Aktualisierung des Systems durch.
+
+#+begin_src Bash
+apt update
+apt dist-upgrade
+#+end_src
+
+Den Webserver installieren wir mit dem Befehl
+
+#+begin_src Bash
+apt-get -y install apache2
+#+end_src
+
+Der Befehl sollte fehlerlos durchlaufen. Der Parameter y dient dazu, dass keine Abfrage kommt, ob wir wirklich ein Programm installieren möchten.
+Mit dem Befehl 
+
+#+begin_src Bash
+service apache2 status
+#+end_src
+
+überprüfen wir, ob der Apache wirklich gestartet ist. Wir bekommen folgende Ausgabe:
+
+ #+CAPTION: Apache Webserver Statusanzeige
+     #+NAME:   fig: Apache Webserver Satusanzeige
+     [[./images/apache2.png]]
+
+Wichtig ist hierbei der grüne Text "Active: active (running)". Die Fehlermeldung "AH00558: apache2: Could not reliably determine the server's fully qualified domain name" besagt nur, dass noch kein gültiger Servername (URI) hinterlegt wurde. Wir verlassen die Anzeige mit der Taste q.
+
+Nach erfolgreichen Test geben wir in unserem Browser http://[IP] ein und müssten die Apache Startseite sehen:
+
+ #+CAPTION: Startseite des Apache Webservers
+     #+NAME:   fig: Startseite des Apache Webserver
+     [[./images/apache1.png]]
+
+
+** Installation von MariaDB
+Maridb ist ein Datenbanksytem und besteht einmal aus einem Server und einem Client. beide Teile werden zusammen istalliert mit dem Befehl:
+
+#+begin_src Bash
+apt-get -y install mariadb-server mariadb-client
+#+end_src
+
