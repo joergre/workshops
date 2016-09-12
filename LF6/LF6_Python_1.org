@@ -300,13 +300,6 @@ else:
     Anweisungen, die ausgeführt werden, wenn die Bedingung falsch ist;
 #+end_example   
 
-
-
-for(i=0; i<10;i ++):
-    Ausgabe();
-
-
-
 ** Aufgabe 2.2
 
 Verwende die Lösung von Aufgabe 2.1. Füge jetzt nach obigen Schema einen Abschnitte ein, der eine alternative Routenführung bei Sperrung oder Stau in der Dr.-Dietz-Straße vorsieht.
