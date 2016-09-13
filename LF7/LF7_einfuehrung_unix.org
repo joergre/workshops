@@ -41,8 +41,3 @@ Wir werden in diesem Kurs einige grundlegende Eigenschaften von Unix entdecken, 
 #+end_src
 
 #+RESULTS: cleanitallup
-#+begin_example
-> rm(list=ls())
-> 
-#+end_example
-
