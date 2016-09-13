@@ -32,12 +32,88 @@ Unix wurde Ende der 1960er Jahre entwickelt und weißt eine sehr grosse Vielfalt
 
 Wir werden in diesem Kurs einige grundlegende Eigenschaften von Unix entdecken, die prinzipiell unabhängig von der jeweilig eingesetzten Version sind. Um in jeder Umgebung ein System zu haben mit dem man ein wenig experimentieren kann ohne es installieren zu müssen oder Programme zu installieren und auf der anderen Seite kostenlos ist, finde ich http://c9.io ganz gut. Hier ist ein komplettes Linux-System in einem Browser verfügbar. Die Leistung des Systems reicht locker für diesen Workshop aus. Einfach anmelden und eine kostenlose virtuelle Maschiene anlegen. Prinzipiell gehen beliebig viele aber nur die erste ist bei der kostenlosen Mitgliedschaft kostenlos. Ich habe auch bisher keine Werbung oder andere unerwünschte E-Mails bekommen, aber es kann auch eine Wegwerf-Email zur Anmeldung verwendet werden. 
 
+* Die Standardverzeichnisse von Unix
+Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
 
+/
+/bin
+/dev
+/etc
+/home
+/lib
+/mnt
+/opt
+/proc
+/root
+/sbin
+/tmp
+/usr
+/var
+/cdrom
 
-* Cleanup							   :noexport:
-#+name: cleanitallup
-#+begin_src R 
-  rm(list=ls())
-#+end_src
+** /
+Das ist das Haupt-, Root- oder Wurzelverzeichnis, das oberste Verzeichnis im kompletten Dateisystem. Hier sollten möglichst keine Dateien liegen, nur Verzeichnisse.
 
-#+RESULTS: cleanitallup
+** /bin
+Wichtige Befehle zur Systemverwaltung, die nicht spezifisch für den Superuser sind. Dies sind z. B. die uns schon bekannten Befehle date, reboot, halt, shutdown, pwd und ls. Programmdateien werden auch als binaries bezeichnet.
+
+** /dev
+Alle Peripheriegeräte (engl. devices), wie z. B. Drucker und Netzwerkkarte, sind über Gerätedateien ansprechbar. Sie dienen als Schnittstelle zu den Gerätetreibern und haben deshalb auch keinen Inhalt. Zum Beispiel wird bei einem Ausdruck einer Datei diese einfach in die Datei /dev/lp2 (Druckerdevice) kopiert.
+
+Ein besonderes Device ist /dev/null. Das ist der Mülleimer von Unix. Wird eine Datei dorthin verschoben, ist sie weg. Die Datei /dev/fd0 stellt das erste Diskettenlaufwerk (floppy disk) dar. Es gibt noch weitere Dateien, die mit /dev/fd0 beginnen. Diese stellen das Diskettenlaufwerk mit unterschiedlichen Formaten dar. Um alle diese aufzulisten, können wir den Befehl ls /dev/fd0* eingeben. Der Stern dient als Joker und ersetzt eine beliebige Anzahl von beliebigen Zeichen.
+Festplatten (hard disc) beginnen mit /dev/hd*.
+
+SCSI-Festplatten: /dev/sd*.
+
+(virtuelle) Konsolen ( Alt + F1 ... Alt + F6): /dev/tty*.
+
+Serielle Schnittstellen: /dev/ttyS*.
+DVD-Brenner, SATA-Geräte und USB-Geräte werden wie SCSI-Geräte angesprochen.
+zur Übersicht
+
+** /etc
+Hier befinden sich die zentralen Konfigurationsdateien.
+Ein Beispiel ist die Datei passwd. Diese enthält eine Liste aller Benutzer am System.
+Die Konfigurationsdateien sind reine Textdateien (ASCII-Dateien) und können so einfach mit einem Texteditor verändert werden. Somit ist Konfiguration von Unix-Rechnern ohne spezielle Software möglich. Weiterhin wird so eine Fernwartung unterstützt.
+
+** /home
+Hier befinden sich die Heimatverzeichnisse der "normalen" Benutzer. Jeder Benutzer unter Unix erhält einen Nutzernamen, ein Passwort und ein eigenes Verzeichnis. Dieses Verzeichnis wird als Unterverzeichnis in /home angelegt. Ein Nutzer mit dem Namen "schueler" würde also das Verzeichnis /home/schueler erhalten. Dort und nur dort kann der Nutzer Dateien und Verzeichnisse anlegen und verändern.
+
+** /lib
+Unter Unix werden, soweit wie es eben geht, gemeinsam verwendbare Bibliotheken (engl. shared libraries) eingesetzt. Solche shared libraries sparen eine Menge Systemressourcen, da viele Bestandteile von mehreren Prozessen aus gleichzeitig genutzt werden.
+
+** /mnt
+Hier werden bei vielen Unix-Versionen die Laufwerke, wie DVD und USB-Geräte, ein "montiert" (engl. mounten). Der Inhalt der Laufwerke erscheint dann unterhalb dieses Verzeichnisses.
+
+** /opt
+Hier werden optionale Zusatzprogramme, wie z. B. der WWW-Browser Firefox oder das Office-Paket OpenOffice, gespeichert.
+
+** /proc
+...ein virtuelles Dateisystem, über das Informationen über die Hardware ermittelt werden können. Außerdem wird hier jeder laufende Prozess (engl. process) dargestellt. Für jeden laufenden Prozess findet sich unterhalb von /proc ein Verzeichnis, dessen Name gleich seiner Prozessnummer (PID) ist. In diesem Unterverzeichnis sind keine Schreiboperationen möglich.
+
+** /root
+Dies ist das Heimatverzeichnis des Superusers. Es liegt nicht im Verzeichnis /home, da /home eventuell auf einer anderen Festplatte oder Partition liegen kann und so bei Wartungsarbeiten vielleicht nicht zur Verfügung steht.
+
+** /sbin
+Hier befinden sich ausführbare Dateien (engl. binaries) für den Systemstart und zur Systemverwaltung durch den Superuser.
+
+** /tmp
+Viele Programme brauchen regelmäßig temporären Speicherplatz. Da aber alle Benutzer Programme benutzen, haben alle Anwender auf dieses Verzeichnis auch schreibenden Zugriff. Bei Systemen mit vielen Anwendern sollte daher dieses Verzeichnis in eine extra Partition oder Festplatte gelegt werden. Dann kann das Schreiben in das Verzeichnis /tmp nicht mehr dazu führen, dass das gesamte System abstürzt, wenn dadurch der Gesamtspeicherplatz gegen 0 läuft. Ist genug Hauptspeicher (RAM) vorhanden, so kann man das Verzeichnis /tmp auch im Hauptspeicher anlegen.
+
+** /usr
+...für die Benutzer (engl. user) relevante Befehle und Anwendungsprogramme. Diese befinden sich in weiteren Unterverzeichnissen.
+
+In /usr/bin befinden sich Dienstprogramme, die weniger häufig verwendet werden. Es ist eine eher willkürliche Entscheidung, welches Programm nun in /bin oder in /usr/bin zu finden ist. Abgeleitet ist diese Unterscheidung noch aus Zeiten, in denen zwischen kleinen, schnellen und teuren Platten und großen, langsamen und billigeren Festplatten unterschieden wurde.
+/bin wurde dann auf einer schnellen Platte eingerichtet, während /usr/bin auf die langsamere Platte gelegt.
+
+/usr/doc und /usr/man beinhalten Dokumentationen und Manual-Dateien für Hilfestellungen.
+
+** /var
+Bei Unix wird streng unterschieden zwischen Teilbereiche des gesamten Dateibaumes, der für alle Benutzer nur lesbar bzw. auch beschreibbar sein soll. Diejenigen Daten, die für alle Anwender nur lesbar sein sollen, befinden sich unterhalb von /usr.
+Dort, wo der Anwender auch schreibenden Zugriff haben muss, wird eine Speicherung der variablen Daten in die Unterverzeichnisse von /var vorgenommen.
+Beispiele sind die Speicherung von Druckaufträgen und Emails in das Verzeichnis /var/spool sowie die Protokollierung von An- und Abmeldevorgängen im Verzeichnis /var/log.
+zur Übersicht
+
+/cdromvar
+Mountpoint für das DVD-Laufwerk. Bei anderen Linux-Versionen wird dazu auch das Verzeichnis /mnt/cdrom verwendet.
+zur Übersicht
