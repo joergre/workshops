@@ -350,7 +350,7 @@ i ist eine Variable, die mit i=0 auf 0 gesetzt wird. Die Anweisung wird so lange
 
 ** Aufgabe 2.5
 
-Wandele das Bespiel "For-Schleife", so ab, dass die For-Anweisung durch eine While-Schleife ersetzt wird.
+Wandele das Bespiel "For-Schleife" so ab, dass die For-Anweisung durch eine While-Schleife ersetzt wird.
 
 ** Aufgabe 2.6
 
