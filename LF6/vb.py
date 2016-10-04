@@ -48,7 +48,7 @@ except:
     print("Unexpected error:", sys.exc_info()[0])
     raise
 try:
-    print("Instalation VirtualBox")
+    print("Installation VirtualBox")
     output = subprocess.check_output("uname -r", shell = True)
     Kernel = str(output, 'utf-8').strip()
     cmd1 = os.system("apt-get install -q -y linux-headers-"+Kernel)
