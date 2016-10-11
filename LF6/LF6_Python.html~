@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-10-11 Di 05:34 -->
+<!-- 2016-04-28 Thu 03:05 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Einführung in Python</title>
@@ -100,19 +100,19 @@ Um in Python die Kommunilkation über Sockets abwickeln zu können, muss das Mod
 
 <div class="org-src-container">
 
-<pre class="src src-python" id="orgsrcblock1">import socket #Import Socket  
-socket.setdefaulttimeout(2) # Warte 2 Sekunden aus Antwort 
-s = socket.socket() # Speichere den Handler der Verbindung in s
-s.connect(("ochristen.de",21)) # Verbinde Dich mit dem Server ochristen.de auf Port 22    
-banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
-print(banner) # Gebe die Willkomensnachricht aus
+<pre class="src src-python" id="orgsrcblock1"><span style="color: #00ffff; font-weight: bold;">import</span> socket <span style="color: #ff0000;">#</span><span style="color: #ff0000;">Import Socket  </span>
+socket.setdefaulttimeout(2) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Warte 2 Sekunden aus Antwort </span>
+<span style="color: #ffff00;">s</span> = socket.socket() <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Speichere den Handler der Verbindung in s</span>
+s.connect((<span style="color: #00ff00;">"ochristen.de"</span>,21)) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Verbinde Dich mit dem Server ochristen.de auf Port 22    </span>
+<span style="color: #ffff00;">banner</span> = s.recv(1024) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab</span>
+<span style="color: #00ffff; font-weight: bold;">print</span>(banner) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Gebe die Willkomensnachricht aus</span>
 </pre>
 </div>
 
 <pre class="example">
 220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
-220-You are user number 13 of 100 allowed.
-220-Local time is now 16:46. Server port: 21.
+220-You are user number 14 of 100 allowed.
+220-Local time is now 11:19. Server port: 21.
 220-This is a private system - No anonymous login
 220-IPv6 connections are also welcome on this server.
 220 You will be disconnected after 15 minutes of inactivity.
@@ -145,16 +145,16 @@ Können Fehler abgefangen werden. Der Block unter try wird ausgeführt und bei e
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python">import socket
-try:
+<pre class="src src-python"><span style="color: #00ffff; font-weight: bold;">import</span> socket
+<span style="color: #00ffff; font-weight: bold;">try</span>:
     socket.setdefaulttimeout(2)
-    s = socket.socket()
-    #   s.connect(("ochristen.de",21))
-    s.connect(("ochristen.dk",21))
-    banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
-    print(banner) # Gebe die Willkomensnachricht aus
-except:
-    print ('[-] Error = Timed out')
+    <span style="color: #ffff00;">s</span> = socket.socket()
+    <span style="color: #ff0000;">#   </span><span style="color: #ff0000;">s.connect(("ochristen.de",21))</span>
+    s.connect((<span style="color: #00ff00;">"ochristen.dk"</span>,21))
+    <span style="color: #ffff00;">banner</span> = s.recv(1024) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab</span>
+    <span style="color: #00ffff; font-weight: bold;">print</span>(banner) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Gebe die Willkomensnachricht aus</span>
+<span style="color: #00ffff; font-weight: bold;">except</span>:
+    <span style="color: #00ffff; font-weight: bold;">print</span> (<span style="color: #00ff00;">'[-] Error = Timed out'</span>)
 </pre>
 </div>
 
@@ -171,16 +171,16 @@ Hingeggen wird mit der richtigen Adresse keine Fehlermeldung ausgegeben:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python">import socket
-try:
+<pre class="src src-python"><span style="color: #00ffff; font-weight: bold;">import</span> socket
+<span style="color: #00ffff; font-weight: bold;">try</span>:
     socket.setdefaulttimeout(2)
-    s = socket.socket()
-    #   s.connect(("ochristen.de",21))
-    s.connect(("ochristen.de",21))
-    banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
-    print(banner) # Gebe die Willkomensnachricht aus
-except:
-    print ('[-] Error = Timed out')
+    <span style="color: #ffff00;">s</span> = socket.socket()
+    <span style="color: #ff0000;">#   </span><span style="color: #ff0000;">s.connect(("ochristen.de",21))</span>
+    s.connect((<span style="color: #00ff00;">"ochristen.de"</span>,21))
+    <span style="color: #ffff00;">banner</span> = s.recv(1024) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab</span>
+    <span style="color: #00ffff; font-weight: bold;">print</span>(banner) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Gebe die Willkomensnachricht aus</span>
+<span style="color: #00ffff; font-weight: bold;">except</span>:
+    <span style="color: #00ffff; font-weight: bold;">print</span> (<span style="color: #00ff00;">'[-] Error = Timed out'</span>)
 </pre>
 </div>
 
@@ -202,16 +202,16 @@ Manchmal möchte man den Fhlercode Erfahren. Dies kann durch except in einer Var
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python">import socket
-try:
+<pre class="src src-python"><span style="color: #00ffff; font-weight: bold;">import</span> socket
+<span style="color: #00ffff; font-weight: bold;">try</span>:
     socket.setdefaulttimeout(2)
-    s = socket.socket()
-    #   s.connect(("ochristen.de",21))
-    s.connect(("strato.de",21))
-    banner = s.recv(1024) # Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab
-    print(banner) # Gebe die Willkomensnachricht aus
-except Exception, e:
-    print ('[-] Error = '+str(e))
+    <span style="color: #ffff00;">s</span> = socket.socket()
+    <span style="color: #ff0000;">#   </span><span style="color: #ff0000;">s.connect(("ochristen.de",21))</span>
+    s.connect((<span style="color: #00ff00;">"strato.de"</span>,21))
+    <span style="color: #ffff00;">banner</span> = s.recv(1024) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Empfange die Willkommensnachricht des FTp-Servers und seichere maximal 1024 Byte ab</span>
+    <span style="color: #00ffff; font-weight: bold;">print</span>(banner) <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Gebe die Willkomensnachricht aus</span>
+<span style="color: #00ffff; font-weight: bold;">except</span> <span style="color: #00ff00;">Exception</span>, e:
+    <span style="color: #00ffff; font-weight: bold;">print</span> (<span style="color: #00ff00;">'[-] Error = '</span>+<span style="color: #0000ff; font-weight: bold;">str</span>(e))
 </pre>
 </div>
 
@@ -234,19 +234,19 @@ Wir definieren jetzt eine Funktion mit dem Namen Banner. Die Funktion wird mit d
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python">import socket
-# Funktion 1: Banner. Holt den Banner des FTP-Servers.
+<pre class="src src-python"><span style="color: #00ffff; font-weight: bold;">import</span> socket
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">Funktion 1: Banner. Holt den Banner des FTP-Servers.</span>
 
-def Banner(ip, port):
-    try:
-	socket.setdefaulttimeout(2)
-	s = socket.socket()
-	s.connect((ip,port))
-	banner = s.recv(1024)
-	return banner
-    except:
-	return
-print(Banner('ochristen.de',21))
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">Banner</span>(ip, port):
+    <span style="color: #00ffff; font-weight: bold;">try</span>:
+        socket.setdefaulttimeout(2)
+        <span style="color: #ffff00;">s</span> = socket.socket()
+        s.connect((ip,port))
+        <span style="color: #ffff00;">banner</span> = s.recv(1024)
+        <span style="color: #00ffff; font-weight: bold;">return</span> banner
+    <span style="color: #00ffff; font-weight: bold;">except</span>:
+        <span style="color: #00ffff; font-weight: bold;">return</span>
+<span style="color: #00ffff; font-weight: bold;">print</span>(Banner(<span style="color: #00ff00;">'ochristen.de'</span>,21))
 </pre>
 </div>
 
@@ -269,31 +269,31 @@ Wir programmieren jetzt noch eine zweite Funktion, die überprüft ob der Banner
 </p>
 <div class="org-src-container">
 
-<pre class="src src-python">import socket
-# Funktion 1: Banner. Holt den Banner des FTP-Servers.
+<pre class="src src-python"><span style="color: #00ffff; font-weight: bold;">import</span> socket
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">Funktion 1: Banner. Holt den Banner des FTP-Servers.</span>
 
-def Banner(ip, port):
-    try:
-	socket.setdefaulttimeout(2)
-	s = socket.socket()
-	s.connect((ip,port))
-	banner = s.recv(1024)
-	return banner
-    except Exception, e:
-	print('[+] Kein FTP-Server auf '+server+' Port 21: '+str(e))
-	return
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">Banner</span>(ip, port):
+    <span style="color: #00ffff; font-weight: bold;">try</span>:
+        socket.setdefaulttimeout(2)
+        <span style="color: #ffff00;">s</span> = socket.socket()
+        s.connect((ip,port))
+        <span style="color: #ffff00;">banner</span> = s.recv(1024)
+        <span style="color: #00ffff; font-weight: bold;">return</span> banner
+    <span style="color: #00ffff; font-weight: bold;">except</span> <span style="color: #00ff00;">Exception</span>, e:
+        <span style="color: #00ffff; font-weight: bold;">print</span>(<span style="color: #00ff00;">'[+] Kein FTP-Server auf '</span>+server+<span style="color: #00ff00;">' Port 21: '</span>+<span style="color: #0000ff; font-weight: bold;">str</span>(e))
+        <span style="color: #00ffff; font-weight: bold;">return</span>
 
-def check(banner):
-    if 'Pure-FTPd' in banner:
-	print('[-] '+server+' Pure-FTPd ist angreifbar')
-    else:
-	print('[+] '+server+' FTP Server ist nicht angreifbar')
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">check</span>(banner):
+    <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #00ff00;">'Pure-FTPd'</span> <span style="color: #00ffff; font-weight: bold;">in</span> banner:
+        <span style="color: #00ffff; font-weight: bold;">print</span>(<span style="color: #00ff00;">'[-] '</span>+server+<span style="color: #00ff00;">' Pure-FTPd ist angreifbar'</span>)
+    <span style="color: #00ffff; font-weight: bold;">else</span>:
+        <span style="color: #00ffff; font-weight: bold;">print</span>(<span style="color: #00ff00;">'[+] '</span>+server+<span style="color: #00ff00;">' FTP Server ist nicht angreifbar'</span>)
 
-SERVER = ['ochristen.de', 'strato.de', 'ochristen.dk', 'michael-roth-software.de']
-for server in SERVER:
-    banner = Banner(server,21) 
-    if banner:
-	 check(banner)
+<span style="color: #ffff00;">SERVER</span> = [<span style="color: #00ff00;">'ochristen.de'</span>, <span style="color: #00ff00;">'strato.de'</span>, <span style="color: #00ff00;">'ochristen.dk'</span>, <span style="color: #00ff00;">'michael-roth-software.de'</span>]
+<span style="color: #00ffff; font-weight: bold;">for</span> server <span style="color: #00ffff; font-weight: bold;">in</span> SERVER:
+    <span style="color: #ffff00;">banner</span> = Banner(server,21) 
+    <span style="color: #00ffff; font-weight: bold;">if</span> banner:
+         check(banner)
 </pre>
 </div>
 
@@ -351,10 +351,10 @@ Das gleiche Programm als Programmablaufplan. Weitere Informationen: <a href="htt
 
 <div class="org-src-container">
 
-<pre class="src src-ditaa">				  /-----------------------------------------\
-				  |                                         |
-				  |                                         |    Nein
-+--------------------------------&gt;| Enthält Liste Server noch ein Element?  |-------------+
+<pre class="src src-ditaa">                                  /-----------------------------------------\
+                                  |                                         |
+                                  |                                         |    Nein
++--------------------------------&gt;| Enth&#228;lt Liste Server noch ein Element?  |-------------+
 |                                 |                                         |             |
 |                                 |                                         |             |
 |                                 |                                {c}      |             | 
@@ -385,21 +385,21 @@ Das gleiche Programm als Programmablaufplan. Weitere Informationen: <a href="htt
 |                                  |                                      |               |
 |                                  | Ausgabe: Server i. O.                |               |
 +&lt;---------------------------------|                                      |               |
-				   |                                      |               |
-				   |                                      |               |
-				   |               {io}                   |               |
-				   \--------------------------------------/               |
-											  |
-											  |
-											  |
-				    +-----------------------------\                       |
-				    |                             |                       |
-				    |                             |                       |
-				    |           STOP              |&lt;----------------------+
-				    |                       {o}   |
-				    |                             |
-				    |                             |
-				    +-----------------------------+
+                                   |                                      |               |
+                                   |                                      |               |
+                                   |               {io}                   |               |
+                                   \--------------------------------------/               |
+                                                                                          |
+                                                                                          |
+                                                                                          |
+                                    +-----------------------------\                       |
+                                    |                             |                       |
+                                    |                             |                       |
+                                    |           STOP              |&lt;----------------------+
+                                    |                       {o}   |
+                                    |                             |
+                                    |                             |
+                                    +-----------------------------+
 </pre>
 </div>
 

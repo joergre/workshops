@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-04-19 Tue 22:35 -->
+<!-- 2016-10-11 Di 06:57 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Einführung in Docker</title>
@@ -68,20 +68,124 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">Einführung in Docker</a></li>
-<li><a href="#orgheadline4">Zum Schluss</a>
+<li><a href="#orgheadline10">Einführung in Docker</a>
 <ul>
-<li><a href="#orgheadline2">Helfe mir, den Kurs besser zu machen!</a></li>
-<li><a href="#orgheadline3">Weitere Informationsquellen</a></li>
+<li><a href="#orgheadline1">Warum Docker</a>
+<ul>
+<li><a href="#orgheadline2">Vorteile von Docker</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline5">Docker Begriffe</a>
+<ul>
+<li><a href="#orgheadline3">Images</a></li>
+<li><a href="#orgheadline4">Container</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">Arten von Virtualisierung (Prüfungsrelevant!)</a>
+<ul>
+<li><a href="#orgheadline6">TYP 1 (Bare Metall)</a></li>
+<li><a href="#orgheadline7">TYP 2</a></li>
+<li><a href="#orgheadline8">Docker Container unter Linux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline11">Zum eigenen Image</a>
+<ul>
+<li><a href="#orgheadline12">Docker Hub account</a></li>
+<li><a href="#orgheadline13">Login</a></li>
+<li><a href="#orgheadline14">Docker commit</a>
+<ul>
+<li><a href="#orgheadline15">Aufgabe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline18">Zum Schluss</a>
+<ul>
+<li><a href="#orgheadline16">Helfe mir, den Kurs besser zu machen!</a></li>
+<li><a href="#orgheadline17">Weitere Informationsquellen</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Einführung in Docker</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10">Einführung in Docker</h2>
+<div class="outline-text-2" id="text-orgheadline10">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1">Warum Docker</h3>
+<div class="outline-text-3" id="text-orgheadline1">
+<p>
+Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ. Der Hauptunterschied zu anderen Virtualisierungen ist, dass nicht der Schwerpunkt auf die Virtualisierung von Betriebssystemen gelegt wird, sondern von Anwendungen. Das zeigt sich z.B. daran, dass Container normalerweise keine öffentliche IP-Adresse haben und nur über einen festgelegten Port über die IP des "Hostsystems" erreichbar sind. Auch auf hub.docker.com werden eher Anwendungen angeboten und nicht Betriebssysteme. Wenn ein Webserver gebraucht wird, ist es nicht interessant auf welchen Linux-Dervat er installiert wurde, sondern das er sicher läuft und die benötigten Dienste zur Verfügung stellt.
+Aber der Reihe nach.
+</p>
+</div>
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2">Vorteile von Docker</h4>
+<div class="outline-text-4" id="text-orgheadline2">
+<ul class="org-ul">
+<li>Docker ist unabhängig vom Betriebssystem. Es wird unterstützt von: 
+<ul class="org-ul">
+<li>allen Linux Distributionen,</li>
+<li>Microsoft-Betriebssystemen (seit 2016),</li>
+<li>OS X.</li>
+</ul></li>
+
+<li>Vorteile gegenüber anderen Virtualisierungslösungen:
+<ul class="org-ul">
+<li>Benötigt keine besondere Hardware oder CPU-Erweiterungen.</li>
+<li>Effizienter als herkömmliche Virtualisierungslösungen.</li>
+<li>Weitergabe von Containern sehr leicht möglich (nur ein Textfile).</li>
+<li>Einfache Überprüfung, wie der Container aufgesetzt wurde (alle Befehle stehen in dem Textfile).</li>
+<li>Kostenlos Nutzbar.</li>
+<li>Plattformunabhängige Container. Keine Abhängigkeiten zum Hostsystem.</li>
+<li>Einfaches Clustering von Systemen.</li>
+<li>Einfache Versionsverwaltung. Jeder Schritt kann rückgängig gemacht werden und jeder Schritt wird aufgezeichnet.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Docker Begriffe</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+</div><div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3">Images</h4>
+<div class="outline-text-4" id="text-orgheadline3">
+<p>
+Ein Image ist portable und kann zwischen Systemen ausgetauscht werden. Es kann aus einem Container erstellt werden und stellt so einen Snapshot dar.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">Container</h4>
+<div class="outline-text-4" id="text-orgheadline4">
+<p>
+Ein Container braucht ein Image. Der Container ist ein gestartetes Image und existiert nur, solange die Instanz läuft. Beim herunterfahren des Containers können die Änderungen  die durch Laufzeit des Containers eingetreten sind im Image hinzugefügt werden. Images haben immer eine Version und es werden nur die Unterschiede zur vorhergehenden Version gespeichert. Ein Image kann von mehreren Containern geteilt werde.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">Arten von Virtualisierung (Prüfungsrelevant!)</h3>
+<div class="outline-text-3" id="text-orgheadline9">
+</div><div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6">TYP 1 (Bare Metall)</h4>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7">TYP 2</h4>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8">Docker Container unter Linux</h4>
+<div class="outline-text-4" id="text-orgheadline8">
 <p>
 Wir laden das Image von Ubuntu 14.04 herunter:
 </p>
@@ -154,13 +258,374 @@ docker ps -qa|xargs docker rm -f
 </pre>
 </div>
 </div>
+</div>
+</div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">Zum Schluss</h2>
-<div class="outline-text-2" id="text-orgheadline4">
-</div><div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">Helfe mir, den Kurs besser zu machen!</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Zum eigenen Image</h2>
+<div class="outline-text-2" id="text-orgheadline11">
+<p>
+Mit dem Befehl
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock1">docker info
+</pre>
+</div>
+
+<pre class="example">
+Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 1.10.3
+Storage Driver: overlay
+ Backing Filesystem: extfs
+Execution Driver: native-0.2
+Logging Driver: json-file
+Plugins: 
+ Volume: local
+ Network: null host bridge
+Kernel Version: 4.7.0-coreos
+Operating System: CoreOS 1122.2.0 (MoreOS)
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 493.2 MiB
+Name: fbs-01
+ID: UEJT:QG6A:VS7A:HUWD:6J6D:PPVX:C5DY:XS5R:GHQ7:2RWT:7PLT:DDE5
+</pre>
+<p>
+überprüfen wir, ob Docker installiert ist und ordnungsgemäß läuft.
+Um ein neues Image zu erstellen, gibt es zwei Wege:
+</p>
+
+<ul class="org-ul">
+<li>docker commit</li>
+<li>docker build</li>
+</ul>
+
+<p>
+Die mächtigste und übliche Methode ist der Weg über den Befehl docker build. 
+</p>
+
+<p>
+Beachte: Wir bauen keine komplett neuen Images. Der Weg ist vielmehr, dass wir ein bestehendes Image (z.B. Ubuntu) entsprechend anpassen!
+</p>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Docker Hub account</h3>
+<div class="outline-text-3" id="text-orgheadline12">
+<p>
+Eine wichtige und großartige Sache ist das teilen von Docker Images. Wir können dies über den offitiellen Docker Hub machen oder aber über unser eigene Registry. Um es einfach zu machen, erstellen wir uns einen Account bei Docker Hub (<a href="https://hub.docker.com/">https://hub.docker.com/</a>). 
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">Login</h3>
+<div class="outline-text-3" id="text-orgheadline13">
+<p>
+Wir melden uns jetzt von der Konsole aus bei Docker Hub an:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock2">docker login
+</pre>
+</div>
+
+<pre class="example">
+Username: joergre
+Password: 
+Email: joerg@reuter.sc
+WARNING: login credentials saved in /home/core/.docker/config.json
+Login Succeeded
+</pre>
+
+<p>
+Mit dem Befehl
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock3">docker logout
+</pre>
+</div>
+
+<pre class="example">
+Remove login credentials for https://index.docker.io/v1/
+</pre>
+
+<p>
+melden wir uns von Docker ab. Aber wir melden uns sofort wieder an, wir möchte ja mit Docker Hub arbeiten.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">Docker commit</h3>
+<div class="outline-text-3" id="text-orgheadline14">
+<p>
+Wie bereits erwähnt, der eher unübliche Weg. Das Kapitel dient nur dazu, zu zeigen, wie man es auch machen kann.
+</p>
+
+<p>
+Wir fangen immer mit einem bestehenden Image an. Bei Docker commit starten wir das Image und erstellen so einen Container:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock4">docker run -i -t ubuntu /bin/bash
+</pre>
+</div>
+
+<pre class="example">
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+
+cad964aed91d: Pull complete 
+3a80a22fea63: Pull complete 
+50de990d7957: Pull complete 
+61e032b8f2cb: Pull complete 
+9f03ce1741bf: Pull complete 
+Digest: sha256:28d4c5234db8d5a634d5e621c363d900f8f241240ee0a6a978784c978fe9c737
+Status: Downloaded newer image for ubuntu:latest
+root@f39032b9f532:/#
+</pre>
+
+<p>
+Den Befehl haben wir ja bereits öfters ausgeführt. Insofern sind wir (hoffentlich) nicht überrascht, dass wir in dem Container angemeldet sind.
+Als nächste Schritt installieren wir den Webserver Apache. Zuerst müssen wir dazu das Repository der Packete aktualisieren:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock5">apt -yqq update
+</pre>
+</div>
+
+<pre class="example">
+6 packages can be upgraded. Run 'apt list --upgradable' to see them.
+</pre>
+
+<p>
+Wir könnten jetzt ein apt upgrade ausführen, dass lassen wir aber und fahren fort mit der Installation:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock6">apt -yqq install apache2
+</pre>
+</div>
+
+<p>
+Die Ausgabe erspare ich mir an dieser Stelle. Wir möchten nun den Zustand des Containers sichern um ihn später weiterverwenden zu können. Wir loggen uns mit exit aus:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">exit
+</pre>
+</div>
+
+<pre class="example">
+exit
+core@fbs-01 ~ $
+</pre>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15">Aufgabe</h4>
+<div class="outline-text-4" id="text-orgheadline15">
+<p>
+Finde heraus, welche Bedeutung die Parameter -yqq bei dem Installationsprozess haben.
+</p>
+
+<p>
+Unser Container ist jetzt beendet. Wir suchen uns jetzt die Container-ID:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">docker ps
+</pre>
+</div>
+
+<pre class="example">
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+f39032b9f532        ubuntu              "/bin/bash"         13 minutes ago      Exited (0) 3 minutes ago                       pensive_stallman
+</pre>
+
+<p>
+und führen jetzt einen docker commit durch:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">docker commit f39032b9f532 joergre/apache2
+</pre>
+</div>
+
+<pre class="example">
+sha256:91d4e09127ec25aa2dce9f86afa78bdb436aae6adde787142c54a99766b182ee
+</pre>
+
+<p>
+Ihr benötigt für das commit die Container-ID und (optional) Euren Benutzername von Docker HUB und durch "/" getrennt ein Imagenamen den Ihr frei wählen könnt. Sinnvoller Weise sollte der Name so gewählt werden, dass man auch nächste Woche noch eine Idee über den Inhalt des Containers hat.
+Nun möchten wir uns das Ergebniss auch anschauen:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">docker images
+</pre>
+</div>
+
+<pre class="example">
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+joergre/apache2     latest              91d4e09127ec        About a minute ago   265.2 MB
+ubuntu              latest              c73a085dc378        2 weeks ago          127 MB
+</pre>
+
+<p>
+Und da sehen wir, voller stolz, unser erstes Image. Wir können dem Image jetzt noch weitere Metadaten hinzufügen, damit wir besser erkennen können, was wir hier für ein Image haben.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">docker commit -m "Mein erstes eigene Image. Das war ja einfach" -a "Jörg Reuter" f39032b9f532 joergre/apache2:webserver
+</pre>
+</div>
+
+<pre class="example">
+sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85
+</pre>
+
+<p>
+Mit -m wurde eine Kommentar zum Container hinzugefügt, mit -a ein Autor und mit ":" ein Tag bzw. Version. Mit dem Befehl docker images sehen wir unser neues Produkt:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">docker images
+</pre>
+</div>
+
+<pre class="example">
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+joergre/apache2     webserver           cfca430f5584        8 seconds ago       265.2 MB
+joergre/apache2     latest              91d4e09127ec        20 minutes ago      265.2 MB
+ubuntu              latest              c73a085dc378        2 weeks ago         127 MB
+</pre>
+
+<p>
+Mit docker inspect können wir das Image näher untersuchen:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">docker inspect joergre/apache2:webserver
+</pre>
+</div>
+
+<pre class="example">
+[
+    {
+        "Id": "sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85",
+        "RepoTags": [
+            "joergre/apache2:webserver"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:c73a085dc3782b3fd4c032971c76d6afb45fa3728a048175c8c77d7403de5f21",
+        "Comment": "Mein erstes eigene Image. Das war ja einfach",
+        "Created": "2016-10-11T04:40:50.411198103Z",
+        "Container": "f39032b9f5329f63d73f7bfc70b0fa3f5b88c29ddd98cd75ab832a629e2b113c",
+        "ContainerConfig": {
+            "Hostname": "f39032b9f532",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "ubuntu",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {},
+            "StopSignal": "SIGTERM"
+        },
+        "DockerVersion": "1.10.3",
+        "Author": "Jörg Reuter",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 265202837,
+        "VirtualSize": 265202837,
+        "GraphDriver": {
+            "Name": "overlay",
+            "Data": {
+                "RootDir": "/var/lib/docker/overlay/9c634d9573d15e4da697c5a58bbeee4ceb677ae5a7afab6263e6c9b15b6d13f1/root"
+            }
+        }
+    }
+]
+</pre>
+<p>
+Eine Übersicht über alle Parameter findet Ihr hier: <a href="http://54.71.194.30:4016/reference/commandline/cli/#commit">http://54.71.194.30:4016/reference/commandline/cli/#commit</a>
+</p>
+
+<p>
+Jetzt starten wir unser neues Image in einem Container:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">docker run -t -i joergre/apache2:webserver /bin/bash
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18">Zum Schluss</h2>
+<div class="outline-text-2" id="text-orgheadline18">
+</div><div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16">Helfe mir, den Kurs besser zu machen!</h3>
+<div class="outline-text-3" id="text-orgheadline16">
 <ul class="org-ul">
 <li>Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.</li>
 <li>Der Kurs existiert für Dich &#x2013; sage mir, was Du brauchst!</li>
@@ -169,8 +634,8 @@ docker ps -qa|xargs docker rm -f
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3">Weitere Informationsquellen</h3>
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17">Weitere Informationsquellen</h3>
 </div>
 </div>
 </div>

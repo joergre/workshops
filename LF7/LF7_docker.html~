@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-04-19 Tue 22:30 -->
+<!-- 2016-10-11 Di 05:54 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Einführung in Docker</title>
@@ -68,48 +68,119 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline2">Introduction</a>
+<li><a href="#orgheadline10">Einführung in Docker</a>
 <ul>
-<li><a href="#orgheadline1">Workshop description</a></li>
+<li><a href="#orgheadline1">Warum Docker</a>
+<ul>
+<li><a href="#orgheadline2">Vorteile von Docker</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline3">Einführung in Docker</a></li>
-<li><a href="#orgheadline6">Zum Schluss</a>
+<li><a href="#orgheadline5">Docker Begriffe</a>
 <ul>
-<li><a href="#orgheadline4">Helfe mir, den Kurs besser zu machen!</a></li>
-<li><a href="#orgheadline5">Weitere Informationsquellen</a></li>
+<li><a href="#orgheadline3">Images</a></li>
+<li><a href="#orgheadline4">Container</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">Arten von Virtualisierung (Prüfungsrelevant!)</a>
+<ul>
+<li><a href="#orgheadline6">TYP 1 (Bare Metall)</a></li>
+<li><a href="#orgheadline7">TYP 2</a></li>
+<li><a href="#orgheadline8">Docker Container unter Linux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline11">Zum eigenen Image</a>
+<ul>
+<li><a href="#orgheadline12">Docker Hub account</a></li>
+<li><a href="#orgheadline13">Login</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline16">Zum Schluss</a>
+<ul>
+<li><a href="#orgheadline14">Helfe mir, den Kurs besser zu machen!</a></li>
+<li><a href="#orgheadline15">Weitere Informationsquellen</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">Introduction</h2>
-<div class="outline-text-2" id="text-orgheadline2">
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10">Einführung in Docker</h2>
+<div class="outline-text-2" id="text-orgheadline10">
 </div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1">Workshop description</h3>
+<h3 id="orgheadline1">Warum Docker</h3>
 <div class="outline-text-3" id="text-orgheadline1">
+<p>
+Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ. Der Hauptunterschied zu anderen Virtualisierungen ist, dass nicht der Schwerpunkt auf die Virtualisierung von Betriebssystemen gelegt wird, sondern von Anwendungen. Das zeigt sich z.B. daran, dass Container normalerweise keine öffentliche IP-Adresse haben und nur über einen festgelegten Port über die IP des "Hostsystems" erreichbar sind. Auch auf hub.docker.com werden eher Anwendungen angeboten und nicht Betriebssysteme. Wenn ein Webserver gebraucht wird, ist es nicht interessant auf welchen Linux-Dervat er installiert wurde, sondern das er sicher läuft und die benötigten Dienste zur Verfügung stellt.
+Aber der Reihe nach.
+</p>
+</div>
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2">Vorteile von Docker</h4>
+<div class="outline-text-4" id="text-orgheadline2">
 <ul class="org-ul">
-<li>This is an intermediate/advanced R course</li>
-<li>Appropriate for those with basic knowledge of R</li>
-<li>This is not a statistics course!</li>
-<li>Learning objectives:
+<li>Docker ist unabhängig vom Betriebssystem. Es wird unterstützt von: 
 <ul class="org-ul">
-<li>Learn the R formula interface</li>
-<li>Specify factor contrasts to test specific hypotheses</li>
-<li>Perform model comparisons</li>
-<li>Run and interpret variety of regression models in R</li>
+<li>allen Linux Distributionen,</li>
+<li>Microsoft-Betriebssystemen (seit 2016),</li>
+<li>OS X.</li>
+</ul></li>
+
+<li>Vorteile gegenüber anderen Virtualisierungslösungen:
+<ul class="org-ul">
+<li>Benötigt keine besondere Hardware oder CPU-Erweiterungen.</li>
+<li>Effizienter als herkömmliche Virtualisierungslösungen.</li>
+<li>Weitergabe von Containern sehr leicht möglich (nur ein Textfile).</li>
+<li>Einfache Überprüfung, wie der Container aufgesetzt wurde (alle Befehle stehen in dem Textfile).</li>
+<li>Kostenlos Nutzbar.</li>
+<li>Plattformunabhängige Container. Keine Abhängigkeiten zum Hostsystem.</li>
+<li>Einfaches Clustering von Systemen.</li>
+<li>Einfache Versionsverwaltung. Jeder Schritt kann rückgängig gemacht werden und jeder Schritt wird aufgezeichnet.</li>
 </ul></li>
 </ul>
 </div>
 </div>
 </div>
 
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Docker Begriffe</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+</div><div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3">Images</h4>
+<div class="outline-text-4" id="text-orgheadline3">
+<p>
+Ein Image ist portable und kann zwischen Systemen ausgetauscht werden. Es kann aus einem Container erstellt werden und stellt so einen Snapshot dar.
+</p>
+</div>
+</div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Einführung in Docker</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">Container</h4>
+<div class="outline-text-4" id="text-orgheadline4">
+<p>
+Ein Container braucht ein Image. Der Container ist ein gestartetes Image und existiert nur, solange die Instanz läuft. Beim herunterfahren des Containers können die Änderungen  die durch Laufzeit des Containers eingetreten sind im Image hinzugefügt werden. Images haben immer eine Version und es werden nur die Unterschiede zur vorhergehenden Version gespeichert. Ein Image kann von mehreren Containern geteilt werde.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">Arten von Virtualisierung (Prüfungsrelevant!)</h3>
+<div class="outline-text-3" id="text-orgheadline9">
+</div><div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6">TYP 1 (Bare Metall)</h4>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7">TYP 2</h4>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8">Docker Container unter Linux</h4>
+<div class="outline-text-4" id="text-orgheadline8">
 <p>
 Wir laden das Image von Ubuntu 14.04 herunter:
 </p>
@@ -182,13 +253,102 @@ docker ps -qa|xargs docker rm -f
 </pre>
 </div>
 </div>
+</div>
+</div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">Zum Schluss</h2>
-<div class="outline-text-2" id="text-orgheadline6">
-</div><div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">Helfe mir, den Kurs besser zu machen!</h3>
-<div class="outline-text-3" id="text-orgheadline4">
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Zum eigenen Image</h2>
+<div class="outline-text-2" id="text-orgheadline11">
+<p>
+Mit dem Befehl
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock1">docker info
+</pre>
+</div>
+
+<pre class="example">
+Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 1.10.3
+Storage Driver: overlay
+ Backing Filesystem: extfs
+Execution Driver: native-0.2
+Logging Driver: json-file
+Plugins: 
+ Volume: local
+ Network: null host bridge
+Kernel Version: 4.7.0-coreos
+Operating System: CoreOS 1122.2.0 (MoreOS)
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 493.2 MiB
+Name: fbs-01
+ID: UEJT:QG6A:VS7A:HUWD:6J6D:PPVX:C5DY:XS5R:GHQ7:2RWT:7PLT:DDE5
+</pre>
+<p>
+überprüfen wir, ob Docker installiert ist und ordnungsgemäß läuft.
+Um ein neues Image zu erstellen, gibt es zwei Wege:
+</p>
+
+<ul class="org-ul">
+<li>docker commit</li>
+<li>docker build</li>
+</ul>
+
+<p>
+Die mächtigste und übliche Methode ist der Weg über den Befehl docker build. 
+</p>
+
+<p>
+Beachte: Wir bauen keine komplett neuen Images. Der Weg ist vielmehr, dass wir ein bestehendes Image (z.B. Ubuntu) entsprechend anpassen!
+</p>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Docker Hub account</h3>
+<div class="outline-text-3" id="text-orgheadline12">
+<p>
+Eine wichtige und großartige Sache ist das teilen von Docker Images. Wir können dies über den offitiellen Docker Hub machen oder aber über unser eigene Registry. Um es einfach zu machen, erstellen wir uns einen Account bei Docker Hub (<a href="https://hub.docker.com/">https://hub.docker.com/</a>). 
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">Login</h3>
+<div class="outline-text-3" id="text-orgheadline13">
+<p>
+Wir melden uns jetzt von der Konsole aus bei Docker Hub an:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash" id="orgsrcblock2">docker login
+</pre>
+</div>
+
+<pre class="example">
+Username: joergre
+Password: 
+Email: joerg@reuter.sc
+WARNING: login credentials saved in /home/core/.docker/config.json
+Login Succeeded
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16">Zum Schluss</h2>
+<div class="outline-text-2" id="text-orgheadline16">
+</div><div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">Helfe mir, den Kurs besser zu machen!</h3>
+<div class="outline-text-3" id="text-orgheadline14">
 <ul class="org-ul">
 <li>Bitte nehme Dir einen Moment Zeit und fülle das Feedback-Formular aus.</li>
 <li>Der Kurs existiert für Dich &#x2013; sage mir, was Du brauchst!</li>
@@ -197,8 +357,8 @@ docker ps -qa|xargs docker rm -f
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">Weitere Informationsquellen</h3>
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">Weitere Informationsquellen</h3>
 </div>
 </div>
 </div>
