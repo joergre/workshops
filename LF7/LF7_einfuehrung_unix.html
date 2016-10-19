@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-10-19 Mi 03:44 -->
+<!-- 2016-10-19 Mi 14:09 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Einführung in Unix</title>
@@ -73,22 +73,23 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline1">Vorbemerkung</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline3">Die Standardverzeichnisse von Unix</a>
+<li><a href="#orgheadline3">Updates einspiele</a></li>
+<li><a href="#orgheadline4">Die Standardverzeichnisse von Unix</a>
 <ul>
-<li><a href="#orgheadline4">/</a></li>
-<li><a href="#orgheadline5">/bin</a></li>
-<li><a href="#orgheadline6">/dev</a></li>
-<li><a href="#orgheadline7">/etc</a></li>
-<li><a href="#orgheadline8">/home</a></li>
-<li><a href="#orgheadline9">/lib</a></li>
-<li><a href="#orgheadline10">/mnt</a></li>
-<li><a href="#orgheadline11">/opt</a></li>
-<li><a href="#orgheadline12">/proc</a></li>
-<li><a href="#orgheadline13">/root</a></li>
-<li><a href="#orgheadline14">/sbin</a></li>
-<li><a href="#orgheadline15">/tmp</a></li>
-<li><a href="#orgheadline16">/usr</a></li>
-<li><a href="#orgheadline17">/var</a></li>
+<li><a href="#orgheadline5">/</a></li>
+<li><a href="#orgheadline6">/bin</a></li>
+<li><a href="#orgheadline7">/dev</a></li>
+<li><a href="#orgheadline8">/etc</a></li>
+<li><a href="#orgheadline9">/home</a></li>
+<li><a href="#orgheadline10">/lib</a></li>
+<li><a href="#orgheadline11">/mnt</a></li>
+<li><a href="#orgheadline12">/opt</a></li>
+<li><a href="#orgheadline13">/proc</a></li>
+<li><a href="#orgheadline14">/root</a></li>
+<li><a href="#orgheadline15">/sbin</a></li>
+<li><a href="#orgheadline16">/tmp</a></li>
+<li><a href="#orgheadline17">/usr</a></li>
+<li><a href="#orgheadline18">/var</a></li>
 </ul>
 </li>
 </ul>
@@ -109,14 +110,136 @@ Sorry, your browser does not support SVG.</object>.
 <p>
 Wir werden in diesem Kurs einige grundlegende Eigenschaften von Unix entdecken, die prinzipiell unabhängig von der jeweilig eingesetzten Version sind. Um in jeder Umgebung ein System zu haben mit dem man ein wenig experimentieren kann, verwenden wir eine virtuellen Computer von DigitalOcean (<a href="http://digitalocean.com/">http://digitalocean.com/</a>).
 </p>
-</div>
-</div>
-</div>
 
+<p>
+Es gibt sehr viel Distributionen, die pft einen speziellen Zweck erfüllen. Es gibt Distributionen für IoT, IT-Sec, alte Computer, Server, videobearbeitung, Videostreaming, Musik unter Windows lauffähge Versionen etc. Für den Einsatz auf Servern ist es wichtig, sich eine Version herauszusuchen, die einen guten Support im Internet hat und weit verbreitet ist.
+Es macht keinen großen Sinn, die Distributionen nach Vor- und Nachteilen aufzuteilen. Dafür ist das Angebot zu vielfältig. Ich werde hier nur die bedeutenden Distributionen, die Basis für viele andere Distributionen sind, kurz vorstellen. Ich werde als Unterscheidungsmerkmal den Paketmanager nehmen um zu zeigen wie die ersten Schritte in der jeweiligen Distribution aussehen.
+</p>
+
+<p>
+Anders als bei Windows werden Programme meistens nicht auf einer Webseite gesucht, heruntergeladen und dann installiert. Es gibt bei Linuxsystemen ein Verzeichnis (Repository) aller üblichen Programme. Diese können dann über ein Systemprogramm installiert und mit Updates versorgt werden. Nur bei nicht "marktgängigen" Programmen ist eine manuelle Installation wie unter Windows notwendig.
+</p>
+
+<p>
+Fast jede Distribution hat ein Repository, indem alle Programme zentral verzeichnet sind, die zur Verfügung stehen. Mit einem Systemprogramm kann dieses Verzeichnis (Datenbank) auf den Computer gespielt werden. Diese Datenbank enthät 
+</p>
+
+<ul class="org-ul">
+<li>den Namen aller im Repository enthaltener Programme,</li>
+<li>eine kurze Beschreiung,</li>
+<li>die Versionsnummer</li>
+<li>die Abhängigkeiten</li>
+<li>Ort der Programmdateien im Internet (oder auf CD, USB-Stick etc.)</li>
+<li>und die Archtiktur (32- oder 64 Bit? ARM oder AMD/Intel).</li>
+</ul>
+
+<p>
+Standardmäßig wird nach Aktualisierung des lokalen Repository-Verzeichnisses alle Pakete angezeigt die bereits installiert sind und für die Updates zur Verfügung stehen.
+Es gibt zwei grosse Formate für die Paketbeschreibung:
+</p>
+
+<ul class="org-ul">
+<li>RPM</li>
+<li>Debian</li>
+</ul>
+
+<p>
+Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl der Distribution legt man sich automatisch auf das entsprechende Paketformat fest. Es gibt für alle Paketformate graphische und textbasierte Möglichkeiten der Installation, des Updates und des löschens von Programmen.  
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Name</td>
+<td class="org-left">Paketformat</td>
+<td class="org-left">weitere Informationen</td>
+</tr>
+
+<tr>
+<td class="org-left">Fedora</td>
+<td class="org-left">RPM</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Fedora">https://de.wikipedia.org/wiki/Fedora</a><sub>(Linux-Distribution)</sub></td>
+</tr>
+
+<tr>
+<td class="org-left">CentOS</td>
+<td class="org-left">RPM</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/CentOS">https://de.wikipedia.org/wiki/CentOS</a></td>
+</tr>
+
+<tr>
+<td class="org-left">openSUSE</td>
+<td class="org-left">RPM</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/OpenSUSE">https://de.wikipedia.org/wiki/OpenSUSE</a></td>
+</tr>
+
+<tr>
+<td class="org-left">SUSE Linux Enterprise</td>
+<td class="org-left">RPM</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/SUSE_Linux_Enterprise_Server">https://de.wikipedia.org/wiki/SUSE_Linux_Enterprise_Server</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Red Hat</td>
+<td class="org-left">RPM</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Red_Hat">https://de.wikipedia.org/wiki/Red_Hat</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Ubuntu</td>
+<td class="org-left">Debian</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Ubuntu">https://de.wikipedia.org/wiki/Ubuntu</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Debian</td>
+<td class="org-left">Debian</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Debian">https://de.wikipedia.org/wiki/Debian</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Arch</td>
+<td class="org-left">pacman</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Arch_Linux">https://de.wikipedia.org/wiki/Arch_Linux</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Salckware</td>
+<td class="org-left">tarballs</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Slackware">https://de.wikipedia.org/wiki/Slackware</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Gentoo</td>
+<td class="org-left">ebuild</td>
+<td class="org-left"><a href="https://de.wikipedia.org/wiki/Gentoo_Linux">https://de.wikipedia.org/wiki/Gentoo_Linux</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Slackware ist die älteste Distribution, Ubuntu die populärste.
+</p>
+</div>
+</div>
+</div>
 
 <div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Die Standardverzeichnisse von Unix</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<h2 id="orgheadline3">Updates einspiele</h2>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4">Die Standardverzeichnisse von Unix</h2>
+<div class="outline-text-2" id="text-orgheadline4">
 <p>
 Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
 </p>
@@ -140,27 +263,27 @@ Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen hal
 </p>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">/</h3>
-<div class="outline-text-3" id="text-orgheadline4">
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">/</h3>
+<div class="outline-text-3" id="text-orgheadline5">
 <p>
 Das ist das Haupt-, Root- oder Wurzelverzeichnis, das oberste Verzeichnis im kompletten Dateisystem. Hier sollten möglichst keine Dateien liegen, nur Verzeichnisse.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">/bin</h3>
-<div class="outline-text-3" id="text-orgheadline5">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">/bin</h3>
+<div class="outline-text-3" id="text-orgheadline6">
 <p>
 Wichtige Befehle zur Systemverwaltung, die nicht spezifisch für den Superuser sind. Dies sind z. B. die uns schon bekannten Befehle date, reboot, halt, shutdown, pwd und ls. Programmdateien werden auch als binaries bezeichnet.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">/dev</h3>
-<div class="outline-text-3" id="text-orgheadline6">
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">/dev</h3>
+<div class="outline-text-3" id="text-orgheadline7">
 <p>
 Alle Peripheriegeräte (engl. devices), wie z. B. Drucker und Netzwerkkarte, sind über Gerätedateien ansprechbar. Sie dienen als Schnittstelle zu den Gerätetreibern und haben deshalb auch keinen Inhalt. Zum Beispiel wird bei einem Ausdruck einer Datei diese einfach in die Datei /dev/lp2 (Druckerdevice) kopiert.
 </p>
@@ -186,9 +309,9 @@ zur Übersicht
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7">/etc</h3>
-<div class="outline-text-3" id="text-orgheadline7">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">/etc</h3>
+<div class="outline-text-3" id="text-orgheadline8">
 <p>
 Hier befinden sich die zentralen Konfigurationsdateien.
 Ein Beispiel ist die Datei passwd. Diese enthält eine Liste aller Benutzer am System.
@@ -197,81 +320,81 @@ Die Konfigurationsdateien sind reine Textdateien (ASCII-Dateien) und können so 
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8">/home</h3>
-<div class="outline-text-3" id="text-orgheadline8">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">/home</h3>
+<div class="outline-text-3" id="text-orgheadline9">
 <p>
 Hier befinden sich die Heimatverzeichnisse der "normalen" Benutzer. Jeder Benutzer unter Unix erhält einen Nutzernamen, ein Passwort und ein eigenes Verzeichnis. Dieses Verzeichnis wird als Unterverzeichnis in /home angelegt. Ein Nutzer mit dem Namen "schueler" würde also das Verzeichnis /home/schueler erhalten. Dort und nur dort kann der Nutzer Dateien und Verzeichnisse anlegen und verändern.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9">/lib</h3>
-<div class="outline-text-3" id="text-orgheadline9">
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10">/lib</h3>
+<div class="outline-text-3" id="text-orgheadline10">
 <p>
 Unter Unix werden, soweit wie es eben geht, gemeinsam verwendbare Bibliotheken (engl. shared libraries) eingesetzt. Solche shared libraries sparen eine Menge Systemressourcen, da viele Bestandteile von mehreren Prozessen aus gleichzeitig genutzt werden.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10">/mnt</h3>
-<div class="outline-text-3" id="text-orgheadline10">
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11">/mnt</h3>
+<div class="outline-text-3" id="text-orgheadline11">
 <p>
 Hier werden bei vielen Unix-Versionen die Laufwerke, wie DVD und USB-Geräte, ein "montiert" (engl. mounten). Der Inhalt der Laufwerke erscheint dann unterhalb dieses Verzeichnisses.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11">/opt</h3>
-<div class="outline-text-3" id="text-orgheadline11">
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">/opt</h3>
+<div class="outline-text-3" id="text-orgheadline12">
 <p>
 Hier werden optionale Zusatzprogramme, wie z. B. der WWW-Browser Firefox oder das Office-Paket OpenOffice, gespeichert.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12">/proc</h3>
-<div class="outline-text-3" id="text-orgheadline12">
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">/proc</h3>
+<div class="outline-text-3" id="text-orgheadline13">
 <p>
 &#x2026;ein virtuelles Dateisystem, über das Informationen über die Hardware ermittelt werden können. Außerdem wird hier jeder laufende Prozess (engl. process) dargestellt. Für jeden laufenden Prozess findet sich unterhalb von /proc ein Verzeichnis, dessen Name gleich seiner Prozessnummer (PID) ist. In diesem Unterverzeichnis sind keine Schreiboperationen möglich.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13">/root</h3>
-<div class="outline-text-3" id="text-orgheadline13">
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">/root</h3>
+<div class="outline-text-3" id="text-orgheadline14">
 <p>
 Dies ist das Heimatverzeichnis des Superusers. Es liegt nicht im Verzeichnis /home, da /home eventuell auf einer anderen Festplatte oder Partition liegen kann und so bei Wartungsarbeiten vielleicht nicht zur Verfügung steht.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14">/sbin</h3>
-<div class="outline-text-3" id="text-orgheadline14">
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">/sbin</h3>
+<div class="outline-text-3" id="text-orgheadline15">
 <p>
 Hier befinden sich ausführbare Dateien (engl. binaries) für den Systemstart und zur Systemverwaltung durch den Superuser.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15">/tmp</h3>
-<div class="outline-text-3" id="text-orgheadline15">
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16">/tmp</h3>
+<div class="outline-text-3" id="text-orgheadline16">
 <p>
 Viele Programme brauchen regelmäßig temporären Speicherplatz. Da aber alle Benutzer Programme benutzen, haben alle Anwender auf dieses Verzeichnis auch schreibenden Zugriff. Bei Systemen mit vielen Anwendern sollte daher dieses Verzeichnis in eine extra Partition oder Festplatte gelegt werden. Dann kann das Schreiben in das Verzeichnis /tmp nicht mehr dazu führen, dass das gesamte System abstürzt, wenn dadurch der Gesamtspeicherplatz gegen 0 läuft. Ist genug Hauptspeicher (RAM) vorhanden, so kann man das Verzeichnis /tmp auch im Hauptspeicher anlegen.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16">/usr</h3>
-<div class="outline-text-3" id="text-orgheadline16">
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17">/usr</h3>
+<div class="outline-text-3" id="text-orgheadline17">
 <p>
 &#x2026;für die Benutzer (engl. user) relevante Befehle und Anwendungsprogramme. Diese befinden sich in weiteren Unterverzeichnissen.
 </p>
@@ -287,9 +410,9 @@ In /usr/bin befinden sich Dienstprogramme, die weniger häufig verwendet werden.
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17">/var</h3>
-<div class="outline-text-3" id="text-orgheadline17">
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18">/var</h3>
+<div class="outline-text-3" id="text-orgheadline18">
 <p>
 Bei Unix wird streng unterschieden zwischen Teilbereiche des gesamten Dateibaumes, der für alle Benutzer nur lesbar bzw. auch beschreibbar sein soll. Diejenigen Daten, die für alle Anwender nur lesbar sein sollen, befinden sich unterhalb von /usr.
 Dort, wo der Anwender auch schreibenden Zugriff haben muss, wird eine Speicherung der variablen Daten in die Unterverzeichnisse von /var vorgenommen.

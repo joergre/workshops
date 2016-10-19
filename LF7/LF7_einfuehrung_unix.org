@@ -32,6 +32,45 @@ Unix wurde Ende der 1960er Jahre entwickelt und weißt eine sehr grosse Vielfalt
 
 Wir werden in diesem Kurs einige grundlegende Eigenschaften von Unix entdecken, die prinzipiell unabhängig von der jeweilig eingesetzten Version sind. Um in jeder Umgebung ein System zu haben mit dem man ein wenig experimentieren kann, verwenden wir eine virtuellen Computer von DigitalOcean (http://digitalocean.com).
 
+Es gibt sehr viel Distributionen, die pft einen speziellen Zweck erfüllen. Es gibt Distributionen für IoT, IT-Sec, alte Computer, Server, videobearbeitung, Videostreaming, Musik unter Windows lauffähge Versionen etc. Für den Einsatz auf Servern ist es wichtig, sich eine Version herauszusuchen, die einen guten Support im Internet hat und weit verbreitet ist.
+Es macht keinen großen Sinn, die Distributionen nach Vor- und Nachteilen aufzuteilen. Dafür ist das Angebot zu vielfältig. Ich werde hier nur die bedeutenden Distributionen, die Basis für viele andere Distributionen sind, kurz vorstellen. Ich werde als Unterscheidungsmerkmal den Paketmanager nehmen um zu zeigen wie die ersten Schritte in der jeweiligen Distribution aussehen.
+
+Anders als bei Windows werden Programme meistens nicht auf einer Webseite gesucht, heruntergeladen und dann installiert. Es gibt bei Linuxsystemen ein Verzeichnis (Repository) aller üblichen Programme. Diese können dann über ein Systemprogramm installiert und mit Updates versorgt werden. Nur bei nicht "marktgängigen" Programmen ist eine manuelle Installation wie unter Windows notwendig.
+
+Fast jede Distribution hat ein Repository, indem alle Programme zentral verzeichnet sind, die zur Verfügung stehen. Mit einem Systemprogramm kann dieses Verzeichnis (Datenbank) auf den Computer gespielt werden. Diese Datenbank enthät 
+
+- den Namen aller im Repository enthaltener Programme, 
+- eine kurze Beschreiung, 
+- die Versionsnummer 
+- die Abhängigkeiten
+- Ort der Programmdateien im Internet (oder auf CD, USB-Stick etc.)
+- und die Archtiktur (32- oder 64 Bit? ARM oder AMD/Intel). 
+
+Standardmäßig wird nach Aktualisierung des lokalen Repository-Verzeichnisses alle Pakete angezeigt die bereits installiert sind und für die Updates zur Verfügung stehen.
+Es gibt zwei grosse Formate für die Paketbeschreibung:
+
+- RPM
+- Debian
+
+Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl der Distribution legt man sich automatisch auf das entsprechende Paketformat fest. Es gibt für alle Paketformate graphische und textbasierte Möglichkeiten der Installation, des Updates und des löschens von Programmen.  
+
+|-----------------------+-------------+------------------------------------------------------------|
+| Name                  | Paketformat | weitere Informationen                                      |
+| Fedora                | RPM         | https://de.wikipedia.org/wiki/Fedora_(Linux-Distribution)  |
+| CentOS                | RPM         | https://de.wikipedia.org/wiki/CentOS                       |
+| openSUSE              | RPM         | https://de.wikipedia.org/wiki/OpenSUSE                     |
+| SUSE Linux Enterprise | RPM         | https://de.wikipedia.org/wiki/SUSE_Linux_Enterprise_Server |
+| Red Hat               | RPM         | https://de.wikipedia.org/wiki/Red_Hat                      |
+| Ubuntu                | Debian      | https://de.wikipedia.org/wiki/Ubuntu                       |
+| Debian                | Debian      | https://de.wikipedia.org/wiki/Debian                                                           |
+| Arch                  | pacman      | https://de.wikipedia.org/wiki/Arch_Linux                   |
+| Salckware             | tarballs    | https://de.wikipedia.org/wiki/Slackware                    |
+| Gentoo                | ebuild      | https://de.wikipedia.org/wiki/Gentoo_Linux                 |
+|-----------------------+-------------+------------------------------------------------------------|
+
+Slackware ist die älteste Distribution, Ubuntu die populärste.
+
+* Updates einspiele
 
 * Die Standardverzeichnisse von Unix
 Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
