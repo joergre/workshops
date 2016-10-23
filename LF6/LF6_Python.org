@@ -126,7 +126,7 @@ if __name__ == '__main__':
     unittest.main()
 #+end_src python
 
-#+begin_example
+#+begin_src
 ======================================================================
 FAIL: test_lebende_zelle_mit_0_nachbarn_stirbt (__main__.GameOfLifeTests)
 ----------------------------------------------------------------------
@@ -147,7 +147,7 @@ AssertionError: 'tot' != 'lebt'
 Ran 3 tests in 0.001s
 
 FAILED (failures=2)
-#+end_example
+#+end_src
 
 Nach dem fehlgeschlagenen Test haben wir die Motivation die wir brauchen! Wir passen unser Pythonprogramm entsprechend an:
 
