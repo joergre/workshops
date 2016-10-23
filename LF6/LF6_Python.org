@@ -60,7 +60,6 @@ if __name__ == '__main__':
     unittest.main()
 #+end_src
 
-
 #+RESULTS: SdL_Test.pyv1
 #+begin_example
 ======================================================================
