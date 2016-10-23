@@ -61,8 +61,10 @@ if __name__ == '__main__':
     unittest.main()
 #+end_src
 
+Die Ausgabe von SdL_Test.py:
+
 #+RESULTS: SdL_Test.pyv1
-#+begin_example
+#+begin_src
 ======================================================================
 FAIL: test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig (__main__.GameOfLifeTests)
 ----------------------------------------------------------------------
@@ -75,7 +77,7 @@ AssertionError: 'lebt' != None
 Ran 1 test in 0.000s
 
 FAILED (failures=1)
-#+end_example
+#+end_src
 
 Da die Funktion nextGeneration keinen Rückgabewert hat, kommt es zu einer (erwarteten) Fehlermeldung bei der Abarbeitung des Test: 
 'lebt' != None
@@ -91,12 +93,13 @@ def nextGeneration(zelle, nachbarn):
 #+end_src
 
 Der Test wird erfüllt und gibt ein OK zurück:
-#+begin_example
+
+#+begin_src
 ----------------------------------------------------------------------
 Ran 1 test in 0.000s
 
 OK
-#+end_example
+#+end_src
 
 Wenden wir uns jetzt der zweiten Bedingung zu:
 
@@ -125,6 +128,8 @@ class GameOfLifeTests( unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 #+end_src python
+
+Die Ausgabe des Tests:
 
 #+begin_src
 ======================================================================
