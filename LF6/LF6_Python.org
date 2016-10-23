@@ -52,9 +52,9 @@ import unittest
 from SdL import nextGeneration
 # Import der zu testenden Funktion
 class GameOfLifeTests( unittest.TestCase):
-    def test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig(self):
+    def test_lebende_zelle_mit_3_nachbarn_wird_lebendig(self):
 # Name der Testfunktion        
-        self.assertEqual( 'lebt', nextGeneration( zelle='lebt', nachbarn = 2 ) )
+        self.assertEquals( 'lebt', nextGeneration( zelle='tot', nachbarn = 3 ) )
 # der Test mit dem Erwartungwert 'lebt' bei Übergabe der Werte Zelle='lebt' und nachbarn='2'
 
 if __name__ == '__main__':
@@ -81,6 +81,7 @@ Da die Funktion nextGeneration keinen Rückgabewert hat, kommt es zu einer (erwa
 'lebt' != None
 
 Wir passen die Funktion so an, dass der erwartete Wert zurückgegeben wird:
+
 Datei SdL.py:
 
 #+name: SdL.pyv2
@@ -96,6 +97,63 @@ Ran 1 test in 0.000s
 
 OK
 #+end_example
+
+Wenden wir uns jetzt der zweiten Bedingung zu:
+
+- Lebende Zellen mit weniger als zwei lebenden Nachbarn sterben in der Folgegeneration an Einsamkeit.
+
+Als erstes implementieren wir wieder einen Test. Erst ein fehlgeschlagener Test motiviert uns, weiter an dem Code zu arbeiten.
+
+Die Datei SdL_Test.py:
+
+#+name: SdL_Test.pyv3
+#+begin_src python :export both
+# -*- coding: utf-8 -*-
+import unittest
+# Import der Funktion 
+from SdL import nextGeneration
+# Import der zu testenden Funktion
+class GameOfLifeTests( unittest.TestCase):
+    def test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig(self):
+# Name der Testfunktion        
+        self.assertEqual( 'lebt', nextGeneration( zelle='lebt', nachbarn = 2 ) )
+# der Test mit dem Erwartungwert 'lebt' bei Übergabe der Werte Zelle='lebt' und nachbarn='2'
+    def test_lebende_zelle_mit_0_nachbarn_stirbt(self):
+        self.assertEquals( 'tot', nextGeneration( zelle='lebt', nachbarn = 0 ) )
+    def test_lebende_zelle_mit_1_nachbarn_stirbt(self):
+        self.assertEquals( 'tot', nextGeneration( zelle='lebt', nachbarn = 1 ) )
+if __name__ == '__main__':
+    unittest.main()
+#+end_src python
+
+#+begin_example
+======================================================================
+FAIL: test_lebende_zelle_mit_0_nachbarn_stirbt (__main__.GameOfLifeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/SdL_Test.py", line 12, in test_lebende_zelle_mit_0_nachbarn_stirbt
+    self.assertEquals( 'tot', nextGeneration( zelle='lebt', nachbarn = 0 ) )
+AssertionError: 'tot' != 'lebt'
+
+======================================================================
+FAIL: test_lebende_zelle_mit_1_nachbarn_stirbt (__main__.GameOfLifeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/SdL_Test.py", line 14, in test_lebende_zelle_mit_1_nachbarn_stirbt
+    self.assertEquals( 'tot', nextGeneration( zelle='lebt', nachbarn = 1 ) )
+AssertionError: 'tot' != 'lebt'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=2)
+#+end_example
+
+Nach dem fehlgeschlagenen Test haben wir die Motivation die wir brauchen! Wir passen unser Pythonprogramm entsprechend an:
+
+
+
+
 
 
 
