@@ -44,6 +44,7 @@ def nextGeneration(zelle, nachbarn):
 #+end_src
 
 Datei SdL_Test.py an:
+
 #+name: SdL_Test.pyv1
 #+begin_src python :export both
 import unittest
@@ -75,6 +76,28 @@ Ran 1 test in 0.000s
 
 FAILED (failures=1)
 #+end_example
+
+Da die Funktion nextGeneration keinen Rückgabewert hat, kommt es zu einer (erwarteten) Fehlermeldung bei der Abarbeitung des Test: 
+'lebt' != None
+
+Wir passen die Funktion so an, dass der erwartete Wert zurückgegeben wird:
+Datei SdL.py:
+
+#+name: SdL.pyv2
+#+begin_src python :export both
+def nextGeneration(zelle, nachbarn):
+    return('lebt')
+#+end_src
+
+Der Test wird erfüllt und gibt ein OK zurück:
+#+begin_example
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+#+end_example
+
+
 
 * Introduction
 ** Scanner
