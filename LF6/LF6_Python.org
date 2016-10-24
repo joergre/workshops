@@ -65,7 +65,7 @@ Die Ausgabe von SdL_Test.py:
 
 #+begin_src
 ======================================================================
-FAIL: test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig (__main__.GameOfLifeTests)
+FAIL: test_lebende_zelle_mit_3_nachbarn_wird_lebendig (__main__.GameOfLifeTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
   File "/home/ubuntu/workspace/SdL_Test.py", line 8, in test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig
@@ -79,6 +79,7 @@ FAILED (failures=1)
 #+end_src
 
 Da die Funktion nextGeneration keinen Rückgabewert hat, kommt es zu einer (erwarteten) Fehlermeldung bei der Abarbeitung des Test: 
+
 'lebt' != None
 
 Wir passen die Funktion so an, dass der erwartete Wert zurückgegeben wird:
@@ -116,7 +117,7 @@ import unittest
 from SdL import nextGeneration
 # Import der zu testenden Funktion
 class GameOfLifeTests( unittest.TestCase):
-    def test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig(self):
+    def test_lebende_zelle_mit_3_nachbarn_wird_lebendig(self):
 # Name der Testfunktion        
         self.assertEqual( 'lebt', nextGeneration( zelle='lebt', nachbarn = 2 ) )
 # der Test mit dem Erwartungwert 'lebt' bei Übergabe der Werte Zelle='lebt' und nachbarn='2'
@@ -155,11 +156,32 @@ FAILED (failures=2)
 
 Nach dem fehlgeschlagenen Test haben wir die Motivation die wir brauchen! Wir passen unser Pythonprogramm entsprechend an:
 
+#+name: SdL.pyv3
+#+begin_src python :export both
+def nextGeneration(zelle, nachbarn):
+    if zelle == 'tot':
+        if nachbarn == 3:
+            return 'lebt'
+    if zelle=='lebt':
+        if nachbarn < 2:
+            return('tot')
+#+end_src
 
+Die Ausgabe:
 
+#+begin_src
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
 
+OK
+#+end_src
 
+Damit laufen alle 3 Test durch und wir können wieder unsere Test erweitern.
 
+** Aufgabe
+Erweitere mit Hilfe von Tdd den Programmcode von SdL.py und SdL_Test.py so, dass alle Bedingungen des Spiels abgedeckt werden.
+
+Wenn Dich TDD interesiert und Du weitere Übung benötigst: Einmal im Jahr (Herbst) findet an der Hochschule Fulda der "Global Day of Coderetreat in Fulda" statt. Die Veranstaltung ist kostenlos (es gibt sogar ein kostenloses Mittagessen und kostenlose Getränke). Das Ziel des Tages (von 9:00 bis 17:00 Uhr) ist es, Techniken wie "TDD" oder "Clean Code" einzuüben. Termine werden rechtzeitig unter https://fachinformatiker-fulda.de/ bekannt gegeben. Die Veranstaltung ist für alle Interessierte zugänglich und möchte insbesondere auch langjährige Programmierer erreichen.
 
 * Introduction
 ** Scanner
