@@ -63,7 +63,6 @@ if __name__ == '__main__':
 
 Die Ausgabe von SdL_Test.py:
 
-#+RESULTS: SdL_Test.pyv1
 #+begin_src
 ======================================================================
 FAIL: test_lebende_zelle_mit_2_nachbarn_bleibt_lebendig (__main__.GameOfLifeTests)
