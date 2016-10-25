@@ -1,0 +1,112 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+* TDD
+TDD ist eine wundervolle Methode um Code zu schreiben. Nähres siehe bitte unter Python.
+Um TDD einfach mit C anzuwenden wird ein Framework verwendet. Dies liegt einfach daran, dass C eine sehr alte Programmiersprache ist (fast 50 Jahre: https://de.wikipedia.org/wiki/C_(Programmiersprache)). Im laufe der Zeit ändern sich Sachen aber bei Embedded Systems (eingebettet Systeme) ist die Zeit auf Grund der widrigen Umständen wie hoher Kostendruck, sehr energiesparendes Design, sehr kleine Abmessungen und daher sehr schwache Auslegung von Prozessor und Speicher etc. die Zeit bei der Softwareentwicklung ein wenig stehen geblieben. 
+
+Gerade dieses stehen bleiben in der Entwicklung läst C als nichtgeeignet erscheinen, um eine Programmiersprache zu lernen. Auf der anderen Seite hat C eine herausragende Bedeutung im Segment der IoT und der kelinen Geräten. Gerade da wo bei der Leistung um jedes Milliwatt gekämpft wird, weil die Geräte oft 24h am Tag und 365 Tage im Jahr im Betrieb sind. Wo die Software mit Prozessoren zurecht kommen muss, die noch im einstelligen MHZ-Bereich ihren Dienst tun und mit KBytes statt GBytes an RAM wahre Wunder vollbringen sollen. In Bereichen, indenen die Geräte möglichst verschwinden sollen und sich keiner dafür interessiert wie Funksteckdosen, babyphone, WebCAm, Waschmaschine, Auto, Heizungsregelung etc. Und gerade diese Durchsetzung der Umgebung einer modernen Gesellschaft mit den kleinen Helfern macht sie zahlenmässig bedeutend. So bedeutend, dass man sich als angehender Fachinformatiker oder Systemelektroniker zumindest ein paar Eigenschaften der Programmiersprache zu eigen gemacht haben sollte.
+
+Auf Grund des Alters ist TDD nicht, wie bei Python in C integriert, sondern muss aufwendig nachinstalliert werden. Die Framesworks sind meist in anderen Programmiersprachen geschrieben. Dies macht die Installation noch ein wenig schwieriger. Wir verwenden hier das Framework Ceedling, dass als Erweiterung von Ruby’s Rake System angesehen werden kann.
+
+** Installation von Ceedling unter Ubuntu 16.04
+
+Als erstes müssen wir Rubby installieren. Wir nehmen als Vorlage den Blog von gorails.com (https://gorails.com/setup/ubuntu/16.04):
+
+#+begin_src
+sudo apt-get update
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+exec $SHELL
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+exec $SHELL
+rbenv install 2.3.1
+ruby -v
+gem install bundler
+gem install ceedling
+#+end_src
+
+Mit den Befehlen ist Ceedling komplett installiert und kann mit folgendem Befehl aufgerufen werden:
+
+#+begin_src
+gem install ceedling
+#+end_src
+
+und wir bekommen  die möglichen Funktionen von Ceedling angezeigt.
+
+#+begin_src
+Welcome to Ceedling!
+Commands:
+  ceedling example PROJ_NAME [DEST]  # new specified example project (in DEST, if specified)
+  ceedling examples                  # list available example projects
+  ceedling help [COMMAND]            # Describe available commands or one specific command
+  ceedling new PROJECT_NAME          # create a new ceedling project
+#+end_src
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Cleanup							   :noexport:
+#+name: cleanitallup
+#+begin_src R 
+  rm(list=ls())
+#+end_src
+
+#+RESULTS: cleanitallup
+#+begin_example
+> rm(list=ls())
+> 
+#+end_example
+
+* Ideen :nonexport
+
