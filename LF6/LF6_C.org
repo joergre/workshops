@@ -1,5 +1,5 @@
 # -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
-#+TITLE:     Einführung in Python
+#+TITLE:     Einführung in C
 #+AUTHOR:    Jörg Reuter
 #+EMAIL:     joerg@reuter.sc
 #+DATE:      
@@ -24,6 +24,74 @@
     options(digits = 3)
   }
 #+end_src
+* Einführung in C
+C ist eine Programmiersprace die kompiliert wird. Bei C wird zwischen Sourcecode und dem Binary unterschieden. Der Sourcecode ist das Programm, dass in einem Editor in C geschrieben wird. Es ist von menschen les- und verstehbar. Durch das kompilieren wird aus dem Sourcecode das Binary erzeugt. Das Binary wird für jede Plattform getrennt erzeugt und ist ausführbar. Der Inhalt des Binaries kann nicht mehr von menschen gelesen und verstanden werden. Sourcefiles von C-Programmen bekommen die Endung .c.
+
+In Linux heißt das Programm zum kompilieren gcc. GCC installieren wir mit dem Befehl
+
+#+begin_src
+sudo apt install gcc
+#+end_src
+
+** Hallo Welt
+
+#+begin_src C:export both
+#include <stdio.h>
+
+int main(void){
+    printf("Hallo Welt!\n");
+    return 0;
+}
+#+end_src
+
+Ich habe das Programm hallo_welt.c genannt. 
+
+Mit dem Befehl
+
+#+begin_src
+gcc hallo_welt.c
+#+end_src
+
+wird unaer Quellcode eingelsen und kompiliert. Es entsteht eine Datei mit dem Namen a.out. Das rogramm könen wir ausführen mit dem Befehl:
+
+#+begin_src
+./a.out
+#+end_src
+
+Mit dem Parameter -o können wir den Namen der Ausgabedatei festlegen:
+
+#+begin_src
+gcc -o hallo_welt hallo_welt.c
+#+end_src
+
+Die erste Zeile unseren Programms ist eine Anweisung an den Preprozessor. Der Preprozessor ist Bestandteil von gcc. Der Befehl #include <stdio.h> sorgt dafür, dass die Datei stdio.h vor dem Compilieren der Datei zur Verfügung steht. Die Datei stdio.h enthält Standardbefehle um die Ein- und Ausgabe von zeichen zu steuern. I unserem Programm greifen wir auf den Befehl printf aus der Datei stdio.h zurück. Diese Dateien heißen Headerdateien und erhalten daher die Endung .h. Die Endungen sind nicht zwingend, sie sind aber sehr verbreitet um den Mitmenschen das Lesen von Programmen zu erleichtern. 
+
+Die Zeile int void mein leitet die Main-Funktion ein. Die Mainfunktion ist der Punkt, der bei starten des Programms als erstes ausgeführt wird. Die Main-Funktion muss in jedem C-Programm vorhanden sein. Alle Befehle zwischen { und } gehören zur Main-Funktion. In diesem Programm der Befehl printf(...) und return 0. Am Semikolon nach printf erkennen wir, dass jeder Befehl mit einem Semikolon abgeschlossen werden muss. Der Befehl printf gibt die Zeile in den """ aus. Das "\n" bedeutet "Neue Zeile". 
+
+** Ausgabe
+1.) Führe das Programm bitte ohne "\n" aus. Was fällt Dir auf?
+2.) Bitte benenne die Zeichenkette "main" in "erste" um. Was fällt Dir auf?
+3.) Gebe bitte mit dem Befehl "cat" die Datei mit dem Sourcecode im Terminal aus und danach die kompilierte Datei. Was fällt Dir auf?
+
+Der Befehl return 0 gibt an das Betriebssystem zurück: Das Programm wurde fehlerfrei ausgeführt. Ein Wert von nicht 0 würde dem Betriebssystem einen Fehler signalisieren.
+
+Mit dem Befehl
+
+#+begin_src
+echo $?
+#+end_src
+
+kann man sich den letzten Exit-Status eines Programms ausgeben lassen.
+
+** Aufabe
+
+1.) Lasse Dir den Exit-Code der letzten Ausführung des C-Programms ausgeben.
+2.) Verändere das Programm so, dass eine "1" zurückgegeben wird. Überprüfe die Ausgabe.
+3.) Lösche die Zeile mit dem Befehl "return" komplett. gibt es ein Kompilierungsfehler? Welcher Exit-Code wird zurück gegeben?
+
+
+
+ 
 * TDD
 TDD ist eine wundervolle Methode um Code zu schreiben. TDD basiert darauf, dass zuerst klar und abprüfbar definiert wird, welches Verhalten dieses Programm haben soll. Das Programm an sich wird als eine Blackbox angesehen, die bei bestimmten Eingabewerten bestimmte Ausgabewerte liefert. Die Anforderungen werden in sogenannten Tests definiert. Das bedeutet, dass für jede Anforderung ein Test geschrieben wird, der diese Anforderung abprüft. Dieses Verfahren hilft dabei:
 
