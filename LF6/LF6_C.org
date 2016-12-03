@@ -25,63 +25,217 @@
   }
 #+end_src
 * Einführung in C
-C ist eine Programmiersprace die kompiliert wird. Bei C wird zwischen Sourcecode und dem Binary unterschieden. Der Sourcecode ist das Programm, dass in einem Editor in C geschrieben wird. Es ist von menschen les- und verstehbar. Durch das kompilieren wird aus dem Sourcecode das Binary erzeugt. Das Binary wird für jede Plattform getrennt erzeugt und ist ausführbar. Der Inhalt des Binaries kann nicht mehr von menschen gelesen und verstanden werden. Sourcefiles von C-Programmen bekommen die Endung .c.
+C ist eine Programmiersprace die kompiliert wird. Bei C wird zwischen Sourcecode und dem Binary unterschieden. Der Sourcecode ist das Programm, dass in einem Editor in C geschrieben wird. Es ist von Menschen les- und verstehbar. Durch das kompilieren wird aus dem Sourcecode das Binary erzeugt. Das Binary wird für jede Plattform getrennt erzeugt und ist ausführbar. Der Inhalt des Binaries kann nicht mehr von Menschen gelesen und verstanden werden. Sourcefiles von C-Programmen bekommen die Endung .c.
 
-In Linux heißt das Programm zum kompilieren gcc. GCC installieren wir mit dem Befehl
+Wir programmieren einen Mikrocontroller im Unterricht und führen auch ein grösseres Projekt mit dem Mikrokontroller durch. Wir verwenden zum entwickeln der Anwendungen einen Arduino Uno. Die Anwendungen können dann später auf eine deutlich preisgünstigere Plattform mit weniger Energieverbrauch überspielt werden.
+
+Zum Programmieren verwenden wir für den Einstieg die Software von arduino.cc: https://www.arduino.cc/en/Main/Software. Die Software ist kostenlos und für alle gängige Betriebssysteme verfügbar (Windows app, Mac OS X 10.7, Linux 32 bits, Linux 64 bits, Linux ARM). Die Installation ist sehr einfach und selbsterklärend.
+
+Wir brauchen eine Libary um den hier vorwendeten Ansatz von TDD umzusetzen. Dafür besorgen wir uns die Dateien von https://github.com/mmurdoch/arduinounit und binden die Dateien entsprechend der Datei Readme.txt in IDE von oben ein.
+
+Den Arduino verbinden wir per USB mit dem Computer. 
+
+** Aufgabe
+Lese bitte folgende Datei durch: http://hems.de/fileadmin/_migrated/content_uploads/Arduino_Tutorial.pdf und baue die Schaltungen mit Hilfe des Steckbretts nach. Es ist nicht schlimm, wenn Du einige Sachen noch nicht verstehst. Die LED sollte aber bei jedem leuchten.
+
+* TDD
+TDD (test-driven development) ist eine Methode um grosse Aufgaben in kleine Funktionsbausteine zu zerlegen und Hilft, dass der Sourcecode zu jedem Zeitpunkt möglichst fehlerfrei ist.
+TDD (https://de.wikipedia.org/wiki/Testgetriebene_Entwicklung) beinhaltet einen 4-stufigen Prozesse:
+
+1.) Test definieren (Was soll das Programm machen?)
+2.) Der Test fällt durch (rot), weil noch kein Programm geschrieben wurde, das den Test erfüllen könnte.
+3.) Test wird bestanden (grün) weil unser Programm den Test gerade so erfüllt.
+4.) Das Programm wird verbessert.
 
 #+begin_src
-sudo apt install gcc
-#+end_src
+#include <ArduinoUnit.h>
 
-** Hallo Welt
+test(Erster_Test) 
+{
+  Serial.println("Muss noch programmiert werden!!!!");
+}
 
-#+begin_src C:export both
-#include <stdio.h>
+void setup()
+{
+  Serial.begin(9600);
+}
 
-int main(void){
-    printf("Hallo Welt!\n");
-    return 0;
+void loop()
+{
+  Test::run();
 }
 #+end_src
 
-Ich habe das Programm hallo_welt.c genannt. 
+Das Programm ist der minimale Aufbau einer funktionsfähigen Testumgebung. Es besteht aus 3 Teilen:
 
-Mit dem Befehl
+- test
+- setup
+- loop
 
-#+begin_src
-gcc hallo_welt.c
-#+end_src
+Die Funktion "test" beinhaltet einen Test der nur die Nachricht ausgibt: "Muss noch programmiert werden!!!!". Die Funktion setup richtet die serielle Verbindunge ein, da der Arduino keinen Bildschirm hat. Die Ausgabe erfolgt auf der seriellen Konsole (Werkzeug/Serieller Monitor in der IDE). Die Funktion loop startet den Test.
 
-wird unaer Quellcode eingelsen und kompiliert. Es entsteht eine Datei mit dem Namen a.out. Das rogramm könen wir ausführen mit dem Befehl:
+Ausgabe auf der der seriellen Konsole:
 
-#+begin_src
-./a.out
-#+end_src
+Muss noch programmiert werden!!!!
+Test Erster_Test passed.
+Test summary: 1 passed, 0 failed, and 0 skipped, out of 1 test(s)
 
-Mit dem Parameter -o können wir den Namen der Ausgabedatei festlegen:
+Da noch keine Testbedingungen festgelegt worden sind, kann der Test nicht fehlschlagen. 
 
-#+begin_src
-gcc -o hallo_welt hallo_welt.c
-#+end_src
+** Der erste Test
 
-Die erste Zeile unseren Programms ist eine Anweisung an den Preprozessor. Der Preprozessor ist Bestandteil von gcc. Der Befehl #include <stdio.h> sorgt dafür, dass die Datei stdio.h vor dem Compilieren der Datei zur Verfügung steht. Die Datei stdio.h enthält Standardbefehle um die Ein- und Ausgabe von zeichen zu steuern. I unserem Programm greifen wir auf den Befehl printf aus der Datei stdio.h zurück. Diese Dateien heißen Headerdateien und erhalten daher die Endung .h. Die Endungen sind nicht zwingend, sie sind aber sehr verbreitet um den Mitmenschen das Lesen von Programmen zu erleichtern. 
-
-Die Zeile int void mein leitet die Main-Funktion ein. Die Mainfunktion ist der Punkt, der bei starten des Programms als erstes ausgeführt wird. Die Main-Funktion muss in jedem C-Programm vorhanden sein. Alle Befehle zwischen { und } gehören zur Main-Funktion. In diesem Programm der Befehl printf(...) und return 0. Am Semikolon nach printf erkennen wir, dass jeder Befehl mit einem Semikolon abgeschlossen werden muss. Der Befehl printf gibt die Zeile in den """ aus. Das "\n" bedeutet "Neue Zeile". 
-
-** Ausgabe
-1.) Führe das Programm bitte ohne "\n" aus. Was fällt Dir auf?
-2.) Bitte benenne die Zeichenkette "main" in "erste" um. Was fällt Dir auf?
-3.) Gebe bitte mit dem Befehl "cat" die Datei mit dem Sourcecode im Terminal aus und danach die kompilierte Datei. Was fällt Dir auf?
-
-Der Befehl return 0 gibt an das Betriebssystem zurück: Das Programm wurde fehlerfrei ausgeführt. Ein Wert von nicht 0 würde dem Betriebssystem einen Fehler signalisieren.
-
-Mit dem Befehl
+Ein Test beginnt immer mit einer Bedingung, an der wir erkennen ob unser Programm wie gewünscht arbeitet. Wir implementieren zum Testen die Bedingung 1==2. Wir erwarten eine wahre Antwort im Programm (natürlich wissen wir, dass dies nicht richtig ist). Bedingungen enthalten immer das Schlüselwort "assert" und zum testen eines logischen Ausdrucks: assertTrue(arg).
 
 #+begin_src
-echo $?
+#include <ArduinoUnit.h>
+
+test(Erster_Test) 
+{
+  assertTrue(1==2);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  Test::run();
+}
 #+end_src
 
-kann man sich den letzten Exit-Status eines Programms ausgeben lassen.
+Ausgabe wie erwartet:
+
+Assertion failed: (1==2=0) == (true=1), file /home/jorg/Arduino/test_tdd/test_unity/test_unity.ino, line 5.
+Test Erster_Test failed.
+Test summary: 0 passed, 1 failed, and 0 skipped, out of 1 test(s).
+
+** Aufgabe
+
+Bitte korrigiere den Test in der Art, dass er bestanden wird.
+
+** Erweiterung der Funktion "test"
+
+Bitte übertrage das folgende Programm und führe es aus:
+
+#+begin_src
+#include <ArduinoUnit.h>
+
+test(Erster_Test) 
+{
+  assertTrue(2==2);
+  assertTrue(1==2);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  Test::run();
+}
+#+end_src
+
+Ausgabe:
+Assertion failed: (1==2=0) == (true=1), file /home/jorg/Arduino/test_tdd/test_unity/test_unity.ino, line 6.
+Test Erster_Test failed.
+Test summary: 0 passed, 1 failed, and 0 skipped, out of 1 test(s).
+
+Die Ausgabe zeigt uns genau an, welcher Test in welcher Zeile warum fehlgeschlagen ist.
+
+Die Gleichheit zweier Zahlen kann mit Hilfer der Funktion assertEqual(x,y) auch kürzer geschrieben werden:
+
+#+begin_src
+#include <ArduinoUnit.h>
+
+test(Erster_Test) 
+{
+  assertEqual(2,2);
+  assertEqual(1,2);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  Test::run();
+}
+#+end_src
+
+Und die erwartete Ausgabe:
+
+Assertion failed: (1=1) == (2=2), file /home/jorg/Arduino/test_tdd/test_unity/test_unity.ino, line 6.
+Test Erster_Test failed.
+Test summary: 0 passed, 1 failed, and 0 skipped, out of 1 test(s).
+
+Wir können die Bedingungen auch in zwei Testfälle aufteilen um eine bessere Information zu bekomen:
+
+#+begin_src
+#include <ArduinoUnit.h>
+
+test(Erster_Test) 
+{
+  assertEqual(2,2);
+}
+
+test(Zweiter_Test)
+{
+  assertEqual(1,2);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  Test::run();
+}
+#+end_src
+
+Ausgabe:
+
+Test Erster_Test passed.
+Assertion failed: (1=1) == (2=2), file /home/jorg/Arduino/test_tdd/test_unity/test_unity.ino, line 10.
+Test Zweiter_Test failed.
+Test summary: 1 passed, 1 failed, and 0 skipped, out of 2 test(s).
+
+Wir sehen an der Ausgabe, dass ein Test rot wurde: "Zweiter_Test failed"
+
+** Aufgabe
+
+Lese bitte die Datei Readme.md durch (aus dem Git-Repository von AndroidUnit). Dort sind alle Testfunktionen aufgelistet und erklärt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ** Aufabe
 
@@ -106,42 +260,7 @@ Um TDD einfach mit C anzuwenden wird ein Framework verwendet. Dies liegt einfach
 
 Gerade dieses stehen bleiben in der Entwicklung läst C als nichtgeeignet erscheinen, um eine Programmiersprache zu lernen. Auf der anderen Seite hat C eine herausragende Bedeutung im Segment der IoT und der kelinen Geräten. Gerade da wo bei der Leistung um jedes Milliwatt gekämpft wird, weil die Geräte oft 24h am Tag und 365 Tage im Jahr im Betrieb sind. Wo die Software mit Prozessoren zurecht kommen muss, die noch im einstelligen MHZ-Bereich ihren Dienst tun und mit KBytes statt GBytes an RAM wahre Wunder vollbringen sollen. In Bereichen, indenen die Geräte möglichst verschwinden sollen und sich keiner dafür interessiert wie Funksteckdosen, Babyphone, WebCam,Armbanduhr, Radio, Waschmaschine, Auto, Heizungsregelung etc. gesteuert werden. Aber gerade diese Durchsetzung der Umgebung einer modernen Gesellschaft mit den kleinen Helfern macht sie zahlenmässig bedeutend. So bedeutend, dass man sich als angehender Fachinformatiker oder Systemelektroniker zumindest ein paar Eigenschaften der Programmiersprache zu eigen gemacht haben sollte.
 
-** Installation von Ceedling unter Ubuntu 16.04
 
-Als erstes müssen wir Rubby installieren. Wir nehmen als Vorlage den Blog von gorails.com (https://gorails.com/setup/ubuntu/16.04):
-
-#+begin_src
-sudo apt-get update
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-exec $SHELL
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-exec $SHELL
-rbenv install 2.3.1
-ruby -v
-gem install bundler
-gem install ceedling
-#+end_src
-
-Mit den Befehlen ist Ceedling komplett installiert und kann mit folgendem Befehl aufgerufen werden:
-
-#+begin_src
-gem install ceedling
-#+end_src
-
-und wir bekommen  die möglichen Funktionen von Ceedling angezeigt.
-
-#+begin_src
-Welcome to Ceedling!
-Commands:
-  ceedling example PROJ_NAME [DEST]  # new specified example project (in DEST, if specified)
-  ceedling examples                  # list available example projects
-  ceedling help [COMMAND]            # Describe available commands or one specific command
-  ceedling new PROJECT_NAME          # create a new ceedling project
-#+end_src
 
 
 

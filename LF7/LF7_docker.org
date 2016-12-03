@@ -49,7 +49,6 @@ Aber der Reihe nach.
 *** Images
 Ein Image ist portable und kann zwischen Systemen ausgetauscht werden. Es kann aus einem Container erstellt werden und stellt so einen Snapshot dar.
 
-
 *** Container
 Ein Container braucht ein Image. Der Container ist ein gestartetes Image und existiert nur, solange die Instanz läuft. Beim herunterfahren des Containers können die Änderungen  die durch Laufzeit des Containers eingetreten sind im Image hinzugefügt werden. Images haben immer eine Version und es werden nur die Unterschiede zur vorhergehenden Version gespeichert. Ein Image kann von mehreren Containern geteilt werde.
 
@@ -57,6 +56,60 @@ Ein Container braucht ein Image. Der Container ist ein gestartetes Image und exi
 *** TYP 1 (Bare Metall)
 
 *** TYP 2
+
+** Installation von Docker
+
+Die Installation von Docker für alle gängigen Betriebssysteme ist hier erklärt: https://docs.docker.com/ 
+
+** Exkurs: Installation von gateone unter Docker
+
+Im Unterricht setzen wir GateOne ein. Gateone stellt einen HTML5-Client für ssh zur Verfügung. Gateone läuft in einem Docker-Container und wird wie folgt installiert:
+
+#+name: GateOne
+#+BEGIN_EXAMPLE
+docker run -d --name=gateone -p 8000:8000 liftoff/gateone
+#+END_EXAMPLE
+
+Mit diesem Befehl läuft der Docker-Container und der Port wird per HTTPS auf Port 8000 zur Verfügung gestellt. Port 8000 weil der port 443 bereits auf dem Server genutzt wird. 
+
+Um den Service auf Port 443 zur Verfügung zu stellen verwenden wir mod_proxy.
+
+*** Installation von mod_proxy
+
+#+name:mod_proxy
+#+BEGIN_EXAMPLE
+apt-get install libapache2-mod-proxy-html 
+a2enmod proxy
+a2enmod proxy_html
+a2enmod proxy_http 
+#+END_EXAMPLE
+
+*** Einrichrichtung der NameVirtualHost-Direktive
+
+Wir legen im Verzeichnsis /etc/apache2/sites-avaible ein Datei an mit dem Namen 004-gateone.conf:
+
+#+name:NameVirtualHist-Direktive
+#+BEGIN_EXAMPLE
+<VirtualHost *:443>
+  ServerName ssh.fbs-fulda.info
+  ServerAdmin joerg@reuter.sc
+  ProxyRequests Off
+  <Proxy *>
+    Order deny,allow
+    Allow from all
+  </Proxy>
+    ProxyPass / https://127.0.0.1:8000/
+    ProxyPassReverse / https://127.0.0.1:8000/
+</VirtualHost>
+#+END_EXAMPLE
+
+Jetzt müssen wir die Konfiguration noch aktivieren:
+
+#+name:aktivieren
+#+BEGIN_EXAMPLE
+a2ensite 004-gateone
+service apache2 reload
+#+END_EXAMPLE
 
 *** Docker Container unter Linux 
 

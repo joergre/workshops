@@ -1,0 +1,37 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in DevOps
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+* Motivation
+** Aufgabe 1
+
+Fasse die Ereignisse der beiden Firmen in eigenen Worten zusammen. Wo war das Problem?
+
+a) https://en.wikipedia.org/wiki/Knight_Capital_Group
+b) http://www.fr-online.de/newsticker/einschraenkungen-bei-der-postbank---proteste-von-kunden,26577320,34951694.html
+
+** Aufagbe 2
+
+Erkläre folgende Begrifflichkeiten:
+
+a) DevOps
+b) "Pets vs. Cattle". Behandeln wir unsere Server wie Haustiere oder wie Vieh?
+
+* Pets vs. Cattle
+
+Es gibt Unternehmen wie Amazon, Google, Facebook die pro Tag mehr als 100 Updates in das produktive System einspielen. Überraschender Weise gibt es keinen Konflikt zur stabilität des Systems und der Anzahl der Updates. Leistungsstarke IT-Organisationen erleben 60x weniger Ausfälle und erholen sich von Fehlern 168X schneller als ihre niedrigeren Mitbewerbern. Sie entwickeln auch 30x häufiger mit 200x kürzeren Durchlaufzeiten. Lean Management und Continuous Delivery Practices schaffen die Voraussetzungen für eine schnellere und nachhaltigere Wertschöpfung.
+
+(http://www.ciosummits.com/Online_Assets_Puppet_2016_State_of_DevOps_Report.pdf)
+
+Ein sehr schönes Video zum Thema: 
