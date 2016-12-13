@@ -30,10 +30,59 @@ Wir können jetzt zwei Zustände definieren:
 #+begin_src python :export both
 cat0 = """\
 
+           |\      _,,,--,,_        +-----------------------------+
+           /X`.-'`'   ._  \-;;,_    |        Zustand:             |
+          |X4-  ) )_   .;.(  `'-'   |            0                |
+         '---''(_/._)-'(_\_)        +-----------------------------+
+
+"""
+cat1 = """\
+                                _  
+                                | \\
+                                | |   +-----------------------------+
+                                | |   |        Zustand:             |
+           |\                   | |   |            1                |
+          /, ~\                / /    +-----------------------------+
+         X     `-.....-------./ /
+          ~-. ~  ~              |
+             \             /    |
+              \  /_     ___\   /
+              | /\ ~~~~~   \ |
+              | | \        || |
+              | |\ \       || )
+             (_/ (_/      ((_/
+"""
+
+print(cat0)
+print(cat1)
 
 #+end_src
 
 #+RESULTS:
+#+begin_example
+
+           |\      _,,,--,,_        +-----------------------------+
+           /X`.-'`'   ._  \-;;,_    |        Zustand:             |
+          |X4-  ) )_   .;.(  `'-'   |            0                |
+         '---''(_/._)-'(_\_)        +-----------------------------+
+
+
+                                _  
+                                | \
+                                | |   +-----------------------------+
+                                | |   |        Zustand:             |
+           |\                   | |   |            1                |
+          /, ~\                / /    +-----------------------------+
+         X     `-.....-------./ /
+          ~-. ~  ~              |
+             \             /    |
+              \  /_     ___\   /
+              | /\ ~~~~~   \ |
+              | | \        || |
+              | |\ \       || )
+             (_/ (_/      ((_/
+
+#+end_example
 
 und haben hier ein Bit defeniert, wie wir es von Computern gewöhnt sind. Insbesondere nehmen wir an, dass es sowohl für uns wie für die Katze eindeutig ist, in welchem Zustand sich die Katze befindet.
 

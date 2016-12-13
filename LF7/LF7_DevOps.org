@@ -2,7 +2,7 @@
 #+TITLE:     Einführung in DevOps
 #+AUTHOR:    Jörg Reuter
 #+EMAIL:     joerg@reuter.sc
-#+DATE:      
+#+DATE:
 
 #+PROPERTY: exports both
 #+EXCLUDE_TAGS: noexport mitsetup
@@ -30,8 +30,24 @@ b) "Pets vs. Cattle". Behandeln wir unsere Server wie Haustiere oder wie Vieh?
 
 * Pets vs. Cattle
 
-Es gibt Unternehmen wie Amazon, Google, Facebook die pro Tag mehr als 100 Updates in das produktive System einspielen. Überraschender Weise gibt es keinen Konflikt zur stabilität des Systems und der Anzahl der Updates. Leistungsstarke IT-Organisationen erleben 60x weniger Ausfälle und erholen sich von Fehlern 168X schneller als ihre niedrigeren Mitbewerbern. Sie entwickeln auch 30x häufiger mit 200x kürzeren Durchlaufzeiten. Lean Management und Continuous Delivery Practices schaffen die Voraussetzungen für eine schnellere und nachhaltigere Wertschöpfung.
+Es gibt Unternehmen wie Amazon, Google, Facebook die pro Tag mehr als 1000 Updates in das produktive System einspielen. Überraschender Weise gibt es keinen Konflikt zur stabilität des Systems und der Anzahl der Updates. Im Gegenteil, Unternehmen mit extrem vielen Aktualisierungen haben gewöhnlich eine höhere Sicherheit, eine bessere Verfügbarkeit und eine höhere Kundenzufriedenheit.
 
 (http://www.ciosummits.com/Online_Assets_Puppet_2016_State_of_DevOps_Report.pdf)
 
-Ein sehr schönes Video zum Thema: 
+Ein sehr schönes Video zum Thema: https://youtu.be/mykPU07UVuw
+
+# Die Elemente von DevOps
+
+## Git
+
+## OpenStack
+
+OpenStack besteht aus folgenden Komponenten:
+
+- Compute           "Nova"
+- Objekt Storage    "Swift"
+- Block Storage     "Cinder"
+- Networking        "Neutron"
+- Dashboard         "Horizon"
+- Identity Service  "KeyStone"
+- Image Service     "Glance"

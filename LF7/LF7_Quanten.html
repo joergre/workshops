@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Einführung in die Quantencomputer</title>
-<!-- 2016-08-02 Di 07:48 -->
+<!-- 2016-08-02 Di 14:17 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Jörg Reuter" />
@@ -109,6 +109,64 @@ Wir können jetzt zwei Zustände definieren:
 <p>
 0: Katze ist Tod
 </p>
+
+<p>
+#+Name Katzenzustand
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python">cat0 = """\
+
+	   |\      _,,,--,,_        +-----------------------------+
+	   /X`.-'`'   ._  \-;;,_    |        Zustand:             |
+	  |X4-  ) )_   .;.(  `'-'   |            0                |
+	 '---''(_/._)-'(_\_)        +-----------------------------+
+
+"""
+cat1 = """\
+				_  
+				| \\
+				| |   +-----------------------------+
+				| |   |        Zustand:             |
+	   |\                   | |   |            1                |
+	  /, ~\                / /    +-----------------------------+
+	 X     `-.....-------./ /
+	  ~-. ~  ~              |
+	     \             /    |
+	      \  /_     ___\   /
+	      | /\ ~~~~~   \ |
+	      | | \        || |
+	      | |\ \       || )
+	     (_/ (_/      ((_/
+"""
+
+print(cat0)
+print(cat1)
+</pre>
+</div>
+
+<pre class="example">
+  |\      _,,,--,,_        +-----------------------------+
+  /X`.-'`'   ._  \-;;,_    |        Zustand:             |
+ |X4-  ) )_   .;.(  `'-'   |            0                |
+'---''(_/._)-'(_\_)        +-----------------------------+
+
+
+                       _  
+                       | \
+                       | |   +-----------------------------+
+                       | |   |        Zustand:             |
+  |\                   | |   |            1                |
+ /, ~\                / /    +-----------------------------+
+X     `-.....-------./ /
+ ~-. ~  ~              |
+    \             /    |
+     \  /_     ___\   /
+     | /\ ~~~~~   \ |
+     | | \        || |
+     | |\ \       || )
+    (_/ (_/      ((_/
+</pre>
 
 <p>
 und haben hier ein Bit defeniert, wie wir es von Computern gewöhnt sind. Insbesondere nehmen wir an, dass es sowohl für uns wie für die Katze eindeutig ist, in welchem Zustand sich die Katze befindet.

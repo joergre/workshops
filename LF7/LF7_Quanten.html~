@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Einführung in die Quantencomputer</title>
-<!-- 2016-08-02 Di 07:27 -->
+<!-- 2016-08-02 Di 07:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Jörg Reuter" />
@@ -99,10 +99,31 @@ Wir nehmen an, wir haben eine Katze
 </div>
 
 <p>
-Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ
+Wir können jetzt zwei Zustände definieren:
+</p>
+
+<p>
+1: Katze Lebt
+</p>
+
+<p>
+0: Katze ist Tod
+</p>
+
+<p>
+und haben hier ein Bit defeniert, wie wir es von Computern gewöhnt sind. Insbesondere nehmen wir an, dass es sowohl für uns wie für die Katze eindeutig ist, in welchem Zustand sich die Katze befindet.
+</p>
+
+<p>
+Wir brauchen jetzt eine Methode um die Katze von Zustand 1 in der Zustand 0 zu überführen. Diese Methode nennen wir Blausäure. Wir Konstruieren, um nicht selbst vergiftet zu werden,  einen Mechanismus, der mit Hilfe einer Schnur einen Hammer auslöst. Der Hammer wiederum zerstört ein Glasgefäß und die Blausäure kann entweichen und damit die Katze in den Zustand 0 überführen ohne das wir Gefahr laufen, den Zustand 0 zu erreichen.
 </p>
 
 
+<div id="Methode-Blaus-ure" class="figure">
+<p><img src="./images/blau.png" alt="blau.png" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Methode Blausäure</p>
+</div>
 
 <p>
 Wir laden das Image von Ubuntu 14.04 herunter:
