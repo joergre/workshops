@@ -36,10 +36,11 @@ Es gibt Unternehmen wie Amazon, Google, Facebook die pro Tag mehr als 1000 Updat
 
 Ein sehr schönes Video zum Thema: https://youtu.be/mykPU07UVuw
 
-# Die Elemente von DevOps
+* Die Elemente von DevOps
 
-## Git
-### Anmerkung zur schulinternen Infrastruktur
+** Git
+
+*** Anmerkung zur schulinternen Infrastruktur
 Um Git innerhalb der Schule zu verwenden, ist es notwendig die SSL-Schlüssel Überprüfung auszuschalten. Dies geschieht mit folgendem Befehl:
 
 #+name: sslVerify
@@ -47,7 +48,8 @@ Um Git innerhalb der Schule zu verwenden, ist es notwendig die SSL-Schlüssel Ü
 git config --global http.sslVerify false
 #+end_src
 
-### Clone
+*** Clone
+
 Um mit einem Repository arbeiten zu können, muss man als erstes das Repositor< in ein Verzeichnis klonen. Das bedeutet, dass ein neuer Ordner angelegt wird mit dem Namen des Repository von github. Wir klonen das Reoository Workshops:
 
 #+name: clone
@@ -59,21 +61,21 @@ Jetzt wird das ganze Repository mit allen Verzweigungen und Dateiversionen in da
 
 Für verschiedene Betriebssysteme gibt es unterschiedliche Zeilenenden. Github wandelt alle Zeilenenden bei einspielen einer neuen Datei in das Linux-Format um. Wenn ein Benutzer die Datei jetzt in einem Windowssystem verwenden möchte, werden die Zeilenenden an das Zielsystem angepasst.
 
-### Clients
-#### Windows:
+*** Clients
+**** Windows:
 
 - git portable (eine Version für den USB-Stick)
 - Msys-Git
 - Tower (kostenpflichtig)
 
-#### Linux
+**** Linux
 
 
-#### Mac
+**** Mac
 
 - Tower (kostenpflichtig)
 
-### .git
+*** .git
 Um Git besser zu vertehen, ist ein Blick in das Verzeichnis .git sinnvoll im Repositoty, Dort findet Ihr folgende Verzeichnisse:
 
 - branches (1)
@@ -124,7 +126,7 @@ Für den Anfang ist die Datei .git/congig die wichtigste. Diese hat folgenden In
 2 Remotes - Auf welche URL der Name "orgin" verlinkt ist.
 3 Branch - Der Branch "master" zeigt auf "orgin"
 
-### Konfiguration
+*** Konfiguration
 Als nächster Schritt sollte Git konfiguriert werden, damit im Repository immer der richtige Auttor angegeben wird:
 
 #+name: Konfiguration
@@ -133,11 +135,11 @@ git config user.name "Joerg Reuter"
 git config user.email "joerg@reuter.sc"
 #+end_src
 
-### Aufgabe
+*** Aufgabe
 a) Diese Einträge erscheinen ebenfalls in der Datei .git/config. Überpüfe dies bitte.
 b) Erstelle bitte einen kostenlosen Account bei github.com
 
-### git status
+*** git status
 
 #+name: git_staus
 #+begin_src
@@ -152,7 +154,7 @@ Der Befehl gibt einen kurzen Überblick über das lokale Repository.
 
 Wir sehen hier, dass wir uns im Branch Master befinden. Wir sehen dann, dass eine Datei verändert wurde (LF7-DevOps.org).
 
-### git log
+*** git log
  Der Befehl gibt alle in diesem Repository gemachten Commits aus.
 
  #+CAPTION: git log
@@ -161,7 +163,7 @@ Wir sehen hier, dass wir uns im Branch Master befinden. Wir sehen dann, dass ein
 
 In der ersten Zeile steht der Hash-Wert des Commits, in der zweiten Zeile der Autor, in der dritten Zeile das Datum und die Uhrzeit und in der letzten Zeile die Commit-Nachricht.
 
-#### File History
+**** File History
 
 Der Befehl git kennt sehr viele Parameter. Eine wichtiger ist die Ausgabe der Commits die eine bestimmte Datei betreffen:
 
@@ -172,7 +174,7 @@ git log --oneline -- LF7_DevOps.org
 
 Die Ausgabe wird durch den Parameter --online verkürzt. Es wird kein Datum ausgegeben und der Hash-Wert wird verkürzt. Es werden nach dem verkürztem Hash.Wert nur noch die Nachricht eingeblendet des Users der die Datei zuletzt bearbeitet hat.
 
-### Aufgabe
+*** Aufgabe
 a) Lege in Github ein neues Repository an und clone dieses in ein Verzeichnis.
 b) Rufe den Befehl git status auf.
 c) Lege im Repository eine Datei an mit dem Namen fbs.txt und dem Inhalt "FBS ist cool".
@@ -188,7 +190,7 @@ git status
 
 Wir sehen bei der Ausführung von git status, dass die Datei jetzt bereit steht für einen commit.
 
-### git commit
+*** git commit
 
 #+name: git commit
 #+begin_src
@@ -199,7 +201,7 @@ git status
 
 Wir haben unsere erste Datei in das Repository eingefügt und sehen mit 'git log' den entsprechenden Log-Eintrag. Bei 'git status' sehen wir, dass unser lokales Repositor wider "sauber" ist und es ein Commit weiter ist als das Repository auf dem Server.
 
-### Aufgabe
+*** Aufgabe
 
 a) Gehe in das Verzeichnis .git/objects und schaue Dir den Inhalt an.
 b) Berechne mit Hilfe des Befehls "git hash-object fbs.txt" den SHA-1-Hash Deiner Datei.
@@ -209,7 +211,7 @@ d) Versuche die Datei mit einem Texteditor zu öffnen.
 Ergebniss:
 Die Dateien im Verzeichnis .git/objects werden sotiert indem die ersten beiden Zeichen des SHA-1-Wertes für den Verzeichnisnamen verwendet werden und die nachfolgenden Zeichen den Dateinamen ergeben. Die Dateien sind nicht direkt zu öffnen, weil sie mit der Bibliothek ZLib gepackt wurden.
 
-### Branches
+*** Branches
 
 Normalerweise wird nicht auf dem Master-Branch gearbeitet oder programmiert. Der Master sollte immer die letzte lauffähige Version des Programms beinhalten. Das bedeutet, dass man für ein neues Feauture einen neuen Branche erstellt und wenn das entsprechende Feauture fertig entwickelt ist, wird dieses mit dem Master-Branche zusammengeführt.
 
@@ -241,13 +243,12 @@ In welchem Branch aktuell gearbeitet wird, steht in der Datei .git/Head
 
 
 
-## Docker
+** Docker
 
-* Einführung in Docker
-** Warum Docker
+*** Warum Docker
 Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ. Der Hauptunterschied zu anderen Virtualisierungen ist, dass nicht der Schwerpunkt auf die Virtualisierung von Betriebssystemen gelegt wird, sondern von Anwendungen. Das zeigt sich z.B. daran, dass Container normalerweise keine öffentliche IP-Adresse haben und nur über einen festgelegten Port über die IP des "Hostsystems" erreichbar sind. Auch auf hub.docker.com werden eher Anwendungen angeboten und nicht Betriebssysteme. Wenn ein Webserver gebraucht wird, ist es nicht interessant auf welchen Linux-Dervat er installiert wurde, sondern das er sicher läuft und die benötigten Dienste zur Verfügung stellt.
 Aber der Reihe nach.
-*** Vorteile von Docker
+**** Vorteile von Docker
 - Docker ist unabhängig vom Betriebssystem. Es wird unterstützt von:
     - allen Linux Distributionen,
     - Microsoft-Betriebssystemen (seit 2016),
@@ -279,10 +280,10 @@ Ein Container braucht ein Image. Der Container ist ein gestartetes Image und exi
 
 Die Installation von Docker für alle gängigen Betriebssysteme ist hier erklärt: https://docs.docker.com/
 
-## Installation von Docker unter CentOS
+** Installation von Docker unter CentOS
 Installation folg der Anleitung von https://docs.docker.com/engine/installation/linux/centos/
 
-### Repository hinzufügen
+*** Repository hinzufügen
 
 vi /etc/yum.repos.d/docker.repo
 
@@ -295,31 +296,31 @@ enabled=1
 gpgcheck=1
 gpgkey=https://yum.dockerproject.org/gpg
 
-### Paketliste aktualisieren
+*** Paketliste aktualisieren
 
 Paketliste auf dem Server aktualisieren:
 
 sudo yum update
 
-### Installieren von Docker
+*** Installieren von Docker
 
 sudo yum install docker-engine
 
-### Docker aktivieren
+*** Docker aktivieren
 
 sudo systemctl enable docker.service
 
-### Docker starten
+*** Docker starten
 
 sudo systemctl start docker
 
-### Überprüfen der Installation
+*** Überprüfen der Installation
 
 Ausgeben der installierten Docker-Version:
 
 docker --version
 
-### Docker nicht als root verwenden
+*** Docker nicht als root verwenden
 
 Wir melden uns als normalen User an und führen den Befehl aus:
 
@@ -748,7 +749,7 @@ Jetzt starten wir unser neues Image in einem Container:
 
 
 
-## OpenStack
+** OpenStack
 
 OpenStack besteht aus folgenden Komponenten:
 
