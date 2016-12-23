@@ -2,7 +2,7 @@
 #+TITLE:     Einführung in DevOps
 #+AUTHOR:    Jörg Reuter
 #+EMAIL:     joerg@reuter.sc
-#+DATE:
+#+DATE:      12.12.2016
 
 #+PROPERTY: exports both
 #+EXCLUDE_TAGS: noexport mitsetup
@@ -39,6 +39,714 @@ Ein sehr schönes Video zum Thema: https://youtu.be/mykPU07UVuw
 # Die Elemente von DevOps
 
 ## Git
+### Anmerkung zur schulinternen Infrastruktur
+Um Git innerhalb der Schule zu verwenden, ist es notwendig die SSL-Schlüssel Überprüfung auszuschalten. Dies geschieht mit folgendem Befehl:
+
+#+name: sslVerify
+#+begin_src bash
+git config --global http.sslVerify false
+#+end_src
+
+### Clone
+Um mit einem Repository arbeiten zu können, muss man als erstes das Repositor< in ein Verzeichnis klonen. Das bedeutet, dass ein neuer Ordner angelegt wird mit dem Namen des Repository von github. Wir klonen das Reoository Workshops:
+
+#+name: clone
+#+begin_src bash
+git clone https://github.com/joergre/workshops.git
+#+end_src
+
+Jetzt wird das ganze Repository mit allen Verzweigungen und Dateiversionen in das Verzeichnis kopiert und ist damit komplett offline verfügbar.
+
+Für verschiedene Betriebssysteme gibt es unterschiedliche Zeilenenden. Github wandelt alle Zeilenenden bei einspielen einer neuen Datei in das Linux-Format um. Wenn ein Benutzer die Datei jetzt in einem Windowssystem verwenden möchte, werden die Zeilenenden an das Zielsystem angepasst.
+
+### Clients
+#### Windows:
+
+- git portable (eine Version für den USB-Stick)
+- Msys-Git
+- Tower (kostenpflichtig)
+
+#### Linux
+
+
+#### Mac
+
+- Tower (kostenpflichtig)
+
+### .git
+Um Git besser zu vertehen, ist ein Blick in das Verzeichnis .git sinnvoll im Repositoty, Dort findet Ihr folgende Verzeichnisse:
+
+- branches (1)
+- hooks (2)
+- info (3)
+- logs (4)
+- objects (5)
+- refs (6)
+
+1 Branches - Veraltet, wurde zum Speichern von Branches verwendet.
+2 Hooks - hier werden Hooks abgelegt
+3 Info - Hier befindet sich die Datei exclude, die Dateien aufführt, die nicht synchronisiert werden (z. B. Passwortdateien)
+4 Logs - Logt die Heads mit
+5 Objects - Objekt-Datenbank
+6 Refs - Referenz auf Branches
+
+Und fiolgende wichtige Dateien sind im Verzeichnis .git enthalten:
+
+- config (1)
+- HEAD (2)
+- index (3)
+
+1 Config - Konfiguration für das Git-Repository
+2 Head - Referenz auf das oberste Commit, auf dem das Repository steht.
+3 Index - Git-Index
+
+Für den Anfang ist die Datei .git/congig die wichtigste. Diese hat folgenden Inhalt:
+
+#+name: config
+#+begin_src bash
+[core] (1)
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+	hideDotFiles = dotGitOnly
+[remote "origin"] (2)
+	url = https://github.com/joergre/workshops.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"] (3)
+	remote = origin
+	merge = refs/heads/master
+#+end_src
+
+1 Core-Konfiguration
+2 Remotes - Auf welche URL der Name "orgin" verlinkt ist.
+3 Branch - Der Branch "master" zeigt auf "orgin"
+
+### Konfiguration
+Als nächster Schritt sollte Git konfiguriert werden, damit im Repository immer der richtige Auttor angegeben wird:
+
+#+name: Konfiguration
+#+begin_src bash
+git config user.name "Joerg Reuter"
+git config user.email "joerg@reuter.sc"
+#+end_src
+
+### Aufgabe
+a) Diese Einträge erscheinen ebenfalls in der Datei .git/config. Überpüfe dies bitte.
+b) Erstelle bitte einen kostenlosen Account bei github.com
+
+### git status
+
+#+name: git_staus
+#+begin_src
+git status
+#+end_src
+
+Der Befehl gibt einen kurzen Überblick über das lokale Repository.
+
+#+CAPTION: git status
+    #+NAME:   fig: Ausgabe von git status
+    [[./images/git_status.png]]
+
+Wir sehen hier, dass wir uns im Branch Master befinden. Wir sehen dann, dass eine Datei verändert wurde (LF7-DevOps.org).
+
+### git log
+ Der Befehl gibt alle in diesem Repository gemachten Commits aus.
+
+ #+CAPTION: git log
+     #+NAME:   fig: Ausgabe von git log
+     [[./images/git_log.png]]
+
+In der ersten Zeile steht der Hash-Wert des Commits, in der zweiten Zeile der Autor, in der dritten Zeile das Datum und die Uhrzeit und in der letzten Zeile die Commit-Nachricht.
+
+#### File History
+
+Der Befehl git kennt sehr viele Parameter. Eine wichtiger ist die Ausgabe der Commits die eine bestimmte Datei betreffen:
+
+#+name: File-History
+#+begin_src
+git log --oneline -- LF7_DevOps.org
+#+end_src
+
+Die Ausgabe wird durch den Parameter --online verkürzt. Es wird kein Datum ausgegeben und der Hash-Wert wird verkürzt. Es werden nach dem verkürztem Hash.Wert nur noch die Nachricht eingeblendet des Users der die Datei zuletzt bearbeitet hat.
+
+### Aufgabe
+a) Lege in Github ein neues Repository an und clone dieses in ein Verzeichnis.
+b) Rufe den Befehl git status auf.
+c) Lege im Repository eine Datei an mit dem Namen fbs.txt und dem Inhalt "FBS ist cool".
+d) Rufe wieder git status auf.
+
+Die Datei fbs.txt ist git nicht bekannt (Untracked files). Wir fügen die Datei jetzt dem Index hinzu:
+
+#+name: git add
+#+begin_src
+git add fbs.txt
+git status
+#+end_src
+
+Wir sehen bei der Ausführung von git status, dass die Datei jetzt bereit steht für einen commit.
+
+### git commit
+
+#+name: git commit
+#+begin_src
+git commit -m 'FBS ist cool'
+git log --oneline
+git status
+#+end_src
+
+Wir haben unsere erste Datei in das Repository eingefügt und sehen mit 'git log' den entsprechenden Log-Eintrag. Bei 'git status' sehen wir, dass unser lokales Repositor wider "sauber" ist und es ein Commit weiter ist als das Repository auf dem Server.
+
+### Aufgabe
+
+a) Gehe in das Verzeichnis .git/objects und schaue Dir den Inhalt an.
+b) Berechne mit Hilfe des Befehls "git hash-object fbs.txt" den SHA-1-Hash Deiner Datei.
+c) Schaue, ob Du einen Zusammenhang zwischen dem SHA-1-Wert und den Verzeichnissen in .git/objects und den darin liegenden Dateien herstellen kannst.
+d) Versuche die Datei mit einem Texteditor zu öffnen.
+
+Ergebniss:
+Die Dateien im Verzeichnis .git/objects werden sotiert indem die ersten beiden Zeichen des SHA-1-Wertes für den Verzeichnisnamen verwendet werden und die nachfolgenden Zeichen den Dateinamen ergeben. Die Dateien sind nicht direkt zu öffnen, weil sie mit der Bibliothek ZLib gepackt wurden.
+
+### Branches
+
+Normalerweise wird nicht auf dem Master-Branch gearbeitet oder programmiert. Der Master sollte immer die letzte lauffähige Version des Programms beinhalten. Das bedeutet, dass man für ein neues Feauture einen neuen Branche erstellt und wenn das entsprechende Feauture fertig entwickelt ist, wird dieses mit dem Master-Branche zusammengeführt.
+
+#+name: git_branch
+#+begin_src
+git branch erweiterung-1
+git branch
+#+end_src
+
+Die erste Zeile erzeugt einen neuen Branch mit dem Namen 'erweiterung-1'. Die zweite Zeile 'git branch' ohne Parameter zeigt alle lokal verfügbaren Branches an.
+
+Mit dem Befehl
+
+#+name: git_checkout
+#+begin_src
+git checkout erweiterung-1
+#+end_src
+
+wechselt man in den Branch erweiterung-1. Im folgendem Befehl wird das Erzeugen und wechseln in einen neuen Branche in einem Befehl zusammen gefasst:
+
+#+name: git_checkout_b
+#+begin_src
+git checkout -b erweiterung-1
+#+end_src
+
+In welchem Branch aktuell gearbeitet wird, steht in der Datei .git/Head
+
+
+
+
+
+## Docker
+
+* Einführung in Docker
+** Warum Docker
+Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ. Der Hauptunterschied zu anderen Virtualisierungen ist, dass nicht der Schwerpunkt auf die Virtualisierung von Betriebssystemen gelegt wird, sondern von Anwendungen. Das zeigt sich z.B. daran, dass Container normalerweise keine öffentliche IP-Adresse haben und nur über einen festgelegten Port über die IP des "Hostsystems" erreichbar sind. Auch auf hub.docker.com werden eher Anwendungen angeboten und nicht Betriebssysteme. Wenn ein Webserver gebraucht wird, ist es nicht interessant auf welchen Linux-Dervat er installiert wurde, sondern das er sicher läuft und die benötigten Dienste zur Verfügung stellt.
+Aber der Reihe nach.
+*** Vorteile von Docker
+- Docker ist unabhängig vom Betriebssystem. Es wird unterstützt von:
+    - allen Linux Distributionen,
+    - Microsoft-Betriebssystemen (seit 2016),
+    - OS X.
+
+- Vorteile gegenüber anderen Virtualisierungslösungen:
+    - Benötigt keine besondere Hardware oder CPU-Erweiterungen.
+    - Effizienter als herkömmliche Virtualisierungslösungen.
+    - Weitergabe von Containern sehr leicht möglich (nur ein Textfile).
+    - Einfache Überprüfung, wie der Container aufgesetzt wurde (alle Befehle stehen in dem Textfile).
+    - Kostenlos Nutzbar.
+    - Plattformunabhängige Container. Keine Abhängigkeiten zum Hostsystem.
+    - Einfaches Clustering von Systemen.
+    - Einfache Versionsverwaltung. Jeder Schritt kann rückgängig gemacht werden und jeder Schritt wird aufgezeichnet.
+
+** Docker Begriffe
+*** Images
+Ein Image ist portable und kann zwischen Systemen ausgetauscht werden. Es kann aus einem Container erstellt werden und stellt so einen Snapshot dar.
+
+*** Container
+Ein Container braucht ein Image. Der Container ist ein gestartetes Image und existiert nur, solange die Instanz läuft. Beim herunterfahren des Containers können die Änderungen  die durch Laufzeit des Containers eingetreten sind im Image hinzugefügt werden. Images haben immer eine Version und es werden nur die Unterschiede zur vorhergehenden Version gespeichert. Ein Image kann von mehreren Containern geteilt werde.
+
+** Arten von Virtualisierung (Prüfungsrelevant!)
+*** TYP 1 (Bare Metall)
+
+*** TYP 2
+
+** Installation von Docker
+
+Die Installation von Docker für alle gängigen Betriebssysteme ist hier erklärt: https://docs.docker.com/
+
+## Installation von Docker unter CentOS
+Installation folg der Anleitung von https://docs.docker.com/engine/installation/linux/centos/
+
+### Repository hinzufügen
+
+vi /etc/yum.repos.d/docker.repo
+
+Inhalt von docker.repo:
+
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+
+### Paketliste aktualisieren
+
+Paketliste auf dem Server aktualisieren:
+
+sudo yum update
+
+### Installieren von Docker
+
+sudo yum install docker-engine
+
+### Docker aktivieren
+
+sudo systemctl enable docker.service
+
+### Docker starten
+
+sudo systemctl start docker
+
+### Überprüfen der Installation
+
+Ausgeben der installierten Docker-Version:
+
+docker --version
+
+### Docker nicht als root verwenden
+
+Wir melden uns als normalen User an und führen den Befehl aus:
+
+docker images
+
+Bei einer Fehlermeldung überprüfen wir, ob die Gruppe docker existiert:
+
+cat /etc/group|grep docker
+
+und fügen den User hinzu:
+
+usermod -a -G docker usermod
+
+Danach melden wir uns von der Konsole ab und wieder an um die neue Konfiguration zu aktivieren.
+
+Danach sollter der Befehl "docker images" ohne Proble ausgeführt werden.
+
+** Exkurs: Installation von gateone unter Docker
+
+Im Unterricht setzen wir GateOne ein. Gateone stellt einen HTML5-Client für ssh zur Verfügung. Gateone läuft in einem Docker-Container und wird wie folgt installiert:
+
+#+name: GateOne
+#+BEGIN_EXAMPLE
+docker run -d --name=gateone -p 8000:8000 liftoff/gateone
+#+END_EXAMPLE
+
+Mit diesem Befehl läuft der Docker-Container und der Port wird per HTTPS auf Port 8000 zur Verfügung gestellt. Port 8000 weil der port 443 bereits auf dem Server genutzt wird.
+
+Um den Service auf Port 443 zur Verfügung zu stellen verwenden wir mod_proxy.
+
+*** Installation von mod_proxy
+
+#+name:mod_proxy
+#+BEGIN_EXAMPLE
+apt-get install libapache2-mod-proxy-html
+a2enmod proxy
+a2enmod proxy_html
+a2enmod proxy_http
+#+END_EXAMPLE
+
+*** Einrichrichtung der NameVirtualHost-Direktive
+
+Wir legen im Verzeichnsis /etc/apache2/sites-avaible ein Datei an mit dem Namen 004-gateone.conf:
+
+#+name:NameVirtualHist-Direktive
+#+BEGIN_EXAMPLE
+<VirtualHost *:443>
+  ServerName ssh.fbs-fulda.info
+  ServerAdmin joerg@reuter.sc
+  ProxyRequests Off
+  <Proxy *>
+    Order deny,allow
+    Allow from all
+  </Proxy>
+    ProxyPass / https://127.0.0.1:8000/
+    ProxyPassReverse / https://127.0.0.1:8000/
+</VirtualHost>
+#+END_EXAMPLE
+
+Jetzt müssen wir die Konfiguration noch aktivieren:
+
+#+name:aktivieren
+#+BEGIN_EXAMPLE
+a2ensite 004-gateone
+service apache2 reload
+#+END_EXAMPLE
+
+*** Docker Container unter Linux
+
+
+
+Wir laden das Image von Ubuntu 14.04 herunter:
+
+#+name: setupR
+#+BEGIN_EXAMPLE
+docker pull ubuntu:14.04
+#+END_EXAMPLE
+
+Anzeige der lokal vorhanden Images:
+
+#+name: local_Images
+#+BEGIN_EXAMPLE
+docker images
+#+END_EXAMPLE
+
+Zugriff auf die Shell
+
+#+name: dockerrun
+#+BEGIN_EXAMPLE
+docker run -t -i ubuntu:14.04 bash
+#+END_EXAMPLE
+
+Wir benötigen jetzt eine zweite Konsole die nicht im Docker-Container angemeldet ist. Diese Konsole wird benötigt um den Docker-Container zu verwalten.
+Von einer zweiten Konsole:
+#+name: dockerps
+#+BEGIN_EXAMPLE
+docker ps
+#+END_EXAMPLE
+
+um sich den Namen des laufenden Docker Container anzeigen zu lassen
+Docker Container anhalten (hungy_euklid ist der Name der jeweiligen Maschine):
+
+#+name: docker stop
+#+BEGIN_EXAMPLE
+docker stop hungry_euclid
+#+END_EXAMPLE
+
+Gestoppten Container neu starten:
+
+#+name: dockerstart
+#+BEGIN_EXAMPLE
+docker start -i hungry_euclid
+#+END_EXAMPLE
+
+Container löschen:
+
+#+name: dockerloeschen
+#+BEGIN_EXAMPLE
+docker stop hungry_euclid
+docker rm hungry_euclid
+#+END_EXAMPLE
+
+Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+docker run -d --name nginx nginx
+
+#+name: dockerpss
+#+BEGIN_EXAMPLE
+docker ps -s
+#+END_EXAMPLE
+
+Alle laufenden und gestoppten Container löschen:
+
+#+name: dockerdelete
+#+BEGIN_EXAMPLE
+docker ps -qa|xargs docker rm -f
+#+END_EXAMPLE
+
+
+* Zum eigenen Image
+Mit dem Befehl
+#+name: dockerinfo
+#+begin_src bash :export both
+  docker info
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 1.10.3
+Storage Driver: overlay
+ Backing Filesystem: extfs
+Execution Driver: native-0.2
+Logging Driver: json-file
+Plugins:
+ Volume: local
+ Network: null host bridge
+Kernel Version: 4.7.0-coreos
+Operating System: CoreOS 1122.2.0 (MoreOS)
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 493.2 MiB
+Name: fbs-01
+ID: UEJT:QG6A:VS7A:HUWD:6J6D:PPVX:C5DY:XS5R:GHQ7:2RWT:7PLT:DDE5
+#+end_example
+überprüfen wir, ob Docker installiert ist und ordnungsgemäß läuft.
+Um ein neues Image zu erstellen, gibt es zwei Wege:
+
+- docker commit
+- docker build
+
+Die mächtigste und übliche Methode ist der Weg über den Befehl docker build.
+
+Beachte: Wir bauen keine komplett neuen Images. Der Weg ist vielmehr, dass wir ein bestehendes Image (z.B. Ubuntu) entsprechend anpassen!
+
+** Docker Hub account
+Eine wichtige und großartige Sache ist das teilen von Docker Images. Wir können dies über den offitiellen Docker Hub machen oder aber über unser eigene Registry. Um es einfach zu machen, erstellen wir uns einen Account bei Docker Hub (https://hub.docker.com).
+** Login
+Wir melden uns jetzt von der Konsole aus bei Docker Hub an:
+
+#+name: dockerinfo
+#+begin_src bash :export both
+  docker login
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Username: joergre
+Password:
+Email: joerg@reuter.sc
+WARNING: login credentials saved in /home/core/.docker/config.json
+Login Succeeded
+#+end_example
+
+Mit dem Befehl
+#+name: dockerinfo
+#+begin_src bash :export both
+  docker logout
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Remove login credentials for https://index.docker.io/v1/
+#+end_example
+
+melden wir uns von Docker ab. Aber wir melden uns sofort wieder an, wir möchte ja mit Docker Hub arbeiten.
+
+** Docker commit
+Wie bereits erwähnt, der eher unübliche Weg. Das Kapitel dient nur dazu, zu zeigen, wie man es auch machen kann.
+
+Wir fangen immer mit einem bestehenden Image an. Bei Docker commit starten wir das Image und erstellen so einen Container:
+#+name: dockerinfo
+#+begin_src bash :export both
+  docker run -i -t ubuntu /bin/bash
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+
+cad964aed91d: Pull complete
+3a80a22fea63: Pull complete
+50de990d7957: Pull complete
+61e032b8f2cb: Pull complete
+9f03ce1741bf: Pull complete
+Digest: sha256:28d4c5234db8d5a634d5e621c363d900f8f241240ee0a6a978784c978fe9c737
+Status: Downloaded newer image for ubuntu:latest
+root@f39032b9f532:/#
+#+end_example
+
+Den Befehl haben wir ja bereits öfters ausgeführt. Insofern sind wir (hoffentlich) nicht überrascht, dass wir in dem Container angemeldet sind.
+Als nächste Schritt installieren wir den Webserver Apache. Zuerst müssen wir dazu das Repository der Packete aktualisieren:
+
+#+name: dockerinfo
+#+begin_src bash :export both
+  apt -yqq update
+#+end_src
+
+#+RESULTS:
+#+begin_example
+6 packages can be upgraded. Run 'apt list --upgradable' to see them.
+#+end_example
+
+Wir könnten jetzt ein apt upgrade ausführen, dass lassen wir aber und fahren fort mit der Installation:
+
+#+name: dockerinfo
+#+begin_src bash :export both
+  apt -yqq install apache2
+#+end_src
+
+Die Ausgabe erspare ich mir an dieser Stelle. Wir möchten nun den Zustand des Containers sichern um ihn später weiterverwenden zu können. Wir loggen uns mit exit aus:
+#+begin_src bash :export both
+  exit
+#+end_src
+
+#+RESULTS:
+#+begin_example
+exit
+core@fbs-01 ~ $
+#+end_example
+
+*** Aufgabe
+Finde heraus, welche Bedeutung die Parameter -yqq bei dem Installationsprozess haben.
+
+Unser Container ist jetzt beendet. Wir suchen uns jetzt die Container-ID:
+#+begin_src bash :export both
+  docker ps
+#+end_src
+
+#+RESULTS:
+#+begin_example
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+f39032b9f532        ubuntu              "/bin/bash"         13 minutes ago      Exited (0) 3 minutes ago                       pensive_stallman
+#+end_example
+
+und führen jetzt einen docker commit durch:
+
+#+begin_src bash :export both
+  docker commit f39032b9f532 joergre/apache2
+#+end_src
+
+#+RESULTS:
+#+begin_example
+sha256:91d4e09127ec25aa2dce9f86afa78bdb436aae6adde787142c54a99766b182ee
+#+end_example
+
+Ihr benötigt für das commit die Container-ID und (optional) Euren Benutzername von Docker HUB und durch "/" getrennt ein Imagenamen den Ihr frei wählen könnt. Sinnvoller Weise sollte der Name so gewählt werden, dass man auch nächste Woche noch eine Idee über den Inhalt des Containers hat.
+Nun möchten wir uns das Ergebniss auch anschauen:
+
+#+begin_src bash :export both
+  docker images
+#+end_src
+
+#+RESULTS:
+#+begin_example
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+joergre/apache2     latest              91d4e09127ec        About a minute ago   265.2 MB
+ubuntu              latest              c73a085dc378        2 weeks ago          127 MB
+#+end_example
+
+Und da sehen wir, voller stolz, unser erstes Image. Wir können dem Image jetzt noch weitere Metadaten hinzufügen, damit wir besser erkennen können, was wir hier für ein Image haben.
+#+begin_src bash :export both
+  docker commit -m "Mein erstes eigene Image. Das war ja einfach" -a "Jörg Reuter" f39032b9f532 joergre/apache2:webserver
+#+end_src
+
+#+RESULTS:
+#+begin_example
+sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85
+#+end_example
+
+Mit -m wurde eine Kommentar zum Container hinzugefügt, mit -a ein Autor und mit ":" ein Tag bzw. Version. Mit dem Befehl docker images sehen wir unser neues Produkt:
+
+#+begin_src bash :export both
+  docker images
+#+end_src
+
+#+RESULTS:
+#+begin_example
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+joergre/apache2     webserver           cfca430f5584        8 seconds ago       265.2 MB
+joergre/apache2     latest              91d4e09127ec        20 minutes ago      265.2 MB
+ubuntu              latest              c73a085dc378        2 weeks ago         127 MB
+#+end_example
+
+Mit docker inspect können wir das Image näher untersuchen:
+#+begin_src bash :export both
+  docker inspect joergre/apache2:webserver
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+    {
+        "Id": "sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85",
+        "RepoTags": [
+            "joergre/apache2:webserver"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:c73a085dc3782b3fd4c032971c76d6afb45fa3728a048175c8c77d7403de5f21",
+        "Comment": "Mein erstes eigene Image. Das war ja einfach",
+        "Created": "2016-10-11T04:40:50.411198103Z",
+        "Container": "f39032b9f5329f63d73f7bfc70b0fa3f5b88c29ddd98cd75ab832a629e2b113c",
+        "ContainerConfig": {
+            "Hostname": "f39032b9f532",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "ubuntu",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {},
+            "StopSignal": "SIGTERM"
+        },
+        "DockerVersion": "1.10.3",
+        "Author": "Jörg Reuter",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 265202837,
+        "VirtualSize": 265202837,
+        "GraphDriver": {
+            "Name": "overlay",
+            "Data": {
+                "RootDir": "/var/lib/docker/overlay/9c634d9573d15e4da697c5a58bbeee4ceb677ae5a7afab6263e6c9b15b6d13f1/root"
+            }
+        }
+    }
+]
+#+end_example
+Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/reference/commandline/cli/#commit
+
+Jetzt starten wir unser neues Image in einem Container:
+
+#+begin_src bash :export both
+  docker run -t -i joergre/apache2:webserver /bin/bash
+#+end_src
+
+
+
+
+
+
+
+
+
+
+
 
 ## OpenStack
 
@@ -51,3 +759,5 @@ OpenStack besteht aus folgenden Komponenten:
 - Dashboard         "Horizon"
 - Identity Service  "KeyStone"
 - Image Service     "Glance"
+
+Eine graphische Übersicht gibt es hier:

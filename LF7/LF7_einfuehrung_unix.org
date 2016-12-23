@@ -2,7 +2,7 @@
 #+TITLE:     Einführung in Unix
 #+AUTHOR:    Jörg Reuter
 #+EMAIL:     joerg@reuter.sc
-#+DATE:      
+#+DATE:
 
 #+PROPERTY: exports both
 #+EXCLUDE_TAGS: noexport mitsetup
@@ -37,14 +37,14 @@ Es macht keinen großen Sinn, die Distributionen nach Vor- und Nachteilen aufzut
 
 Anders als bei Windows werden Programme meistens nicht auf einer Webseite gesucht, heruntergeladen und dann installiert. Es gibt bei Linuxsystemen ein Verzeichnis (Repository) aller üblichen Programme. Diese können dann über ein Systemprogramm installiert und mit Updates versorgt werden. Nur bei nicht "marktgängigen" Programmen ist eine manuelle Installation wie unter Windows notwendig.
 
-Fast jede Distribution hat ein Repository, indem alle Programme zentral verzeichnet sind, die zur Verfügung stehen. Mit einem Systemprogramm kann dieses Verzeichnis (Datenbank) auf den Computer gespielt werden. Diese Datenbank enthät 
+Fast jede Distribution hat ein Repository, indem alle Programme zentral verzeichnet sind, die zur Verfügung stehen. Mit einem Systemprogramm kann dieses Verzeichnis (Datenbank) auf den Computer gespielt werden. Diese Datenbank enthät
 
-- den Namen aller im Repository enthaltener Programme, 
-- eine kurze Beschreiung, 
-- die Versionsnummer 
+- den Namen aller im Repository enthaltener Programme,
+- eine kurze Beschreiung,
+- die Versionsnummer
 - die Abhängigkeiten
 - Ort der Programmdateien im Internet (oder auf CD, USB-Stick etc.)
-- und die Archtiktur (32- oder 64 Bit? ARM oder AMD/Intel). 
+- und die Archtiktur (32- oder 64 Bit? ARM oder AMD/Intel).
 
 Standardmäßig wird nach Aktualisierung des lokalen Repository-Verzeichnisses alle Pakete angezeigt die bereits installiert sind und für die Updates zur Verfügung stehen.
 Es gibt zwei grosse Formate für die Paketbeschreibung:
@@ -52,7 +52,7 @@ Es gibt zwei grosse Formate für die Paketbeschreibung:
 - RPM
 - Debian
 
-Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl der Distribution legt man sich automatisch auf das entsprechende Paketformat fest. Es gibt für alle Paketformate graphische und textbasierte Möglichkeiten der Installation, des Updates und des löschens von Programmen.  
+Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl der Distribution legt man sich automatisch auf das entsprechende Paketformat fest. Es gibt für alle Paketformate graphische und textbasierte Möglichkeiten der Installation, des Updates und des löschens von Programmen.
 
 |-----------------------+-------------+------------------------------------------------------------|
 | Name                  | Paketformat | weitere Informationen                                      |
@@ -71,6 +71,34 @@ Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl
 Slackware ist die älteste Distribution, Ubuntu die populärste.
 
 * Updates einspiele
+
+
+
+# Ports
+
+Port  Protocol  Dienst
+22    SSH       OpenSSH
+23    TELNET    telnetd
+25    SMTP      PostFix, Sendmail
+53    DNS       Bind, named
+67    BOOTP     dnsmasq, dhcpd
+80    HTTP      Apache
+443   HTTPS     Apache
+
+# Bekannte Serveranwendungen
+
+- Apache
+- MySQL
+- Mono
+- CUPS
+- PostFix
+
+# Umgang mit RPM-nasierten Systemen
+
+rpm ist ein Program
+
+
+
 
 * Die Standardverzeichnisse von Unix
 Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
