@@ -19,6 +19,7 @@
 Fasse die Ereignisse der beiden Firmen in eigenen Worten zusammen. Wo war das Problem?
 
 a) https://en.wikipedia.org/wiki/Knight_Capital_Group
+
 b) http://www.fr-online.de/newsticker/einschraenkungen-bei-der-postbank---proteste-von-kunden,26577320,34951694.html
 
 ** Aufagbe 2
@@ -26,6 +27,7 @@ b) http://www.fr-online.de/newsticker/einschraenkungen-bei-der-postbank---protes
 Erkläre folgende Begrifflichkeiten:
 
 a) DevOps
+
 b) "Pets vs. Cattle". Behandeln wir unsere Server wie Haustiere oder wie Vieh?
 
 * Pets vs. Cattle
