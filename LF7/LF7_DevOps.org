@@ -32,7 +32,7 @@ b) "Pets vs. Cattle". Behandeln wir unsere Server wie Haustiere oder wie Vieh?
 
 * Pets vs. Cattle
 
-Es gibt Unternehmen wie Amazon, Google, Facebook die pro Tag mehr als 1000 Updates in das produktive System einspielen. Überraschender Weise gibt es keinen Konflikt zur stabilität des Systems und der Anzahl der Updates. Im Gegenteil, Unternehmen mit extrem vielen Aktualisierungen haben gewöhnlich eine höhere Sicherheit, eine bessere Verfügbarkeit und eine höhere Kundenzufriedenheit.
+Es gibt Unternehmen wie Amazon, Google, Facebook die pro Tag mehr als 1000 Updates in das produktive System einspielen. Überraschender Weise gibt es keinen Konflikt zwischen Stabilität des Systems und der Anzahl der Updates. Im Gegenteil, Unternehmen mit extrem vielen Aktualisierungen haben gewöhnlich eine höhere Sicherheit, eine bessere Verfügbarkeit und eine höhere Kundenzufriedenheit.
 
 (http://www.ciosummits.com/Online_Assets_Puppet_2016_State_of_DevOps_Report.pdf)
 
@@ -52,7 +52,7 @@ git config --global http.sslVerify false
 
 *** Clone
 
-Um mit einem Repository arbeiten zu können, muss man als erstes das Repositor< in ein Verzeichnis klonen. Das bedeutet, dass ein neuer Ordner angelegt wird mit dem Namen des Repository von github. Wir klonen das Reoository Workshops:
+Um mit einem Repository arbeiten zu können, muss man als erstes das Repository in ein Verzeichnis klonen. Das bedeutet, dass ein neuer Ordner angelegt wird mit dem Namen des Repository von github. Wir klonen das Reoository Workshops:
 
 #+name: clone
 #+begin_src bash
