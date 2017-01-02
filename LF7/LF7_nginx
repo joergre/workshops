@@ -1,0 +1,8 @@
+* Warum NginX
+Der am meisten eingesetzte Webserver ist der Apache. Nginx kommt bei weitem nicht an seine Funktionsfülle heran. Auf der anderen Seite kann NginX  daraus Vorteile ziehen durch erhöhte Geschwindigkeit. Eine besondere Bedeutung bekommt NginX in einem Umfeld hoher Virtualisierung. Hier kann NginX als schneller Loadbalancer oder Reverse-Proxy punkten. Er dient also dazu, die Last möglichst gleichmässig auf die einzelnen virtuellen Maschinen zu verteilen und/oder aber Anwendungen oder Container geordnet nach aussen über beispielsweise Port 80 oder 443 nach aussen zur Verfügung zu stellen.
+
+
+
+* Installation (Docker) von Nginx
+* Anpassungen an die Hardware (Exkurs)
+* SSL
