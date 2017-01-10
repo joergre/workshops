@@ -1,0 +1,133 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in DevOps
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      12.12.2016
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+* Einrichten von OpenStack
+
+Wir brauchen 3 virtuelle Maschine: Controller, Network, Compute Node. Wir installieren alle Maschinen mit Ubuntu 16.04 und alle mit einem öffentlichen Netzwerk und einem privaten Netzwerk. Eigentlich sind drei netzwerk vorgesehen: ein öffentliches Netzwerk, ein Managment-Netzwerk und ein Datennetzwerk. Diesen Aufbau kann ich aus technischen Gründen in der Schule nicht realisieren, daher fassen wir das Datennetzwerk und das Managment-Netzwerk zu einem zusammen, behalten aber zur Verdeutlichung die Namen bei.
+
+Nach dem Start überprüfen wir mit ifconfig oder dem Aufruf der Dateien im Verzeichnis /etc/network/interfaces.de, dass 2 Netzwerkkarten vorhanden sind. Eine mit unserer privaten IP-Adresse und eine mit unserer öffentlichen IP-Adresse.
+
+** Controller
+
+Als nächstes müssen wir die Datei /etc/hosts ergänzen:
+
+#+name: hosts
+#+begin_src bash
+#Controller
+10.10.10.1    controller
+192.168.100.1 conntroller-api
+
+#network
+10.10.10.2    network
+192.168.100.2 network-api
+10.10.10.2    network-data
+
+#compute
+10.10.10.3  compute1
+10.10.10.3  compute1-data
+
+#+end_src
+
+Wobei die 10er Netze das private Netz darstellen und 192er Netz das öffentliche. Bei dem privaten Netz wird normalerweise das data- und das api-Netz in zwei getrennte Netzwerke aufgeteilt.
+
+Wir testen die Einstellungen mit einem Ping auf den controller.
+
+** Network-Node
+
+Wir überprüfen die Netzwerkeinstellungen wie oben beschrieben und passen die /etc/hosts an wie oben beschrieben.
+
+Mit einem ping auf den controller testen wir die Verbindung zwischen network-Node und controler-Node. Mit einem ping auf compute1 entsprechend die Verbindung zwischen network-Node und compute-Node.
+
+** Compute-Node
+
+Wir überprüfen die Netzwerkeinstellungen wie oben beschrieben und passen die /etc/hosts an wie oben beschrieben.
+Zur Kontrolle können wir den Controller anpingen.
+
+Das Netzwerk ist jetzt vollständig eingerichtet.
+
+* Einrichtung NTP
+
+** Controller
+
+Die Uhrzeit ist in dem zusammenspiel der verschiedenen Server extrem wichtig. Daher installieren wir den ntp-Client (NTP: Network Time Protocol).
+
+#+name: ntp
+#+begin_src bash
+apt update
+apt dist-upgrade
+apt install ntp
+#+end_src
+
+Wir richten den Controller als Zeitserver für die anderen Teilnehmer ein. Dazu verändern wir in der Datei /etc/ntp.conf die Zeilen
+
+#+name: ntp
+#+begin_src bash
+restrict -4 default kod notrap nomodify nopeer noquery limited
+restrict -6 default kod notrap nomodify nopeer noquery limited
+#+end_src
+
+zu
+
+#+name: ntp
+#+begin_src bash
+restrict -4 default kod notrap nomodify nopeer
+restrict -6 default kod notrap nomodify nopeer
+#+end_src
+
+und starten den NTP-Server neu:
+
+#+name: ntp_start
+#+begin_src bash
+service ntp restart
+#+end_src
+
+** Compute-Node
+
+Installation des Servers wie oben beschrieben.
+
+Wir verändern die Datei /etc/ntp.conf wie folgt:
+- Wir kommentieren die Zeilen aus:
+
+#+name: ntp_del
+#+begin_src bash
+pool 0.ubuntu.pool.ntp.org iburst
+pool 1.ubuntu.pool.ntp.org iburst
+pool 2.ubuntu.pool.ntp.org iburst
+pool 3.ubuntu.pool.ntp.org iburst
+#+end_src
+
+und ersetzen sie durch unseren controller:
+
+#+name: ntp_insert
+#+begin_src bash
+controller iburst
+#+end_src
+
+Wir starten den NTP-Server neu.
+
+** Network-Node
+
+Vorgehen wie beim Compute-Node.
+
+** Sync erzwingen
+
+Um die Synchronisation der Zeit zu erzwingen, geben wir auf dem Controller folgenden Befehl ein (es würde sonst einige Minuten dauern bis der Server die aktuelle Zeit holt):
+
+#+name: ntp_force
+#+begin_src bash
+ntpq -c peers
+#+end_src
+
+Das gleiche führen wir bei den anderen Nodes durch.
