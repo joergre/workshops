@@ -17,6 +17,8 @@
 
 Wir brauchen 3 virtuelle Maschine: Controller, Network, Compute Node. Wir installieren alle Maschinen mit Ubuntu 16.04 und alle mit einem öffentlichen Netzwerk und einem privaten Netzwerk. Eigentlich sind drei netzwerk vorgesehen: ein öffentliches Netzwerk, ein Managment-Netzwerk und ein Datennetzwerk. Diesen Aufbau kann ich aus technischen Gründen in der Schule nicht realisieren, daher fassen wir das Datennetzwerk und das Managment-Netzwerk zu einem zusammen, behalten aber zur Verdeutlichung die Namen bei.
 
+Eine Übersicht über das netzwerk und die 3 virtuellen Maschinen: https://www.lucidchart.com/publicSegments/view/c06ef9dd-23de-4240-a9e4-a3d00c0c12ef
+
 Nach dem Start überprüfen wir mit ifconfig oder dem Aufruf der Dateien im Verzeichnis /etc/network/interfaces.de, dass 2 Netzwerkkarten vorhanden sind. Eine mit unserer privaten IP-Adresse und eine mit unserer öffentlichen IP-Adresse.
 
 ** Controller
@@ -27,7 +29,7 @@ Als nächstes müssen wir die Datei /etc/hosts ergänzen:
 #+begin_src bash
 #Controller
 10.10.10.1    controller
-192.168.100.1 conntroller-api
+192.168.100.1 controller-api
 
 #network
 10.10.10.2    network
@@ -82,8 +84,8 @@ zu
 
 #+name: ntp
 #+begin_src bash
-restrict -4 default kod notrap nomodify nopeer
-restrict -6 default kod notrap nomodify nopeer
+restrict -4 default kod notrap nomodify
+restrict -6 default kod notrap nomodify
 #+end_src
 
 und starten den NTP-Server neu:
@@ -112,8 +114,24 @@ und ersetzen sie durch unseren controller:
 
 #+name: ntp_insert
 #+begin_src bash
-controller iburst
+server controller iburst
 #+end_src
+
+Dann kommentieren wir die Zeile aus:
+
+#+name: ntp_del2
+#+begin_src bash
+pool ntp.ubuntu.com
+#+end_src
+
+und erstezen diese ebenfalls durch unseren controller:
+
+#+name: ntp_insert
+#+begin_src bash
+server controller iburst
+#+end_src
+
+
 
 Wir starten den NTP-Server neu.
 
@@ -131,3 +149,112 @@ ntpq -c peers
 #+end_src
 
 Das gleiche führen wir bei den anderen Nodes durch.
+
+* Datenbank installieren
+
+Die Datenbank wird auf dem Controller installiert und wird zur Verwaltung der Nodes benötigt.
+
+#+name: mariadb
+#+begin_src bash
+apt install python-mysqldb mariadb-server
+#+end_src
+
+Nach der Installation setzen wir ein Passwort (fbs) für den Benutzer root:
+
+#+name: password
+#+begin_src bash
+mysql -u root
+update mysql.user set password=password('fbs') where user='root';
+flush privileges;
+exit
+#+end_src
+
+Wir müssen die Datenbank für das private Netz freischalten (10.10.1.0). Dafür öffnen wir die Datei /etc/mysql/mariadb.conf.d/50-server.cnf und ändern folgende Zeile:
+
+#+name: bindadress
+#+begin_src bash
+bind-address = 127.0.0.1
+#+end_src
+
+zu
+
+#+name: bindadressextern
+#+begin_src bash
+bind-adress = 10.10.10.1
+#+end_src
+
+Die Datenbank muss auf InnoDB und UTF8 eingestellt sein. Zum Unterschied zwischen InnoDB und MyISAM: http://www.peterkropff.de/site/mysql/myisam_innodb.htm InnoDB wird vor allem wegen seiner Transaktionssicherheit eingesetzt.
+
+Direkt über der Stelle an deer wir bind_adress eingestellt haben, stehen die Basic-Settings. Und fügen am Ende dieses Abschnitts (also eigentlich direkt über bind-adress folgende Zeilen ein:
+
+#+name: innodb
+#+begin_src bash
+default-storage-engine = innodb
+innodb_file_per_table
+collation-server = utf8_gerneral_ci
+init-connect = 'SET NAMES utf8'
+character-set-server = utf8
+#+end_src
+
+Danach müssen wir den Server neu starten:
+
+#+name: restart
+#+begin_src bash
+service mysql restart
+#+end_src
+
+Wir müssen noch einige Sicherheitseinstellungen vornehmen wir den Gast-Benutzer löschen. Dazu führen wir ein Script aus:
+
+#+name: secureinstallation
+#+begin_src bash
+mysql_secure_installation
+#+end_src
+
+und beantworten die Fragen wie folgt:
+
+Screencast: https://asciinema.org/a/98875
+
+- Unser Passwort ist 'fbs'
+- Wir möchten das root-Passwort nicht ändern: n
+- Wir möchten denGast-Account löschen: y
+- Wir möchten die remote-Anmeldung für root erlauben: y
+- Wir löschen die Test-Datenbank: y
+- Wir möchten die Änderungen jetzt anwenden: y
+
+** Datenbank einrichten auf dem Network-Node
+
+Wir installieren die MySQL-Unterstützung für mysql:
+
+#+name: pythonmysql
+#+begin_src bash
+apt install python-mysqldb
+#+end_src
+
+** Datenbank einrichten auf dem Compute Node:
+
+#+name: pythonmysql
+#+begin_src bash
+apt install python-mysqldb
+#+end_src
+
+* Installation des Messaging Systems
+
+Das System dent dazu, nachrichten zwischen den Nodes auszutauschen. Diese Nachrichten werden z.B. für das Loadbalancing oder Monitoring benötigt. OpenStack unterstützt viele Messaging-Systeme wie RabbitMQ, Qpid, ZeroMQ etc. Wir werden bei unserer Installation RabbitMQ verwenden. RabbitMQ wurde von J.P. Morgan entwickelt.
+
+** Controller
+
+Wir installieren RabitMQ auf dem Controller-Node:
+
+#+name: rabbitmq
+#+begin_src bash
+apt install rabbitmq-server
+#+end_src
+
+Als nächstes müssen wir ein Passwort vergeben. Für unsere Testumgebung verwenden wir den vorinstalliertem Gast-Account und setzen das Passwort auf 'fbs':
+
+#+name: guest
+#+begin_src bash
+rabbitmqctl change_password guest fbs
+#+end_src
+
+* Installation des Identity Service
