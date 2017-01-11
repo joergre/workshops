@@ -150,6 +150,25 @@ ntpq -c peers
 
 Das gleiche führen wir bei den anderen Nodes durch.
 
+Die Anzeige bedeutet:
+
+remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*controller      193.175.73.151   2 u  168 1024  377    1.180   -0.001   2.020
+
+- remote – Der Name des Zeitservers
+- refid – Mit welchem Server der Zeitserver sich synchronisiert hat.
+    st – The remote peer or server Stratum
+    t – Type (u: unicast or manycast client, b: broadcast or multicast client, l: local reference clock, s: symmetric peer, A: manycast server, B: broadcast server, M: multicast server, see “Automatic Server Discovery“);
+- when – Wieviele Sekunden seit dem letzten sync vergangen sind.
+- poll – Polling frequency: rfc5905 suggests this ranges in NTPv4 from 4 (16s) to 17 (36h) (log2 seconds), however observation suggests the actual displayed value is seconds for a much smaller range of 64 (26) to 1024 (210) seconds;
+- reach – An 8-bit left-shift shift register value recording polls (bit set = successful, bit reset = fail) displayed in octal;
+- delay – Round trip communication delay to the remote peer or server (milliseconds);
+- offset – Mean offset (phase) in the times reported between this local host and the remote peer or server (RMS, milliseconds);
+    jitter – Mean deviation (jitter) in the time reported for that remote peer or server (RMS of difference of multiple time samples, milliseconds);
+
+Quelle: http://nlug.ml1.co.uk/2012/01/ntpq-p-output/831
+
 * Datenbank installieren
 
 Die Datenbank wird auf dem Controller installiert und wird zur Verwaltung der Nodes benötigt.
