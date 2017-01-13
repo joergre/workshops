@@ -26,235 +26,7 @@
   }
 #+end_src
 
-* Vorwort
 
-Dieses Dokument ist entstanden im Rahmen des Unterrichts in LF6 an der Ferdinand-Braun-Schule Fulda. In LF6 wird in der Unterstufe Python  bei den Fachinformatikern Systemintegration unterrichtet. Rechtlicher Rahmen: http://www.kmk.org/fileadmin/pdf/Bildung/BeruflicheBildung/rlp/Fachinformatiker97-04-25.pdf.
-
-** Warum noch ein Buch?
- 
-Das Problem bei den Büchern ist, dass sie versuchen Ihrem Titel gerecht zu werden. Die Bücher beschränken sich zu sehr auf die Programmiersprache und sind mir insgesamt zu langatmig. 
-Ein Fachinformatiker Systemintegration ist oft deshalb kein Fachinformatiker Anwendungsentwicklung geworden, weil er mit programmieren nicht ganz soviel anfangen kann. 
-
-Um hier eine Motivation zu erreichen, ist es sinnvoll mit der Programmiersprache als "Vehikel" zusammenhänge in der Systemintegration herzustellen wie z.B. Verschlüsselungstechniken zu erklären oder Angriffsmöglichkeiten auf Servern zu verdeutlichen. Dieses Publikum ist zu klein als das es sich lohnt hierfür ein extra Buch zu verlegen.
-
-Das Buch möchte als eine Brücke schlagen zwischen Anwendungsentwicklung und Systemintegration und durch die Brille der Anwendungsentwicklung aktuelle Probleme der Systemintegration erklären ohne dass dabei die Anwendungsentwicklung leidet. 
-
-** Git
-
-Nichts ist so sicher wie die Veränderung in der IT-Welt. Dem muss der Unterricht und auch die Dokumentation Rechnung tragen. Einerseits sollte versucht werden Wissen zu vermitteln das über das aktuelle hinaus geht. Es sollen allgemeine Zusammenhänge erklärbar werden, die längere Zeit aktuell sind. Auf der anderen Seite muss auch die Dokumentation eine Form aufweisen, die unabhängig von proprietären Formaten ist und einfach zu aktualisieren. Hier spielen zwei Faktoren eine Rolle: Eine Versionsverwaltung, die es einfach ermöglicht Fehler in einem Dokument zu beheben und es anderen ermöglicht an dem Dokument mitzuarbeiten. 
-
-Es gibt im Internet sehr viele Einführungen in git, daher nur eine extrem kurze Zusammenfassung. 
-
-Eine Versionsverwaltung ist für ein modernes Erstellen von Schriftstücken unerlässlich, ebenso wie beim Programmieren. Eine Versionsverwaltung ist auch für Systemintegratoren sinnvoll, z.B, kann bei einem Linux-Server regelmäßig das /etc-Verzeichnis "ausgecheckt" werden und so Änderungen im Rahmen des Changemanagments nachvollzogen werden. Auch Angriffe sind so eventuell früher erkennbar, wenn Änderungen ohne Kommentar versioniert werden.
-
-
-***  Warum Github?
-
-Es ist möglich seinen eigenen Git-Server zu installieren und zu warten. Es gibt sehr viele Server mit chicker Oberfläche in allen möglichen Programmiersprachen: Java (http://code.google.com/p/gitblit/), PHP (http://www.gitphp.org) oder Rubby (http://getgitorious.com) oder gar Perl (https://git.wiki.kernel.org/index.php/Gitweb), alles kein Problem.
-
-Ein eigener Server ist mit Kosten verbunden und bedarf der Wartung, dies alles kann man sich sparen durch die Nutzung kostenloser oder günstiger Angebote wie Github.
-Daher habe ich mich für einen kommerziellen Dienst entschieden, der kostenlos öffentliche Repositories ermöglicht und seine Software als Opensource kostenlos der Gemeinschaft zur Verfügung stellt und aktiv Linux unterstützt.
-
-*** Arbeiten mit git
-
-Git gibt es für OS X (http://code.google.com/p/git-osx-installer/downloads/list?can=3), für Windows (http://code.google.com/p/msysgit/downloads/list?can=3) und für Linux (http://git-scm.com/book/en/Getting-Started-Installing-Gi). Diese Anwendung muss installiert werden, damit mit git gearbeitet werden kann.
-
-Zum auschecken muss der Befehl
-
-#+name: if-Anweisung
-#+begin_example
-$ git clone https://github.com/joergre/c.git 
-#+end_example
-
-eingegeben werden. Auschecken bedeutet den aktuellen Quellcode in ein Verzeichnis zu speichern. 
-Das bedeutete, alle Dateien des Projekts (in diesem Fall des Buchs) werden mit den eventuell aktuellen auf Deinem Rechner verglichen und bei Veränderungen überschrieben. 
-Danach ist Dein Verzeichnis identisch mit dem im Repository. Ein Repository (kurz "Repo") ist das Projekt bzw. derOrdner in dem alle Dateien eines Projekts abgelegt sind.
-
-** Fehler gefunden?
-
-Du hast einen Fehler gefunden? Eine Ergänzung oder Anmerkung? Super!
-
-Du kannst die Korrektur direkt vornehmen. Dazu veränderst Du die Datei lokal oder fügst mit 
-
-#+name: if-Anweisung
-#+begin_example
-$ git add <Dateiname>
-#+end_example
-
-eine neue Datei hinzu. Natürlich funktioniert auch der Befehl
-
-#+name: if-Anweisung
-#+begin_example
-$ git add *
-#+end_example
-
-um mehrere Dateien hinzuzufügen.
-
-nach musst Du die Änderung bestätigen mit einem
-
-#+name: if-Anweisung
-#+begin_example
-$ git commit -m "Commit-Nachricht"
-#+end_example
-
-Dann werden die hinzugefügten Dateien oder die veränderten Dateien angezeigt. Die Commit-Nachricht sollte kurz beschreiben, welche Änderungen warum vorgenommen wurden.
-
-Die Änderungen sind momentan alle noch lokal. Um sie jetzt auf den Server zu laden, muss ein
-
-#+name: if-Anweisung
-#+begin_example
-$ git push origin master
-#+end_example
-
-durchgeführt werden. Dafür musst Du Dich aber bei github anmelden.
-
-*** Branch
-
-Bei grösseren Veränderungen wird ein Branch angelegt. Wichtig dabei ist, dass der Master-Zweig immer vollständig funktionsfähig bleibt.
-
-#+CAPTION: This is the caption for the next figure link (or table)
-     #+NAME:   fig:SED-HR4049
-     [[./images/git.png]]
-Anlegen eines Branch mit dem Namen "Unterrichtseinheit_X":
-
-#+name: if-Anweisung
-#+begin_example
-$ git checkout -b Unterrichtseinheit_X
-#+end_example
-
-Um zum Master-Branch zu wechseln:
-
-#+name: if-Anweisung
-#+begin_example
-$ git checkout master
-#+end_example
-
-Der Branch "Unterrichtseinheit_X" wird gelöscht mit
-
-#+name: if-Anweisung
-#+begin_example
-$ git branch -d Unterrichtseinheit_X
-#+end_example
-
-Die Befehle waren jetzt alle lokal auf Deinem Rechner. Um den Branch der Welt zur Verfügung zu stellen, musst Du diesen auf den Server laden:
-
-#+name: if-Anweisung
-#+begin_example
-$ git push origin Unterrichtseinheit_X 
-#+end_example
-
-+++ Update und merge
-
-Um Dein lokales Repository zu aktualisieren, verwende 
-
-#+name: if-Anweisung
-#+begin_example
-$ git pull
-#+end_example
-
-Mit einem
-
-#+name: if-Anweisung
-#+begin_example
-$ git merge <branch>
-#+end_example
-
-versucht git, den Branch und den Masterzweig wieder zusammen zu führen. Meistens gibt es hierbei Konflikte und der Quellcode muss manuell editiert werden.
-Die Unterschiede werden Dir mit 
-
-#+name: if-Anweisung
-#+begin_example
-$ git diff <quell_branch> <ziel_branch>
-#+end_example
-
-angezeigt.
-
-Wenn alle Konflikte gelöst wurden, fügst Du die Dateien  mit dem Befehl
-
-#+name: if-Anweisung
-#+begin_example
-$ git add <Dateiname>
-#+end_example
-
-hinzu.
-
-*** Tagging
-
-Der Vollständigkeit wegen noch das Tagging, auch wenn Du es nicht unbedingt benötigen wirst. Beim Tagging kann man bestimmten Entwicklungsständen eine Versionsnummer zuweisen wie z.B. dieser Punkt ist Version 1.0.0.
-Jedem pull wird ein Hashwert zugewiesen. Diese kannst Du Dir mit
-
-#+name: if-Anweisung
-#+begin_example
-$ git log
-#+end_example
-
-anzeigen lassen.
-
-Beispiel:
-
-#+name: if-Anweisung
-#+begin_example
-commit aad57338f0a5e5e2362ee54ea6a24d0e63f0be48
-Author: Administrator <joerg@reuter.sc>
-Date:   Fri Aug 2 12:13:38 2013 +0200
-    Bilder
-#+end_example
-
-Die ersten 10 Zeichen sind wichtig. Wir wollen dem letzten Commit die Versionsnummer 0.0.1 zuweisen. 
-
-#+name: if-Anweisung
-#+begin_example
-$ git tag 0.0.1 aad57338f0
-#+end_example
-
-*** In die Vergangenheit reisen
-
-Mit
-
-#+name: if-Anweisung
-#+begin_example
-$ git checkout -- <filename>
-#+end_example
-
-kommst wieder auf den letzten Stand im HEAD.
-
-Wenn Du alle Änderungen verwerfen möchtest, dann brauchst Du zwei Befehle:
-
-#+name: if-Anweisung
-#+begin_example
-$ git fetch origin
-$ git reset --hard origin/master
-#+end_example
-
-** Kommunikation
-
-*** facebook
-
-Mein Facebook-Account ist  https://www.facebook.com/profile.php?id=100004032505531 und es werden alle Freundschaftsanfragen bestätigt. Es werden keine Informationen nur über facebook geteilt die für den Unterricht relevant sind. 
-
-Es gibt eine Seite https://www.facebook.com/InformationstechnikFulda, die versucht ein wenig Werbung für die Ferdinand-Braun Schule zu machen und darüber hinaus ein festes Forum zum Austausch anbietet.
-
-Es werden allerdings (wegen PRISM etc.) keine Anfragen über den Facebookchat mehr beantwortet.
-
-*** Meetup
-
-Einmal zu mir bekannten Treffen der IT-Szene in Fulda wie LUG (http://lug.rhoen.de), Webdev (http://webdevfulda.de), c4fd (http://mag.lab.sh[c4fd), ITTT (http://de.techtalkfulda.wikia.com), IN-KOMPETENT (http://ink.rhoen.de/doku.php), Zeitsprung (http://www.zeitsprung.org) oder eben Treffen des Fachinformatiker Forums Fulda (https://www.facebook.com/InformationstechnikFulda).
-
-*** Diaspora
-
-Ich liebe Diaspora (https://pod.geraspora.de/u/joerg_reuter) und beantworte dort auch Chatanfragen. Ich gehe bisher davon aus, dass die Anfragen dort gut aufgehoben sind.
-
-*** Google+ und Twitter, ICQ, IRC
-
-Werden nicht mehr unterstützt.
-
-*** Moodle
-
-Für die Moodleinstallation an der Ferdinand-Braun Schule zeichne ich mich verantwortlich und ich weiss, dass alle Anfragen dort gut aufgehoben sind.
-
-*** E-Mail
-
-E-Mail: joerg@reuter.sc
 
 * Einleitung
 
@@ -267,6 +39,18 @@ UML-Diagramme werden eingesetzt um eine Software zu modellieren und sind nach IS
 Die große Anzahl von möglichen Diagrammen verwirrt bei dem ersten Kontakt mit UML. Welches Strukturdiagramm und welches Verhaltensdiagramm setze ich jetzt ein?
 
 Um die Erstellung eines UML-Diagramms zu vereinfachen, gibt es eine große Anzahl von Programmen. Einen schönen Vergleich verschiedener Programme zur Erstellung von UML-Diagramme wurde im Februar 2012 auf der Internetseite http://www.pro-linux.de/artikel/2/1556/1,seite-1.html veröffentlicht. Hier kristallisieren sich zwei empfehlenswerte Programme heraus: Dia und Visual Paradigm. Dia ist Opensource und kann bei den meisten Distributionen über den Paket-Manager installiert werden. http://www.visual-paradigm.com/download/vpuml.jsp ist für den Einsatz in Bildungseinrichtungen kostenlos, aber nicht Opensource.
+
+
+
+* Hello World
+Wir rufen die Python-Konsole auf mit dem Befehl
+
+#+name: HelloWorld
+#+begin_src bash :exports both
+python
+#+end_src
+
+und geben ein:
 
 #+name: HelloWorld
 #+begin_src python :exports both
