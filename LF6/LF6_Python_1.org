@@ -140,9 +140,22 @@ Wandele das Bespiel "For-Schleife" so ab, dass die For-Anweisung durch eine Whil
 
 Schreibe ein Programm, das die Arbeitsweise von Modulo erklärt.
 
-* Aufzeichnung einer Terminal-Sitzung
+* Besonderheiten bei print
 
-Mit dem Befehl script -t -a 2> debug.txt kann eine Konsolensitzung aufgezeichnet werden, die dann in diesem Fall in die Datei debug.txt abgespeichert wird. Es werden zwei Dateien erstellt: debug.txt und typescript. In der Datei debug.txt stehen die Zeitstempel und in der Datei typescript die Befehle und Ausgaben. Abgespielt werden kann die Aufzeichnung mit scriptreplay debug.txt.
+Wir geben in der Python-Konsole ein:
+
+#+name: print
+#+begin_src python
+server_name = "fbs01"
+print("Server Name: %s" % (server_name)) 
++end_src
+
+und bekommen die Ausgabe:
+
+#+RESULTS: Server Name: fbs01 
+
+Das Zeichen "%s" funktioniert hier als Platzhalter für die Variable server_name die nach dem " kommt. Der Inhalt der Variable wird an die Stelle des %s-Zeichens eingesetzt.
+
 
 * Debugging?
 
