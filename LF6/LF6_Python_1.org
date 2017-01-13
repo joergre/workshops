@@ -148,13 +148,52 @@ Wir geben in der Python-Konsole ein:
 #+begin_src python
 server_name = "fbs01"
 print("Server Name: %s" % (server_name)) 
-+end_src
+#+end_src
 
 und bekommen die Ausgabe:
 
-#+RESULTS: Server Name: fbs01 
+#+RESULTS: 
+Server Name: fbs01 
 
 Das Zeichen "%s" funktioniert hier als Platzhalter für die Variable server_name die nach dem " kommt. Der Inhalt der Variable wird an die Stelle des %s-Zeichens eingesetzt.
+
+Um die Länge des Strings zu bekommen, geben wir ein:
+
+** Länge des Inhalts einer Variable
+
+#+name: print
+#+begin_src python
+len(server_name)
+#+end_src
+
+#RESULTS:
+5
+
+** Variable zusammenführen
+
+#+name: print
+#+begin_src python
+server_name = "fbs01"
+Ort = "Raum 13"
+print(server_name+" ist in "+Ort+"!")
+#+end_src
+
+#RESULTS:
+fbs01 ist in Raum 13! 
+
+Und:
+
+#+name: print
+#+begin_src python
+server_name = "fbs01"
+Ort = "Raum 13"
+Ausgabe = join(server_name, "ist in", Ort,"!")
+print Ausgabe
+#+end_src
+
+
+
+
 
 
 * Debugging?
