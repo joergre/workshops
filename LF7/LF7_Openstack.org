@@ -277,3 +277,102 @@ rabbitmqctl change_password guest fbs
 #+end_src
 
 * Installation des Identity Service
+ Der Dienst wird auch Keystone genannt und verwaltet Benutzer und Ihre Rechte. Keystone hat einen Katalog aller Dienste und Ihrer APIs und die entsprechenden Berechtigungen.
+ 
+ Um Bentzer (das können Services oder digitale Repräsentationen von menschen sein), weisen sich bei Keystone mit sogenannten Credentials aus. Credentials sind Token, Passwörter, API-Keys etc. Verwendet werden die Credentials bei der Authentifikation (Authetification).
+ 
+ - Token ist eine Anzahl von Bytes die der Schlüssel für einen bestimmten Dienst sind.
+ - Tenant (Mieter/Pächter) ist eine Gruppe oder eine einzelne Resource die durch einen Container von den anderen isoliert wird.
+ 
+ ** Installation
+ Keystone wird auf dem Controller installiert: 
+#+name: keystone
+#+begin_src bash
+apt install keystone
+#+end_src
+
+Keystone braucht zum verwalten der ganzen Berechtigungen eine Datenbank. Die oben angelegte Datenbank trilen wir keystone über die Datei /etc/keystone/keystone.conf mit. Unter dem Abschnitt [database] ersetzen wir die Zeile
+
+#+name: keystone_ersetzen
+#+begin_src bash
+connection = sqlite:////var/lib/keystone/keystone.db
+#+end_src bash
+
+#+name: keystone_ersetzendurch
+#+begin_src bash
+connection = mysql://keystone:fbs@controller/keystone
+#+end_src
+ 
+ - keystone: Benutzername
+ - Passwort: fbs
+ - mysql: Datenbaktyp
+ - controller: Server
+ Wir wechseln dann in den Ordner /var/lib/keystone und löschen die Datei keystone.db.
+ 
+#+name: keystone_verzeichnis
+#+begin_src bash
+cd /var/lib/keystone
+rm keystone.db
+#+end_src
+
+
+** Datenbank-Benutzer für Keystone anlegen
+
+Um den Benutzer und die Datenbank "keystone" anzulegen, müssen wir uns als Administrator mit der Datenbank verbinden (das Passwort war fbs):
+
+#+name: keystone_db_connect
+#+begin_src bash
+mysql -u root -p
+#+end_src
+
+und geben ein:
+
+#+name: keystone_DB
+#+begin_src bash
+CREATE DATABASE keystone;
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' \
+IDENTIFIED BY 'fbs';
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' \
+IDENTIFIED BY 'fbs';
+exit
+#+end_src
+
+** Workaround für 16.04 mit mariadb
+
+Das Skript keystone-manage ist leider noch nicht für Ubuntu 16.04 angepasst, sondern unterstützt nur die Version 14.04. Daher müssen wir das Skript anpassen:
+
+#+name: keystone_table_anpass
+#+begin_src bash
+sudo grep -rl utf8mb4 /etc/mysql/mariadb.conf.d/ | sudo xargs sed -i 's/utf8mb4/utf8/g'
+#+end_src
+
+Erstellen einer Konfigurationsdatien mit dem Namen /etc/mysql/conf.d/mysqld_openstack.cnf mit dem Inhalt:
+
+#+name: keystone_table_anpass
+#+begin_src bash
+[client]
+default-character-set = utf8
+
+[mysqld]
+bind-address = 172.16.3.32
+default-storage-engine = innodb
+innodb_file_per_table
+collation-server = utf8_general_ci
+init-connect = 'SET NAMES utf8'
+character-set-server = utf8
+
+[mysql]
+default-character-set = utf8
+#+end_src
+
+** Tabelle anlegen
+
+Jetzt müssen wir noch die Tabellen für keystone anlegen:
+
+#+name: keystone_table
+#+begin_src bash
+su -s /bin/sh -c "keystone-manage db_sync" keystone
+#+end_src
+
+
+
