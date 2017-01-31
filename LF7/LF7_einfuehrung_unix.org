@@ -97,10 +97,37 @@ Port  Protocol  Dienst
 - CUPS
 - PostFix
 
-# Umgang mit RPM-nasierten Systemen
+# Umgang mit Debian-basierten Systemen
 
-rpm ist ein Program
+## Update in die lokale Datenbank
 
+#+name: get_update
+#+begin_src bash
+apt update
+#+end_src
+
+## Updates einspielen
+
+#+name: get_upgrade
+#+begin_src bash
+apt dist-upgrade
+#+end_src
+
+## Suchen nach Programmen
+
+Wir möchten den Web-Server Apache installieren und wissen nicht, wie das Paket heißt. Also suchen wir nach dem Begriff "apache":
+
+#+name: get_search
+#+begin_src bash
+apt-cache search apache
+#+end_src
+
+Wir finden heraus, dass das Paket Apache2 heißt und installieren es:
+
+#+name: get_install
+#+begin_src bash
+apt install apache2
+#+end_src
 
 
 
@@ -108,19 +135,33 @@ rpm ist ein Program
 Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
 
 /
+
 /bin
+
 /dev
+
 /etc
+
 /home
+
 /lib
+
 /mnt
+
 /opt
+
 /proc
+
 /root
+
 /sbin
+
 /tmp
+
 /usr
+
 /var
+
 /cdrom
 
 ** /
