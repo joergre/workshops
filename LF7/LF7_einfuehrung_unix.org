@@ -97,6 +97,7 @@ Port  Protocol  Dienst
 - CUPS
 - PostFix
 
+
 # Umgang mit Debian-basierten Systemen
 
 ## Update in die lokale Datenbank
@@ -122,14 +123,229 @@ Wir möchten den Web-Server Apache installieren und wissen nicht, wie das Paket 
 apt-cache search apache
 #+end_src
 
-Wir finden heraus, dass das Paket Apache2 heißt und installieren es:
+## Installation von Programmen
+
+Wir finden heraus, dass das Paket "Apache2" heißt und installieren es:
 
 #+name: get_install
 #+begin_src bash
 apt install apache2
 #+end_src
 
+## In welchem Verzeichnis liegt das Programm?
 
+Nach der Installation möchten wir herausfinden, in welchem Verzeichnis das Programm installiert worden ist:
+
+#+name: which
+#+begin_src bash
+which apache2
+#+end_src
+
+Und bekommen als Ergebniss das Verzeichnis "/usr/sbin/apache2".
+
+## Aufgabe
+Bitte installiere zusätzlich den Web-Server Nginx.
+
+## Status eines Servers anzeigen
+Nach der Installation von NginX überprüfen wir, ob der Server gestartet wurde:
+
+#+name: status
+#+begin_src bash
+service nginx status
+#+end_src
+
+Normalerweise wird ein Server nach der Instalaltion automatisch gestartet. Wir starten ihn manuell:
+
+#+name: status
+#+begin_src bash
+service nginx start
+#+end_src
+
+# Aufgabe
+Überprüfe, ob der Server Nginx jetzt gestartet wurde. 
+
+## Fehlersuche
+Um den Fehler zu finden, wechseln wir in das Verzeichnis /var/log:
+
+#+name: var_log
+#+begin_src bash
+cd /var/log
+#+end_src
+
+### Inhalt eines Verzeichnisses anzeigen 
+In dem Verzeichnis sind Dateien in den die laufenden Programme Ihre Fehler schreiben und was sie gerade so machen. Wir schauen uns den Inhalt des verzeichnisses an:
+
+#+name: ls
+#+begin_src bash
+ls
+#+end_src
+
+In blau werden Verzeichnisse dargestellt. Also wechseln wir in das Verzeichnis "nginx" in der Vermutung, dass dort die Dateien liegen:
+## Releative und absolute Adressierung
+
+#+name: ls
+#+begin_src bash
+cd nginx
+#+end_src
+
+Dies nennt man relative Adresssierung da wir in das Verzeichnis wechseln in dessen Elternverzeichnis wir uns gerade beinden. Die relative Adressierung stimmt nur an dem Ort an dem wir uns gerade befinden. Die absolute Adressierung fängt immer mit einem "/" an. In unserem Fall würde der Befehl absolut dann heißen:
+
+#+name: ls
+#+begin_src bash
+cd /var/log/nginx
+#+end_src
+
+Die absolute Angabe gilt von überall in dem System.
+
+## Aufgabe
+
+Schaue Dir den Inhalt des Verzeichnisses /var/log/nginx an. In welcher Datei  könnte die Fehlermeldung stehen?
+
+## Ausgabe einer Datei
+
+Mit dem Befehl cat könne wir eine Datei auf dem Bildschirm ausgeben:
+
+#+name: cat
+#+begin_src bash
+cat error.log
+#+end_src
+
+## Aufgabe
+Gebe bitte die Datei aus unter Benutzung der absoluten Pfadangabe.
+
+## Server anhalten
+
+Wir finden den Fehler:
+#+name: bind
+#+begin_src bash 
+bind() to [::]:80 failed (98: Address already in use)
+#+end_src
+
+und erinnern uns, dass der Apache2 Werbserver den gleichen Port 80 verwendet wie Nginx. Also stoppen wir den Apache Webserver:
+
+#+name: stop
+#+begin_src bash 
+service apache2 stop
+#+end_src
+
+## Aufgabe
+
+Starte den Server Nginx erneut und überprüfe ob der Server läuft.
+
+Es kanns ein, dass die Installation des Servers Nginx durch den laufenden Apache2 gestört wurde. in disem Fall startet der Nginx nicht und muss gelöscht und neu installiert werden.
+
+## Programm entfernen
+
+#+name: remove
+#+begin_src bash 
+apt remove nginx
+#+end_src
+
+## Aufgabe
+
+Bitte installiere nginx erneut. Achte darauf, dass der Apache2 nicht läuft.
+
+## purge
+
+Wir haben Programme entfernt mit dem Befehl remove. Remove lässt aber alle Konfigurationsdateien auf dem System. um eine ANwendung vollständig zu entfernen, wird der Befehl purge verwendet. Wir möchten den Apache2 vollständig vom System entfernen:
+
+#+name: purge
+#+begin_src bash 
+apt purge apache2
+#+end_src
+
+Bevor wir y drücken schauen wir uns die Ausgabe kurz an. Wir sehen die Meldung "The following packages were automatically installed and are no longer required". Um die nicht mehr benötigten Pakete zu entfernen, geben wir ein:
+
+#+name: autoremove
+#+begin_src bash 
+apt-get autoremove
+#+end_src
+
+
+## Installation von Paketen, die nicht im Repository enthalten sind
+
+Wir möchten Dropbox installieren. 
+
+### Aufgabe 
+
+Überprüfe bitte, ob sich Dropbox im Repository befindet.
+
+### Dateien herunterladen
+
+Wir wechseln zuerst in unser Homeverzeichnis:
+
+#+name: cd_
+#+begin_src bash 
+cd
+#+end_src
+
+Wir sehen auf der Seite https://www.dropbox.com/de/install-linux die aktuellen Versionen für verschiedene Distributionen. Wir laden die für unser System passende herunter. Bitte die aktuelle Verion anpassen.
+
+#+name: wget
+#+begin_src bash 
+wget https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+#+end_src
+
+Wir sehen in der Ausgabe, dass die Datei "‘download?dl=packages%2Fubuntu%2Fdropbox_2015.10.28_amd64.deb" heißt.
+
+### Umbennen von Dateine
+
+Mit dem befehl mv (move) könne wir Dateien umbennen. Um den Dateinamen nicht komplett ausschreiben zu müssen, verwenden wir die Ergänzungsfunktion der Shell. Wir schreiben dow und drücken die TAB-Taste. Der Dateiname sollte automatisch vollständig ausgeschrieben werden.
+
+#+name: mv
+#+begin_src bash 
+mv download?dl=packages%2Fubuntu%2Fdropbox_2015.10.28_amd64.deb dropbox.deb
+#+end_src
+
+### Aufagbe
+
+Überprüfe bitte ob die Umbennung funktioniert hat.
+
+### Installation
+
+Mit dem Befehl dpkg installieren wir das Paket: 
+
+#+name: dpkg
+#+begin_src bash 
+dpkg -i dropbox.deb
+#+end_src
+
+Achtung: dpkg löst keine Abhängigkeiten von anderen Programmen auf! Es kann also sein, dass eine Fehlemeldung kommt mit der AUflistung benötigter anderer Programme. Man kann die manuelle nachinstallation abkürzen, indem wir nach dem Befehl dpkg zu apt-get wechseln. Das System hat die benmötigten Abhängigkeiten bereits registriert:
+
+#+name: abhaengigkeit
+#+begin_src bash 
+apt update
+apt -f upgrade
+dpkg -i dropbox.deb
+#+end_src
+
+Spätestens jetzt sollte Dropbox laufen.
+
+### Aufagbe
+
+In welchem Verzeichnis ist Dropbox installiert worden?
+
+## Welche Pakete sind auf meinem System installiert?
+
+Um alle Pakete zu sehen, die aktuell auf dem Computer laufen, wir ebenfalls dpkg verwendet:
+
+#+name: installiert
+#+begin_src bash 
+dpkg --get-selections
+#+end_src
+
+Wir bekommen eine Listre mit allen installierten Programmen.
+
+# Pipe
+
+Wir möchten in der Liste der installierten Programme gezieltr nach Dropbox schauen. Dies funktioniert mit dem Befehl Pipe "|". Pipe leitet die Ausgabe des Befehls nicht auf den Bildschirm sondern an einen anderen Befehl um. Dieser Befehl heißt grep. Grep such nach einem String und gibt bei Fund die ganze Zeile aus:
+
+#+name: pipe
+#+begin_src bash 
+dpkg --get-selections|grep dropbox
+#+end_src
+
+Gelöscht werden kann Dropbox einfach mit apt-get remove bzw. purge. Beide Parameter kennt auch der Befehl dpkg, der allerdings keine Abhängigkeiten berücksichtigt.
 
 * Die Standardverzeichnisse von Unix
 Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
