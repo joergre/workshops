@@ -62,7 +62,7 @@ Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl
 | SUSE Linux Enterprise | RPM         | https://de.wikipedia.org/wiki/SUSE_Linux_Enterprise_Server |
 | Red Hat               | RPM         | https://de.wikipedia.org/wiki/Red_Hat                      |
 | Ubuntu                | Debian      | https://de.wikipedia.org/wiki/Ubuntu                       |
-| Debian                | Debian      | https://de.wikipedia.org/wiki/Debian                                                           |
+| Debian                | Debian      | https://de.wikipedia.org/wiki/Debian                       |
 | Arch                  | pacman      | https://de.wikipedia.org/wiki/Arch_Linux                   |
 | Salckware             | tarballs    | https://de.wikipedia.org/wiki/Slackware                    |
 | Gentoo                | ebuild      | https://de.wikipedia.org/wiki/Gentoo_Linux                 |
@@ -70,19 +70,23 @@ Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl
 
 Slackware ist die älteste Distribution, Ubuntu die populärste.
 
-* Updates einspiele
-
-
 
 # Ports
 
 Port  Protocol  Dienst
+
 22    SSH       OpenSSH
+
 23    TELNET    telnetd
+
 25    SMTP      PostFix, Sendmail
+
 53    DNS       Bind, named
+
 67    BOOTP     dnsmasq, dhcpd
+
 80    HTTP      Apache
+
 443   HTTPS     Apache
 
 # Bekannte Serveranwendungen
