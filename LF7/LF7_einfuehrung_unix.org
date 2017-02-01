@@ -446,3 +446,66 @@ zur Übersicht
 /cdromvar
 Mountpoint für das DVD-Laufwerk. Bei anderen Linux-Versionen wird dazu auch das Verzeichnis /mnt/cdrom verwendet.
 zur Übersicht
+
+# Dienste
+
+## Welche Dienste laufen auf meinem Server
+
+Mit dem Befehl
+
+#+name: systemctl
+#+begin_src bash 
+systemctl
+#+end_src
+
+werden alle Dienste aufgelistet, die gerade laufen.
+
+# Apache2
+
+Wir überprüfen ob der Dienst Apache2 läuft:
+
+#+name: systemctl_grep1
+#+begin_src bash 
+systemctl|grep apache2
+#+end_src
+
+Es erfolgt eine leere Rückgabe und damit ist Apache2 nicht installiert. Das holen wir jetzt nach:
+
+#+name: apache2
+#+begin_src bash 
+apt install apache2
+#+end_src
+
+Jetzt führen wir den befehl noch einmal aus:
+
+#+name: systemctl_grep1
+#+begin_src bash 
+systemctl|grep apache2
+#+end_src
+Und siehe da, der Dienst wird angezeigt.
+
+# Telent
+
+Wir überprüfen ob der telnet-Server läuft:
+
+#+name: systemctl_grep
+#+begin_src bash 
+systemctl|grep telnet
+#+end_src
+
+Es erfolgt eine leere Rückgabe und damit ist Telnet nicht installiert. Wir installieren jetzt den unsicheren Dienst telnet:
+
+#+name: telnetd
+#+begin_src bash 
+apt install telnetd
+#+end_src
+
+Und führen den obigen Befehl erneut aus:
+
+#+name: systemctl_grep
+#+begin_src bash 
+systemctl|grep telnet
+#+end_src
+
+Wir sehen den Dienst nicht. Das liegt daran, dass telnet über den Dienst 
+
