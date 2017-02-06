@@ -154,7 +154,7 @@ Nach der Installation von NginX überprüfen wir, ob der Server gestartet wurde:
 service nginx status
 #+end_src
 
-Normalerweise wird ein Server nach der Instalaltion automatisch gestartet. Wir starten ihn manuell:
+Normalerweise wird ein Server nach der Installation automatisch gestartet. Wir starten ihn manuell:
 
 #+name: status
 #+begin_src bash
@@ -173,7 +173,7 @@ cd /var/log
 #+end_src
 
 ### Inhalt eines Verzeichnisses anzeigen 
-In dem Verzeichnis sind Dateien in den die laufenden Programme Ihre Fehler schreiben und was sie gerade so machen. Wir schauen uns den Inhalt des verzeichnisses an:
+In dem Verzeichnis sind Dateien in den die laufenden Programme Ihre Fehler schreiben und was sie gerade so machen. Wir schauen uns den Inhalt des Verzeichnisses an:
 
 #+name: ls
 #+begin_src bash
@@ -188,7 +188,7 @@ In blau werden Verzeichnisse dargestellt. Also wechseln wir in das Verzeichnis "
 cd nginx
 #+end_src
 
-Dies nennt man relative Adresssierung da wir in das Verzeichnis wechseln in dessen Elternverzeichnis wir uns gerade beinden. Die relative Adressierung stimmt nur an dem Ort an dem wir uns gerade befinden. Die absolute Adressierung fängt immer mit einem "/" an. In unserem Fall würde der Befehl absolut dann heißen:
+Dies nennt man relative Adresssierung da wir in das Verzeichnis wechseln in dessen Elternverzeichnis wir uns gerade befinden. Die relative Adressierung stimmt nur an dem Ort an dem wir uns gerade befinden. Die absolute Adressierung fängt immer mit einem "/" an. In unserem Fall würde der Befehl absolut dann heißen:
 
 #+name: ls
 #+begin_src bash
@@ -232,7 +232,7 @@ service apache2 stop
 
 Starte den Server Nginx erneut und überprüfe ob der Server läuft.
 
-Es kanns ein, dass die Installation des Servers Nginx durch den laufenden Apache2 gestört wurde. in disem Fall startet der Nginx nicht und muss gelöscht und neu installiert werden.
+Es kann sein, dass die Installation des Servers Nginx durch den laufenden Apache2 gestört wurde. in disem Fall startet der Nginx nicht und muss gelöscht und neu installiert werden.
 
 ## Programm entfernen
 
@@ -243,11 +243,11 @@ apt remove nginx
 
 ## Aufgabe
 
-Bitte installiere nginx erneut. Achte darauf, dass der Apache2 nicht läuft.
+Bitte installiere nginx erneut. Achte darauf, dass der Apache2 Webserver nicht läuft.
 
 ## purge
 
-Wir haben Programme entfernt mit dem Befehl remove. Remove lässt aber alle Konfigurationsdateien auf dem System. um eine ANwendung vollständig zu entfernen, wird der Befehl purge verwendet. Wir möchten den Apache2 vollständig vom System entfernen:
+Wir haben Programme entfernt mit dem Befehl remove. Remove lässt aber alle Konfigurationsdateien auf dem System. um eine Anwendung vollständig zu entfernen, wird der Befehl purge verwendet. Wir möchten den Apache2 vollständig vom System entfernen:
 
 #+name: purge
 #+begin_src bash 
@@ -310,7 +310,7 @@ Mit dem Befehl dpkg installieren wir das Paket:
 dpkg -i dropbox.deb
 #+end_src
 
-Achtung: dpkg löst keine Abhängigkeiten von anderen Programmen auf! Es kann also sein, dass eine Fehlemeldung kommt mit der AUflistung benötigter anderer Programme. Man kann die manuelle nachinstallation abkürzen, indem wir nach dem Befehl dpkg zu apt-get wechseln. Das System hat die benmötigten Abhängigkeiten bereits registriert:
+Achtung: dpkg löst keine Abhängigkeiten von anderen Programmen auf! Es kann also sein, dass eine Fehlemeldung kommt mit der Auflistung benötigter anderer Programme. Man kann die manuelle Nachinstallation abkürzen, indem wir nach dem Befehl dpkg zu apt-get wechseln. Das System hat die benötigten Abhängigkeiten bereits registriert:
 
 #+name: abhaengigkeit
 #+begin_src bash 
@@ -327,18 +327,18 @@ In welchem Verzeichnis ist Dropbox installiert worden?
 
 ## Welche Pakete sind auf meinem System installiert?
 
-Um alle Pakete zu sehen, die aktuell auf dem Computer laufen, wir ebenfalls dpkg verwendet:
+Um alle Pakete zu sehen, die aktuell auf dem Computer laufen, wird ebenfalls dpkg verwendet:
 
 #+name: installiert
 #+begin_src bash 
 dpkg --get-selections
 #+end_src
 
-Wir bekommen eine Listre mit allen installierten Programmen.
+Wir bekommen eine Liste mit allen installierten Programmen.
 
 # Pipe
 
-Wir möchten in der Liste der installierten Programme gezieltr nach Dropbox schauen. Dies funktioniert mit dem Befehl Pipe "|". Pipe leitet die Ausgabe des Befehls nicht auf den Bildschirm sondern an einen anderen Befehl um. Dieser Befehl heißt grep. Grep such nach einem String und gibt bei Fund die ganze Zeile aus:
+Wir möchten in der Liste der installierten Programme gezielt nach Dropbox schauen. Dies funktioniert mit dem Befehl Pipe "|". Pipe leitet die Ausgabe des Befehls nicht auf den Bildschirm sondern an einen anderen Befehl um. Dieser Befehl heißt grep. Grep such nach einem String und gibt bei Fund die ganze Zeile aus:
 
 #+name: pipe
 #+begin_src bash 
@@ -348,7 +348,7 @@ dpkg --get-selections|grep dropbox
 Gelöscht werden kann Dropbox einfach mit apt-get remove bzw. purge. Beide Parameter kennt auch der Befehl dpkg, der allerdings keine Abhängigkeiten berücksichtigt.
 
 * Die Standardverzeichnisse von Unix
-Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderem Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
+Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen halten sich auch mehr oder weniger daran. Es werden die Dateien entsprechend ihrer Art getrennt. So werden Anwenderdaten, Programme und Einstellungsdateien nicht wie bei manch anderen Betriebssystem durcheinander gewürfelt. Es wird weiterhin zwischen konstanten und veränderlichen Dateien unterschieden. Da Verzeichnisse Festplatten oder Partitionen von Festplatten darstellen können, ist so auch eine physische Trennung möglich. Dies erhöht die Systemsicherheit und vereinfacht die Datensicherung. Die Standardverzeichnisse unter Linux sind:
 
 /
 
@@ -384,7 +384,7 @@ Bei Unix ist die Verzeichnisstruktur streng vorgegeben. Viele Unix-Versionen hal
 Das ist das Haupt-, Root- oder Wurzelverzeichnis, das oberste Verzeichnis im kompletten Dateisystem. Hier sollten möglichst keine Dateien liegen, nur Verzeichnisse.
 
 ** /bin
-Wichtige Befehle zur Systemverwaltung, die nicht spezifisch für den Superuser sind. Dies sind z. B. die uns schon bekannten Befehle date, reboot, halt, shutdown, pwd und ls. Programmdateien werden auch als binaries bezeichnet.
+Wichtige Befehle zur Systemverwaltung, die nicht spezifisch für den Superuser sind. Dies sind z.B. die uns schon bekannten Befehle date, reboot, halt, shutdown, pwd und ls. Programmdateien werden auch als binaries bezeichnet.
 
 ** /dev
 Alle Peripheriegeräte (engl. devices), wie z. B. Drucker und Netzwerkkarte, sind über Gerätedateien ansprechbar. Sie dienen als Schnittstelle zu den Gerätetreibern und haben deshalb auch keinen Inhalt. Zum Beispiel wird bei einem Ausdruck einer Datei diese einfach in die Datei /dev/lp2 (Druckerdevice) kopiert.
@@ -403,7 +403,7 @@ zur Übersicht
 ** /etc
 Hier befinden sich die zentralen Konfigurationsdateien.
 Ein Beispiel ist die Datei passwd. Diese enthält eine Liste aller Benutzer am System.
-Die Konfigurationsdateien sind reine Textdateien (ASCII-Dateien) und können so einfach mit einem Texteditor verändert werden. Somit ist Konfiguration von Unix-Rechnern ohne spezielle Software möglich. Weiterhin wird so eine Fernwartung unterstützt.
+Die Konfigurationsdateien sind reine Textdateien (ASCII-Dateien) und können so einfach mit einem Texteditor verändert werden. Somit ist die Konfiguration von Unix-Rechnern ohne spezielle Software möglich. Weiterhin wird so eine Fernwartung unterstützt.
 
 ** /home
 Hier befinden sich die Heimatverzeichnisse der "normalen" Benutzer. Jeder Benutzer unter Unix erhält einen Nutzernamen, ein Passwort und ein eigenes Verzeichnis. Dieses Verzeichnis wird als Unterverzeichnis in /home angelegt. Ein Nutzer mit dem Namen "schueler" würde also das Verzeichnis /home/schueler erhalten. Dort und nur dort kann der Nutzer Dateien und Verzeichnisse anlegen und verändern.
@@ -418,7 +418,7 @@ Hier werden bei vielen Unix-Versionen die Laufwerke, wie DVD und USB-Geräte, ei
 Hier werden optionale Zusatzprogramme, wie z. B. der WWW-Browser Firefox oder das Office-Paket OpenOffice, gespeichert.
 
 ** /proc
-...ein virtuelles Dateisystem, über das Informationen über die Hardware ermittelt werden können. Außerdem wird hier jeder laufende Prozess (engl. process) dargestellt. Für jeden laufenden Prozess findet sich unterhalb von /proc ein Verzeichnis, dessen Name gleich seiner Prozessnummer (PID) ist. In diesem Unterverzeichnis sind keine Schreiboperationen möglich.
+...ein virtuelles Dateisystem, über das Informationen über die Hardware ermittelt werden können. Außerdem wird hier jeder laufende Prozess (engl. Process) dargestellt. Für jeden laufenden Prozess findet sich unterhalb von /proc ein Verzeichnis, dessen Name gleich seiner Prozessnummer (PID) ist. In diesem Unterverzeichnis sind keine Schreiboperationen möglich.
 
 ** /root
 Dies ist das Heimatverzeichnis des Superusers. Es liegt nicht im Verzeichnis /home, da /home eventuell auf einer anderen Festplatte oder Partition liegen kann und so bei Wartungsarbeiten vielleicht nicht zur Verfügung steht.
@@ -438,7 +438,7 @@ In /usr/bin befinden sich Dienstprogramme, die weniger häufig verwendet werden.
 /usr/doc und /usr/man beinhalten Dokumentationen und Manual-Dateien für Hilfestellungen.
 
 ** /var
-Bei Unix wird streng unterschieden zwischen Teilbereiche des gesamten Dateibaumes, der für alle Benutzer nur lesbar bzw. auch beschreibbar sein soll. Diejenigen Daten, die für alle Anwender nur lesbar sein sollen, befinden sich unterhalb von /usr.
+Bei Unix wird streng unterschieden zwischen Teilbereichen des gesamten Dateibaumes, der für alle Benutzer nur lesbar bzw. auch beschreibbar sein soll. Diejenigen Daten, die für alle Anwender nur lesbar sein sollen, befinden sich unterhalb von /usr.
 Dort, wo der Anwender auch schreibenden Zugriff haben muss, wird eine Speicherung der variablen Daten in die Unterverzeichnisse von /var vorgenommen.
 Beispiele sind die Speicherung von Druckaufträgen und Emails in das Verzeichnis /var/spool sowie die Protokollierung von An- und Abmeldevorgängen im Verzeichnis /var/log.
 zur Übersicht
