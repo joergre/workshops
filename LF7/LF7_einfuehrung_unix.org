@@ -418,7 +418,7 @@ Hier werden bei vielen Unix-Versionen die Laufwerke, wie DVD und USB-Geräte, ei
 Hier werden optionale Zusatzprogramme, wie z. B. der WWW-Browser Firefox oder das Office-Paket OpenOffice, gespeichert.
 
 ** /proc
-...ein virtuelles Dateisystem, über das Informationen über die Hardware ermittelt werden können. Außerdem wird hier jeder laufende Prozess (engl. Process) dargestellt. Für jeden laufenden Prozess findet sich unterhalb von /proc ein Verzeichnis, dessen Name gleich seiner Prozessnummer (PID) ist. In diesem Unterverzeichnis sind keine Schreiboperationen möglich.
+...ein virtuelles Dateisystem, über das Informationen über die Hardware ermittelt werden können. Außerdem wird hier jeder laufende Prozess (engl. process) dargestellt. Für jeden laufenden Prozess findet sich unterhalb von /proc ein Verzeichnis, dessen Name gleich seiner Prozessnummer (PID) ist. In diesem Unterverzeichnis sind keine Schreiboperationen möglich.
 
 ** /root
 Dies ist das Heimatverzeichnis des Superusers. Es liegt nicht im Verzeichnis /home, da /home eventuell auf einer anderen Festplatte oder Partition liegen kann und so bei Wartungsarbeiten vielleicht nicht zur Verfügung steht.
