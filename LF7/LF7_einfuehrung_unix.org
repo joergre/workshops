@@ -181,7 +181,7 @@ AuthType Basic
 Require valid-user
 #+end_src
 
-## Aktivieren der Datei .htaccess
+** Aktivieren der Datei .htaccess
 In der Datei /etc/apache2/apache2.conf suchen wir nach der Zeile "<Directory /var/www/>" und verändern in dem Block
 
 #+name: None
@@ -196,7 +196,7 @@ zu
 AllowOverride All
 #+end_src
 
-## Apache neu starten
+** Apache neu starten
 
 Wir starten den Webserver neu:
 
@@ -205,15 +205,15 @@ Wir starten den Webserver neu:
 service apache2 restart
 #+end_src
 
-## Testen
+** Testen
 
 Zu testen öffnen wir http://x.x.x.x/geheim und es sollte eine Passwortabfrage angezeigt werden. Nach der Eingabe von fbs fbs sollten wir Zugriff auf das Verzeichnis erhalten.
 
 
-## Aufgabe
+** Aufgabe
 Bitte installiere zusätzlich den Web-Server Nginx.
 
-## Status eines Servers anzeigen
+** Status eines Servers anzeigen
 Nach der Installation von NginX überprüfen wir, ob der Server gestartet wurde:
 
 #+name: status
@@ -228,10 +228,11 @@ Normalerweise wird ein Server nach der Installation automatisch gestartet. Wir s
 service nginx start
 #+end_src
 
-# Aufgabe
+* Aufgabe
 Überprüfe, ob der Server Nginx jetzt gestartet wurde. 
 
-## Fehlersuche
+** Fehlersuche
+
 Um den Fehler zu finden, wechseln wir in das Verzeichnis /var/log:
 
 #+name: var_log
@@ -239,7 +240,7 @@ Um den Fehler zu finden, wechseln wir in das Verzeichnis /var/log:
 cd /var/log
 #+end_src
 
-### Inhalt eines Verzeichnisses anzeigen 
+*** Inhalt eines Verzeichnisses anzeigen 
 In dem Verzeichnis sind Dateien in den die laufenden Programme Ihre Fehler schreiben und was sie gerade so machen. Wir schauen uns den Inhalt des Verzeichnisses an:
 
 #+name: ls
@@ -248,7 +249,8 @@ ls
 #+end_src
 
 In blau werden Verzeichnisse dargestellt. Also wechseln wir in das Verzeichnis "nginx" in der Vermutung, dass dort die Dateien liegen:
-## Releative und absolute Adressierung
+
+** Releative und absolute Adressierung
 
 #+name: ls
 #+begin_src bash
@@ -264,11 +266,11 @@ cd /var/log/nginx
 
 Die absolute Angabe gilt von überall in dem System.
 
-## Aufgabe
+** Aufgabe
 
 Schaue Dir den Inhalt des Verzeichnisses /var/log/nginx an. In welcher Datei  könnte die Fehlermeldung stehen?
 
-## Ausgabe einer Datei
+** Ausgabe einer Datei
 
 Mit dem Befehl cat könne wir eine Datei auf dem Bildschirm ausgeben:
 
@@ -277,10 +279,10 @@ Mit dem Befehl cat könne wir eine Datei auf dem Bildschirm ausgeben:
 cat error.log
 #+end_src
 
-## Aufgabe
+** Aufgabe
 Gebe bitte die Datei aus unter Benutzung der absoluten Pfadangabe.
 
-## Server anhalten
+** Server anhalten
 
 Wir finden den Fehler:
 #+name: bind
@@ -295,24 +297,24 @@ und erinnern uns, dass der Apache2 Werbserver den gleichen Port 80 verwendet wie
 service apache2 stop
 #+end_src
 
-## Aufgabe
+** Aufgabe
 
 Starte den Server Nginx erneut und überprüfe ob der Server läuft.
 
 Es kann sein, dass die Installation des Servers Nginx durch den laufenden Apache2 gestört wurde. in disem Fall startet der Nginx nicht und muss gelöscht und neu installiert werden.
 
-## Programm entfernen
+** Programm entfernen
 
 #+name: remove
 #+begin_src bash 
 apt remove nginx
 #+end_src
 
-## Aufgabe
+** Aufgabe
 
 Bitte installiere nginx erneut. Achte darauf, dass der Apache2 Webserver nicht läuft.
 
-## purge
+** purge
 
 Wir haben Programme entfernt mit dem Befehl remove. Remove lässt aber alle Konfigurationsdateien auf dem System. um eine Anwendung vollständig zu entfernen, wird der Befehl purge verwendet. Wir möchten den Apache2 vollständig vom System entfernen:
 
@@ -329,15 +331,15 @@ apt-get autoremove
 #+end_src
 
 
-## Installation von Paketen, die nicht im Repository enthalten sind
+** Installation von Paketen, die nicht im Repository enthalten sind
 
 Wir möchten Dropbox installieren. 
 
-### Aufgabe 
+*** Aufgabe 
 
 Überprüfe bitte, ob sich Dropbox im Repository befindet.
 
-### Dateien herunterladen
+*** Dateien herunterladen
 
 Wir wechseln zuerst in unser Homeverzeichnis:
 
@@ -355,7 +357,7 @@ wget https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd6
 
 Wir sehen in der Ausgabe, dass die Datei "‘download?dl=packages%2Fubuntu%2Fdropbox_2015.10.28_amd64.deb" heißt.
 
-### Umbennen von Dateine
+*** Umbennen von Dateine
 
 Mit dem befehl mv (move) könne wir Dateien umbennen. Um den Dateinamen nicht komplett ausschreiben zu müssen, verwenden wir die Ergänzungsfunktion der Shell. Wir schreiben dow und drücken die TAB-Taste. Der Dateiname sollte automatisch vollständig ausgeschrieben werden.
 
@@ -364,11 +366,11 @@ Mit dem befehl mv (move) könne wir Dateien umbennen. Um den Dateinamen nicht ko
 mv download?dl=packages%2Fubuntu%2Fdropbox_2015.10.28_amd64.deb dropbox.deb
 #+end_src
 
-### Aufagbe
+*** Aufagbe
 
 Überprüfe bitte ob die Umbennung funktioniert hat.
 
-### Installation
+*** Installation
 
 Mit dem Befehl dpkg installieren wir das Paket: 
 
@@ -388,11 +390,11 @@ dpkg -i dropbox.deb
 
 Spätestens jetzt sollte Dropbox laufen.
 
-### Aufagbe
+*** Aufagbe
 
 In welchem Verzeichnis ist Dropbox installiert worden?
 
-## Welche Pakete sind auf meinem System installiert?
+** Welche Pakete sind auf meinem System installiert?
 
 Um alle Pakete zu sehen, die aktuell auf dem Computer laufen, wird ebenfalls dpkg verwendet:
 
@@ -403,7 +405,7 @@ dpkg --get-selections
 
 Wir bekommen eine Liste mit allen installierten Programmen.
 
-# Pipe
+* Pipe
 
 Wir möchten in der Liste der installierten Programme gezielt nach Dropbox schauen. Dies funktioniert mit dem Befehl Pipe "|". Pipe leitet die Ausgabe des Befehls nicht auf den Bildschirm sondern an einen anderen Befehl um. Dieser Befehl heißt grep. Grep such nach einem String und gibt bei Fund die ganze Zeile aus:
 
