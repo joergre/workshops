@@ -71,7 +71,7 @@ Es ist nicht (ohne weiteres) möglich, die Paketformate zu mischen. Bei der Wahl
 Slackware ist die älteste Distribution, Ubuntu die populärste.
 
 
-# Ports
+* Ports
 
 Port  Protocol  Dienst
 
@@ -89,7 +89,7 @@ Port  Protocol  Dienst
 
 443   HTTPS     Apache
 
-# Bekannte Serveranwendungen
+* Bekannte Serveranwendungen
 
 - Apache
 - MySQL
@@ -98,23 +98,23 @@ Port  Protocol  Dienst
 - PostFix
 
 
-# Umgang mit Debian-basierten Systemen
+* Umgang mit Debian-basierten Systemen
 
-## Update in die lokale Datenbank
+** Update in die lokale Datenbank
 
 #+name: get_update
 #+begin_src bash
 apt update
 #+end_src
 
-## Updates einspielen
+** Updates einspielen
 
 #+name: get_upgrade
 #+begin_src bash
 apt dist-upgrade
 #+end_src
 
-## Suchen nach Programmen
+** Suchen nach Programmen
 
 Wir möchten den Web-Server Apache installieren und wissen nicht, wie das Paket heißt. Also suchen wir nach dem Begriff "apache":
 
@@ -123,7 +123,7 @@ Wir möchten den Web-Server Apache installieren und wissen nicht, wie das Paket 
 apt-cache search apache
 #+end_src
 
-## Installation von Programmen
+** Installation von Programmen
 
 Wir finden heraus, dass das Paket "Apache2" heißt und installieren es:
 
@@ -132,7 +132,7 @@ Wir finden heraus, dass das Paket "Apache2" heißt und installieren es:
 apt install apache2
 #+end_src
 
-## In welchem Verzeichnis liegt das Programm?
+** In welchem Verzeichnis liegt das Programm?
 
 Nach der Installation möchten wir herausfinden, in welchem Verzeichnis das Programm installiert worden ist:
 
@@ -143,10 +143,10 @@ which apache2
 
 Und bekommen als Ergebniss das Verzeichnis "/usr/sbin/apache2".
 
-## Verändere die Datei index.html
+** Verändere die Datei index.html
 Verändere die Datei index.html im Verzeichnis /var/www/html. Überprüfe die Veränderungen im Browser.
 
-## Lege zwei Verzeichnisse an
+** Lege zwei Verzeichnisse an
 Wir legen zwei Verzeichnisse an, das erste heißt "geheim" und das zweite "oeffentlich":
 
 #+name: Verzeichnisse
@@ -155,13 +155,13 @@ mkdir /var/www/html/geheim
 mkdir /var/www/html/oeffentlich
 #+end_src
 
-## Aufgabe
+** Aufgabe
 Lege in jedem der neuen Ordner eine Datei mit dem namen index.html an. Der Inahlt soll so gewählt sein, dass eine eindeutige Unterscheidung zwischen den zwei Ordnern möglich ist. Überprüfe, dass die Dateien entsprechend im Browser angezeigt werden.
 
-## Verzeichnisschutz
+** Verzeichnisschutz
 Wir möchten ein verzeichnis mit Passwort schützen.
 
-### Passwort festlegen
+*** Passwort festlegen
 Mit dem folgenden Befehl legen wir den Benutzer fbs an und geben ihm ein Passwort
 
 #+name: htpasswd
@@ -169,7 +169,7 @@ Mit dem folgenden Befehl legen wir den Benutzer fbs an und geben ihm ein Passwor
 htpasswd -c /etc/apache2/.htpasswd fbs 
 #+end_src
 
-### .htaccess anlegen
+*** .htaccess anlegen
 Wir legen im Ordner geheim eine Dateiu mit dem namen .htacces an:
 
 #+name: htaccess
