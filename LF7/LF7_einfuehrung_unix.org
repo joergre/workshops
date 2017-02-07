@@ -175,7 +175,6 @@ Wir legen im Ordner geheim eine Datei mit dem Namen .htacces an:
 #+name: htaccess
 #+begin_src bash
 AuthUserFile /etc/apache2/.htpasswd
-AuthGroupFile /dev/null
 AuthName "Bitte Passwort eingeben"
 AuthType Basic
 Require valid-user
