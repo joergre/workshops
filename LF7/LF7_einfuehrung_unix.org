@@ -208,6 +208,47 @@ service apache2 restart
 
 Zu testen öffnen wir http://x.x.x.x/geheim und es sollte eine Passwortabfrage angezeigt werden. Nach der Eingabe von fbs fbs sollten wir Zugriff auf das Verzeichnis erhalten.
 
+* Benutzerverwaltung
+
+** Neuen Benutzer anlegen
+
+Wir möchten einen neuen User mit dem Namen fbs anlegen:
+
+#+name: useradd
+#+begin_src bash
+useradd fbs
+#+end_src
+
+Wir schauen uns den Eibtrag in der Datei /etc/passwd an:
+
+#+name: etcpasswd
+#+begin_src bash
+cat /etc/passwd
+#+end_src
+
+In der letzten Zeile sehen wir unseren neu angelegten User.
+
+** Passwort ändern
+
+Wir legen nun ein Passwort für den Benutzer fbs an:
+
+#+name: passwd
+#+begin_src bash
+passwd fbs
+#+end_src
+
+Wir melden uns ab und mit dem neuen Benutzer an. Dann melden wir uns ab und wieder als root an.
+
+** Sudo
+Damit unser Benutzer fbs auch Administrationsrechte bekommt, muss der Benutzer in die Datei /etc/sudoers eingetragen werden:
+
+#+name: sudo
+#+begin_src bash
+visudo
+#+end_src
+
+Wir sehen einmal die Zeile root, in der dem User root alle Rechte auf dem System eingeräumt werden. Wir könnten die Zeile kopieren und root in fbs umwandeln. Das ist aber ekin schöner Weg, weil wir die Datei eventuell oft Verändern müssen. Zwei zeilen darunter sehen wir die Gruppe sudo. Hier sind alle Personen, die der Gruppe anghören automatisch mit administrativen Rechten ausgestette.
+
 
 ** Aufgabe
 Bitte installiere zusätzlich den Web-Server Nginx.
