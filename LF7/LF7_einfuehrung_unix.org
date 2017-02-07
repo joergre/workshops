@@ -143,6 +143,19 @@ which apache2
 
 Und bekommen als Ergebniss das Verzeichnis "/usr/sbin/apache2".
 
+## Lege zwei Verzeichnisse an
+Wir legen zwei Verzeichnisse an, das erste heißt "geheim" und das zweite "oeffentlich":
+
+#+name: Verzeichnisse
+#+begin_src bash
+mkdir /var/www/html/geheim
+mkdir /var/www/html/oeffentlich
+#+end_src
+
+## Aufgabe
+
+
+
 ## Aufgabe
 Bitte installiere zusätzlich den Web-Server Nginx.
 
