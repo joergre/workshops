@@ -170,7 +170,7 @@ htpasswd -c /etc/apache2/.htpasswd fbs
 #+end_src
 
 *** .htaccess anlegen
-Wir legen im Ordner geheim eine Dateiu mit dem namen .htacces an:
+Wir legen im Ordner geheim eine Datei mit dem Namen .htacces an:
 
 #+name: htaccess
 #+begin_src bash
