@@ -143,6 +143,9 @@ which apache2
 
 Und bekommen als Ergebniss das Verzeichnis "/usr/sbin/apache2".
 
+## Verändere die Datei index.html
+Verändere die Datei index.html im Verzeichnis /var/www/html. Überprüfe die Veränderungen im Browser.
+
 ## Lege zwei Verzeichnisse an
 Wir legen zwei Verzeichnisse an, das erste heißt "geheim" und das zweite "oeffentlich":
 
@@ -153,7 +156,58 @@ mkdir /var/www/html/oeffentlich
 #+end_src
 
 ## Aufgabe
+Lege in jedem der neuen Ordner eine Datei mit dem namen index.html an. Der Inahlt soll so gewählt sein, dass eine eindeutige Unterscheidung zwischen den zwei Ordnern möglich ist. Überprüfe, dass die Dateien entsprechend im Browser angezeigt werden.
 
+## Verzeichnisschutz
+Wir möchten ein verzeichnis mit Passwort schützen.
+
+### Passwort festlegen
+Mit dem folgenden Befehl legen wir den Benutzer fbs an und geben ihm ein Passwort
+
+#+name: htpasswd
+#+begin_src bash
+htpasswd -c /etc/apache2/.htpasswd fbs 
+#+end_src
+
+### .htaccess anlegen
+Wir legen im Ordner geheim eine Dateiu mit dem namen .htacces an:
+
+#+name: htaccess
+#+begin_src bash
+AuthUserFile /etc/apache2/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Bitte Passwort eingeben"
+AuthType Basic
+Require valid-user
+#+end_src
+
+## Aktivieren der Datei .htaccess
+In der Datei /etc/apache2/apache2.conf suchen wir nach der Zeile "<Directory /var/www/>" und verändern in dem Block
+
+#+name: None
+#+begin_src bash
+AllowOverride None
+#+end_src
+
+zu
+
+#+name: All
+#+begin_src bash
+AllowOverride All
+#+end_src
+
+## Apache neu starten
+
+Wir starten den Webserver neu:
+
+#+name: restart
+#+begin_src bash
+service apache2 restart
+#+end_src
+
+## Testen
+
+Zu testen öffnen wir http://x.x.x.x/geheim und es sollte eine Passwortabfrage angezeigt werden. Nach der Eingabe von fbs fbs sollten wir Zugriff auf das Verzeichnis erhalten.
 
 
 ## Aufgabe
