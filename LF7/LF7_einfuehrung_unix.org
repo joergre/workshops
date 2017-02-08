@@ -247,7 +247,9 @@ Damit unser Benutzer fbs auch Administrationsrechte bekommt, muss der Benutzer i
 visudo
 #+end_src
 
-Wir sehen einmal die Zeile root, in der dem User root alle Rechte auf dem System eingeräumt werden. Wir könnten die Zeile kopieren und root in fbs umwandeln. Das ist aber ekin schöner Weg, weil wir die Datei eventuell oft Verändern müssen. Zwei zeilen darunter sehen wir die Gruppe sudo. Hier sind alle Personen, die der Gruppe anghören automatisch mit administrativen Rechten ausgestette.
+Wir sehen einmal die Zeile root, in der dem User root alle Rechte auf dem System eingeräumt werden. Wir könnten die Zeile kopieren und root durch fbs ersetzen. Das ist aber kein schöner Weg, weil wir die Datei eventuell oft verändern müssen. Zwei Zeilen darunter sehen wir die Gruppe sudo. Hier sind alle Personen, die der Gruppe anghören automatisch mit administrativen Rechten ausgestatte.
+
+
 
 
 ** Aufgabe
