@@ -221,8 +221,8 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
 <VirtualHost *:80>
         ServerName a
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/geheim/
-        <Directory /var/www/geheim/>
+        DocumentRoot /var/www/html/geheim/
+        <Directory /var/www/html/geheim/>
                 Options Indexes FollowSymLinks MultiViews
                 AllowOverride ALL
                 Order allow,deny
@@ -242,8 +242,8 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
 <VirtualHost *:80>
         ServerName b
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/oeffentlich/
-        <Directory /var/www/oeffentlich/>
+        DocumentRoot /var/www/html/oeffentlich/
+        <Directory /var/www/html/oeffentlich/>
                 Options Indexes FollowSymLinks MultiViews
                 AllowOverride ALL
                 Order allow,deny
