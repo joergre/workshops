@@ -266,6 +266,15 @@ a2ensite 001-a.conf
 a2ensite 002-b.conf
 #+end_src
 
+*** Deskativeren der Seiten
+
+Mit dem Befehl 
+
+#+name: aktivieren
+#+begin_src bash
+a2dissite 001-a.conf 
+#+end_src
+
 * Benutzerverwaltung
 
 ** Neuen Benutzer anlegen
