@@ -233,6 +233,26 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
 </VirtualHost>
 #+end_src
 
+#+name: b.conf
+#+begin_src bash
+<VirtualHost *:80>
+        ServerName b
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/oeffentlich/
+        <Directory /var/www/oeffentlich/>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride ALL
+                Order allow,deny
+                allow from all
+        </Directory>
+        ErrorLog /var/log/apache2/b.log
+        LogLevel warn
+        CustomLog /var/log/apache2/b.log combined
+        ServerSignature On
+</VirtualHost>
+#+end_src
+
+
 * Benutzerverwaltung
 
 ** Neuen Benutzer anlegen
