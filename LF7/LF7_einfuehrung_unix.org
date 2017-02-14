@@ -216,7 +216,7 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
 
 **** a.conf
 
-#+name: a.conf
+#+name: 001-a.conf
 #+begin_src bash
 <VirtualHost *:80>
         ServerName a
@@ -237,7 +237,7 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
 
 **** b.conf
 
-#+name: b.conf
+#+name: 002.b.conf
 #+begin_src bash
 <VirtualHost *:80>
         ServerName b
@@ -256,6 +256,15 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
 </VirtualHost>
 #+end_src
 
+*** Aktivieren der Konfiguration
+
+Zum aktivieren der Konfiguration müssen wir folgenden Befehl auführen:
+
+#+name: aktivieren
+#+begin_src bash
+a2ensite 001-a.conf
+a2ensite 002-b.conf
+#+end_src
 
 * Benutzerverwaltung
 
