@@ -214,6 +214,8 @@ Zu testen öffnen wir http://x.x.x.x/geheim und es sollte eine Passwortabfrage a
 
 Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/sites-available/002-b.conf an mit dem Inhalt:
 
+**** a.conf
+
 #+name: a.conf
 #+begin_src bash
 <VirtualHost *:80>
@@ -232,6 +234,8 @@ Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/s
         ServerSignature On
 </VirtualHost>
 #+end_src
+
+**** b.conf
 
 #+name: b.conf
 #+begin_src bash
