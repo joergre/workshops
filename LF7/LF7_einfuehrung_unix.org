@@ -210,6 +210,25 @@ Zu testen öffnen wir http://x.x.x.x/geheim und es sollte eine Passwortabfrage a
 
 ** Virtual Host
 
+*** /etc/hosts
+Die Datei /etc/hosts wird bei der Namensauflösung verwendet. Wir hängen folgende Zeilean die Datei an:
+
+#+name: hosts
+#+begin_src bash
+127.0.0.1 a
+127.0.0.1 b
+#+end_src
+
+Wir testen die Einträge mit dem Ping-Befehl:
+
+#+name: ping
+#+begin_src bash
+ping a
+ping b
+#+end_src
+Es sollte kein Fehler auftreten.
+
+
 *** Anlegen der Dateien a.conf und b.conf
 
 Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/sites-available/002-b.conf an mit dem Inhalt:
