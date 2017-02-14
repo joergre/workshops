@@ -285,11 +285,26 @@ a2ensite 001-a.conf
 a2ensite 002-b.conf
 #+end_src
 
+**** w3m und lynx installieren
+
+Wir installieren die zwei Anwendungen w3m und lynx. Auf der Konsole rufen wir dann auf:
+
+#+name: w3m
+#+begin_src bash
+w3m http://a
+w3m http://b
+lynx http://a
+lynx http://b
+#+end_src
+
+Es sollte der jeweilige Ordner angezeigt werden.
+
+
 *** Dekativeren der Seiten
 
 Mit dem Befehl 
 
-#+name: aktivieren
+#+name: deaktivieren
 #+begin_src bash
 a2dissite 001-a.conf 
 #+end_src
