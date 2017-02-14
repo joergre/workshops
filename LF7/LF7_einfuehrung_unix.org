@@ -266,7 +266,7 @@ a2ensite 001-a.conf
 a2ensite 002-b.conf
 #+end_src
 
-*** Deskativeren der Seiten
+*** Dekativeren der Seiten
 
 Mit dem Befehl 
 
