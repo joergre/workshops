@@ -208,6 +208,31 @@ service apache2 restart
 
 Zu testen öffnen wir http://x.x.x.x/geheim und es sollte eine Passwortabfrage angezeigt werden. Nach der Eingabe von fbs fbs sollten wir Zugriff auf das Verzeichnis erhalten.
 
+** Virtual Host
+
+*** Anlegen der Dateien a.conf und b.conf
+
+Wir legen die Dateien /etc/apache2/sites-available/001-a.conf und /etc/apache2/sites-available/002-b.conf an mit dem Inhalt:
+
+#+name: a.conf
+#+begin_src bash
+<VirtualHost *:80>
+        ServerName a
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/geheim/
+        <Directory /var/www/geheim/>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride ALL
+                Order allow,deny
+                allow from all
+        </Directory>
+        ErrorLog /var/log/apache2/a.log
+        LogLevel warn
+        CustomLog /var/log/apache2/a.log combined
+        ServerSignature On
+</VirtualHost>
+#+end_src
+
 * Benutzerverwaltung
 
 ** Neuen Benutzer anlegen
