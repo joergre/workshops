@@ -571,7 +571,7 @@ systemctl
 
 werden alle Dienste aufgelistet, die gerade laufen.
 
-# Apache2
+* Apache2
 
 Wir überprüfen ob der Dienst Apache2 läuft:
 
