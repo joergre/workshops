@@ -1,0 +1,97 @@
+* Installation
+
+Das Programm Ansible ist in Python programmiert. Daher müssen wir Python auch installieren.
+
+apt -y install git python python-dev python-pip openssl ansible
+
+Mit dem folgenden  Befehl überprüfen wir die Installation:
+
+ansible --version
+
+Als Ausgabe sollte erscheinen (oder höhere Version): 
+
+ansible 2.0.0.2
+
+Die Version ist leider nicht mehr ganz aktuell. Daher installieren wir den Server von einer anderen Quelle:
+
+sudo apt-add-repository ppa:ansible/ansible
+apt update
+apt dist-upgrade
+
+Jetzt sollte der Befehl
+
+ansible --version
+
+die Version 2.3.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. Diese öffnen wir mit einem Texteditor:
+
+vim /etc/ansible/ansible.cfg
+
+In der Datei entfernen wir das Kommentarzeichen vor zwei Zeilen:
+
+inventory      = /etc/ansible/hosts
+sudo_user      = root
+
+Beise Zeilen sind im [defaults]-Bereich. Danach speichern wir die Datei ab.
+
+Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu werden.
+
+Wir wechseln in den Ordner /etc/ansible (den Pfad hatten wir eben in der Konfigurationsdatei aktiviert) und sichern dort die hosts-Datei:
+
+mv hosts host.backup
+
+Wir öffnen die Datei hosts (eine leere Datei) und tragen folgendes ein:
+
+[local]
+localhost
+
+[ubuntu]
+Ubuntu.node
+
+[centos]
+Centos.node
+
+Für beide Server tragen wir die IP-Adresse in die Datei /etc/host ein.
+
+Wir führen möglichst alle Programme und Server mit Benutzern aus, die möglichst wenig Rechte auf dem Server haben. Daher legen wir einen neuen Benutzer an:
+
+adduser ansible
+
+Wir müssen den Benutzer ansible jetzt noch in die Gruppe der sudoers einfügen. Dies ermöglicht ansible privilegierte Befehle zu starten. Wir müssen darauf achten, dass ansible dafür kein Passwort braucht:
+
+Mit dem Befehl 
+
+visudo
+
+öffnen wir die Konfiguratiosdatei um ansible temporären Systemzugriff zu gewähren und fügen unterhalb der Zeile 
+
+root    ALL=(ALL:ALL) ALL
+ansible ALL=(ALL) NOPASSWD: ALL
+
+ein.
+
+Das Anlegen des Benutzers und die Vergabe des Passworts müssen wir auf jedem System durchführen.
+
+Um das Problemlose verwalten der Nodes zu ermöglichen, richten wir für ssh eine Key-basierte Anmeldung ein:
+
+su ansible -
+ssh-kreygen
+
+Als nächstes kopieren wir die Schlüssel auf die Server:
+
+ssh-copy-id ansible@Ubuntu.node
+
+Mit dem Befehl
+
+ssh 'ansible@54.154.150.210'
+
+testen wir die Erfolgreiche Einrichtung. Es sollte jetzt möglich sein, ohne Passwort auf den anderen Computer zugriff zu erhalten.
+
+Damit die Clients auf den Server zugreifen können, müssen wir die ssh-id auch auf unseren Server installieren:
+
+ssh-copy-id ansible@localhost
+
+
+
+
+
+
