@@ -94,7 +94,7 @@ Ubuntu.node
 Centos.node
 #+end_src
 
-Für beide Server tragen wir die IP-Adresse in die Datei /etc/host ein.
+Für beide Server tragen wir die IP-Adresse in die Datei /etc/hosts ein.
 
 Wir führen möglichst alle Programme und Server mit Benutzern aus, die möglichst wenig Rechte auf dem Server haben. Daher legen wir einen neuen Benutzer an:
 
