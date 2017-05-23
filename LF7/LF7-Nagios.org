@@ -68,3 +68,25 @@ sudo make install-init
 sudo make install-config
 /usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-available/nagios.conf
 #+end_src
+
+** Event-Handler kopieren
+
+#+name: event
+#+begin_src bash
+cp -R contrib/eventhandlers/ /usr/local/nagios/libexec/
+chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
+#+end_src
+
+** Nagios Plugins installieren
+
+Lade von https://nagios-plugins.org/download/ mit wget die neusten Nagios-Plugin herunter.
+
+#+name: plugins
+#+begin_src bash
+tar -xzf nagios-plugins*.tar.gz
+cd nagios-plugin-*
+./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl
+make
+make install
+#+end_src
+
