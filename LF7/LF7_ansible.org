@@ -31,7 +31,7 @@ In der Datei entfernen wir das Kommentarzeichen vor zwei Zeilen:
 inventory      = /etc/ansible/hosts
 sudo_user      = root
 
-Beise Zeilen sind im [defaults]-Bereich. Danach speichern wir die Datei ab.
+Beide Zeilen sind im [defaults]-Bereich. Danach speichern wir die Datei ab.
 
 Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu werden.
 
@@ -74,11 +74,22 @@ Das Anlegen des Benutzers und die Vergabe des Passworts müssen wir auf jedem Sy
 Um das Problemlose verwalten der Nodes zu ermöglichen, richten wir für ssh eine Key-basierte Anmeldung ein:
 
 su ansible -
-ssh-kreygen
+ssh-keygen
 
 Als nächstes kopieren wir die Schlüssel auf die Server:
 
 ssh-copy-id ansible@Ubuntu.node
+
+** Achtung vServer mit KeyAuth
+
+Damit der Befehl ssh-copy-id z.B. bei DigitalOcean funktioniert, muss folgendes Workaround eingesetzt verwendet werden:
+
+In der Datei  /etc/ssh/sshd_config muss die Zeile PasswordAuthentication no zu PasswordAuthentication yes verändert werden. Anschließend ist der Dienst mit 
+
+sudo systemctl restart sshd 
+
+neu zu starten.
+
 
 Mit dem Befehl
 
