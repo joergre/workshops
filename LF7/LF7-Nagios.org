@@ -56,3 +56,15 @@ a) Bitte schauen Sie sich die mögliche Patameter für den befehl configure an:
 #+begin_src bash
 ./configure --help
 #+end_src
+
+** Nagios installieren
+
+#+name: configure
+#+begin_src bash
+make all
+sudo make install
+sudo make install-commandmode
+sudo make install-init
+sudo make install-config
+/usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-available/nagios.conf
+#+end_src
