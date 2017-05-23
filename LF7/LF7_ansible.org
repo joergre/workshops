@@ -136,7 +136,10 @@ ssh-keygen
 
 Als nächstes kopieren wir die Schlüssel auf die Server:
 
+#+name: ssh-copy
+#+begin_src bash
 ssh-copy-id ansible@Ubuntu.node
+#+end_src
 
 ** Achtung vServer mit KeyAuth
 
@@ -144,21 +147,30 @@ Damit der Befehl ssh-copy-id z.B. bei DigitalOcean funktioniert, muss folgendes 
 
 In der Datei  /etc/ssh/sshd_config muss die Zeile PasswordAuthentication no zu PasswordAuthentication yes verändert werden. Anschließend ist der Dienst mit 
 
+#+name: sshd_config
+#+begin_src bash
 sudo systemctl restart sshd 
+#+end_src
 
 neu zu starten.
 
+** SSH-Key lokal kopieren
 
 Mit dem Befehl
 
+#+name: ssh
+#+begin_src bash
 ssh 'ansible@54.154.150.210'
+#+end_src
 
 testen wir die Erfolgreiche Einrichtung. Es sollte jetzt möglich sein, ohne Passwort auf den anderen Computer zugriff zu erhalten.
 
 Damit die Clients auf den Server zugreifen können, müssen wir die ssh-id auch auf unseren Server installieren:
 
+#+name: ssh-copy-local
+#+begin_src bash
 ssh-copy-id ansible@localhost
-
+#+end_src
 
 
 
