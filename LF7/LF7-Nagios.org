@@ -1,0 +1,42 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Installation von Nagios
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+* Nagios installieren
+
+** Benötigte Packete installieren
+
+#+name: update
+#+begin_src emacs-lisp
+sudo apt update
+sudo apt -y dist-upgrade
+sudo apt-get -y install wget build-essential apache2 php apache2-mod-php7.0 php-gd libgd-dev sendmail unzip
+#+end_src
+
+** Benutzer und Gruppe anlegen
+
+#+name: useradd
+#+begin_src emacs-lisp
+useradd nagios
+groupadd nagcmd
+usermod -a -G nagcmd nagios
+usermod -a -G nagios,nagcmd www-data
+#+end_src
+
+*** Aufgabe
+a) Erkläre die Bedeutung des Befehls usermod und den Parametern -a und -G
+b) Welche Version ist aktuell für Nagios (https://sourceforge.net/projects/nagios)?
+c) Lade mit dem Befehl wget die aktuelle Version auf Deinen Server (wget -O nagios.tar.gz ...).
+
+** Entpacken von Nagios
+
+#+name: tar
+#+begin_src emacs-lisp
+tar -xzf nagios.tar.gz
+#+end_src
