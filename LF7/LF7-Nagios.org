@@ -37,6 +37,22 @@ c) Lade mit dem Befehl wget die aktuelle Version auf Deinen Server (wget -O nagi
 ** Entpacken von Nagios
 
 #+name: tar
-#+begin_src emacs-lisp
+#+begin_src bash
 tar -xzf nagios.tar.gz
+cd nagios
+#+end_src
+
+** Kompilieren von nagios
+
+#+name: compile
+#+begin_src bash
+./configure --with-nagios-group=nagios --with-command-group=nagcmd
+#+end_src
+
+*** Aufgabe
+a) Bitte schauen Sie sich die mögliche Patameter für den befehl configure an:
+
+#+name: configure
+#+begin_src bash
+./configure --help
 #+end_src
