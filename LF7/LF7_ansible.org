@@ -1,35 +1,72 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Installation LAMP
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
 * Installation
 
 Das Programm Ansible ist in Python programmiert. Daher müssen wir Python auch installieren.
 
+#+name: python_install
+#+begin_src bash :exports none :tangle no :results silent
 apt -y install git python python-dev python-pip openssl ansible
+#+end_src
 
 Mit dem folgenden  Befehl überprüfen wir die Installation:
 
+#+name: ansible_version
+#+begin_src bash :exports none :tangle no :results silent
 ansible --version
+#+end_src
 
 Als Ausgabe sollte erscheinen (oder höhere Version): 
 
+#+name: ansible_version_ausgabe
+#+begin_src bash :exports none :tangle no :results silent
 ansible 2.0.0.2
+#+end_src
 
 Die Version ist leider nicht mehr ganz aktuell. Daher installieren wir den Server von einer anderen Quelle:
 
+#+name: ansible_ppa
+#+begin_src bash :exports none :tangle no :results silent
 sudo apt-add-repository ppa:ansible/ansible
 apt update
 apt dist-upgrade
+#+end_src
 
 Jetzt sollte der Befehl
 
+#+name: ansible_ansible_neu
+#+begin_src bash :exports none :tangle no :results silent
 ansible --version
+#+end_src
 
 die Version 2.3.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. Diese öffnen wir mit einem Texteditor:
 
+
+#+name: ansible_ansible_cfg
+#+begin_src bash :exports none :tangle no :results silent
 vim /etc/ansible/ansible.cfg
+#+end_src
 
 In der Datei entfernen wir das Kommentarzeichen vor zwei Zeilen:
 
+#+name: ansible_ansible_aenderung
+#+begin_src bash :exports none :tangle no :results silent
 inventory      = /etc/ansible/hosts
 sudo_user      = root
+#+end_src
 
 Beide Zeilen sind im [defaults]-Bereich. Danach speichern wir die Datei ab.
 
@@ -37,10 +74,16 @@ Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu w
 
 Wir wechseln in den Ordner /etc/ansible (den Pfad hatten wir eben in der Konfigurationsdatei aktiviert) und sichern dort die hosts-Datei:
 
+#+name: ansible_ansible_mv
+#+begin_src bash :exports none :tangle no :results silent
 mv hosts host.backup
+#+end_src
 
 Wir öffnen die Datei hosts (eine leere Datei) und tragen folgendes ein:
 
+
+#+name: ansible_host
+#+begin_src bash :exports none :tangle no :results silent
 [local]
 localhost
 
@@ -49,23 +92,35 @@ Ubuntu.node
 
 [centos]
 Centos.node
+#+end_src
 
 Für beide Server tragen wir die IP-Adresse in die Datei /etc/host ein.
 
 Wir führen möglichst alle Programme und Server mit Benutzern aus, die möglichst wenig Rechte auf dem Server haben. Daher legen wir einen neuen Benutzer an:
 
+
+#+name: ansible_adduser
+#+begin_src bash :exports none :tangle no :results silent
 adduser ansible
+#+end_src
 
 Wir müssen den Benutzer ansible jetzt noch in die Gruppe der sudoers einfügen. Dies ermöglicht ansible privilegierte Befehle zu starten. Wir müssen darauf achten, dass ansible dafür kein Passwort braucht:
 
 Mit dem Befehl 
 
+#+name: visudo
+#+begin_src bash :exports none :tangle no :results silent
 visudo
+#+end_src
 
 öffnen wir die Konfiguratiosdatei um ansible temporären Systemzugriff zu gewähren und fügen unterhalb der Zeile 
 
+
+#+name: user_konfig
+#+begin_src bash :exports none :tangle no :results silent
 root    ALL=(ALL:ALL) ALL
 ansible ALL=(ALL) NOPASSWD: ALL
+#+end_src
 
 ein.
 
@@ -73,8 +128,11 @@ Das Anlegen des Benutzers und die Vergabe des Passworts müssen wir auf jedem Sy
 
 Um das Problemlose verwalten der Nodes zu ermöglichen, richten wir für ssh eine Key-basierte Anmeldung ein:
 
+#+name: ssh-keygen
+#+begin_src bash :exports none :tangle no :results silent
 su ansible -
 ssh-keygen
+#+end_src
 
 Als nächstes kopieren wir die Schlüssel auf die Server:
 
