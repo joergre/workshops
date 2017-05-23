@@ -25,21 +25,21 @@ apt -y install git python python-dev python-pip openssl ansible
 Mit dem folgenden  Befehl überprüfen wir die Installation:
 
 #+name: ansible_version
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 ansible --version
 #+end_src
 
 Als Ausgabe sollte erscheinen (oder höhere Version): 
 
 #+name: ansible_version_ausgabe
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 ansible 2.0.0.2
 #+end_src
 
 Die Version ist leider nicht mehr ganz aktuell. Daher installieren wir den Server von einer anderen Quelle:
 
 #+name: ansible_ppa
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 sudo apt-add-repository ppa:ansible/ansible
 apt update
 apt dist-upgrade
@@ -48,7 +48,7 @@ apt dist-upgrade
 Jetzt sollte der Befehl
 
 #+name: ansible_ansible_neu
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash 
 ansible --version
 #+end_src
 
@@ -56,14 +56,14 @@ die Version 2.3.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfig
 
 
 #+name: ansible_ansible_cfg
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash 
 vim /etc/ansible/ansible.cfg
 #+end_src
 
 In der Datei entfernen wir das Kommentarzeichen vor zwei Zeilen:
 
 #+name: ansible_ansible_aenderung
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 inventory      = /etc/ansible/hosts
 sudo_user      = root
 #+end_src
@@ -75,7 +75,7 @@ Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu w
 Wir wechseln in den Ordner /etc/ansible (den Pfad hatten wir eben in der Konfigurationsdatei aktiviert) und sichern dort die hosts-Datei:
 
 #+name: ansible_ansible_mv
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash 
 mv hosts host.backup
 #+end_src
 
@@ -83,7 +83,7 @@ Wir öffnen die Datei hosts (eine leere Datei) und tragen folgendes ein:
 
 
 #+name: ansible_host
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 [local]
 localhost
 
@@ -100,7 +100,7 @@ Wir führen möglichst alle Programme und Server mit Benutzern aus, die möglich
 
 
 #+name: ansible_adduser
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash 
 adduser ansible
 #+end_src
 
@@ -109,7 +109,7 @@ Wir müssen den Benutzer ansible jetzt noch in die Gruppe der sudoers einfügen.
 Mit dem Befehl 
 
 #+name: visudo
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash 
 visudo
 #+end_src
 
@@ -117,7 +117,7 @@ visudo
 
 
 #+name: user_konfig
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash 
 root    ALL=(ALL:ALL) ALL
 ansible ALL=(ALL) NOPASSWD: ALL
 #+end_src
@@ -129,7 +129,7 @@ Das Anlegen des Benutzers und die Vergabe des Passworts müssen wir auf jedem Sy
 Um das Problemlose verwalten der Nodes zu ermöglichen, richten wir für ssh eine Key-basierte Anmeldung ein:
 
 #+name: ssh-keygen
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 su ansible -
 ssh-keygen
 #+end_src
