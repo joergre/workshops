@@ -18,7 +18,7 @@
 Das Programm Ansible ist in Python programmiert. Daher müssen wir Python auch installieren.
 
 #+name: python_install
-#+begin_src bash :exports none :tangle no :results silent
+#+begin_src bash
 apt -y install git python python-dev python-pip openssl ansible
 #+end_src
 
