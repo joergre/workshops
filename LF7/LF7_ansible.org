@@ -1,5 +1,5 @@
 # -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
-#+TITLE:     Installation LAMP
+#+TITLE:     Installation von Ansible
 #+AUTHOR:    Jörg Reuter
 #+EMAIL:     joerg@reuter.sc
 #+DATE:      
