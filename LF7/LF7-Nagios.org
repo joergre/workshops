@@ -46,7 +46,7 @@ cd nagios*
 
 #+name: compile
 #+begin_src bash
-./configure --with-nagios-group=nagios --with-command-group=nagcmd
+./configure --with-nagios-group=nagios --with-command-group=nagcmd --with-mail=/usr/bin/sendmail
 #+end_src
 
 *** Aufgabe
