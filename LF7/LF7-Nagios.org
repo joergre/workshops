@@ -95,6 +95,15 @@ und können mit
 ps aux|grep nagios
 #+end_src
 
+** Benutzer für Apache anlegen
+
+#+name: user
+#+begin_src bash
+sudo service apache2 stop 
+sudo htpasswd -c /usr/local/nagios/etc/passwd.users nagiosadmin
+sudo service apache2 start
+#+end_src
+
 ** Nagios Plugins installieren
 
 Lade von https://nagios-plugins.org/download/ mit wget die neusten Nagios-Plugin herunter.
@@ -108,4 +117,14 @@ make
 make install
 #+end_src
 
+** Autostart einrichten
+
+#+name: autostart
+#+begin_src bash
+sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
+#+end_src
+
+** Nagios testen
+
+Unter unser IP-Adresse im Browser sollte sich der web-Server melden. Unter der IP-Adresse/nagios sollte eine Benutzerabfrage stattfinden (nagiosadmin) und danach die Webseite von Nagios erscheinen.
 
