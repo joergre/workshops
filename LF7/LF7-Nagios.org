@@ -46,7 +46,7 @@ cd nagios*
 
 #+name: compile
 #+begin_src bash
-./configure --with-nagios-group=nagios --with-command-group=nagcmd --with-mail=/usr/bin/sendmail
+./configure --with-nagios-group=nagios --with-command-group=nagcmd # --with-mail=/usr/bin/sendmail
 #+end_src
 
 *** Aufgabe
@@ -64,6 +64,10 @@ a) Bitte schauen Sie sich die mögliche Patameter für den befehl configure an:
 make all
 sudo make install
 sudo make install-commandmode
+# sudo make install webconfig
+# sudo mv /etc/httpd/conf.d/*.conf /etc/apache2/sites-avaible/
+# sudo a2ensite nagios.conf
+#sudo service apache2 reload
 sudo make install-init
 sudo make install-config
 /usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-available/nagios.conf
@@ -75,6 +79,20 @@ sudo make install-config
 #+begin_src bash
 cp -R contrib/eventhandlers/ /usr/local/nagios/libexec/
 chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
+#+end_src
+
+** Nagios starten
+
+#+name: start
+#+begin_src bash
+sudo /etc/init.d/nagios start
+#+end_src
+
+und können mit
+
+#+name: run
+#+begin_src bash
+ps aux|grep nagios
 #+end_src
 
 ** Nagios Plugins installieren
@@ -89,4 +107,5 @@ cd nagios-plugin-*
 make
 make install
 #+end_src
+
 
