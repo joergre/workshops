@@ -128,3 +128,182 @@ sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
 Unter unser IP-Adresse im Browser sollte sich der web-Server melden. Unter der IP-Adresse/nagios sollte eine Benutzerabfrage stattfinden (nagiosadmin) und danach die Webseite von Nagios erscheinen.
 
+** Fehler finden und Konfigurationen testen
+
+Nagios sollt jetzt automatisch starten beim booten des Systems. Alternativ ist es möglich, Nagios manuell zu starten mit einer bestimmten Konfigurationsdatei:
+
+#+name: manuellerstart
+#+begin_src bash
+sudo service nagios stop
+sudo /usr/local/nagios/bin/nagios -d /usr/local/nagios/etc/nagios.cfg
+#+end_src
+
+Hinter der Option kommt die Konfigurations-Datei, die wir testen möchten. Wir können die Konfigurationsdatei auch auf Syntax-Fehler überprüfen lassen:
+
+#+name: Syntax
+#+begin_src bash
+sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+#+end_src
+
+*** Aufgabe
+Kopiere die Datei nagios.cfg in Dein Home-Verzeichnis und verändere die Datei in dem Du sinnlose Buchstaben an einer beliebigen Stelle einfügst. Führe den Syntax-Check auf die Datei aus und schaue Dir die Fehlermeldung an.
+
+** Konfiguration Apache
+
+Gehe auf die Weboberfläche von Nagios und klicke rechts auf Hosts (in der Sektion "Current Staus"). Es wird ein cgi-File zum download angeboten aber das Fesnter geht nicht auf. Dieses Verhalten ist nicht sehr sinnvoll und daher ändern wir dieses jetzt:
+
+#+name: cgi-Error
+#+begin_src bash
+sudo a2enmod cgi
+sudo a2enmod cgid
+sudo service apache2 restart
+#+end_src
+
+Wir aktivieren damit die Ausführung von CGI-Scripten auf unserem Server durch Apache2. Der Befehl setzt Verknüpfungen zwischen dem Verzeichnis /etc/apache/mods-avaible und mods-enabled ähnlich wie bei der Einrichtung von vHosts. Nach einem neuladen der Nagios-Website sollte jetzt der Link funktionieren
+
+** Host einrichten
+
+Host werden normalerweise über das NRPE-Protokoll abgefragt (es sind auch andere Wege möglich wie z.B. ssh). Dieses Protokoll müssen wir auf dem Host(!) installieren
+
+#+name: nrpe_install
+#+begin_src bash
+sudo apt-get install nagios-nrpe-server nagios-plugins
+#+end_src
+
+und konfigurieren:
+
+#+name: nrpe_install
+#+begin_src bash
+vim /etc/nagios/nrpe.cfg
+#+end_src
+
+Dort ändern wir die Zeile server_adress. Hier tragen wir die Adresse unseres Nagios-Servers ein und speichern die Datei ab.
+
+Wir starten den Service auf dem Host neu:
+
+#+name: nrpe_
+#+begin_src bash
+service nagios-nrpe-server restart
+#+end_src
+
+** Client auf dem Server einrichten
+
+Wir müssen jetzt dem Server mitteilen, dass er einen neuen Client überwachen soll und vor allem welche Services:
+
+#+name: host.cfg
+#+begin_src bash
+vestartim /usr/local/nagios/etc/servers/ubuntu_host.cfg
+#+end_src
+
+und fügen dort ein (bitte IP-Adresse anpassen, hier ist 192.168.1.10 verwendet worden für den Host)
+
+#+name: host2.cfg
+#+begin_src bash
+# Ubuntu Host configuration file
+
+define host {
+        use                          linux-server
+        host_name                    ubuntu_host
+        alias                        Ubuntu Host
+        address                      192.168.1.10
+        register                     1
+}
+
+define service {
+      host_name                       ubuntu_host
+      service_description             PING
+      check_command                   check_ping!100.0,20%!500.0,60%
+      max_check_attempts              2
+      check_interval                  2
+      retry_interval                  2
+      check_period                    24x7
+      check_freshness                 1
+      contact_groups                  admins
+      notification_interval           2
+      notification_period             24x7
+      notifications_enabled           1
+      register                        1
+}
+
+define service {
+      host_name                       ubuntu_host
+      service_description             Check Users
+      check_command           check_local_users!20!50
+      max_check_attempts              2
+      check_interval                  2
+      retry_interval                  2
+      check_period                    24x7
+      check_freshness                 1
+      contact_groups                  admins
+      notification_interval           2
+      notification_period             24x7
+      notifications_enabled           1
+      register                        1
+}
+
+define service {
+      host_name                       ubuntu_host
+      service_description             Local Disk
+      check_command                   check_local_disk!20%!10%!/
+      max_check_attempts              2
+      check_interval                  2
+      retry_interval                  2
+      check_period                    24x7
+      check_freshness                 1
+      contact_groups                  admins
+      notification_interval           2
+      notification_period             24x7
+      notifications_enabled           1
+      register                        1
+}
+
+define service {
+      host_name                       ubuntu_host
+      service_description             Check SSH
+      check_command                   check_ssh
+      max_check_attempts              2
+      check_interval                  2
+      retry_interval                  2
+      check_period                    24x7
+      check_freshness                 1
+      contact_groups                  admins
+      notification_interval           2
+      notification_period             24x7
+      notifications_enabled           1
+      register                        1
+}
+
+define service {
+      host_name                       ubuntu_host
+      service_description             Total Process
+      check_command                   check_local_procs!250!400!RSZDT
+      max_check_attempts              2
+      check_interval                  2
+      retry_interval                  2
+      check_period                    24x7
+      check_freshness                 1
+      contact_groups                  admins
+      notification_interval           2
+      notification_period             24x7
+      notifications_enabled           1
+      register                        1
+}
+
+#+end_src
+
+Viele Besipieleinträge für spezielle Services wir IMAP, POP3, DHCP etc findet Ihr in /usr/local/nagios/etc/objects/commands.cfg
+
+Wir lassen jetzt die Konfiguration mit -v überprpüfen (siehe oben).
+
+Lesen zum Abschluss alle Konfigurationsdateien neu ein:
+
+#+name: restart_all
+#+begin_src bash
+service apache2 restart
+service nagios restart
+#+end_src
+
+Jetzt sollte in der Weboberfläche (nach einer Aktualisierung) der Host auftauchen.
+
+
+
