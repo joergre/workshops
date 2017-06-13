@@ -14,9 +14,9 @@
 
 #+name: update
 #+begin_src bash
-sudo apt update
-sudo apt -y dist-upgrade
-sudo apt-get -y install wget build-essential apache2 php apache2-mod-php7.0 php-gd libgd-dev sendmail unzip libssl-dev 
+apt update
+apt -y dist-upgrade
+apt-get -y install wget build-essential apache2 php apache2-mod-php7.0 php-gd libgd-dev sendmail unzip libssl-dev 
 #+end_src
 
 ** Benutzer und Gruppe anlegen
@@ -32,23 +32,17 @@ usermod -a -G nagios,nagcmd www-data
 *** Aufgabe
 a) Erkläre die Bedeutung des Befehls usermod und den Parametern -a und -G
 
-b) Welche Version ist aktuell für Nagios (https://sourceforge.net/projects/nagios)?
+b) Welche Version ist aktuell für Nagios (https://github.com/NagiosEnterprises/nagioscore)?
 
-c) Lade mit dem Befehl wget die aktuelle Version auf Deinen Server (wget -O nagios.tar.gz ...).
+c) Lege das Repository auf Deinem System an (git clone https://github.com/NagiosEnterprises/nagioscore.git) 
 
-** Entpacken von Nagios
-
-#+name: tar
-#+begin_src bash
-tar -xzf nagios.tar.gz
-cd nrpe*
-#+end_src
 
 ** Kompilieren von nagios
 
 #+name: compile
 #+begin_src bash
-./configure --with-nagios-group=nagios
+cd nagioscore
+./configure --with-nagios-group=nagios --with-httpd-conf=/etc/apache2/sites-enabled
 #+end_src
 
 *** Aufgabe
@@ -65,12 +59,17 @@ a) Bitte schauen Sie sich die mögliche Patameter für den befehl configure an:
 #+begin_src bash
 make all
 make install
-
-# sudo a2ensite nagios.conf
-#sudo service apache2 reload
-sudo make install-init
-sudo make install-config
+make install-init
+make install-commandmode
+make install-config
 /usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-available/nagios.conf
+#+end_src
+
+** Apache einrichten
+
+#+name: configure
+#+begin_src bash
+a2ensite nagios.conf
 #+end_src
 
 ** Event-Handler kopieren
@@ -85,6 +84,7 @@ chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
 
 #+name: start
 #+begin_src bash
+sudo update-rc.d nagios defaults
 sudo /etc/init.d/nagios start
 #+end_src
 
@@ -99,9 +99,9 @@ ps aux|grep nagios
 
 #+name: user
 #+begin_src bash
-sudo service apache2 stop 
-sudo htpasswd -c /usr/local/nagios/etc/passwd.users nagiosadmin
-sudo service apache2 start
+service apache2 stop 
+htpasswd -c /usr/local/nagios/etc/passwd.users nagiosadmin
+service apache2 start
 #+end_src
 
 ** Nagios Plugins installieren
@@ -110,8 +110,9 @@ Lade von https://nagios-plugins.org/download/ mit wget die neusten Nagios-Plugin
 
 #+name: plugins
 #+begin_src bash
+cd ~
 tar -xzf nagios-plugins*.tar.gz
-cd nagios-plugin-*
+cd nagios-plugins-*
 ./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl
 make
 make install
