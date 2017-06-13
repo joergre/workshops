@@ -13,16 +13,16 @@
 ** Benötigte Packete installieren
 
 #+name: update
-#+begin_src emacs-lisp
+#+begin_src bash
 sudo apt update
 sudo apt -y dist-upgrade
-sudo apt-get -y install wget build-essential apache2 php apache2-mod-php7.0 php-gd libgd-dev sendmail unzip
+sudo apt-get -y install wget build-essential apache2 php apache2-mod-php7.0 php-gd libgd-dev sendmail unzip libssl-dev 
 #+end_src
 
 ** Benutzer und Gruppe anlegen
 
 #+name: useradd
-#+begin_src emacs-lisp
+#+begin_src bash
 useradd nagios
 groupadd nagcmd
 usermod -a -G nagcmd nagios
@@ -31,7 +31,9 @@ usermod -a -G nagios,nagcmd www-data
 
 *** Aufgabe
 a) Erkläre die Bedeutung des Befehls usermod und den Parametern -a und -G
+
 b) Welche Version ist aktuell für Nagios (https://sourceforge.net/projects/nagios)?
+
 c) Lade mit dem Befehl wget die aktuelle Version auf Deinen Server (wget -O nagios.tar.gz ...).
 
 ** Entpacken von Nagios
@@ -39,14 +41,14 @@ c) Lade mit dem Befehl wget die aktuelle Version auf Deinen Server (wget -O nagi
 #+name: tar
 #+begin_src bash
 tar -xzf nagios.tar.gz
-cd nagios*
+cd nrpe*
 #+end_src
 
 ** Kompilieren von nagios
 
 #+name: compile
 #+begin_src bash
-./configure --with-nagios-group=nagios --with-command-group=nagcmd # --with-mail=/usr/bin/sendmail
+./configure --with-nagios-group=nagios
 #+end_src
 
 *** Aufgabe
@@ -62,10 +64,8 @@ a) Bitte schauen Sie sich die mögliche Patameter für den befehl configure an:
 #+name: configure
 #+begin_src bash
 make all
-sudo make install
-sudo make install-commandmode
-# sudo make install webconfig
-# sudo mv /etc/httpd/conf.d/*.conf /etc/apache2/sites-avaible/
+make install
+
 # sudo a2ensite nagios.conf
 #sudo service apache2 reload
 sudo make install-init
