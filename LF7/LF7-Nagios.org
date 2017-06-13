@@ -42,7 +42,7 @@ c) Lege das Repository auf Deinem System an (git clone https://github.com/Nagios
 #+name: compile
 #+begin_src bash
 cd nagioscore
-./configure --with-nagios-group=nagios --with-httpd-conf=/etc/apache2/sites-enabled
+./configure --with-nagios-group=nagios --with-command-group=nagcmd --with-httpd-conf=/etc/apache2/sites-enabled
 #+end_src
 
 *** Aufgabe
