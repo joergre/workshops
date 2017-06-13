@@ -202,7 +202,6 @@ und fügen dort ein (bitte IP-Adresse anpassen, hier ist 192.168.1.10 verwendet 
 
 #+name: host2.cfg
 #+begin_src bash
-# Ubuntu Host configuration file
 
 define host {
         use                          linux-server
@@ -292,6 +291,13 @@ define service {
       register                        1
 }
 
+#+end_src
+
+Natürlich soll die Datei auch eingelsen werden, daher finden wir folgende Zeile und entfernen das Kommentarzeichen:
+
+#+name: cfg_dir
+#+begin_src bash
+cfg_dir=/usr/local/nagios/etc/servers
 #+end_src
 
 Viele Besipieleinträge für spezielle Services wir IMAP, POP3, DHCP etc findet Ihr in /usr/local/nagios/etc/objects/commands.cfg
