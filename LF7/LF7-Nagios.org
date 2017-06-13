@@ -100,7 +100,7 @@ ps aux|grep nagios
 #+name: user
 #+begin_src bash
 service apache2 stop 
-htpasswd -c /usr/local/nagios/etc/passwd.users nagiosadmin
+htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 service apache2 start
 #+end_src
 
@@ -155,9 +155,9 @@ Gehe auf die Weboberfläche von Nagios und klicke rechts auf Hosts (in der Sekti
 
 #+name: cgi-Error
 #+begin_src bash
-sudo a2enmod cgi
-sudo a2enmod cgid
-sudo service apache2 restart
+a2enmod cgi
+a2enmod cgid
+service apache2 restart
 #+end_src
 
 Wir aktivieren damit die Ausführung von CGI-Scripten auf unserem Server durch Apache2. Der Befehl setzt Verknüpfungen zwischen dem Verzeichnis /etc/apache/mods-avaible und mods-enabled ähnlich wie bei der Einrichtung von vHosts. Nach einem neuladen der Nagios-Website sollte jetzt der Link funktionieren
@@ -168,6 +168,8 @@ Host werden normalerweise über das NRPE-Protokoll abgefragt (es sind auch ander
 
 #+name: nrpe_install
 #+begin_src bash
+apt update
+apt dist-upgrade
 sudo apt-get install nagios-nrpe-server nagios-plugins
 #+end_src
 
@@ -193,7 +195,7 @@ Wir müssen jetzt dem Server mitteilen, dass er einen neuen Client überwachen s
 
 #+name: host.cfg
 #+begin_src bash
-vestartim /usr/local/nagios/etc/servers/ubuntu_host.cfg
+vi /usr/local/nagios/etc/servers/ubuntu_host.cfg
 #+end_src
 
 und fügen dort ein (bitte IP-Adresse anpassen, hier ist 192.168.1.10 verwendet worden für den Host)
