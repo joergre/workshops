@@ -191,12 +191,37 @@ richarvey/nginx-php-fpm       Container running Nginx + PHP-FPM capable ...   39
 #+END_EXAMPLE
 
 Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
+
+#+name: dockerrunnginx
+#+BEGIN_EXAMPLE
 docker run -d --name nginx nginx
+#+END_EXAMPLE
+
+Jetzt überprüfen wir ob der Container auch läuft:
 
 #+name: dockerpss
 #+BEGIN_EXAMPLE
 docker ps -s
 #+END_EXAMPLE
+
+** Aufagbe
+
+a) Suche bitte die Images von CentOS und Apache mit den besten Bewertungen heraus.
+b) Lade bitte das Image für NginX (neuste Version) herunter
+
+Bei dem Befehl docker pull von Aufgabe b ensteht folgende Ausgabe:
+
+#+name: dockerpullnginx
+#+BEGIN_EXAMPLE
+Using default tag: latest
+latest: Pulling from library/nginx
+e6e142a99202: Pull complete
+8c317a037432: Pull complete
+af2ddac66ed0: Pull complete
+#+END_EXAMPLE
+
+Wir sehen, dass das Image aus 3 Teilen besteht: Das zugrundliegende Basisimage, dem Server NginX und als letztes die Konfigurationsdateien. Jeder Teil ist für sich. Wenn das nächste Image die gleiche Installationsvorlage verwendet, dann wird dieser Teil nur einmal gespeichert.
+
 
 Alle laufenden und gestoppten Container löschen:
 
