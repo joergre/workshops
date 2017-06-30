@@ -111,9 +111,7 @@ a2ensite 004-gateone
 service apache2 reload
 #+END_EXAMPLE
 
-*** Docker Container unter Linux 
-
-
+** Docker Container unter Linux 
 
 Wir laden das Image von Ubuntu 14.04 herunter:
 
@@ -164,6 +162,32 @@ Container löschen:
 #+BEGIN_EXAMPLE
 docker stop hungry_euclid
 docker rm hungry_euclid
+#+END_EXAMPLE
+
+*** Container suchen
+
+Ein beliebter Webserver ist Nginx. Wir schauen uns jetzt alle verfügbaren Images von Nginx an:
+
+#+name: dockersearch
+#+BEGIN_EXAMPLE
+docker search ngninx
+#+END_EXAMPLE
+
+Wir sehen vir Spalten: Den Namen (vor dem Schrägstrichsteht der Autor und danach der name des Images. Gibt es keinen / dann ist es ein offizielles Image des Entwicklers.), eine Beschreibung des Images, die Anzahl der Sterne und in der letzten Spalte die Kennzeichnung offizieller Images.
+
+#+name:searchausg
+#+BEGIN_EXAMPLE
+NAME                          DESCRIPTION                                     STARS     OFFICI
+
+AL   AUTOMATED
+
+nginx                         Official build of Nginx.                        6302      [OK]
+
+jwilder/nginx-proxy           Automated Nginx reverse proxy for docker c...   1059
+
+     [OK]
+
+richarvey/nginx-php-fpm       Container running Nginx + PHP-FPM capable ...   398
 #+END_EXAMPLE
 
 Nginx Image herunterladen, Conntainer starten und den Namen nginx geben:
