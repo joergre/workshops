@@ -1,0 +1,281 @@
+2# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+* Python-Programm ausführen
+
+Wir möchten ein Pythonprogramm in der Konsole ausführen. Dazu erstellen wir zuerst ein Pythonprogramm. 
+
+Wir öffnen z.B. nano:
+
+#+name: hallo
+#+begin_example
+nano hallo.py
+#+end_example
+
+und geben ein:
+
+#+name: hallo_FBS
+#+begin_example
+print("Hallo Ferdinand-Braun-Schule")
+#+end_example
+
+Zum ausführen können wir eingeben:
+
+#+name: hallo_ex
+#+begin_example
+python hallo.py
+#+end_example
+
+oder aber die Rechte zum ausführen setzen:
+
+#+name: hallo_chmodS
+#+begin_example
+chmod u+x hallo.py
+#+end_example
+
+Wir müssen in dem Programm noch den Interpreter einstellen:
+
+#+name: hallo_FBSI
+#+begin_example
+nano hallo.py
+#+end_example
+
+
+und folgende Zeile ganz oben einfügen:
+
+#+name: hallo_python
+#+begin_example
+#! /usr/bin/env python
+#+end_example
+
+Das Programm wird mit folgendem Befehl aufgerufen:
+
+#+name: hallo_ex2
+#+begin_example
+./hallo.py 
+#+end_example
+
+
+* Variablen
+
+Variablen sind Speicher für Werte wie Zahlen oder Zeichenketten. Wir ändern unser Programm hallo.py so ab, dass es Variablen verwendet:
+
+#+name: hallo_var
+#+begin_example
+#! /usr/bin/env python
+gruss = "Hallo Ferdinand-Braun-Schule!"
+print(gruss)
+#+end_example
+
+Zeichen werden immer in " gesetzt im Gegensatz zu Zahlen:
+
+#+name: hallo_string
+#+begin_example
+#! /usr/bin/env python
+gruss = "Hallo Ferdinand-Braun-Schule!"
+wert = 72
+print(gruss)
+print(wert)
+#+end_example
+
+Namen von Variablen dürfen nicht mit einer Zahl beginnen.
+
+** Wert einlesen
+
+Um mit dem Anwender eines Programms zu interagieren, gibt es die Möglichkeit Tastatureingaben in eine Variable einzulesen:
+
+#+name: hallo_input
+#+begin_example
+#! /usr/bin/env python
+gruss = input("Schreibe einen Gruss: ")
+print(gruss)
+#+end_example
+
+* Zahlen
+
+Python kann auch interaktiv ausgeführt werden. Einfach in die Konsole python eingen:
+
+#+name: hallo_calc
+#+begin_example
+python
+2+5
+#+end_example
+
+
+Ergebnis: 7
+
+#+name: hallo_calc_var
+#+begin_example
+a = 2
+b = 5
+a+b
+#+end_example
+
+Ergebnis: 7
+
+Den Wert einer Variable kann man sehen, indem der Name in der Konsole eingegeben wird.
+
+#+name: a
+#+begin_example
+a
+#+end_example
+
+Ergebnis: 2
+
+Unterschied zu einem Programm:
+
+#+name: calc_scr
+#+begin_example
+nanao zahl.py
+a = 2
+b = 5
+a+b
+#+end_example
+
+Das Programm speichern und ausführen.
+
+Ergebnis: Keine Ausgabe!
+
+Die letzt Zeile muss abgeändert werden:
+
+#+name: hallo_calc_print
+#+begin_example
+print(a+b)
+#+end_example
+
+Ausgabe: 7
+
+Für Zahlen gibt es zwei Variablentypen die meistens verwendet werden: int und float. Int sind natürliche Zahlen (also ohne Komma) und float sind Fließkommazahlen (also mit Komma). Beide Typen gab es bereits bei dem ersten Computer der Welt, der Z1 von Konrad Zuse!
+
+#+name: int
+#+begin_example
+
+python
+
+a = 2
+type(a)
+#+end_example
+
+Ergebnis: <class 'int'>
+
+#+name: float
+#+begin_example
+
+python
+a = 2.23
+type(a)
+#+end_example
+
+Ergebnsi: <class 'float'>
+
+#+name: char
+#+begin_example
+a = "2.23"
+
+type(a)
+#+end_example
+
+Ergebnis: <class 'str'>
+
+str steht für Stringund bezeichnet eine Zeichenkette. Der Unterschied ist wichtig, da mit Strings nicht gerechnet werden kann:
+
+#+name: type_error
+#+begin_example
+python
+a = "2"
+b = 5
+a+b
+#+end_example
+
+Ergenis TypeError
+
+Aber:
+
+#+name: char_add
+#+begin_example
+python
+"2" + "5"
+#+end_example
+
+
+Ergebnis: 25
+
+Strings werden durch das Pluszeichen verbunden!
+
+** Programm "alter"
+
+Das Programm soll das Geburtsjahr ausrechnen nachdem das Alter eingegeben wurde. Bitte 2017 durch das aktuelle Jahr ersetzen.
+
+#+name: alter
+#+begin_example
+nano alter.py
+alter = input("Gebe bitte Dein Alter ein: ")
+geburtsJahr = 2017 - alter
+print(geburtsJahr)
+#+end_example
+
+Ergebnis: TypeError
+
+2017 ist eine Zahl und der Inhalt der Variable alter ein String.
+
+Lösung: Den Typ der Variable alter konvertieren (umwandeln):
+
+#+name: alter_conv
+#+begin_example
+geburtsJahr = 2017 - int(alter)
+#+end_example
+
+Es können auch Zahlen in einen Strjng umgewandelt werden:
+
+#+name: alter_str
+#+begin_example
+geburtsJahr = str(2017) - int(alter)
+#+end_example
+
+Ergebnis: TypeError
+
+Auch eine Umwandlung in Fließkomma ist möglich:
+
+#+name: alter_float
+#+begin_example
+geburtsJahr = 2017 - float(alter)
+#+end_example
+
+
+Ergebnis: Das Ergebnis wird als Fließkommazahl ausgegeben. Python wandelt automatisch den Variiablentyp von 2017 zu float! Damit wird das Ergenis ebenfalls eine Fließkommazahl.
+
+Vergleiche dazu:
+
+#+name: alter_float20
+#+begin_example
+float(20)
+#+end_example
+
+
+Ergebnis: 20.0
+
