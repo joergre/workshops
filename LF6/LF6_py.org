@@ -28,7 +28,7 @@
 
 * Python-Programm ausführen
 
-Wir möchten ein Pythonprogramm in der Konsole ausführen. Dazu erstellen wir zuerst ein Pythonprogramm. 
+Wir möchten ein Pythonprogramm in der Konsole ausführen. Dazu erstellen wir zuerst ein Pythonprogramm (Natürlich könnt Ihr auch einen der vielen Online-Editoren wie https://www.tutorialspoint.com/execute_python_online.php verwenden). 
 
 Wir öffnen z.B. nano:
 
