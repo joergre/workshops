@@ -25,6 +25,10 @@
     options(digits = 3)
   }
 #+end_src
+* Allgemeines
+
+Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
+Videos: https://www.youtube.com/watch?v=TCwIIs_vwzQ
 
 * Python-Programm ausführen
 
