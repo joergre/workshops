@@ -207,6 +207,7 @@ docker ps -s
 ** Aufagbe
 
 a) Suche bitte die Images von CentOS und Apache mit den besten Bewertungen heraus.
+
 b) Lade bitte das Image für NginX (neuste Version) herunter
 
 Bei dem Befehl docker pull von Aufgabe b ensteht folgende Ausgabe:
