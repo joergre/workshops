@@ -29,6 +29,7 @@
 * Allgemeines
 
 Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
+
 Videos: https://www.youtube.com/watch?v=XghJ8ya9frY
 
 * Installation der Arbeitsumgebung
