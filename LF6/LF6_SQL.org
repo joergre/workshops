@@ -1,0 +1,112 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in SQL
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+
+* Allgemeines
+
+Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
+Videos: https://www.youtube.com/watch?v=XghJ8ya9frY
+
+* Installation der Arbeitsumgebung
+
+Wir installieren zuerst den SQLServer, in unserem Fall den freien SQL-Server mariadb. Als Betriebssystem verwenden wir Ubuntu 17.04.
+
+#+name: install_mariadb
+#+begin_example
+apt install mariadb-server
+#+end_example
+
+Für Umgebung die wichtig sind oder im Internet laufen, sollte der SQl-Server auf jeden Fall abgesichert werden. Die erste Massnahme dafür ist das Skript mysql_secure_installation. 
+
+#+name: secure_installation
+#+begin_example
+mysql_secure_installation
+#+end_example
+
+Das Skript ist eigentlich selbsterklärend, daher machen wir hier weiter.
+
+* Anlegen und löschen einer Datenbank
+
+Video: https://www.youtube.com/watch?v=EipHtnSYt-o
+
+Um mit der Datenbank in Verbindung zu treten, brauchen wier noch einen Client. Dafür geben wir ein:
+
+#+name: install_client
+#+begin_example
+mariadb-client
+#+end_example
+
+Mit dem folgenden Befehl können wir uns auf der Datenbank anmelden:
+
+#+name: client_anmeldung
+#+begin_example
+mysql -u root -p
+#+end_example
+
+Nach -u kommt der Benutzername und -p sorgt dafür, dass nach einem Passwort gefragt wird. Habt Ihr kein Passwort vergeben, könnt Ihr Euch auch einfach mit folgendem Befehl anmelden:
+
+#+name: client_anmeldung_simple
+#+begin_example
+mysql
+#+end_example
+
+Wir lassen uns nun die Datenbanken anzeigen:
+
+#+name: show databases
+#+begin_example
+SHOW DATABASES;
+#+end_example
+
+Wir sollten 3 Datenbanken angezeigt bekommen: information_schema, mysql und performance_schema. Diese Datenbanken sind für den reibungslosen Betrieb der Datenbank unverzichtbar.
+
+Zum experimentieren legen wir daher eine neue Datenbank an:
+
+#+name: create_databases
+#+begin_example
+CREATE DATABASE geburtsurkunde;
+#+end_example
+
+** Aufgaben
+
+1.) Überprüfe, ob die Datenbank geburtsurkund erfolgreich angelegt wurde.
+2.) Lege eine Datenbak mit dem Namen test an.
+
+Mit dem folgenden Befehl löschen wir die Datenbank test:
+
+#+name: drop_databases
+#+begin_example
+DROP DATABASE test;
+#+end_example
+
+Jetzt melden wir uns ab von der Datenbank:
+
+#+name: drop_databases
+#+begin_example
+QUIT
+#+end_example
+
+
