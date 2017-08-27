@@ -94,6 +94,7 @@ CREATE DATABASE geburtsurkunde;
 ** Aufgaben
 
 1.) Überprüfe, ob die Datenbank geburtsurkund erfolgreich angelegt wurde.
+
 2.) Lege eine Datenbak mit dem Namen test an.
 
 Mit dem folgenden Befehl löschen wir die Datenbank test:
@@ -109,5 +110,85 @@ Jetzt melden wir uns ab von der Datenbank:
 #+begin_example
 QUIT
 #+end_example
+
+* Tabelle anlegen
+
+Anmelden an der Datenbank (wir haben kein PÜasswort für root gesetzt):
+
+#+name: mysql_root_o_p
+#+begin_example
+mysql
+#+end_example
+
+Mit dem Befehl
+
+#+name: show_databases
+#+begin_example
+SHOW DATABASES;
+#+end_example
+
+sehen wir die verfügbaren Datenbanken. In unserem Fall sollten wir die drei System-Datenbanken information_schema, performance_schema und mysql sehen. Desweiteren unsere Datenbank geburtsurkunde.
+
+Wir wählen die Datenbank geburtsurkunde aus um mit Ihr zu arbeiten:
+
+#+name: user_database
+#+begin_example
+USE geburtsurkunde;
+#+end_example
+
+Wir sehen uns die vorhandenen Tabellen an:
+
+#+name: show_tables
+#+begin_example
+SHOW TABLES;
+#+end_example
+
+Leider ist noch keine Tabelle vorhanden. Dies ändern wir mit dem nächsten Befehl:
+
+#+name: create_tables
+#+begin_example
+CREATE TABLE tblGeburtsurkunde (NameStandesAmt varchar(50), lfdNr varchar(50), VorNameKind varchar(50),  GeburtsnameKind varchar(50), Geschlecht varchar(1), Geburtsdatum varchar(50), Geburtsort varchar(50), VornameMutter varchar(50), NachnameMutter varchar(50), VornameVater varchar(50), NachnameVater varchar(50), ReligionKind varchar(50), ReligionMutter varchar(50), ReligionVater varchar(50), OrtStandesamt varchar(50), DatumAusstellung varcha(50), NameStandesbeamter varchar(50));
+#+end_example
+
+Der Befehl legt die Tabelle für Geburtsurkunden an (http://www.der-postillon.com/2015/10/eigentlich-in-bad-tolz-geboren-dfb.html). Der Befehl innerhalb der Klammer ist immer gleich aufgebaut: Spaltenname, Variablentyp und ev. ein Constraint (kommt später). Danach folgt ein Komma und die nächste Spalte. Die Informationen, die in einer Geburtsurkunde erfasst werden, stehen bei Wikipedia: https://de.wikipedia.org/wiki/Geburtsurkunde. Sicherlich ist der imme rgleiche Datentyp diskussionswürdig, aber hier geht es erst einmal darum, dass wir überhaupt Daten specihern können.
+
+Die Struktur unserer Tabelle kann mit verschiedenen Befehlen dargestellt werden. Hier eine kleine Auswahl:
+
+#+name: struktur_tables
+#+begin_example
+SHOW CREATE TABLE geburtsurkunde;
+SHOW COLUMNS FROM geburtsurkunde;
+SHOW FIELDS FROM geburtsurkunde;
+#+end_example
+
+#+name: show_tables
+#+begin_example
+SHOW TABLES;
+#+end_example
+
+zeigt uns jetzt unsere neue Tabelle und mit
+
+#+name: drop_tables
+#+begin_example
+DROP TABLE tblgeburtsurkunde;
+#+end_example
+
+löschen wir die TAbelle wieder.
+
+Wir legen die Tabelle wieder an, mit einem Primary Key:
+
+#+name: primary_key
+#+begin_example
+CREATE TABLE tblGeburtsurkunde (NameStandesAmt varchar(50), lfdNr varchar(50) PRIMARY KEY VorNameKind varchar(50),  GeburtsnameKind varchar(50), Geschlecht varchar(1), Geburtsdatum varchar(50), Geburtsort varchar(50), VornameMutter varchar(50), NachnameMutter varchar(50), VornameVater varchar(50), NachnameVater varchar(50), ReligionKind varchar(50), ReligionMutter varchar(50), ReligionVater varchar(50), OrtStandesamt varchar(50), DatumAusstellung varcha(50), NameStandesbeamter varchar(50));
+#+end_example
+
+Der Primary key referenziert eine  Eintrag inder Tabelle eindeutig. Der Primary Key muss  bei jedem Eintrag einen anderen Wert haben und darf nicht NULL sein (NULL darf nicht mit Null verwechselt werden. 0 ist ein Wert und NULL ist eben kein Wert.)
+
+** Aufgabe
+
+1.) Schaue Dir bitte die Struktur der Tabelle mit den obigen Befehlen an. Was fällt Dir auf?
+
+2.) Schaue Dir bitte die folgende Seite an und lese Dir durch, welche Constraints es bei SQL gibt:  http://wikis.gm.fh-koeln.de/wiki_db/Datenbanken/CONSTRAINT
+
 
 
