@@ -111,7 +111,9 @@ Jetzt melden wir uns ab von der Datenbank:
 QUIT
 #+end_example
 
-* Tabelle anlegen
+* Tabelle anlegen 
+
+YouTube-Video: https://www.youtube.com/edit?video_id=8QFks70RsU4
 
 Anmelden an der Datenbank (wir haben kein PÜasswort für root gesetzt):
 
