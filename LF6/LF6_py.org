@@ -87,6 +87,7 @@ Das Programm wird mit folgendem Befehl aufgerufen:
 
 * Variablen
 
+Video: https://youtu.be/TCwIIs_vwzQ?list=PLe2-EUuYYx2dmSq4yQ-AjSbdhFWSceelv
 Variablen sind Speicher für Werte wie Zahlen oder Zeichenketten. Wir ändern unser Programm hallo.py so ab, dass es Variablen verwendet:
 
 #+name: hallo_var
