@@ -216,7 +216,7 @@ b = 5
 a+b
 #+end_example
 
-Ergenis TypeError
+Ergebnis TypeError
 
 Aber:
 
