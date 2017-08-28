@@ -357,3 +357,44 @@ Parameter in der Hilfe in eckigen Klammern sind optional.
 
 Ersetze im String "Hallo FBS! Alles klar?" nur das erste a.
 
+** Indizierung von Zeichenketten
+
+Strings ist ein komplexer Datentyp, der sich aus vielen Variablen zusammen setzt mit jeweils einem Zeichen (char). Daher ist es möglich, jedes Zeichen in einem String einzeln anzusprechen (Stichwort Array von Chars):
+
+#+name: str_index
+#+begin_example
+python
+c="Hallo Welt!"
+c[4]
+#+end_example
+
+Wir fangen immer bei 0 an zu zählen.
+
+** Aufagbe
+
+1.) Schreibe einen Befehl, der das letzt Zeichen "!" ausgibt.
+
+2.) Welche Ausgabe erfolgt bei c[-1] und c[-2]?
+
+Um Zeichenketten zu extrahieren, können die Start und End-Position in die Eckige Klammer eingetragen werden. Wir möchten "Ha" extrahieren:
+
+#+name: str_doppel
+#+begin_example
+python
+c="Hallo Welt!"
+c[0:1]
+#+end_example
+
+Die Ausgabe ist "H". Das liegt daran, dass beim auftrennen von Strings immer die Stelle des Schnitts angegeben wird also das Ergebnis immer ein Zeichen zu wenig hat.
+
+#+name: str_doppel2
+#+begin_example
+python
+c="Hallo Welt!"
+c[0:2]
+#+end_example
+
+** Aufgabe
+Teste die Ausgabe von c[-4:-1]. Erhälst Du das erwartete Ergebniss?
+
+
