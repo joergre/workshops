@@ -120,6 +120,23 @@ gruss = input("Schreibe einen Gruss: ")
 print(gruss)
 #+end_example
 
+** Aufgabe
+Teste folgenden Code:
+
+#+name: gaense_string1
+#+begin_example
+#! /usr/bin/env python
+gruss = "Hallo 'Ferdinand-Braun-Schule!'"
+print(gruss)
+#+end_example
+
+#+name: gaense_string2
+#+begin_example
+#! /usr/bin/env python
+gruss = 'Hallo "Ferdinand-Braun-Schule!"'
+print(gruss)
+#+end_example
+
 * Zahlen
 
 Python kann auch interaktiv ausgeführt werden. Einfach in die Konsole python eingen:
