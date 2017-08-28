@@ -273,7 +273,7 @@ Lösung: Den Typ der Variable alter konvertieren (umwandeln):
 geburtsJahr = 2017 - int(alter)
 #+end_example
 
-Es können auch Zahlen in einen Strjng umgewandelt werden:
+Es können auch Zahlen in einen String umgewandelt werden:
 
 #+name: alter_str
 #+begin_example
