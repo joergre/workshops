@@ -339,6 +339,8 @@ c.replace('Hallo', 'Salut')
 
 2.) Versuche in dem String "Hallo FBS! Alles klar?" den Buchstaben a zu ersetzen. Werden alle "a" ausgetauscht oder nur das erste "a"?
 
+* Hilfe
+
 Die Übersicht der Befehle zur manipulation von Strings ist vielfältig. Mit dem Befehl
 
 #+name: dir
