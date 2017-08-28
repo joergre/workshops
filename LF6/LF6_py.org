@@ -96,7 +96,24 @@ gruss = "Hallo Ferdinand-Braun-Schule!"
 print(gruss)
 #+end_example
 
-Zeichen werden immer in " gesetzt im Gegensatz zu Zahlen:
+** Aufgabe
+Teste folgenden Code:
+
+#+name: gaense_string1
+#+begin_example
+#! /usr/bin/env python
+gruss = "Hallo 'Ferdinand-Braun-Schule!'"
+print(gruss)
+#+end_example
+
+#+name: gaense_string2
+#+begin_example
+#! /usr/bin/env python
+gruss = 'Hallo "Ferdinand-Braun-Schule!"'
+print(gruss)
+#+end_example
+
+Zeichen werden immer in " oder ' gesetzt im Gegensatz zu Zahlen:
 
 #+name: hallo_string
 #+begin_example
@@ -120,22 +137,7 @@ gruss = input("Schreibe einen Gruss: ")
 print(gruss)
 #+end_example
 
-** Aufgabe
-Teste folgenden Code:
 
-#+name: gaense_string1
-#+begin_example
-#! /usr/bin/env python
-gruss = "Hallo 'Ferdinand-Braun-Schule!'"
-print(gruss)
-#+end_example
-
-#+name: gaense_string2
-#+begin_example
-#! /usr/bin/env python
-gruss = 'Hallo "Ferdinand-Braun-Schule!"'
-print(gruss)
-#+end_example
 
 * Zahlen
 
