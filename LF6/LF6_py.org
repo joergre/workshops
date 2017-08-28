@@ -283,3 +283,77 @@ float(20)
 
 Ergebnis: 20.0
 
+* Strings und Hilfe
+
+Als String werden in Python Zeichen in Anführungsstriche bezeichnet. Es können sowohl " als auch ' verwendet werden.
+
+#+name: string
+#+begin_example
+python
+"FBS!"
+'FBS!'
+#+end_example
+
+Beides sind Strings. Strings können in Vaiablen gespeichert werden:
+
+#+name: string_var
+#+begin_example
+python
+c='FBS'
+c
+#+end_example
+
+Es ist möglich, Zeichen in einem String zu ersetzen:
+
+#+name: string_repl
+#+begin_example
+python
+c='Hallo FBS!'
+c.replace('Hallo', 'Salut')
+#+end_example
+
+** Aufgabe
+1.) Speichere das Ergebnis von c.replace('Hallo', 'Salut') in einer neuen Variable ab.
+
+2.) Versuche in dem String "Hallo FBS! Alles klar?" den Buchstaben a zu ersetzen. Werden alle "a" ausgetauscht oder nur das erste "a"?
+
+Die Übersicht der Befehle zur manipulation von Strings ist vielfältig. Mit dem Befehl
+
+#+name: dir
+#+begin_example
+python
+dir(c)
+#+end_example
+
+bekommt man einen ersten Überblick über die Möglichkeiten. 
+
+Ein Beispiel:
+
+#+name: uper
+#+begin_example
+python
+c.upper()
+#+end_example
+
+Um Hilfe zu einem Befehl zu bekommen, kann der help-Befehl verwendet werden:
+
+#+name: help
+#+begin_example
+python
+help("".replace)
+#+end_example
+
+Es kann auch verwendet werden:
+
+#+name: help
+#+begin_example
+python
+help(c.replace)
+#+end_example
+
+Parameter in der Hilfe in eckigen Klammern sind optional.
+
+** Aufgabe
+
+Ersetze im String "Hallo FBS! Alles klar?" nur das erste a.
+
