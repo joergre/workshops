@@ -39,8 +39,8 @@ import numpy as np # Import des Modules numpy als np
 import matplotlib . pyplot as plt # Import als plt
 x = np . arange (5)
 y = x **2
-plt . plot (x , y)
-plt . show ()
+plt.plot(x , y)
+plt.show()
 #+end_example
 
 Die ersten beiden Zeilen importieren mathematische Bibliotheken in das Programm.  
