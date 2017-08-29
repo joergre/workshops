@@ -59,7 +59,7 @@ nameserver 192.168.1.1
 # --- END PVE ---
 #+end_example
 
-In der Zeile nameserver sehen wir die IP-Adresse des verwendeten NAmeservers. Die Zeile search bedeutet, dass der Resolver versucht Namen ohne Punkt aufzulösen, indem er die lokale Domain anfügt. Dies ermöglicht bei lokalen Servern die Eingabe von namen ohne Domain.
+In der Zeile nameserver sehen wir die IP-Adresse des verwendeten Nameservers. Die Zeile search bedeutet, dass der Resolver versucht Namen ohne Punkt aufzulösen, indem er die lokale Domain anfügt. Dies ermöglicht bei lokalen Servern die Eingabe von namen ohne Domain.
 
 ** Aufgabe
 
