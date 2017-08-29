@@ -1,0 +1,67 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in Python
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+* Allgemeines
+
+Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
+
+* Funktionn zeichnen, Wertetabelle berechnen und in eine Datei abspecihern
+
+Funktion zeichnen:
+
+#+name: zeichnen
+#+begin_example
+import numpy as np # Import des Modules numpy als np
+import matplotlib . pyplot as plt # Import als plt
+x = np . arange (5)
+y = x **2
+plt . plot (x , y)
+plt . show ()
+#+end_example
+
+Die ersten beiden Zeilen importieren mathematische Bibliotheken in das Programm.  
+
+Die Zeile 3 definiert den Wertebereich von 0 bis 5.
+
+In Zeile 4 steht die Formel, die gezeichnet werden soll.
+
+In Zeile 5 wird die Funktion gezeichnet.
+
+In Zeile 6 wird die Zeichnung sichtbar gemacht.
+
+** Aufbae
+
+1.) Ergänze das Programm so, dass der Wertebereich durch input eingelesen wird.
+
+2.) Google bitte nach dem Befehl np.arange.
+
+3.) Ergänze das Programm um die Abfrage der unteren und oberen Grenze des Wertebereichs.
+
+4.) Verwende die Angaben um eine Wertetabelle für den Bereich zu errechnen. Die Werte sollen in eine Datei gespeichert werden. In einer Zeile steht zuerst der x-Wert dann ein ":" und der y-Wert. In der ersten Zeile soll das Paar mit dem niedrigsten x-Wert stehen, in der letzten der Wert mit dem höchsten x-Wert.
+
+5.) Ergönze das Programm um die Schrittweite (step). Der Step soll sowohl bei der Zeichnung als auch bei der Tabelle beachtet werden.
+
