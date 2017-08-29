@@ -1,0 +1,172 @@
+# -*- eval: (save-excursion (org-babel-goto-named-src-block "workshopPreamble") (org-babel-execute-src-block)) -*-
+#+TITLE:     Einführung in DNS
+#+AUTHOR:    Jörg Reuter
+#+EMAIL:     joerg@reuter.sc
+#+DATE:      
+
+#+PROPERTY: exports both
+#+EXCLUDE_TAGS: noexport mitsetup
+
+#+SETUPFILE: ../workshopPreamble.org
+
+#+name: workshopPreamble
+#+begin_src emacs-lisp :exports none :results silent :tangle no
+  (load-file "../setupEnvironment.el")
+#+end_src
+
+#+name: setupR
+#+begin_src R :exports none :tangle no :results silent
+  rm(list=ls())
+  .First <- function() {
+    options(width=70)
+    options(useFancyQuotes=FALSE)
+    options(show.signif.stars=FALSE)
+    options(scipen = 10)
+    options(digits = 3)
+  }
+#+end_src
+* Allgemeines
+
+Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
+
+* Allgemeines zu DNS
+
+DNS dient dazu, Domain-Namen in IP-Adressen aufzulösen. Aber auch um Domain-Namen zu einer bestimmten IP zu finden (reverse-Auflösung). Es gibt zwei großen Gruppen von DNS-Servern:
+
+- DNS-Caching-Server (ev. mit Adressfilterung): Dient dazu, die Namensauflösung zu beschleunigen. Er kann auch benutzt werden um unerwünschte Seiten/Inhalte zu sprrren (siehr auch https://www.youtube.com/watch?v=3GJ2Jqk8wD4, https://www.youtube.com/watch?v=i4UndCCqRu8, https://www.youtube.com/watch?v=dFPKoKq7qM8)
+
+- DNS-Server zur Verwaltung von Domain-Namen und IP-Adressen.
+
+DNS steht für Domain Name System. 
+
+** Client einrichten
+
+Die Namensauflösung eines Linux-Systems wird gesteuert durch die Datei /etc/resolv.conf, die wir aufrufen:
+
+#+name: resolv
+#+begin_example
+cat /etc/resolv.conf
+#+end_example
+
+Ausgabe sollte so ähnlich sein:
+
+#+name: resolv_ausgabe
+#+begin_example
+root@dns:~# cat /etc/resolv.conf
+# --- BEGIN PVE ---
+search fritz.box
+nameserver 192.168.1.1
+# --- END PVE ---
+#+end_example
+
+In der Zeile nameserver sehen wir die IP-Adresse des verwendeten NAmeservers. Die Zeile search bedeutet, dass der Resolver versucht Namen ohne Punkt aufzulösen, indem er die lokale Domain anfügt. Dies ermöglicht bei lokalen Servern die Eingabe von namen ohne Domain.
+
+** Aufgabe
+
+1.) Warum stehen in der Datei /etc/resolv.conf die IP-Adressen der DNS-Server und nicht die Namen?
+
+* nslookup
+
+nslookup ist ein Befehl um DNS-Server zu testen. nsllokup fragt standardmäßig den System-DNS nach der IP-Adresse eine Namens. Bei nicht angefügtem Punkt findet eine Ergänzung um die lokale Domain statt.
+
+#+name: resolv_flase
+#+begin_example
+nslookup ferdinand-braun-schule
+#+end_example 
+
+Ausgabe:
+#+name: resolv_false_ausgabe
+#+begin_example
+root@dns:~# nslookup ferdinand-braun-schule
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+** server can't find ferdinand-braun-schule: NXDOMAIN
+#+end_example
+
+Und eine erfolgreiche Auflösung:
+
+#+name: resolv_true
+#+begin_example
+nslookup ferdinand-braun-schule.de
+#+end_example 
+
+Ausgabe:
+#+name: resolv_true_ausgabe
+#+begin_example
+root@dns:~#  nslookup ferdinand-braun-schule.de
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+Name:   ferdinand-braun-schule.de
+Address: 5.35.226.125
+#+end_example
+
+Wir sehen den befragte DNS-Server mit Port (53) und das Ergebnis der Namensauflösung. Eine detailiertere Auflistung bekommen wir angezeigt mit der Option -q=any
+
+#+name: resolv_any
+#+begin_example
+root@dns:~# nslookup -q=any ferdinand-braun-schule.de
+;; Truncated, retrying in TCP mode.
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+ferdinand-braun-schule.de       mail exchanger = 50 mx0.ferdinand-braun-schule.de.
+ferdinand-braun-schule.de       has AAAA address 2a01:488:42:1000:50ed:857d:22:93b8
+ferdinand-braun-schule.de       nameserver = ns1.hans.hosteurope.de.
+ferdinand-braun-schule.de       nameserver = ns2.hans.hosteurope.de.
+Name:   ferdinand-braun-schule.de
+Address: 5.35.226.125
+ferdinand-braun-schule.de
+        origin = ns1.hans.hosteurope.de
+        mail addr = hostmaster.ferdinand-braun-schule.de
+        serial = 2017050919
+        refresh = 16384
+        retry = 2048
+        expire = 1048576
+        minimum = 2560
+
+Authoritative answers can be found from:
+#+end_example 
+
+Es kann der Nameserver angegeben werden:
+
+#+name: resolv_reverse
+#+begin_example
+root@dns:~# nslookup ferdinand-braun-schule.de 217.115.143.140
+Server:         217.115.143.140
+Address:        217.115.143.140#53
+
+Name:   ferdinand-braun-schule.de
+Address: 5.35.226.125
+#+end_example 
+
+217.115.143.140 ist die Domain von hosteurope und damit der DNS-Server der den Namen verwaltet. Daher fällt der Zusatz "Non-authoritative answer:" weg.
+
+Reverseauflösung:
+
+#+name: resolv_rev
+#+begin_example
+root@dns:~# nslookup 8.8.8.8
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+8.8.8.8.in-addr.arpa    name = google-public-dns-a.google.com.
+
+Authoritative answers can be found from:
+#+end_example 
+
+** Aufgabe
+
+1.) Bitte versuche eine Reverse-Auflösung von der IP-Adresse der Ferdinand-braun-schule (5.35.226.125). Was sit das Ergebnis? Kann das ein Problem werden? Diskutiere mit Deinem Nachbarn!
+
+* DNS-Server einrichten (DNS caching)
+
+Der gängige DNS-Server auf Unix-Systemen ist Bind. Wir installieren Bind mit einigen Werkzeugen:
+
+#+name: bind9_install
+#+begin_example
+apt install bind9 bind9utils
+#+end_example
