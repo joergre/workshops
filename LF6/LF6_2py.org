@@ -29,7 +29,7 @@
 
 Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
 
-* Funktionn zeichnen, Wertetabelle berechnen und in eine Datei abspecihern
+* Funktionn zeichnen, Wertetabelle berechnen und in eine Datei abspeichern
 
 Funktion zeichnen:
 
