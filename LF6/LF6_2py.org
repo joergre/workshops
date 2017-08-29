@@ -53,7 +53,7 @@ In Zeile 5 wird die Funktion gezeichnet.
 
 In Zeile 6 wird die Zeichnung sichtbar gemacht.
 
-** Aufbae
+** Aufgabe
 
 1.) Ergänze das Programm so, dass der Wertebereich durch input eingelesen wird.
 
