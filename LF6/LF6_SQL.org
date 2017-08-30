@@ -246,9 +246,15 @@ select * from tblGeburtsurkunde;
 
 ** INSERT
 
-Wir geben Jetzt beim INSERT-Befehl die einzelnen Spalten an:
+Wir geben Jetzt beim INSERT-Befehl die einzelnen Spalten an. Vorteil bei dieser schreibweise ist, dass die Werte für die Tabelle in beleibiger Reihenfolge stehen können und dass es einfacher sit Felder nicht auszufüllen.
 
 #+name: insert_simple
 #+begin_example
 INSERT INTO tblGeburtsurkunde VALUES('Bad Tölz','9/1988','Robert Siegfried','Lehmann','m','18.08.1988','Bad Tölz', 'Ilse', 'Lehmann', 'Christoph','Lehmann', 'katholisch','katholisch','katholisch','Bad Tölz','18.08.1988','Windmann');
 #+end_example
+
+** Aufgabe
+
+1.) Sache Dir den Inhalt der Tabelle an. Gibt es unterschiede? Warum?
+2.) Setze das Feld lfdNr auf PRIMARY KEY. Versuche jetzt eine Zeile einzufügen mit gleicher lfdNr. Was passiert?
+
