@@ -149,7 +149,7 @@ Leider ist noch keine Tabelle vorhanden. Dies ändern wir mit dem nächsten Befe
 
 #+name: create_tables
 #+begin_example
-CREATE TABLE tblGeburtsurkunde (NameStandesAmt varchar(50), lfdNr varchar(50), VorNameKind varchar(50),  GeburtsnameKind varchar(50), Geschlecht varchar(1), Geburtsdatum varchar(50), Geburtsort varchar(50), VornameMutter varchar(50), NachnameMutter varchar(50), VornameVater varchar(50), NachnameVater varchar(50), ReligionKind varchar(50), ReligionMutter varchar(50), ReligionVater varchar(50), OrtStandesamt varchar(50), DatumAusstellung varcha(50), NameStandesbeamter varchar(50));
+CREATE TABLE tblGeburtsurkunde (NameStandesAmt varchar(50), lfdNr varchar(50), VorNameKind varchar(50),  GeburtsnameKind varchar(50), Geschlecht varchar(1), Geburtsdatum varchar(50), Geburtsort varchar(50), VornameMutter varchar(50), NachnameMutter varchar(50), VornameVater varchar(50), NachnameVater varchar(50), ReligionKind varchar(50), ReligionMutter varchar(50), ReligionVater varchar(50), OrtStandesamt varchar(50), DatumAusstellung varchar(50), NameStandesbeamter varchar(50));
 #+end_example
 
 Der Befehl legt die Tabelle für Geburtsurkunden an (http://www.der-postillon.com/2015/10/eigentlich-in-bad-tolz-geboren-dfb.html). Der Befehl innerhalb der Klammer ist immer gleich aufgebaut: Spaltenname, Variablentyp und ev. ein Constraint (kommt später). Danach folgt ein Komma und die nächste Spalte. Die Informationen, die in einer Geburtsurkunde erfasst werden, stehen bei Wikipedia: https://de.wikipedia.org/wiki/Geburtsurkunde. Sicherlich ist der imme rgleiche Datentyp diskussionswürdig, aber hier geht es erst einmal darum, dass wir überhaupt Daten specihern können.
@@ -158,9 +158,9 @@ Die Struktur unserer Tabelle kann mit verschiedenen Befehlen dargestellt werden.
 
 #+name: struktur_tables
 #+begin_example
-SHOW CREATE TABLE geburtsurkunde;
-SHOW COLUMNS FROM geburtsurkunde;
-SHOW FIELDS FROM geburtsurkunde;
+SHOW CREATE TABLE tblGeburtsurkunde;
+SHOW COLUMNS FROM tblGeburtsurkunde;
+SHOW FIELDS FROM tblGeburtsurkunde;
 #+end_example
 
 #+name: show_tables
@@ -181,10 +181,10 @@ Wir legen die Tabelle wieder an, mit einem Primary Key:
 
 #+name: primary_key
 #+begin_example
-CREATE TABLE tblGeburtsurkunde (NameStandesAmt varchar(50), lfdNr varchar(50) PRIMARY KEY VorNameKind varchar(50),  GeburtsnameKind varchar(50), Geschlecht varchar(1), Geburtsdatum varchar(50), Geburtsort varchar(50), VornameMutter varchar(50), NachnameMutter varchar(50), VornameVater varchar(50), NachnameVater varchar(50), ReligionKind varchar(50), ReligionMutter varchar(50), ReligionVater varchar(50), OrtStandesamt varchar(50), DatumAusstellung varcha(50), NameStandesbeamter varchar(50));
+CREATE TABLE tblGeburtsurkunde (NameStandesAmt varchar(50), lfdNr varchar(50) PRIMARY KEY VorNameKind varchar(50),  GeburtsnameKind varchar(50), Geschlecht varchar(1), Geburtsdatum varchar(50), Geburtsort varchar(50), VornameMutter varchar(50), NachnameMutter varchar(50), VornameVater varchar(50), NachnameVater varchar(50), ReligionKind varchar(50), ReligionMutter varchar(50), ReligionVater varchar(50), OrtStandesamt varchar(50), DatumAusstellung varchar(50), NameStandesbeamter varchar(50));
 #+end_example
 
-Der Primary key referenziert eine  Eintrag inder Tabelle eindeutig. Der Primary Key muss  bei jedem Eintrag einen anderen Wert haben und darf nicht NULL sein (NULL darf nicht mit Null verwechselt werden. 0 ist ein Wert und NULL ist eben kein Wert.)
+Der Primary Key referenziert eine  Eintrag inder Tabelle eindeutig. Der Primary Key muss  bei jedem Eintrag einen anderen Wert haben und darf nicht NULL sein (NULL darf nicht mit Null verwechselt werden. 0 ist ein Wert und NULL ist eben kein Wert.)
 
 ** Aufgabe
 
@@ -192,5 +192,63 @@ Der Primary key referenziert eine  Eintrag inder Tabelle eindeutig. Der Primary 
 
 2.) Schaue Dir bitte die folgende Seite an und lese Dir durch, welche Constraints es bei SQL gibt:  http://wikis.gm.fh-koeln.de/wiki_db/Datenbanken/CONSTRAINT
 
+* INSERT
 
+Mit dem Befehl INSERT können Daten in eine Tabelle eingetragen werden. Dazu sollte die Struktur der Tabelle bekannt sein. 
 
+#+name: tabelle_uebersicht
+#+begin_example
+MariaDB [geburtsurkunde]> SHOW FIELDS FROM geburtsurkunde;
+ERROR 1146 (42S02): Table 'geburtsurkunde.geburtsurkunde' doesn't exist
+MariaDB [geburtsurkunde]> SHOW FIELDS FROM tblGeburtsurkunde;                                                               
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| NameStandesAmt     | varchar(50) | YES  |     | NULL    |       |
+| lfdNr              | varchar(50) | YES  |     | NULL    |       |
+| VorNameKind        | varchar(50) | YES  |     | NULL    |       |
+| GeburtsnameKind    | varchar(50) | YES  |     | NULL    |       |
+| Geschlecht         | varchar(1)  | YES  |     | NULL    |       |
+| Geburtsdatum       | varchar(50) | YES  |     | NULL    |       |
+| Geburtsort         | varchar(50) | YES  |     | NULL    |       |
+| VornameMutter      | varchar(50) | YES  |     | NULL    |       |
+| NachnameMutter     | varchar(50) | YES  |     | NULL    |       |
+| VornameVater       | varchar(50) | YES  |     | NULL    |       |
+| NachnameVater      | varchar(50) | YES  |     | NULL    |       |
+| ReligionKind       | varchar(50) | YES  |     | NULL    |       |
+| ReligionMutter     | varchar(50) | YES  |     | NULL    |       |
+| ReligionVater      | varchar(50) | YES  |     | NULL    |       |
+| OrtStandesamt      | varchar(50) | YES  |     | NULL    |       |
+| DatumAusstellung   | varchar(50) | YES  |     | NULL    |       |
+| NameStandesbeamter | varchar(50) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+17 rows in set (0.00 sec)
+#+end_example
+
+Für den INSERT-Befehl gibt es jetzt zwei Möglichkeiten:
+
+1.) Wir schreiben die Werte für die Felder genau in der Reihenfolge auf wie sie in der Tabelle vorhanden sind.
+2.) Wir geben für jeden Wert das dazugehörige Feld an, dann brauchen wir auf die Reihenfolge keine Rücksicht nehmen,
+
+** INSERT einfach
+
+#+name: insert_simple
+#+begin_example
+INSERT INTO tblGeburtsurkunde VALUES('Bad Tölz','9/1988','Robert Siegfried','Lehmann','m','18.08.1988','Bad Tölz', 'Ilse', 'Lehmann', 'Christoph','Lehmann', 'katholisch','katholisch','katholisch','Bad Tölz','18.08.1988','Windmann');
+#+end_example
+
+und überprüfen den Eintag mit dem Befehl
+
+#+name: insert_simple
+#+begin_example
+select * from tblGeburtsurkunde;
+#+end_example
+
+** INSERT
+
+Wir geben Jetzt beim INSERT-Befehl die einzelnen Spalten an:
+
+#+name: insert_simple
+#+begin_example
+INSERT INTO tblGeburtsurkunde VALUES('Bad Tölz','9/1988','Robert Siegfried','Lehmann','m','18.08.1988','Bad Tölz', 'Ilse', 'Lehmann', 'Christoph','Lehmann', 'katholisch','katholisch','katholisch','Bad Tölz','18.08.1988','Windmann');
+#+end_example
