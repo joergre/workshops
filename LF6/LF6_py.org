@@ -421,4 +421,49 @@ c[0:2]
 ** Aufgabe
 Teste die Ausgabe von c[-4:-1]. Erhälst Du das erwartete Ergebniss?
 
+* Lists
+
+Listen speichern mehrere Elemente in einer Variable, ähnlich einer Einkaufsliste die mehrere Eintragungen hat. 
+Das Kennzeichen einer Liste sind die eckigen Klammern mit den Elementen:
+
+#+name: list
+#+begin_example
+python
+c=["Ferdinand Braun", 1850, 1918,"Physiker"]
+#+end_example
+
+Jedes Element lässt sich einzeln ansprechen:
+
+#+name: list_index
+#+begin_example
+python
+c[0]
+#+end_example
+
+Ausgabe:
+
+'Ferdinand Braun'
+
+Jedes Element hat seinen eigenen Variablentyp:
+
+#+name: list_vtype
+#+begin_example
+python
+type(c[0])
+type(c[1])
+#+end_example
+
+** Aufgabe
+
+1. Welches Ergebnis kommt bei c[:2] heraus? 
+
+2. Welchen Variablentyp hat der Listen-Abschnitt?
+
+3. Schaue Dir die Verfügbaren Optinen von "list" mit dir an.
+
+4. Füge mit dem Befehl c.append() "Nobelpreistraeger" an das Ender der Liste an.
+
+5. Schaue Dir mit dem Befehl help(c.remove) den Befehl remove an.
+
+6.) Entferne "Physiker" aus der Liste.
 
