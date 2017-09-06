@@ -283,7 +283,9 @@ Wir möchten unsere CD-Sammlung digitalisieren. Dieses Projekt führen wir Schri
 2.) Trage in die Tabelle bitte folgende Daten ein:
 
 4711 	Anastacia – Not That Kind 	2000 	{1. Not That Kind, 2. I’m Outta Love, 3. Cowboys & Kisses}
+
 4712 	Pink Floyd – Wish You Were Here 	1975 	{1. Shine On You Crazy Diamond}
+
 4713 	Anastacia – Freak of Nature 	2001 	{1. Paid my Dues}
 
 
