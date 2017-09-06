@@ -315,7 +315,7 @@ Wenn wir nicht den genauen Eintrag kennen, dann können wir mit LIKE nach Teilen
 SELECT Album, Titelliste FROM CD_Lied WHERE Album LIKE 'Anastacia';
 #+end_example
 
-Wir können auch suchen nach Eintraägen die nicht gleich sind:
+Wir können auch suchen nach Einträgen die nicht gleich sind:
 
 #+name: select_6
 #+begin_example
