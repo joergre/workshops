@@ -43,6 +43,13 @@ flush privileges;
 quit
 #+end_example
 
+Passwort normaler User zurücksetzen:
+#+name: mariadb_passwort
+#+begin_example
+mysql -u schuelerX -pfbs
+SET PASSWORD = PASSWORD('auth_string');
+#+end_example
+
 * Installation der Arbeitsumgebung
 
 Wir installieren zuerst den SQLServer, in unserem Fall den freien SQL-Server mariadb. Als Betriebssystem verwenden wir Ubuntu 17.04.
