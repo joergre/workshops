@@ -246,7 +246,7 @@ select * from tblGeburtsurkunde;
 
 ** INSERT
 
-Wir geben Jetzt beim INSERT-Befehl die einzelnen Spalten an. Vorteil bei dieser schreibweise ist, dass die Werte für die Tabelle in beleibiger Reihenfolge stehen können und dass es einfacher sit Felder nicht auszufüllen.
+Wir geben Jetzt beim INSERT-Befehl die einzelnen Spalten an. Vorteil bei dieser Schreibweise ist, dass die Werte für die Tabelle in beleibiger Reihenfolge stehen können. Auserdem ist es einfacher, bestimmte Felder nicht auszufüllen.
 
 #+name: insert_simple
 #+begin_example
@@ -257,4 +257,66 @@ INSERT INTO tblGeburtsurkunde VALUES('Bad Tölz','9/1988','Robert Siegfried','Le
 
 1.) Sache Dir den Inhalt der Tabelle an. Gibt es unterschiede? Warum?
 2.) Setze das Feld lfdNr auf PRIMARY KEY. Versuche jetzt eine Zeile einzufügen mit gleicher lfdNr. Was passiert?
+
+* SELECT
+
+Vevor wir einen sinnvollen SELECT-Befehl schreiben können, müssen wir immer die Datenbankstruktur kennen:
+
+#+name: select_1
+#+begin_example
+SHOW FIELDS FROM tblGeburtsurkunde;
+#+end_example
+
+** Aufgabe
+Wir möchten unsere CD-Sammlung digitalisieren. Dieses Projekt führen wir Schritt für Schritt durch.
+1.) Lege eine Tabelle CD_Lied mit folgenden Spalten an: CD_ID, Album, Erscheinungsjahr, Titelliste. Wähle sinnvolle Einstellungen für die jeweiligen Spalten.
+
+2.) Trage in die Tabelle bitte folgende Daten ein:
+
+4711 	Anastacia – Not That Kind 	2000 	{1. Not That Kind, 2. I’m Outta Love, 3. Cowboys & Kisses}
+4712 	Pink Floyd – Wish You Were Here 	1975 	{1. Shine On You Crazy Diamond}
+4713 	Anastacia – Freak of Nature 	2001 	{1. Paid my Dues}
+
+
+Wir können uns alle Einträge in einer Tabelle anschauen:
+
+#+name: select_2
+#+begin_example
+SELECT * FROM CD_Lied;
+#+end_example
+
+Oder nur bestimmte Spalten:
+
+#+name: select_3
+#+begin_example
+SELECT  Album, Titelliste FROM CD_Lied;
+#+end_example
+
+Wir können auch bestimmte Einträge selektieren:
+
+#+name: select_4
+#+begin_example
+SELECT Album, Titelliste FROM CD_Lied WHERE Album='Anastacia – Not That Kind';
+#+end_example
+
+Wenn wir nicht den genauen Eintrag kennen, dann können wir mit LIKE nach Teilen eines Eintags suchen:
+
+#+name: select_5
+#+begin_example
+SELECT Album, Titelliste FROM CD_Lied WHERE Album LIKE 'Anastacia';
+#+end_example
+
+Wir können auch suchen nach Eintraägen die nicht gleich sind:
+
+#+name: select_6
+#+begin_example
+SELECT Album, Titelliste FROM CD_Lied WHERE Album!='Anastacia – Not That Kind';
+#+end_example
+
+Ungleich kann man auch schreiben als 
+
+#+name: select_7
+#+begin_example
+SELECT Album, Titelliste FROM CD_Lied WHERE Album<>'Anastacia – Not That Kind';
+#+end_example
 
