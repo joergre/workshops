@@ -31,6 +31,7 @@
 Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
 
 Videos: https://www.youtube.com/watch?v=XghJ8ya9frY
+Skript zum Anlegen der Schüler und Datenhbanken: https://gist.github.com/joergre/be3e0cd6afa47215e2057af0e53e3c7a
 
 * Installation der Arbeitsumgebung
 
