@@ -33,6 +33,16 @@ Fragen zum Text oder zu Python: https://discord.gg/TsaqyAQ
 Videos: https://www.youtube.com/watch?v=XghJ8ya9frY
 Skript zum Anlegen der Schüler und Datenhbanken: https://gist.github.com/joergre/be3e0cd6afa47215e2057af0e53e3c7a
 
+Passwort von root (mariadb) zurücksetzen:
+
+#+name: mariadb_root
+#+begin_example
+mysql –u root
+update user set password=PASSWORD(“Dein-neues-Passwort”) where user=’root’;
+flush privileges;
+quit
+#+end_example
+
 * Installation der Arbeitsumgebung
 
 Wir installieren zuerst den SQLServer, in unserem Fall den freien SQL-Server mariadb. Als Betriebssystem verwenden wir Ubuntu 17.04.
