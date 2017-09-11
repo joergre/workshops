@@ -467,3 +467,46 @@ type(c[1])
 
 6.) Entferne "Physiker" aus der Liste.
 
+* TUPELS
+
+Tupels sind ähnlich zu Listen aber es ist kein schreibender Zugriff möglich. Wir definieren ein Tupel analog zu einer Liste:
+
+#+name: tupel
+#+begin_example
+t = ("Hallo", 1, 2.3)
+#+end_example
+
+Greifen lesend auf einzelne Elemente zu:
+
+#+name: tupel2
+#+begin_example
+t[-1]
+#+end_example
+
+Ausgabe: 2.3
+
+** Aufagbe
+Vergleich die möglichen Befehle auf die Objekte tupel und list. Was fällt Dir auf? Vergleiche bitte mit dem befehl dir(list) bzw. dir(tupel).
+
+* Dictonary
+
+Dictonary odrnen Begriff paarweise einander zu:
+
+#+name: dictonary
+#+begin_example
+d = {"boy":"Junge", "girl":"Mädchen"}
+#+end_example
+
+Bei einem Dictonary wird unterschieden zwischen einem Schlüssel (Key) und Wert (value). In dem Beispiel sind die englischen Wörter die Schlüssel und die deutschen Wörter die Werte.
+
+Wir greifen auf die Werte über die Schlüssel zu:
+
+#+name: dictonary2
+#+begin_example
+d["boy"]
+#+end_example
+
+Ausgabe: 'Junge'
+
+Die Abfrage ist nur in die Richtung Key -> Value möglich und nicht in die andere Richtung.
+
