@@ -337,7 +337,7 @@ c.replace('Hallo', 'Salut')
 ** Aufgabe
 1.) Speichere das Ergebnis von c.replace('Hallo', 'Salut') in einer neuen Variable ab.
 
-2.) Versuche in dem String "Hallo FBS! Alles klar?" den Buchstaben a zu ersetzen. Werden alle "a" ausgetauscht oder nur das erste "a"?
+2.) Versuche in dem String "Hallo FBS! Alles klar?" den Buchstaben 'a' durch 'b' zu ersetzen. Werden alle "a" ausgetauscht oder nur das erste "a"?
 
 * Hilfe
 
@@ -379,7 +379,7 @@ Parameter in der Hilfe in eckigen Klammern sind optional.
 
 ** Aufgabe
 
-Ersetze im String "Hallo FBS! Alles klar?" nur das erste a.
+Ersetze im String "Hallo FBS! Alles klar?" nur das erste 'a' durch ein 'b'.
 
 ** Indizierung von Zeichenketten
 
