@@ -506,16 +506,16 @@ Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/r
 
 Für dieses vorgehen legen wir ein verzeichnis an, indem wir unser Image erstellen:
 
-#+RESULTS:
-#+begin_example
+#+name: mkdir
+#+begin_src bash :export both
 mkdir build
 cd build
 #+end_example
 
 Wir öffnen eine Datei mit dem namen Dockerfile mit unserem Lieblingseditor (Achtung: Die Datei muss genau so heißen!!!)
 
-#+RESULTS:
-#+begin_example
+#+name: dockerapache2
+#+begin_src bash :export both
 FROM ubuntu
 MAINTAINER jreuter <joerg@reuter.sc>
 RUN apt-get -yqq update
@@ -526,15 +526,15 @@ RUN apt-get -yqq install apache2
 
 Das Script wird ausgeführt mit folgendem Befehl:
 
-#+RESULTS:
-#+begin_example
+#+name: ubuntuapachev2
+#+begin_src bash :export both
 docker build -t"jreuter/ubuntuapache2:v2" .
 #+end_example
 
 Wir sejhen dann den Prozess Schritt für Schritt. Mit einem 
 
-#+RESULTS:
-#+begin_example
+#+name: dockerimages
+#+begin_src bash :export both
 docker images
 #+end_example
 
@@ -548,8 +548,8 @@ jreuter/ubuntuapache2   v2                  d1dcc98d7d2e        13 seconds ago  
 
 Wir starten einen Container aus dem neuen Image:
 
-#+RESULTS:
-#+begin_example
+#+name: dockerrun
+#+begin_src bash :export both
 docker run -it jreuter/ubuntuapache2:v2 /bin/bash
 #+end_example
 
