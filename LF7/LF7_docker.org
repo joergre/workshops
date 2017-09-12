@@ -510,7 +510,7 @@ Für dieses vorgehen legen wir ein Verzeichnis an, indem wir unser Image erstell
 #+begin_src bash
 mkdir build
 cd build
-#+end_example
+#+end_src
 
 Wir öffnen eine Datei mit dem namen Dockerfile mit unserem Lieblingseditor (Achtung: Die Datei muss genau so heißen!!!)
 
@@ -520,7 +520,7 @@ FROM ubuntu
 MAINTAINER jreuter <joerg@reuter.sc>
 RUN apt-get -yqq update
 RUN apt-get -yqq install apache2
-#+end_example
+#+end_src
 
 
 
@@ -529,19 +529,19 @@ Das Script wird ausgeführt mit folgendem Befehl:
 #+name: ubuntuapachev2
 #+begin_src bash :export both
 docker build -t"jreuter/ubuntuapache2:v2" .
-#+end_example
+#+end_src
 
 Wir sehen dann den Prozess Schritt für Schritt. Mit einem 
 
 #+name: dockerimages
 #+begin_src bash :export both
 docker images
-#+end_example
+#+end_src
 
 sehen wir unser neues Image:
 
 #+RESULTS:
-#+begin_example
+#+begin_src bash
 REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
 jreuter/ubuntuapache2   v2                  d1dcc98d7d2e        13 seconds ago      258MB
 #+end_example
@@ -551,7 +551,7 @@ Wir starten einen Container aus dem neuen Image:
 #+name: dockerrun
 #+begin_src bash :export both
 docker run -it jreuter/ubuntuapache2:v2 /bin/bash
-#+end_example
+#+end_src
 
 und überprüfen, dass Apache2 richtig installiert worden ist.
 
