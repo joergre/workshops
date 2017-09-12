@@ -144,7 +144,7 @@ docker ps
 um sich den Namen des laufenden Docker Container anzeigen zu lassen 
 Docker Container anhalten (hungy_euklid ist der Name der jeweiligen Maschine):
 
-#+name: docker stop
+#+name: dockerstop
 #+BEGIN_EXAMPLE
 docker stop hungry_euclid
 #+END_EXAMPLE
@@ -239,8 +239,8 @@ Mit dem Befehl
   docker info
 #+end_src
 
-#+RESULTS:
-#+begin_example
+#+name: dockerinfo_result
+#+BEGIN_EXAMPLE
 Containers: 0
  Running: 0
  Paused: 0
