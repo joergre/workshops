@@ -377,7 +377,7 @@ f39032b9f532        ubuntu              "/bin/bash"         13 minutes ago      
 und führen jetzt einen docker commit durch:
 
 #+begin_src bash :export both
-  docker commit f39032b9f532 joergre/apache2
+  docker commit -m "apache2" -a "jreuter"  pensive_stallman jreuter/ubuapache2
 #+end_src
 
 #+RESULTS:
@@ -394,9 +394,9 @@ Nun möchten wir uns das Ergebniss auch anschauen:
 
 #+RESULTS:
 #+begin_example
-REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
-joergre/apache2     latest              91d4e09127ec        About a minute ago   265.2 MB
-ubuntu              latest              c73a085dc378        2 weeks ago          127 MB
+root@proxmox:~# docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+jreuter/ubuapache2      latest              e4ad07191c42        6 minutes ago       340MB
 #+end_example
 
 Und da sehen wir, voller stolz, unser erstes Image. Wir können dem Image jetzt noch weitere Metadaten hinzufügen, damit wir besser erkennen können, was wir hier für ein Image haben.
@@ -409,23 +409,19 @@ Und da sehen wir, voller stolz, unser erstes Image. Wir können dem Image jetzt 
 sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85
 #+end_example
 
-Mit -m wurde eine Kommentar zum Container hinzugefügt, mit -a ein Autor und mit ":" ein Tag bzw. Version. Mit dem Befehl docker images sehen wir unser neues Produkt:
-
-#+begin_src bash :export both
-  docker images
-#+end_src
+Wir ersdtellen aus dem neuen Images wieder einen Container:
 
 #+RESULTS:
 #+begin_example
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-joergre/apache2     webserver           cfca430f5584        8 seconds ago       265.2 MB
-joergre/apache2     latest              91d4e09127ec        20 minutes ago      265.2 MB
-ubuntu              latest              c73a085dc378        2 weeks ago         127 MB
+docker run -it jreuter/ubuapache2 /bin/bash
 #+end_example
+
+Wir untersuchen den neuen Container dahin gehend ob der Webserver apache2 installiert wurde.
+
 
 Mit docker inspect können wir das Image näher untersuchen:
 #+begin_src bash :export both
-  docker inspect joergre/apache2:webserver
+  docker inspect jreuter/ubuapache2
 #+end_src
 
 #+RESULTS:
@@ -434,7 +430,7 @@ Mit docker inspect können wir das Image näher untersuchen:
     {
         "Id": "sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85",
         "RepoTags": [
-            "joergre/apache2:webserver"
+            "jreuter/ubuapache2"
         ],
         "RepoDigests": [],
         "Parent": "sha256:c73a085dc3782b3fd4c032971c76d6afb45fa3728a048175c8c77d7403de5f21",
@@ -503,15 +499,64 @@ Mit docker inspect können wir das Image näher untersuchen:
     }
 ]
 #+end_example
+
 Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/reference/commandline/cli/#commit
 
-Jetzt starten wir unser neues Image in einem Container:
+** Docker build
 
-#+begin_src bash :export both
-  docker run -t -i joergre/apache2:webserver /bin/bash
-#+end_src
+Für dieses vorgehen legen wir ein verzeichnis an, indem wir unser Image erstellen:
+
+#+RESULTS:
+#+begin_example
+mkdir build
+cd build
+#+end_example
+
+Wir öffnen eine Datei mit dem namen Dockerfile mit unserem Lieblingseditor (Achtung: Die Datei muss genau so heißen!!!)
+
+#+RESULTS:
+#+begin_example
+FROM ubuntu
+MAINTAINER jreuter <joerg@reuter.sc>
+RUN apt-get -yqq update
+RUN apt-get -yqq install apache2
+#+end_example
 
 
+
+Das Script wird ausgeführt mit folgendem Befehl:
+
+#+RESULTS:
+#+begin_example
+docker build -t"jreuter/ubuntuapache2:v2" .
+#+end_example
+
+Wir sejhen dann den Prozess Schritt für Schritt. Mit einem 
+
+#+RESULTS:
+#+begin_example
+docker images
+#+end_example
+
+sehen wir unser neues Image:
+
+#+RESULTS:
+#+begin_example
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+jreuter/ubuntuapache2   v2                  d1dcc98d7d2e        13 seconds ago      258MB
+#+end_example
+
+Wir starten einen Container aus dem neuen Image:
+
+#+RESULTS:
+#+begin_example
+docker run -it jreuter/ubuntuapache2:v2 /bin/bash
+#+end_example
+
+und überprüfen, dass Apache2 richtig installiert worden ist.
+
+** Aufgabe
+Nenne Gründe, warum docker build die besssere Methode ist um neue Images zu erstellen.
 
 
 * Zum Schluss
