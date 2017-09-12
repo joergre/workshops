@@ -504,7 +504,7 @@ Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/r
 
 ** Docker build
 
-Für dieses vorgehen legen wir ein verzeichnis an, indem wir unser Image erstellen:
+Für dieses vorgehen legen wir ein Verzeichnis an, indem wir unser Image erstellen:
 
 #+name: mkdir
 #+begin_src bash :export both
@@ -531,7 +531,7 @@ Das Script wird ausgeführt mit folgendem Befehl:
 docker build -t"jreuter/ubuntuapache2:v2" .
 #+end_example
 
-Wir sejhen dann den Prozess Schritt für Schritt. Mit einem 
+Wir sehen dann den Prozess Schritt für Schritt. Mit einem 
 
 #+name: dockerimages
 #+begin_src bash :export both
