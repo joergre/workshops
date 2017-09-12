@@ -393,28 +393,19 @@ Nun möchten wir uns das Ergebniss auch anschauen:
 #+end_src
 
 #+RESULTS:
-#+begin_example
+#+begin_src
 root@proxmox:~# docker images
 REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
 jreuter/ubuapache2      latest              e4ad07191c42        6 minutes ago       340MB
-#+end_example
-
-Und da sehen wir, voller stolz, unser erstes Image. Wir können dem Image jetzt noch weitere Metadaten hinzufügen, damit wir besser erkennen können, was wir hier für ein Image haben.
-#+begin_src bash :export both
-  docker commit -m "Mein erstes eigene Image. Das war ja einfach" -a "Jörg Reuter" f39032b9f532 joergre/apache2:webserver
 #+end_src
 
-#+RESULTS:
-#+begin_example
-sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85
-#+end_example
 
 Wir ersdtellen aus dem neuen Images wieder einen Container:
 
 #+RESULTS:
-#+begin_example
+#+begin_src
 docker run -it jreuter/ubuapache2 /bin/bash
-#+end_example
+#+end_src
 
 Wir untersuchen den neuen Container dahin gehend ob der Webserver apache2 installiert wurde.
 
@@ -425,7 +416,7 @@ Mit docker inspect können wir das Image näher untersuchen:
 #+end_src
 
 #+RESULTS:
-#+begin_example
+#+begin_src
 [
     {
         "Id": "sha256:cfca430f55847bbf5f3b54a70325adde853cf1447d1524afa104199a5addff85",
@@ -498,7 +489,7 @@ Mit docker inspect können wir das Image näher untersuchen:
         }
     }
 ]
-#+end_example
+#+end_src
 
 Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/reference/commandline/cli/#commit
 
