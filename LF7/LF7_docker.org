@@ -491,7 +491,12 @@ Mit docker inspect können wir das Image näher untersuchen:
 ]
 #+end_src
 
-Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/reference/commandline/cli/#commit
+
+Mit 
+
+docker run -i -t jreuter/ubuapache2 /bin/bash
+
+starten wir einen ontainer in dem der Apache2-Webserver installiert sein sollte.
 
 ** Docker build
 
@@ -503,7 +508,7 @@ mkdir build
 cd build
 #+end_src
 
-Wir öffnen eine Datei mit dem namen Dockerfile mit unserem Lieblingseditor (Achtung: Die Datei muss genau so heißen!!!)
+Wir öffnen eine Datei mit dem Namen Dockerfile mit unserem Lieblingseditor (Achtung: Die Datei muss genau so heißen!!!)
 
 #+name: dockerapache2
 #+begin_src bash :export both
