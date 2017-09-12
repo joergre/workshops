@@ -507,7 +507,7 @@ Eine Übersicht über alle Parameter findet Ihr hier: http://54.71.194.30:4016/r
 Für dieses vorgehen legen wir ein Verzeichnis an, indem wir unser Image erstellen:
 
 #+name: mkdir
-#+begin_src bash :export both
+#+begin_src bash
 mkdir build
 cd build
 #+end_example
