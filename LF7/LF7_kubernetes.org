@@ -27,3 +27,64 @@
 
 
 * Einführung
+
+* Installation
+
+** Ubuntu 17.04
+
+*** Master
+Es muss sicher gestellt sein, dass alle Geräte die gleiche Zeit und Zeitzone haben. Standardmässig werden die Nodes auf UTC eingestellt. Für die genaue Uhrzeit installieren wir ntp:
+
+apt-get update
+apt-get dist-upgrade
+apt-get install -y ntp
+systemctl enable ntp
+systemctl start ntp
+
+Als nächst richten wir die Namensauflösung ein. In unserem kleinen Netzwerk machen wir dies über die Anpassung der /etc/hosts-Datei. In grossen Installationen würde sich natürlich ein DNS-Server wie Bind anbieten:
+
+apt-get install vim-nox
+vim /etc/hosts
+
+
+127.0.1.1 ubuntu-512mb-fra1-01 ubuntu-512mb-fra1-01
+127.0.0.1 localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+207.154.204.72 master
+46.101.161.183 minion1
+
+Wir testen die erfolgreiche Einrichtung mit einigen Ping-Befehlen:
+
+ping master
+ping minion1
+
+
+
+*** Minion 
+
+apt-get update
+apt-get dist-upgrade
+apt-get install -y ntp
+systemctl enable ntp
+systemctl start ntp
+
+Als nächst richten wir die Namensauflösung ein. In unserem kleinen Netzwerk machen wir dies über die Anpassung der /etc/hosts-Datei. In grossen Installationen würde sich natürlich ein DNS-Server wie Bind anbieten:
+# IPv4 and IPv6 localhost aliases
+127.0.0.1       localhost
+::1             localhost
+
+207.154.204.72 master
+46.101.161.183 minion1
+
+Wir testen die erfolgreiche Einrichtung mit einigen Ping-Befehlen:
+
+ping master
+ping minion1
