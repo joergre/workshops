@@ -540,3 +540,7 @@ Bitte fürhre diesen Test durch:
 
 http://fachinformatiker-fulda.de/index.php/2017/09/18/quiz-python-1/
 Du solltest 100% erreichen!
+
+* Funktionen
+
+
