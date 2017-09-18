@@ -394,7 +394,7 @@ c[4]
 
 Wir fangen immer bei 0 an zu zählen.
 
-** Aufagbe
+** Aufgaben
 
 1.) Schreibe einen Befehl, der das letzt Zeichen "!" ausgibt.
 
@@ -404,7 +404,6 @@ Um Zeichenketten zu extrahieren, können die Start und End-Position in die Eckig
 
 #+name: str_doppel
 #+begin_example
-python
 c="Hallo Welt!"
 c[0:1]
 #+end_example
@@ -413,7 +412,6 @@ Die Ausgabe ist "H". Das liegt daran, dass beim auftrennen von Strings immer die
 
 #+name: str_doppel2
 #+begin_example
-python
 c="Hallo Welt!"
 c[0:2]
 #+end_example
@@ -421,14 +419,13 @@ c[0:2]
 ** Aufgabe
 Teste die Ausgabe von c[-4:-1]. Erhälst Du das erwartete Ergebniss?
 
-* Lists
+* Listen
 
 Listen speichern mehrere Elemente in einer Variable, ähnlich einer Einkaufsliste die mehrere Eintragungen hat. 
 Das Kennzeichen einer Liste sind die eckigen Klammern mit den Elementen:
 
 #+name: list
 #+begin_example
-python
 c=["Ferdinand Braun", 1850, 1918,"Physiker"]
 #+end_example
 
@@ -436,7 +433,6 @@ Jedes Element lässt sich einzeln ansprechen:
 
 #+name: list_index
 #+begin_example
-python
 c[0]
 #+end_example
 
@@ -448,7 +444,6 @@ Jedes Element hat seinen eigenen Variablentyp:
 
 #+name: list_vtype
 #+begin_example
-python
 type(c[0])
 type(c[1])
 #+end_example
@@ -465,20 +460,20 @@ type(c[1])
 
 5. Schaue Dir mit dem Befehl help(c.remove) den Befehl remove an.
 
-6.) Entferne "Physiker" aus der Liste.
+6. Entferne "Physiker" aus der Liste.
 
 * TUPELS
 
 Tupels sind ähnlich zu Listen aber es ist kein schreibender Zugriff möglich. Wir definieren ein Tupel analog zu einer Liste:
 
-#+name: tupel
+#+name: tuple
 #+begin_example
 t = ("Hallo", 1, 2.3)
 #+end_example
 
 Greifen lesend auf einzelne Elemente zu:
 
-#+name: tupel2
+#+name: tuple2
 #+begin_example
 t[-1]
 #+end_example
@@ -486,11 +481,11 @@ t[-1]
 Ausgabe: 2.3
 
 ** Aufagbe
-Vergleich die möglichen Befehle auf die Objekte tupel und list. Was fällt Dir auf? Vergleiche bitte mit dem befehl dir(list) bzw. dir(tupel).
+Vergleich die möglichen Befehle auf die Objekte tupel und list. Was fällt Dir auf? Vergleiche bitte mit dem Befehl dir(list) bzw. dir(tuple).
 
 * Dictonary
 
-Dictonary odrnen Begriff paarweise einander zu:
+Dictonary ordnen Begriff paarweise einander zu:
 
 #+name: dictonary
 #+begin_example
