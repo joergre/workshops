@@ -510,3 +510,33 @@ Ausgabe: 'Junge'
 
 Die Abfrage ist nur in die Richtung Key -> Value möglich und nicht in die andere Richtung.
 
+Deer Rückgabewert kann auch eine Liste sein:
+
+#+name: dictonary_Liste
+#+begin_example
+d = {"boy":"Junge", "girl":"Mädchen", "eat":("frisst", "isst"), "have":("haben","bin","besitze")}
+#+end_example
+
+Ausgabe:
+
+#+name: dictonary_Liste
+#+begin_src
+ d["have"]
+ ('haben', 'bin', 'besitze')
+ #+end_src
+ 
+ Bei der Liste kann dann auch auf einzelne Elemente zugegriffen werden, wie wir es oben bereits bei den Listen gesehen haben:
+ 
+ #+name: dictonary_Liste_ein
+#+begin_src
+ >>> d["have"][1]
+'bin'
+ #+end_src
+
+
+** Aufgabe
+
+Bitte fürhre diesen Test durch:
+
+http://fachinformatiker-fulda.de/index.php/2017/09/18/quiz-python-1/
+Du solltest 100% erreichen!
