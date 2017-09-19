@@ -411,11 +411,10 @@ Wir untersuchen den neuen Container dahin gehend ob der Webserver apache2 instal
 
 
 Mit docker inspect können wir das Image näher untersuchen:
-#+begin_src bash :export both
+#+begin_src bash
   docker inspect jreuter/ubuapache2
 #+end_src
 
-#+RESULTS:
 #+begin_src
 [
     {
@@ -494,11 +493,15 @@ Mit docker inspect können wir das Image näher untersuchen:
 
 Mit 
 
-docker run -i -t jreuter/ubuapache2 /bin/bash
+#+begin_src run_img
+docker run -i -t -p 80:80 jreuter/ubuapache2 /bin/bash
+#+end_src
 
 starten wir einen ontainer in dem der Apache2-Webserver installiert sein sollte.
 
+
 ** Docker build
+
 
 Für dieses vorgehen legen wir ein Verzeichnis an, indem wir unser Image erstellen:
 
