@@ -320,3 +320,13 @@ chmod 640 rndc.conf
 #+end_example
 
 und starten der Server und propieren den Befehl rndc reload aus.
+
+Warnung: key file existiert Button Usingen default.aspx configuration
+Rm /etc/bind/rndc.key
+Dig
+Dig Ferdinand-Braun-Schule.de
+Dig @localhost Ferdinand-Braun-Schule.de
+Rcvd flushname Ferdinand-Braun-Schule. De
+Dig @localhost Ferdinand-Braun-Schule. De
+Rcvd flush
+
