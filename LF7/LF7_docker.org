@@ -554,6 +554,213 @@ und überprüfen, dass Apache2 richtig installiert worden ist.
 ** Aufgabe
 Nenne Gründe, warum docker build die besssere Methode ist um neue Images zu erstellen.
 
+* Mit dem Container interagieren
+
+Wir starten für diesen Abschnitt einen Container:
+
+#+name: dockerrunub
+#+begin_src bash
+docker run -it ubuntu /bin/bash
+#+end_src
+
+Wir sind jetzt auf dem Terminal im Container angemeldet. -hier führen wir den Befeh ps aus:
+
+#+name: dockerps
+#+begin_src bash
+ps
+#+end_src
+
+und bekommen als Ausgabe:
+
+#+name: dockerps_aus
+#+begin_src bash
+root@d756e73e6182:/# ps
+  PID TTY          TIME CMD
+    1 pts/0    00:00:00 bash
+   10 pts/0    00:00:00 ps
+#+end_src
+   
+Wir bekommen also nur Prozesse angezeigt, die im aktuellen Container laufen.
+
+#+name: dockertop
+#+begin_src bash
+top
+#+end_src
+
+Der Befehl "top" zeigt auch nur die im Container laufenden Prozesse an. Aber Load und Speicherplatz wird vom Gesamtsystem angezeigt!
+
+Wir verlassen den Container:
+
+#+name: dockertop
+#+begin_src bash
+exit
+#+end_src
+
+** Docker logs
+
+Um zu erfahren, was der Container für eine Historie hat, suchen wir mit 
+
+#+name: dockerpsa
+#+begin_src bash
+docker ps -a
+#+end_src
+
+den Namen unseren Containers heraus.
+
+Wir sehen jetzt eine Auflistung von allen Vorgängen in diesem Container und können uns so ein genaues Bild seiner Geschichte machen oder nach Problemen suchen.
+
+** Docker ecec
+
+Manachmal soll ein Befehl in einem Container ausgeführt werden, ohne dass man sich extra deshalb anmelden muss. Um uns das anzuschauen, starten wir unseren Container wieder (mein Container heißt eager_montalcini):
+
+#+name: dockerrestart
+#+begin_src bash
+docker restart eager_montalcini
+#+end_src
+
+Wir möchten jetzt sehen, welche User in dem Container angelegt sind:
+
+#+name: dockerexec
+#+begin_src bash
+docker exec eager_montalcini cat /etc/passwd
+#+end_src
+
+Wir können so jeden Befehl in dem Container ausführen, ohne uns extra auf den Container anzumelden.
+
+* Ports
+
+Um auf einen Container über das Netzwerk zuzugreifen, muss der Port per NAT nach aussen verfügbar gemacht werden. Dies geschieht mit dem Parameter -p. Als Beispiel starten wir nginx:
+
+#+name: dockernginx
+#+begin_src bash
+docker run -d -p 80:80 nginx
+#+end_src
+
+Mit docker ps sehen wir uns den Container an:
+
+#+name: dockerpsng
+#+begin_src bash
+root@proxmox:~# docker ps
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS                  PORTS                                                NAMES
+9231586b71e6        nginx                   "nginx -g 'daemon ..."   9 seconds ago       Up 4 seconds            0.0.0.0:80->80/tcp                                   trusting_bassi
+#+end_src
+
+und sehen dort die Portweiterleitung. Wir können jetzt von aussen auf den Contaier über Port 80 mit dem Browser zugreifen.
+
+Wir können durch dieses Verfahren viele nginx-Services auf einen Server laufen lassen. Wir geben die jeweilige Installation über einen anderen Port frei und schalten dann einen Loadbalacer oder Proxy dahinter der den Zugriff regelt.
+
+Mit dem Befehl
+
+#+name: dockernginx8080
+#+begin_src bash
+docker run -d -p 8080:80 nginx
+#+end_src
+
+geben wir den Webserver auf Port 8080 frei. Wir erreich jetzt diesen Server als nicht über http://IP-Adresse sondern über http://IP-Adresse:8080
+
+** Aufgabe
+
+Erstelle einen Container mit Ubuntu. Installiere dort einen SSH-Server und gebe diesen über Port 8022 frei. Überprüfe, ob Du Dich auf den Port 8022 anmelden kannst. Erkläre, warum nicht der Standard-Port 22 verwendet werden kann.
+
+* Dockerfiles selber bauen - Erweiterung
+
+Wir legen ein Verzeichnis an mit der Bezeichnung builds
+
+#+name: dockermkdirbui
+#+begin_src bash
+mkdir builds
+cd build
+#+end_src
+
+Wir legen unter builds ein weiteres Verzeichnis an mit dem sganhaften Namen versuch1:
+
+#+name: dockermkdirvers1
+#+begin_src bash
+mkdir versuch1
+cd versuch1
+#+end_src
+
+Unser Ziel ist es, ein Ubuntu-Image zu erzeugen und diesem einen User hinzuzufügen der keine besondere Berechtigung hat. Dafür legen wir zuerst ein Dockerfile an:
+
+
+#+name: dockerdockerfile
+#+begin_src bash
+vi Dockerfile
+#+end_src
+
+Der Inhalt ist:
+
+#+name: dockerdockerfile
+#+begin_src bash
+# Dockerfile basiert auf Ubuntu (letzte Version) mit einem nicht priviligiertem User
+FROM ubuntu
+MAINTAINER joerg@reuter.sc
+RUN useradd -ms /bin/bash testuser
+USER testuser
+#+end_src
+
+Wir gehen von der letzten Ubuntu-Version aus (FROM ubuntu). Der Befehl FROM muss der erste Befehl sein (nach den Kommentaren). Danach definieren wir die Person, die für das Image verantwortlich ist (AINTAINER joerg@reuter.sc) und legen unseren User testuser an (USER testuser).
+
+
+** Aufgabe
+
+Erkläre mit Hilfe des Links den Befehl useradd -ms /bin/bash testuser. http://manpages.ubuntu.com/manpages/trusty/de/man8/useradd.8.html
+
+Jetzt bauen wir unser Image:
+
+#+name: dockerbuild
+#+begin_src bash
+docker build -t ubuntu/versuch1:v1 .
+#+end_src
+
+Der Name des Images ist ubuntu/versuch1 und die Version v1. Der Punkt dahinter besagt, dass das Image auf dem lokalen Rechner erstellt werden soll.
+
+Wir überprüfen, dass unser Image vorhanden ist:
+
+#+name: dockerimagesv1
+#+begin_src bash
+docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+ubuntu/versuch1         v1                  e5b93a038960        3 minutes ago       120MB
+#+end_src
+
+Undstarten das Image:
+
+#+name: dockerimagesv1
+#+begin_src bash
+docker run -it ubuntu/versuch1:v1 /bin/bash
+#+end_src
+
+Wir überprüfen, mit welchem Benutzer wir angemeldet sind und freuen uns:
+
+#+name: dockerwhoamiv1
+#+begin_src bash
+testuser@e29166e288b3:/$ whoami
+testuser
+#+end_src
+
+Wir möcten jetzt Administrator (root) werden:
+
+#+name: dockerrootv1
+#+begin_src bash
+testuser@e29166e288b3:/$ su -
+Password: 
+su: Authentication failure
+#+end_src
+
+Oh Schreck, er möchte ein Passwort haben. Das Passwort kennen wir aber nicht. Und jetzt?
+
+Wir verlassen den Container mit exit. Wir suchen den Namen des Containers heraus und starten ihn wieder (im Hintergrund).
+Wir wissen, wie wir mit exec Befehle im Container ausführen können. Also verwenden wir das Wissen:
+
+#+name: dockerrootv1
+#+begin_src bash
+docker exec -u 0 -it infallible_leakey /bin/bash
+#+end_src
+
+Der Parameter -u 0 bedeutet, dass wir den Befehl mit der User-ID 0 (root) auführen. Wir sehen es an dem Prompt-Text und können zur Sicherheit noch ein whoami ausführen.
+
+
 
 * Zum Schluss
 
