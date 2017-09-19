@@ -400,7 +400,7 @@ jreuter/ubuapache2      latest              e4ad07191c42        6 minutes ago   
 #+end_src
 
 
-Wir ersdtellen aus dem neuen Images wieder einen Container:
+Wir erstellen aus dem neuen Images wieder einen Container:
 
 #+RESULTS:
 #+begin_src
