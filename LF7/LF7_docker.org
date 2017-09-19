@@ -365,7 +365,7 @@ Finde heraus, welche Bedeutung die Parameter -yqq bei dem Installationsprozess h
 
 Unser Container ist jetzt beendet. Wir suchen uns jetzt die Container-ID:
 #+begin_src bash :export both
-  docker ps
+  docker ps -a
 #+end_src
 
 #+RESULTS:
