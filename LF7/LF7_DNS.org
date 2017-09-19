@@ -170,3 +170,153 @@ Der gängige DNS-Server auf Unix-Systemen ist Bind. Wir installieren Bind mit ei
 #+begin_example
 apt install bind9 bind9utils
 #+end_example
+
+Die Datei /etc/bind/named.conf ist unsere Haupt-Konfigurationsdatei. Sie sieht ein wenig unspektakulär aus:
+
+#+name: named_conf
+#+begin_example
+root@dns:~# cat /etc/bind/named.conf
+// This is the primary configuration file for the BIND DNS server named.
+//
+// Please read /usr/share/doc/bind9/README.Debian.gz for information on the 
+// structure of BIND configuration files in Debian, *BEFORE* you customize 
+// this configuration file.
+//
+// If you are just adding zones, please do that in /etc/bind/named.conf.local
+
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";
+#+end_example
+
+Das schwierige am DNS-Diest ist hier bereits erkennbar: Es gibt unzählige Dateien die Dateien nachladen die wieder Dateien nachladen. Hier den Überblick zu behalten, gehört zu den Herausforderungen eines DNS-Servers.
+
+* DNS Starten, Stoppen, Status abfragen
+
+** Status
+
+Wir möchten wissen, was der Bind9-Server macht:
+
+#+name: named_status
+#+begin_example
+systemctl status bind9
+#+end_example
+
+Mit q verlassen wir die Anzeige.
+
+** Stop
+
+Den Server halten wir an mit:
+
+#+name: named_stop
+#+begin_example
+systemctl stop bind9
+#+end_example
+
+Zur Kontrolle schauen wir uns den Status an und sehen auf die letzte Zeile:
+
+#+name: named_status2
+#+begin_example
+Sep 19 04:31:01 dns systemd[1]: Stopping BIND Domain Name Server...
+Sep 19 04:31:01 dns named[449]: received control channel command 'stop'
+Sep 19 04:31:01 dns named[449]: shutting down: flushing changes
+Sep 19 04:31:01 dns named[449]: stopping command channel on 127.0.0.1#953
+Sep 19 04:31:01 dns named[449]: stopping command channel on ::1#953
+Sep 19 04:31:01 dns named[449]: no longer listening on ::#53
+#+end_example
+
+Der Server hat seinen Dienst eingestellt.
+
+** Server starten
+
+#+name: named_start
+#+begin_example
+systemctl start bind9
+#+end_example
+
+Der Befehl startet den Server. Beim starten des Servers wird ein Schlüssel erzeugt, der in der Datei /etc/bind/rndc.key steht:
+
+#+name: rndc_key
+#+begin_example
+/etc/bind/rndc.key
+root@dns:~# cat /etc/bind/rndc.key 
+key "rndc-key" {
+	algorithm hmac-md5;
+	secret "Tsx7zDNKDERYUYFPK+0ckw==";
+};
+#+end_example
+
+Wir wissen momentan noch nicht, wie die Datei arbeitet. Aber auf Grund der Datei können wir alle Zonen und Konfigurationsdateien mit folgendem Befehl neu laden:
+
+#+name: rndc_key
+#+begin_example
+rndc reload
+#+end_example
+
+Wir löschen jetzt die Schlüssel-Datei:
+
+#+name: rm:rndc_key
+#+begin_example
+rm /etc/bind/rndc.key 
+#+end_example
+
+Wir versuchen jetzt ein rndc reload und stellen fest, dass dies nicht fnktioniert. Wir erstellen jetzt einen neuen Schlüssel. Dazu halten wir zuerst den Server an:
+
+#+name: rm:rndc_key
+#+begin_example
+systemctl stop bind9
+rndc-confgen -r /dev/urandom -a
+#+end_example
+
+/dev/urandom ist der Zufallsgenerator des Systems. 
+
+Wir starten den Server und versuchen ein rndc reload. Das schlägt fehl.
+ Wir müssen noch einen Key in die Datei /etc/bind/rndc.conf eintragen:
+ 
+#+name: rm:rndc_key
+#+begin_example
+rndc-confgen -r /dev/urandom > /etc/bind/rndc.conf
+#+end_example
+
+Wir schauen uns die Datei rndc.conf genauer an:
+
+#+name: rm:rndc_key
+#+begin_example
+cat /etc/bind/rndc.conf 
+# Start of rndc.conf
+key "rndc-key" {
+	algorithm hmac-md5;
+	secret "Km7qKA1hqtlThAHw2COj2A==";
+};
+
+options {
+	default-key "rndc-key";
+	default-server 127.0.0.1;
+	default-port 953;
+};
+# End of rndc.conf
+
+# Use with the following in named.conf, adjusting the allow list as needed:
+# key "rndc-key" {
+# 	algorithm hmac-md5;
+# 	secret "Km7qKA1hqtlThAHw2COj2A==";
+# };
+# 
+# controls {
+# 	inet 127.0.0.1 port 953
+# 		allow { 127.0.0.1; } keys { "rndc-key"; };
+# };
+# End of named.conf
+#+end_example
+
+und sehen am Ende einen Abschnitt der in die Datei named.conf kopiert werden soll. Das machen wir, direkt vor die include-Befehle.
+
+Wir müsen jetzt noch die Rechte anpassen:
+
+#+name: rm:rndc_key
+#+begin_example
+chgrp bind rndc.conf
+chmod 640 rndc.conf
+#+end_example
+
+und starten der Server und propieren den Befehl rndc reload aus.
