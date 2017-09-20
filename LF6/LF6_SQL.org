@@ -331,3 +331,54 @@ Ungleich kann man auch schreiben als
 SELECT Album, Titelliste FROM CD_Lied WHERE Album<>'Anastacia – Not That Kind';
 #+end_example
 
+* Alter TABLE
+
+Die Tabelle oben hat einige Probleme:
+
+- Das Feld Album enthält die Attributwertebereiche Interpret und Albumtitel.
+- Das Feld Titelliste enthält eine Menge von Titeln.
+
+Dadurch hat man ohne Aufspaltung folgende Probleme bei Abfragen:
+
+- Zur Sortierung nach Albumtitel muss das Feld Album in Interpret und Albumtitel aufgeteilt werden.
+- Die Titel können (mit einfachen Mitteln) nur alle gleichzeitig als Titelliste oder gar nicht dargestellt werden.
+
+Wir fügen als erstes eine Spalte 'Interpret' der Tabelle hinzu:
+
+ALTER TABLE CD_Lied ADD Interpret varchar(50);
+
+** Aufgabe
+Füge bitte ncoh die Spalte 'Track' der Tabelle hinzu varchar(10).
+
+Wir möchten die Spalte Track jetzt auf den Variablentyp int ändern:
+
+ALTER TABLE CD_Lied MODIFY Track int;
+
+oder
+
+ALTER TABLE CD_Lied ALTER COLUMN Track int;
+
+Die Befehle hängen von der eingesetzten MySQL-Version ab. 
+
+** Aufgabe
+
+Ändere den Spaltentyp bei Erschinungsjahr von var auf year um. Was fällt Dir auf? Warum reagiert die Datenbank so?
+
+* DELETE FROM
+
+Um alle Daten aus einer Tabelle zu löschen könne wir folgenden Befehl ausführen (bitte nicht wirklich ausführen):
+
+DELETE * FROM CD_Lied
+
+Der Befehl löscht nur die Daten, nicht aber die Tabelle an sich. Dieser Befehl wird sehr selt genutzt, meist wird ein Drop table verwendet.
+
+Meistens wird der Delte-Befehl eingeschränkt mit Hilfe von Bedingngen:
+
+DELETE FROM CD_Lied WHERE Erscheinungsjahr = '2000';
+
+Der Befehl löscht 'Anastacia – Not That Kind'.
+
+Wir können mit AND und OR auch komplexere Befehle aufbauen:
+
+DELETE FROM CD_Lied WHERE Erscheinungsjahr = '2001' AND Album = 'Anastacia – Freak of Nature';
+
