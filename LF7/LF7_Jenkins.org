@@ -1,0 +1,37 @@
+apt install openjdk-9-jdk
+Mit 
+
+which java
+
+überprüfen wir die erfolgreiche Installation von Java.
+
+Die Version überprüfen wir noch:
+
+root@jenkins:~# java -version
+openjdk version "9-Ubuntu"
+OpenJDK Runtime Environment (build 9-Ubuntu+0-9b161-1)
+OpenJDK 64-Bit Server VM (build 9-Ubuntu+0-9b161-1, mixed mode)
+
+Installation nach https://pkg.jenkins.io/debian-stable/
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+Then add the following entry in your /etc/apt/sources.list:
+deb https://pkg.jenkins.io/debian-stable binary/
+
+sudo apt-get update
+sudo apt-get install jenkins
+
+Wir stellen das System so ein, dass Jenkins automatisch gestartet wird:
+
+systemctl enable jenkins.service
+
+Wir starten der Service neu:
+
+systemctl restart jenkins.service
+
+Firewall öffnen:
+
+ufw allow 8080
+
+
