@@ -65,3 +65,30 @@ In Zeile 6 wird die Zeichnung sichtbar gemacht.
 
 5.) Ergänze das Programm um die Schrittweite (step). Der Step soll sowohl bei der Zeichnung als auch bei der Tabelle beachtet werden.
 
+* JSON-File laden
+
+Wir laden das JSON-File in ein Dictionary:
+
+#+begin_example
+import json
+data = json.load(open("data.json"))
+#+end_example
+
+Wir geben das Dictinary aus:
+
+#+begin_example
+import json
+print(data)
+#+end_example
+
+Wir schauen uns die Erklärung von rain an:
+
+#+begin_example
+import json
+print(data["rain"])
+#+end_example
+
+** Aufgabe
+
+Schreibe ein Programm mit einer Funktion translate. Die Funktion soll bei Aufruf mit einem englischen Wort die Beschreibung zurückgeben.
+
