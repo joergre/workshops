@@ -292,7 +292,7 @@ Wir möchten unsere CD-Sammlung digitalisieren. Dieses Projekt führen wir Schri
 Wir können uns alle Einträge in einer Tabelle anschauen:
 
 #+name: select_2
-#+begin_example
+#+begin_src sql
 SELECT * FROM CD_Lied;
 #+end_example
 
@@ -306,7 +306,7 @@ SELECT  Album, Titelliste FROM CD_Lied;
 Wir können auch bestimmte Einträge selektieren:
 
 #+name: select_4
-#+begin_example
+#+begin_src sql
 SELECT Album, Titelliste FROM CD_Lied WHERE Album='Anastacia – Not That Kind';
 #+end_example
 
@@ -327,9 +327,9 @@ SELECT Album, Titelliste FROM CD_Lied WHERE Album!='Anastacia – Not That Kind'
 Ungleich kann man auch schreiben als 
 
 #+name: select_7
-#+begin_example
+#+begin_src sql
 SELECT Album, Titelliste FROM CD_Lied WHERE Album<>'Anastacia – Not That Kind';
-#+end_example
+#+end_src
 
 * Alter TABLE
 
@@ -382,3 +382,18 @@ Wir können mit AND und OR auch komplexere Befehle aufbauen:
 
 DELETE FROM CD_Lied WHERE Erscheinungsjahr = '2001' AND Album = 'Anastacia – Freak of Nature';
 
+* CREATE INDEX
+
+Ein index ist eine Möglichkeit, den Zugriff einer Datenbank auf einzelne Felder zu beschleunigen. Allerdings werden einige Befehle dadurch verlangsamt wie z.B. update. Da sliegft daran, dass das Index mit aktualisiert werden muss.
+
+Anlegen eines Index aus einer Spalte mit Zahlen:
+
+#+begin_src sql
+CREATE INDEX CDIndex ON CD (CD_ID)
+#+end_src
+
+Erstellen eines zusammengestzten Index:
+
+#+begin_src sql
+CREATE INDEX Index_Namen ON CD (CD_ID, Track)
+#+end_src
