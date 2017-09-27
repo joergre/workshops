@@ -364,7 +364,7 @@ core@fbs-01 ~ $
 Finde heraus, welche Bedeutung die Parameter -yqq bei dem Installationsprozess haben.
 
 Unser Container ist jetzt beendet. Wir suchen uns jetzt die Container-ID:
-#+begin_src bash :export both
+#+begin_src bash
   docker ps -a
 #+end_src
 
@@ -376,7 +376,7 @@ f39032b9f532        ubuntu              "/bin/bash"         13 minutes ago      
 
 und führen jetzt einen docker commit durch:
 
-#+begin_src bash :export both
+#+begin_src bash
   docker commit -m "apache2" -a "jreuter"  pensive_stallman jreuter/ubuapache2
 #+end_src
 
@@ -388,7 +388,7 @@ sha256:91d4e09127ec25aa2dce9f86afa78bdb436aae6adde787142c54a99766b182ee
 Ihr benötigt für das commit die Container-ID und (optional) Euren Benutzername von Docker HUB und durch "/" getrennt ein Imagenamen den Ihr frei wählen könnt. Sinnvoller Weise sollte der Name so gewählt werden, dass man auch nächste Woche noch eine Idee über den Inhalt des Containers hat.
 Nun möchten wir uns das Ergebniss auch anschauen:
 
-#+begin_src bash :export both
+#+begin_src bash
   docker images
 #+end_src
 
@@ -402,7 +402,6 @@ jreuter/ubuapache2      latest              e4ad07191c42        6 minutes ago   
 
 Wir erstellen aus dem neuen Images wieder einen Container:
 
-#+RESULTS:
 #+begin_src
 docker run -it jreuter/ubuapache2 /bin/bash
 #+end_src
@@ -514,7 +513,7 @@ cd build
 Wir öffnen eine Datei mit dem Namen Dockerfile mit unserem Lieblingseditor (Achtung: Die Datei muss genau so heißen!!!)
 
 #+name: dockerapache2
-#+begin_src bash :export both
+#+begin_src bash
 FROM ubuntu
 MAINTAINER jreuter <joerg@reuter.sc>
 RUN apt-get -yqq update
@@ -526,20 +525,19 @@ RUN apt-get -yqq install apache2
 Das Script wird ausgeführt mit folgendem Befehl:
 
 #+name: ubuntuapachev2
-#+begin_src bash :export both
+#+begin_src bash
 docker build -t"jreuter/ubuntuapache2:v2" .
 #+end_src
 
 Wir sehen dann den Prozess Schritt für Schritt. Mit einem 
 
 #+name: dockerimages
-#+begin_src bash :export both
+#+begin_src bash
 docker images
 #+end_src
 
 sehen wir unser neues Image:
 
-#+RESULTS:
 #+begin_src bash
 REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
 jreuter/ubuntuapache2   v2                  d1dcc98d7d2e        13 seconds ago      258MB
@@ -548,7 +546,7 @@ jreuter/ubuntuapache2   v2                  d1dcc98d7d2e        13 seconds ago  
 Wir starten einen Container aus dem neuen Image:
 
 #+name: dockerrun
-#+begin_src bash :export both
+#+begin_src bash
 docker run -it jreuter/ubuntuapache2:v2 /bin/bash
 #+end_src
 
@@ -762,6 +760,196 @@ docker exec -u 0 -it infallible_leakey /bin/bash
 #+end_src
 
 Der Parameter -u 0 bedeutet, dass wir den Befehl mit der User-ID 0 (root) auführen. Wir sehen es an dem Prompt-Text und können zur Sicherheit noch ein whoami ausführen.
+
+
+* Unterschied CMD und RUN
+
+Der Befehle RUN ist Teil des Images während CMD erst zur Laufzeit des Containers ausgeführt wird.
+
+#+name: dockerdockerfile
+#+begin_src bash
+# Dockerfile basiert auf Ubuntu (letzte Version) 
+FROM ubuntu
+MAINTAINER joerg@reuter.sc
+RUN useradd -ms /bin/bash testuser
+CMD "echo" "Hallo Schüler!"
+#+end_src
+
+Wir erzeugen das Image mit dem Befehl
+
+#+begin_src bash
+docker build -t echo:v1 .
+#+end_src
+
+Wir starten den Container:
+
+#+begin_src bash
+docker run echo:v1
+#+end_src
+
+Der User ist Bestandteil des Images. Der CMD-Befehl wird beim  starten des Containers ausgeführt.
+
+* Entrypoint
+
+Mit Entrypoint wird die voreingestellte Anwendung in dem Container angegeben. Wir nehmen das Dockerfile von oben und äbdern CMD in ENTRYPOINT ab:
+
+#+name: dockerdockerfile
+#+begin_src bash
+# Dockerfile basiert auf Ubuntu (letzte Version) 
+FROM ubuntu
+MAINTAINER joerg@reuter.sc
+RUN useradd -ms /bin/bash testuser
+CMD "echo" "Hallo Schüler!"
+#+end_src
+
+Wir bauen daraus das Image echo:v2:
+
+#+begin_src bash
+docker build -t echo:v2 .
+#+end_src
+
+Beim Aufruf bemerken wir keinen Unerschied zwischen Entrypoint und cmd:
+
+#+begin_src bash
+docker run echo:v2
+#+end_src
+
+Wenn ich einen Container der Version v1 starte und ihm einen Befehl migrbr, wird dieser ausgeführt:
+
+#+begin_src bash
+docker run echo:v1 /bin/echo
+#+end_src
+
+Das bedeutet, dass keine Nachricht ausgegeben wird  (es steht hinter echo kein String für die Ausgabe). Jetzt der gleiche Aufruf für v2:
+
+#+begin_src bash
+docker run echo:v2 /bin/echo
+#+end_src
+
+Die Ausgabe 'Hallo Schüler' erscheint. Das liegt daran, dass bei dem Image v2 der echo-Befehl der Default-Befehl ist. Er wird also auf jeden Fall zuerst ausgeführt.
+
+* Expose
+
+Wir erstellen ein Image, dass in einem Container den Apache im Vordergrund startet:
+
+#+begin_src bash
+FROM ubuntu
+MAINTAINER joerg@reuter.sc
+
+RUN apt -y update
+RUN apt install -y apache2 net-tools
+
+RUN echo "iStartseite der Ferdinand-Braun-Schule" > /var/www/html/index.html
+
+ENTRYPOINT apachectl "-DFOREGROUND"
+#+end_src
+
+Und erzeugen das Image:
+
+#+begin_src bash
+docker build -t apache:v1 .
+#+end_src
+
+Wir starten das Images:
+
+#+begin_src bash
+docker run -d --name apache apache:v1
+#+end_src
+
+Wir schauen uns den Container an:
+
+#+begin_src bash
+docker ps
+#+end_src
+
+Und sehen, dass der Webserver läuft:
+
+#+begin_src bash
+root@proxmox:~/build# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                                                NAMES
+0e035d3142a3        apache:v1           "/bin/sh -c 'apach..."   About a minute ago   Up About a minute                                                        apache
+#+end_src bash
+
+Das Problem ist, dass wir den Container nicht nach außen zugänglich machen können (es knn keiner auf die Webseite zugreifen). Wir können jetzt den Server manuell frei geben:
+
+#+begin_src bash
+docker run -d --name apache2 -p 80:80 apache:v1
+#+end_src
+
+Und unsere Startseite aufrufen.
+
+Wir fügen jetzt ein EXPOSE 80 in das Dockerfile ein:
+
+#+begin_src bash
+FROM ubuntu
+MAINTAINER joerg@reuter.sc
+
+RUN apt -y update
+RUN apt install -y apache2 net-tools
+
+RUN echo "Startseite der Ferdinand-Braun-Schule" > /var/www/html/index.html
+
+EXPOSE 80
+
+ENTRYPOINT apachectl "-DFOREGROUND"
+#+end_src
+
+Wir starten dann docker build:
+
+#+begin_src bash
+docker build -t apache:v1 .
+#+end_src
+
+Wir halten alle alten Container an:
+
+#+begin_src bash
+docker stop apache1
+docker stop apache2
+#+end_src
+
+Und starten den Container neu. Der Parameter -P  mappt automatisch alle Ports die Expose sind auf den ersten freien Port ab 32768.
+
+#+begin_src bash
+docker run -d --name apache apache:v1
+#+end_src
+
+Wir schauen uns den Container an:
+
+#+begin_src bash
+root@proxmox:~/build# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                                NAMES
+db0da46e19e6        apache:v1           "/bin/sh -c 'apach..."   4 minutes ago       Up 4 minutes        0.0.0.0:32768->80/tcp                                apache4
+#+end_src
+
+und kann jetzt auf http://localhost:32768 erreicht werden.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
