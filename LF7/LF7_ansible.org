@@ -19,7 +19,12 @@ Das Programm Ansible ist in Python programmiert. Daher müssen wir Python auch i
 
 #+name: python_install
 #+begin_src bash
+apt update
+apt -y install git python python-dev python-pip openssl python-software-properties software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+apt update
 apt -y install git python python-dev python-pip openssl ansible
+apt -y dist-upgrade
 #+end_src
 
 Mit dem folgenden  Befehl überprüfen wir die Installation:
@@ -172,7 +177,78 @@ Damit die Clients auf den Server zugreifen können, müssen wir die ssh-id auch 
 ssh-copy-id ansible@localhost
 #+end_src
 
+-----------------------------------------------------
+* Testumgebung
 
+Wir gehen von 3 Servern zu testzwecken aus mit jeweils Ubuntu 16.04 installiert.
+
+Wir möchten Ansible aus Sicherheitsgründen nicht unter root laufen lassen. Wir legen daher auf jeder Maschine einen User (Name beliebig) und in seinem Home-Verzeichnis den Ordner playbooks an und setzen die Berechtigungen noch richtig.:
+
+adduser ansible
+cd /home/ansible
+mkdir playbooks
+chown ansible:ansible playbooks/
+
+Wir gehen in das Verzeichnis /etc/ansible und schauen uns den Inhalt an:
+
+cd /etc/ansible
+ll
+
+** Hosts-Datei
+
+Wir verschieben die Hosts-Datei und legen eine neue an:
+
+mv hosts hosts.orig
+
+vim hosts
+
+[local]
+localhost
+
+[apachehosts]
+47.90.200.64
+
+[gitserver]
+47.90.204.43
+
+Wir können uns alkle konfigurierten Systeme anzeigen lassen:
+
+ansible all --list-host
+
+Wir konfigurieren das Key-Auth für ssh:
+
+Wir speichern die Datei fbs.pem in den /root/.ssh-Ordner und passen die .ssh/config-Datei an (wenn nicht vorhanden, einfach anlegen):
+
+Hostname 47.90.204.43
+Hostname 47.90.200.64
+IdentityFile2 ./fbs.pem
+Port 22
+PreferredAuthentications publickey
+Protocol 2
+User root
+
+Wir können jetzt alle Maschinen anpingen:
+
+ansible all -m ping
+
+Oder bestimmte Gruppen:
+
+ansible gitserver -m ping
+
+Solange die Ausgabe grün bleibt, ist alles ok.
+
+root@iZ0xie4k1y0gs0kk3lphsjZ:~/.ssh# ansible gitserver -m ping
+47.90.204.43 | SUCCESS => {
+    "changed": false,
+    "failed": false,
+    "ping": "pong"
+}
+
+Wir können eine bestimmte host-Datei mitgeben durch den Parameter -i:
+
+ansible 47.90.200.64 -i /home/user/hosts -m ping
+
+Auch die ansible.cfg kann überschrieben werden: ansible überprüft automatisch das Verzeichnis indem ansible gestartet wird nach einer Datei mit dem Namen ansible.cfg und führte diese dann aus.
 
 
 
