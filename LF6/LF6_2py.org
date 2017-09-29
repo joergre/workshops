@@ -90,5 +90,16 @@ print(data["rain"])
 
 ** Aufgabe
 
-Schreibe ein Programm mit einer Funktion translate. Die Funktion soll bei Aufruf mit einem englischen Wort die Beschreibung zurückgeben.
+Schreibe ein Programm mit einer Funktion translate. Die Funktion soll bei Aufruf mit einem englischen Wort die Beschreibung zurückgeben. Das Programm soll von der Konsole ein Wort einlesen und die Erklärung zurückgeben. 
 
+** Fehlerbehandlung
+
+Das Programm ist wahrscheinlich etwas unschön, wenn ein Wort eingegeben wird, dass nicht im Directory existiert. Wir unterdrücken nun die Fehlermeldung und geben einen entsprechenden Hinweis aus:
+
+#+begin_example
+def translate(word)
+    if word in data:
+        return data[word]
+    else:
+        return "Dieses Wort existiert nicht. Bitte geben Sie ein anderes Wort ein."
+#+end_example
