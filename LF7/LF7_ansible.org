@@ -198,10 +198,13 @@ ll
 
 Wir verschieben die Hosts-Datei und legen eine neue an:
 
+#+begin_src
 mv hosts hosts.orig
 
 vim hosts
+#+end_src
 
+#+begin_src
 [local]
 localhost
 
@@ -210,15 +213,19 @@ localhost
 
 [gitserver]
 47.90.204.43
+#+end_src
 
 Wir können uns alkle konfigurierten Systeme anzeigen lassen:
 
+#+begin_src
 ansible all --list-host
+#+end_src
 
 Wir konfigurieren das Key-Auth für ssh:
 
 Wir speichern die Datei fbs.pem in den /root/.ssh-Ordner und passen die .ssh/config-Datei an (wenn nicht vorhanden, einfach anlegen):
 
+#+begin_src
 Hostname 47.90.204.43
 Hostname 47.90.200.64
 IdentityFile2 ./fbs.pem
@@ -226,27 +233,36 @@ Port 22
 PreferredAuthentications publickey
 Protocol 2
 User root
+#+end_src
 
 Wir können jetzt alle Maschinen anpingen:
 
+#+begin_src
 ansible all -m ping
+#+end_src
 
 Oder bestimmte Gruppen:
 
+#+begin_src
 ansible gitserver -m ping
+#+end_src
 
 Solange die Ausgabe grün bleibt, ist alles ok.
 
+#+begin_src
 root@iZ0xie4k1y0gs0kk3lphsjZ:~/.ssh# ansible gitserver -m ping
 47.90.204.43 | SUCCESS => {
     "changed": false,
     "failed": false,
     "ping": "pong"
 }
+#+end_src
 
 Wir können eine bestimmte host-Datei mitgeben durch den Parameter -i:
 
+#+begin_src
 ansible 47.90.200.64 -i /home/user/hosts -m ping
+#+end_src
 
 Auch die ansible.cfg kann überschrieben werden: ansible überprüft automatisch das Verzeichnis indem ansible gestartet wird nach einer Datei mit dem Namen ansible.cfg und führte diese dann aus.
 
@@ -254,11 +270,15 @@ Auch die ansible.cfg kann überschrieben werden: ansible überprüft automatisch
 
 Wir möchten wissen, welche python-Module auf den Servern der Gruppe 'gitserver' installiert sind. Das Anzeigend er aktuell installierten Pakete geschieht durch den Befehl
 
+#+begin_src
 dpkg-query -l|grep python
+#+end_src
 
 Mit dem Befehl
 
+#+begin_src
 ansible gitserver -m shell -a 'dpkg-query -l|grep python'
+#+end_src
 
 Der Befehl bedeutet, dass auf den Servern der Gruppe gitserver die Shell geöffnet wird und wir in der Shell den Befehl ausführen.
 
@@ -268,15 +288,20 @@ Wir können statt der Gruppe auch die IP oder den NAmen einzelner Server aus der
 
 Schreibe einen Befehl, der auf den Servern der Gruppe 'webservers' mariadb-server und mariadb-client installiert. Der Befehl für die Konsole lautet: 
 
+#+begin_src
 apt -y install mariadb-client mariadb-server
+#+end_src
 
 Um wichtige Systemdaten abzufragen, gibt es den Befehl setup:
+
 
 #+begin_src
 ansible local -m setup|more
 #+end_src
 
+
 Wir können die Ausgaben auch in eine Datei kopieren:
+
 
 #+begin_src
 ansible localhost -m setup --tree /tmp/info
