@@ -374,6 +374,27 @@ und führen die Datei aus:
 ansible-playbook gitserver.yml
 #+end_src
 
+* Variable
+
+Variablen im Playbook. Variablen werden immer am Anfang definiert.
+
+#+begin_src
+- hosts: gitserver
+  vars:
+    control_server: 47.90.204.43
+    web_root: /var/www/html
+  tasks:
+  - name: Install Lynx in der Gruppe gitserver
+    apt: name=lynx  state=installed update_cache=true
+#+end_src
+
+
+
+
+
+
+
+
 
 
 
