@@ -388,8 +388,17 @@ Variablen im Playbook. Variablen werden immer am Anfang definiert.
     apt: name=lynx  state=installed update_cache=true
 #+end_src
 
+* Include von Yaml-Dateien:
 
-
+#+begin_src
+- hosts: gitserver
+  vars:
+    control_server: 47.90.204.43
+    web_root: /var/www/html
+  tasks:
+  - name: Install Lynx in der Gruppe gitserver
+    apt: name=lynx  state=installed update_cache=true
+#+end_src
 
 
 
