@@ -272,11 +272,108 @@ apt -y install mariadb-client mariadb-server
 
 Um wichtige Systemdaten abzufragen, gibt es den Befehl setup:
 
+#+begin_src
 ansible local -m setup|more
+#+end_src
 
 Wir können die Ausgaben auch in eine Datei kopieren:
 
+#+begin_src
 ansible localhost -m setup --tree /tmp/info
+#+end_src
+
+Um den Baum zu durchsuchen nach einem bestimmten Eintrag wie z.B. die IPv4-Adressen, könnten wir grep verwednen:
+
+#+begin_src
+ansible localhost -m setup --tree /tmp/info|grep ipv4
+#+end_src
+
+Das gibt aber nur die Zeile aus und nicht die gesuchten Informationen (die stehen ja in der geschweiften Klammer):
+
+#+begin_src
+root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitserver -m setup |grep ipv4
+        "ansible_all_ipv4_addresses": [
+        "ansible_default_ipv4": {
+                "tx_checksum_ipv4": "off [fixed]",
+            "ipv4": {
+                "tx_checksum_ipv4": "off [fixed]",
+            "ipv4": {
+#+end_src
+
+Deshalb verwednen wir den Filter-Befehl, der die Klammern mit ausgibt:
+
+#+begin_src
+root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitserver -m setup -a 'filter=*ipv4*'
+47.90.204.43 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_all_ipv4_addresses": [
+            "172.22.59.240"
+        ],
+        "ansible_default_ipv4": {
+            "address": "172.22.59.240",
+            "alias": "eth0",
+            "broadcast": "172.22.63.255",
+            "gateway": "172.22.63.253",
+            "interface": "eth0",
+            "macaddress": "00:16:3e:00:28:91",
+            "mtu": 1500,
+            "netmask": "255.255.240.0",
+            "network": "172.22.48.0",
+            "type": "ether"
+        }
+    },
+    "changed": false,
+    "failed": false
+}
+#+end_src
+
+** Aufgabe
+
+1.) Schreibe einen Befehl, der den verbauten Prozessor zurück gibt.
+2.) Probiere folgende Befehle aus:
+
+#+begin_src
+ansible gitserver -m setup -a 'filter=ansible_architecture'
+ansible gitserver -m setup -a 'filter=ansible_distribution'
+ansible gitserver -m setup -a 'filter=ansible_distribution_version'
+ansible gitserver -m setup -a 'filter=ansible_domain'
+ansible gitserver -m setup -a 'filter=ansible_fqdn'
+ansible gitserver -m setup -a 'filter=ansible_kernel'
+ansible gitserver -m setup -a 'filter=ansible_memtotal_mb'
+#+end_src
+
+* Playbook
+
+Für das Playbook müssen wir die Befehle besser aufabuen und flexibler gestalten. Wir installieren den browser lynx in einer Gruppe:
+
+#+begin_src
+ansible gitserver -m apt -a 'name=lynx  state=installed update_cache=true'
+#+end_src
+
+Wir sagen, wir verwenden die Vorlage (Modell) apt und sagen, das PAket soll den Status installed haben und die Metadaten der Pakete sollen aktuell sein. Wenn lynx nicht installiert ist, wird dies nachgeholt. Wenn es installiert ist, wird nichts gemacht.
+
+Wir legen ein verzeichnis an mit der Bezeichnung playbooks:
+
+#+begin_src
+mkdir playbooks
+cd playbooks
+#+end_src
+
+Wir legen ein File mit dem namen gitserver.yml an ,it folgendem Inhalt:
+
+#+begin_src
+- hosts: gitserver
+  tasks:
+  - name: Install Lynx in der Gruppe gitserver
+    apt: name=lynx  state=installed update_cache=true
+#+end_src
+
+und führen die Datei aus:
+
+#+begin_src
+ansible-playbook gitserver.yml
+#+end_src
+
 
 
 
