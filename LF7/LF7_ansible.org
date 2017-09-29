@@ -250,5 +250,33 @@ ansible 47.90.200.64 -i /home/user/hosts -m ping
 
 Auch die ansible.cfg kann überschrieben werden: ansible überprüft automatisch das Verzeichnis indem ansible gestartet wird nach einer Datei mit dem Namen ansible.cfg und führte diese dann aus.
 
+* Ansible auf der Konsole
+
+Wir möchten wissen, welche python-Module auf den Servern der Gruppe 'gitserver' installiert sind. Das Anzeigend er aktuell installierten Pakete geschieht durch den Befehl
+
+dpkg-query -l|grep python
+
+Mit dem Befehl
+
+ansible gitserver -m shell -a 'dpkg-query -l|grep python'
+
+Der Befehl bedeutet, dass auf den Servern der Gruppe gitserver die Shell geöffnet wird und wir in der Shell den Befehl ausführen.
+
+Wir können statt der Gruppe auch die IP oder den NAmen einzelner Server aus der hosts-Datei angeben.
+
+* Aufgabe 
+
+Schreibe einen Befehl, der auf den Servern der Gruppe 'webservers' mariadb-server und mariadb-client installiert. Der Befehl für die Konsole lautet: 
+
+apt -y install mariadb-client mariadb-server
+
+Um wichtige Systemdaten abzufragen, gibt es den Befehl setup:
+
+ansible local -m setup|more
+
+Wir können die Ausgaben auch in eine Datei kopieren:
+
+ansible localhost -m setup --tree /tmp/info
+
 
 
