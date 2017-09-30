@@ -63,7 +63,7 @@ localhost
 [apachehosts]
 47.90.200.64
 
-[gitserver]
+[gitservers]
 47.90.204.43
 #+end_src
 
