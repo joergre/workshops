@@ -94,6 +94,12 @@ Protocol 2
 User root
 #+end_src
 
+Die Rechte für fbs1.pem müssen noch angepasst werden:
+
+#+begin_src
+chmod 0400 /root/.ssh/fbs.pem
+#+end_src
+
 Wir können jetzt alle Maschinen anpingen:
 
 #+begin_src
