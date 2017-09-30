@@ -34,17 +34,11 @@ Mit dem folgenden  Befehl überprüfen wir die Installation:
 ansible --version
 #+end_src
 
-Der Befehl sollte eine Version von 2.4.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. Diese öffnen wir mit einem Texteditor:
-
-
-#+name: ansible_ansible_cfg
-#+begin_src bash 
-vim /etc/ansible/ansible.cfg
-#+end_src
+Der Befehl sollte eine Version von 2.4.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. 
 
 Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu werden.
 
-Wir wechseln in den Ordner /etc/ansible (den Pfad hatten wir eben in der Konfigurationsdatei aktiviert) und sichern dort die hosts-Datei:
+Wir wechseln in den Ordner /etc/ansible und sichern dort die hosts-Datei:
 
 #+name: ansible_ansible_mv
 #+begin_src bash 
