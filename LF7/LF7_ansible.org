@@ -34,16 +34,7 @@ Mit dem folgenden  Befehl überprüfen wir die Installation:
 ansible --version
 #+end_src
 
-Der Befehl sollte eine Version von 2.4.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. 
-
-Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu werden.
-
-Wir wechseln in den Ordner /etc/ansible und sichern dort die hosts-Datei:
-
-#+name: ansible_ansible_mv
-#+begin_src bash 
-mv hosts host.backup
-#+end_src
+Der Befehl sollte eine Version von 2.4.0.0 oder höher ausgeben. 
 
 * Testumgebung
 
