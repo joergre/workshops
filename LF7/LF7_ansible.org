@@ -109,13 +109,13 @@ ansible all -m ping
 Oder bestimmte Gruppen:
 
 #+begin_src
-ansible gitserver -m ping
+ansible gitservers -m ping
 #+end_src
 
 Solange die Ausgabe grün bleibt, ist alles ok.
 
 #+begin_src
-root@iZ0xie4k1y0gs0kk3lphsjZ:~/.ssh# ansible gitserver -m ping
+root@iZ0xie4k1y0gs0kk3lphsjZ:~/.ssh# ansible gitservers -m ping
 47.90.204.43 | SUCCESS => {
     "changed": false,
     "failed": false,
@@ -133,7 +133,7 @@ Auch die ansible.cfg kann überschrieben werden: ansible überprüft automatisch
 
 * Ansible auf der Konsole
 
-Wir möchten wissen, welche python-Module auf den Servern der Gruppe 'gitserver' installiert sind. Das Anzeigend er aktuell installierten Pakete geschieht durch den Befehl
+Wir möchten wissen, welche python-Module auf den Servern der Gruppe 'gitservers' installiert sind. Das Anzeigend er aktuell installierten Pakete geschieht durch den Befehl
 
 #+begin_src
 dpkg-query -l|grep python
@@ -142,10 +142,10 @@ dpkg-query -l|grep python
 Mit dem Befehl
 
 #+begin_src
-ansible gitserver -m shell -a 'dpkg-query -l|grep python'
+ansible gitservers -m shell -a 'dpkg-query -l|grep python'
 #+end_src
 
-Der Befehl bedeutet, dass auf den Servern der Gruppe gitserver die Shell geöffnet wird und wir in der Shell den Befehl ausführen.
+Der Befehl bedeutet, dass auf den Servern der Gruppe gitservers die Shell geöffnet wird und wir in der Shell den Befehl ausführen.
 
 Wir können statt der Gruppe auch die IP oder den NAmen einzelner Server aus der hosts-Datei angeben.
 
@@ -181,7 +181,7 @@ ansible localhost -m setup --tree /tmp/info|grep ipv4
 Das gibt aber nur die Zeile aus und nicht die gesuchten Informationen (die stehen ja in der geschweiften Klammer):
 
 #+begin_src
-root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitserver -m setup |grep ipv4
+root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitservers -m setup |grep ipv4
         "ansible_all_ipv4_addresses": [
         "ansible_default_ipv4": {
                 "tx_checksum_ipv4": "off [fixed]",
@@ -193,7 +193,7 @@ root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitserver -m setup |grep ipv4
 Deshalb verwednen wir den Filter-Befehl, der die Klammern mit ausgibt:
 
 #+begin_src
-root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitserver -m setup -a 'filter=*ipv4*'
+root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitservers -m setup -a 'filter=*ipv4*'
 47.90.204.43 | SUCCESS => {
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [
@@ -223,13 +223,13 @@ root@iZ0xie4k1y0gs0kk3lphsjZ:~# ansible gitserver -m setup -a 'filter=*ipv4*'
 2.) Probiere folgende Befehle aus:
 
 #+begin_src
-ansible gitserver -m setup -a 'filter=ansible_architecture'
-ansible gitserver -m setup -a 'filter=ansible_distribution'
-ansible gitserver -m setup -a 'filter=ansible_distribution_version'
-ansible gitserver -m setup -a 'filter=ansible_domain'
-ansible gitserver -m setup -a 'filter=ansible_fqdn'
-ansible gitserver -m setup -a 'filter=ansible_kernel'
-ansible gitserver -m setup -a 'filter=ansible_memtotal_mb'
+ansible gitservers -m setup -a 'filter=ansible_architecture'
+ansible gitservers -m setup -a 'filter=ansible_distribution'
+ansible gitservers -m setup -a 'filter=ansible_distribution_version'
+ansible gitservers -m setup -a 'filter=ansible_domain'
+ansible gitservers -m setup -a 'filter=ansible_fqdn'
+ansible gitservers -m setup -a 'filter=ansible_kernel'
+ansible gitservers -m setup -a 'filter=ansible_memtotal_mb'
 #+end_src
 
 * Playbook
@@ -237,7 +237,7 @@ ansible gitserver -m setup -a 'filter=ansible_memtotal_mb'
 Für das Playbook müssen wir die Befehle besser aufabuen und flexibler gestalten. Wir installieren den browser lynx in einer Gruppe:
 
 #+begin_src
-ansible gitserver -m apt -a 'name=lynx  state=installed update_cache=true'
+ansible gitservers -m apt -a 'name=lynx  state=installed update_cache=true'
 #+end_src
 
 Wir sagen, wir verwenden die Vorlage (Modell) apt und sagen, das PAket soll den Status installed haben und die Metadaten der Pakete sollen aktuell sein. Wenn lynx nicht installiert ist, wird dies nachgeholt. Wenn es installiert ist, wird nichts gemacht.
@@ -249,19 +249,19 @@ mkdir playbooks
 cd playbooks
 #+end_src
 
-Wir legen ein File mit dem namen gitserver.yml an ,it folgendem Inhalt:
+Wir legen ein File mit dem namen gitservers.yml an ,it folgendem Inhalt:
 
 #+begin_src
-- hosts: gitserver
+- hosts: gitservers
   tasks:
-  - name: Install Lynx in der Gruppe gitserver
+  - name: Install Lynx in der Gruppe gitservers
     apt: name=lynx  state=installed update_cache=true
 #+end_src
 
 und führen die Datei aus:
 
 #+begin_src
-ansible-playbook gitserver.yml
+ansible-playbook gitservers.yml
 #+end_src
 
 * Variable
@@ -269,12 +269,12 @@ ansible-playbook gitserver.yml
 Variablen im Playbook. Variablen werden immer am Anfang definiert.
 
 #+begin_src
-- hosts: gitserver
+- hosts: gitservers
   vars:
     control_server: 47.90.204.43
     web_root: /var/www/html
   tasks:
-  - name: Install Lynx in der Gruppe gitserver
+  - name: Install Lynx in der Gruppe gitservers
     apt: name=lynx  state=installed update_cache=true
 #+end_src
 
@@ -282,17 +282,30 @@ Variablen im Playbook. Variablen werden immer am Anfang definiert.
 
 
 #+begin_src
-- hosts: gitserver
+- hosts: gitservers
   vars_files:
   - vars.yml
   vars:
     control_server: 47.90.204.43
     web_root: /var/www/html
   tasks:
-  - name: Install Lynx in der Gruppe gitserver
+  - name: Install Lynx in der Gruppe gitservers
     apt: name=lynx  state=installed update_cache=true
 
 #+end_src
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
