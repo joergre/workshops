@@ -147,7 +147,7 @@ ansible gitservers -m shell -a 'dpkg-query -l|grep python'
 
 Der Befehl bedeutet, dass auf den Servern der Gruppe gitservers die Shell geöffnet wird und wir in der Shell den Befehl ausführen.
 
-Wir können statt der Gruppe auch die IP oder den NAmen einzelner Server aus der hosts-Datei angeben.
+Wir können statt der Gruppe auch die IP oder den Namen einzelner Server aus der hosts-Datei angeben.
 
 * Aufgabe 
 
