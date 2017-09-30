@@ -23,7 +23,7 @@ apt update
 apt -y install git python python-dev python-pip software-properties-common openssl
 apt-add-repository ppa:ansible/ansible
 apt update
-apt -y install git openssl ansible
+apt -y install ansible
 apt -y dist-upgrade
 #+end_src
 
