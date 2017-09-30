@@ -20,7 +20,7 @@ Das Programm Ansible ist in Python programmiert. Daher müssen wir Python auch i
 #+name: python_install
 #+begin_src bash
 apt update
-apt -y install git python python-dev python-pip software-properties-common openssl
+apt -y install software-properties-common
 apt-add-repository ppa:ansible/ansible
 apt update
 apt -y install ansible
