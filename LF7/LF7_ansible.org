@@ -77,7 +77,7 @@ ansible all --list-host
 
 Wir konfigurieren das Key-Auth für ssh:
 
-Wir speichern die Datei fbs.pem in den //root//.ssh-Ordner und passen die .ssh/config-Datei an (wenn nicht vorhanden, einfach anlegen):
+Wir speichern die Datei fbs.pem in den /root/.ssh-Ordner und passen die .ssh/config-Datei an (wenn nicht vorhanden, einfach anlegen):
 
 #+begin_src
 Host *
