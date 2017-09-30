@@ -34,46 +34,13 @@ Mit dem folgenden  Befehl überprüfen wir die Installation:
 ansible --version
 #+end_src
 
-Als Ausgabe sollte erscheinen (oder höhere Version): 
-
-#+name: ansible_version_ausgabe
-#+begin_src bash
-ansible 2.0.0.2
-#+end_src
-
-Die Version ist leider nicht mehr ganz aktuell. Daher installieren wir den Server von einer anderen Quelle:
-
-#+name: ansible_ppa
-#+begin_src bash
-sudo apt-add-repository ppa:ansible/ansible
-apt update
-apt dist-upgrade
-#+end_src
-
-Jetzt sollte der Befehl
-
-#+name: ansible_ansible_neu
-#+begin_src bash 
-ansible --version
-#+end_src
-
-die Version 2.3.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. Diese öffnen wir mit einem Texteditor:
+Der Befehl sollte eine Version von 2.4.0.0 oder höher ausgeben. Darunter erscheint der Pfad zur Konfigurationsdatei. Diese öffnen wir mit einem Texteditor:
 
 
 #+name: ansible_ansible_cfg
 #+begin_src bash 
 vim /etc/ansible/ansible.cfg
 #+end_src
-
-In der Datei entfernen wir das Kommentarzeichen vor zwei Zeilen:
-
-#+name: ansible_ansible_aenderung
-#+begin_src bash
-inventory      = /etc/ansible/hosts
-sudo_user      = root
-#+end_src
-
-Beide Zeilen sind im [defaults]-Bereich. Danach speichern wir die Datei ab.
 
 Ansible hat keinen Hintergrundprozess und braucht daher nicht neu gestartet zu werden.
 
@@ -84,115 +51,16 @@ Wir wechseln in den Ordner /etc/ansible (den Pfad hatten wir eben in der Konfigu
 mv hosts host.backup
 #+end_src
 
-Wir öffnen die Datei hosts (eine leere Datei) und tragen folgendes ein:
-
-
-#+name: ansible_host
-#+begin_src bash
-[local]
-localhost
-
-[ubuntu]
-Ubuntu.node
-
-[centos]
-Centos.node
-#+end_src
-
-Für beide Server tragen wir die IP-Adresse in die Datei /etc/hosts ein.
-
-Wir führen möglichst alle Programme und Server mit Benutzern aus, die möglichst wenig Rechte auf dem Server haben. Daher legen wir einen neuen Benutzer an:
-
-
-#+name: ansible_adduser
-#+begin_src bash 
-adduser ansible
-#+end_src
-
-Wir müssen den Benutzer ansible jetzt noch in die Gruppe der sudoers einfügen. Dies ermöglicht ansible privilegierte Befehle zu starten. Wir müssen darauf achten, dass ansible dafür kein Passwort braucht:
-
-Mit dem Befehl 
-
-#+name: visudo
-#+begin_src bash 
-visudo
-#+end_src
-
-öffnen wir die Konfiguratiosdatei um ansible temporären Systemzugriff zu gewähren und fügen unterhalb der Zeile 
-
-
-#+name: user_konfig
-#+begin_src bash 
-root    ALL=(ALL:ALL) ALL
-ansible ALL=(ALL) NOPASSWD: ALL
-#+end_src
-
-ein.
-
-Das Anlegen des Benutzers und die Vergabe des Passworts müssen wir auf jedem System durchführen.
-
-Um das Problemlose verwalten der Nodes zu ermöglichen, richten wir für ssh eine Key-basierte Anmeldung ein:
-
-#+name: ssh-keygen
-#+begin_src bash
-su ansible -
-ssh-keygen
-#+end_src
-
-Als nächstes kopieren wir die Schlüssel auf die Server:
-
-#+name: ssh-copy
-#+begin_src bash
-ssh-copy-id ansible@Ubuntu.node
-#+end_src
-
-** Achtung vServer mit KeyAuth
-
-Damit der Befehl ssh-copy-id z.B. bei DigitalOcean funktioniert, muss folgendes Workaround eingesetzt verwendet werden:
-
-In der Datei  /etc/ssh/sshd_config muss die Zeile PasswordAuthentication no zu PasswordAuthentication yes verändert werden. Anschließend ist der Dienst mit 
-
-#+name: sshd_config
-#+begin_src bash
-sudo systemctl restart sshd 
-#+end_src
-
-neu zu starten.
-
-** SSH-Key lokal kopieren
-
-Mit dem Befehl
-
-#+name: ssh
-#+begin_src bash
-ssh 'ansible@54.154.150.210'
-#+end_src
-
-testen wir die Erfolgreiche Einrichtung. Es sollte jetzt möglich sein, ohne Passwort auf den anderen Computer zugriff zu erhalten.
-
-Damit die Clients auf den Server zugreifen können, müssen wir die ssh-id auch auf unseren Server installieren:
-
-#+name: ssh-copy-local
-#+begin_src bash
-ssh-copy-id ansible@localhost
-#+end_src
-
------------------------------------------------------
 * Testumgebung
 
-Wir gehen von 3 Servern zu testzwecken aus mit jeweils Ubuntu 16.04 installiert.
-
-Wir möchten Ansible aus Sicherheitsgründen nicht unter root laufen lassen. Wir legen daher auf jeder Maschine einen User (Name beliebig) und in seinem Home-Verzeichnis den Ordner playbooks an und setzen die Berechtigungen noch richtig.:
-
-adduser ansible
-cd /home/ansible
-mkdir playbooks
-chown ansible:ansible playbooks/
+Wir gehen von 3 Servern zu Testzwecken aus, mit jeweils Ubuntu 16.04 installiert.
 
 Wir gehen in das Verzeichnis /etc/ansible und schauen uns den Inhalt an:
 
+#+begin_src
 cd /etc/ansible
 ll
+#+end_src
 
 ** Hosts-Datei
 
@@ -200,7 +68,6 @@ Wir verschieben die Hosts-Datei und legen eine neue an:
 
 #+begin_src
 mv hosts hosts.orig
-
 vim hosts
 #+end_src
 
@@ -215,11 +82,13 @@ localhost
 47.90.204.43
 #+end_src
 
-Wir können uns alkle konfigurierten Systeme anzeigen lassen:
+Wir können uns aktuell konfigurierten Systeme anzeigen lassen:
 
 #+begin_src
 ansible all --list-host
 #+end_src
+
+** Key-Auth
 
 Wir konfigurieren das Key-Auth für ssh:
 
