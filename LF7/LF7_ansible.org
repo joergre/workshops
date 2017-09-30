@@ -157,6 +157,7 @@ Schreibe einen Befehl, der auf den Servern der Gruppe 'webservers' mariadb-serve
 apt -y install mariadb-client mariadb-server
 #+end_src
 
+** ansible setup
 Um wichtige Systemdaten abzufragen, gibt es den Befehl setup:
 
 
