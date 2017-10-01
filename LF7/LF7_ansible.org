@@ -292,11 +292,27 @@ Variablen im Playbook. Variablen werden immer am Anfang definiert.
   tasks:
   - name: Install Lynx in der Gruppe gitservers
     apt: name=lynx  state=installed update_cache=true
-
 #+end_src
 
+Und wir legen die Datei an:
 
+#+begin_src
+touch vars.yml
+#+end_src
 
+* Ziel
+
+Im playbook kann am Anfang das Ziel beschrieben werden.
+
+#+begin_src
+hosts: gitservers
+user: test
+sudo: yes
+connection: ssh
+gather_facts: no
+#+end_src
+
+Wir führen das playbook nicht als root aus, sondern als Benutzer test. Das script soll alledings mit sudo-Rechten ausgeführt werden. Informationen über ie Hardware sollen nicht gesammelt werden.
 
 
 
