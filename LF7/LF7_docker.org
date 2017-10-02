@@ -25,6 +25,29 @@
   }
 #+end_src
 
+* Einführung in die Virtualisierung
+
+Bei dem Thema Virtualsierung gibt es zwei große Probelme:
+
+1. Wie können wir verhindern, dass ein Prozess alle Ressourcen für sich beansprucht?
+
+2. Wie können wir zeitgleiche Zugriffsanforderungen auf Ressourcen verwalten die nicht gleichzeitig angesprochen werden können?
+
+Moderne Prozessoren haben dazu eine Ring-Architektur. Schön dargestellt auf diesem Bild: https://commons.wikimedia.org/wiki/File:Priv_rings.svg
+
+Jedes Programm wird einem Ring zugeordnet. Hat der Ring eine niedrige Nummer, bekommt das Programm eine höhere Priorität bei dem Zugriff auf das System. Der wichtigste Teil eines Betriebssystems ist der Kernel, der im Kreis 0 läuft. Alle anderen Programme laufen bei Linux im Ring 3. Das bedeutet, dass Ihre Anforderungen über den Kernel verwaltet wird.
+
+Der Hypervisor (auch VMM genannt) koodiniert die Ressourcenanforderungen einzelner virtueller Maschienen und leitet sie an den Kernel weiter. Je nachdem, in welchem Ring der Hypervisor läuft werden verschiedene Typen unterschieden: 
+
+- Hypervisor Typ 1: XEN oder ESX läuft der Hypervisor mit dem Kern im Ring 1. Der Hypervisor ist also in dem Kernel integriert.
+
+- Hypervisor Typ 2: Der Hypervisor läuft als normales Programm im Userspace. Das bedeutet, dass der Hypervisor keinen direkten Zugriff auf die Hardware hat und damit bei der Anzahl der Virtualisierungsfunktionen eingeschränkt ist. Er unterstützt z:b. keine Virtualisiierungsfunktionen die direkt von der Hardware angeboten werden.
+
+- Mischformen: QEMU ist eine Virtualisierung die nicht in das Konzept passt. Der Hypervisor ist in zwei Teile aufgeteilt. Der kleinere Teil läuft als Modul direkt im Kernel (Ring 0) und der größere Teil im Userspace (Ring 3). Der Teil im Ring 3 kommuniziert aber direkt mit dem Modul im Kernel und kann so wesentlich besser seine Zugriffe priorisieren als es andere Prozesse können. Das Modul ermöglicht auch einen direkteren Zugriff (passthroug) auf die Funktionen der Hardware 
+
+
+
+
 * Einführung in Docker
 ** Warum Docker
 Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ. Der Hauptunterschied zu anderen Virtualisierungen ist, dass nicht der Schwerpunkt auf die Virtualisierung von Betriebssystemen gelegt wird, sondern von Anwendungen. Das zeigt sich z.B. daran, dass Container normalerweise keine öffentliche IP-Adresse haben und nur über einen festgelegten Port über die IP des "Hostsystems" erreichbar sind. Auch auf hub.docker.com werden eher Anwendungen angeboten und nicht Betriebssysteme. Wenn ein Webserver gebraucht wird, ist es nicht interessant auf welchen Linux-Dervat er installiert wurde, sondern das er sicher läuft und die benötigten Dienste zur Verfügung stellt.
