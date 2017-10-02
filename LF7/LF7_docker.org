@@ -43,29 +43,91 @@ Der Hypervisor (auch VMM genannt) koodiniert die Ressourcenanforderungen einzeln
 
 - Hypervisor Typ 2: Der Hypervisor läuft als normales Programm im Userspace. Das bedeutet, dass der Hypervisor keinen direkten Zugriff auf die Hardware hat und damit bei der Anzahl der Virtualisierungsfunktionen eingeschränkt ist. Er unterstützt z:b. keine Virtualisiierungsfunktionen die direkt von der Hardware angeboten werden.
 
-- Mischformen: QEMU ist eine Virtualisierung die nicht in das Konzept passt. Der Hypervisor ist in zwei Teile aufgeteilt. Der kleinere Teil läuft als Modul direkt im Kernel (Ring 0) und der größere Teil im Userspace (Ring 3). Der Teil im Ring 3 kommuniziert aber direkt mit dem Modul im Kernel und kann so wesentlich besser seine Zugriffe priorisieren als es andere Prozesse können. Das Modul ermöglicht auch einen direkteren Zugriff (passthroug) auf die Funktionen der Hardware 
+- Mischformen: QEMU ist eine Virtualisierung die nicht in das Konzept passt. Der Hypervisor ist in zwei Teile aufgeteilt. Der kleinere Teil läuft als Modul direkt im Kernel (Ring 0) und der größere Teil im Userspace (Ring 3). Der Teil im Ring 3 kommuniziert aber direkt mit dem Modul im Kernel und kann so wesentlich besser seine Zugriffe priorisieren als es andere Prozesse können. Das Modul ermöglicht auch einen direkteren Zugriff (passthroug) auf die Funktionen der Hardware.
+
+Der Geschwindigkeitsunterschied zwischen Typ1/Mischform und Typ2 ist ernorm. Bei CPU-lastigen Aufgaben verlängert sich die Ausführungszeit bei Typ 1 um 4-10% bei Typ 2 400-600%(!). Bei der I/O-Leistung ist bei Typ 1 ebenfalls nur sehr geringe Verzögerung messen bei Typ 2 verlängert sich die Ausführung um bis zu 3000%.
+
+Mischform oder Typ2 muss insbesondere bei Virtualisierung eingesetzt werden, deren Architektur nicht mit dem Hostsystem gleich sind (z.B. ARM virtualisieren auf einem x64-System).
+
+** Virtualisierung und Container
+
+Die klassische viertuelle Infrastruktur wird durch Container nicht überflüssig. Im Gegenteil, Container benötigen eine funktionierende Virtualsierung auf die sie aufsetzen können. 
 
 
+Layer 6: Orchestration: SWARM, kubernetes, Rancher etc.
 
+Layer 5:  Scheduling
+
+Layer 2: Container Engine: docker, rkt, LXD
+
+Layer 3: Betriebssystem: redhat, CoreOS, SuSe, Ubuntu ..
+
+Layer 2: Virtuelle Infrastruktur (vmware, KVM, EC2)
+
+Layer 1: Physikalische Struktur
+
+Das Prinzip von Containern basiert darauf, dass die Ressourcen des Systems gegeneineander isoliert werden. Diesgeschieht durch sogenannte Namespaces. Grob kann man sich das vorstellen wie bei moderneen Programmiersprachen: jede Funktion hat ihren eigenen Namespace also eine Umgebung indem die Variablen abgeschottet sind gegen Veränderung von außen.
+
+Dieser Anmespace sieht wie folgt aus:
+
+#+begin_src
+root@fcad1d876393:/# ls -al /proc/$$/ns
+total 0
+dr-x--x--x. 2 root root 0 Oct  2 14:22 .
+dr-xr-xr-x. 9 root root 0 Oct  2 14:22 ..
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 cgroup -> cgroup:[4026531835]
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 ipc -> ipc:[4026532175]
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 mnt -> mnt:[4026532173]
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 net -> net:[4026532178]
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 pid -> pid:[4026532176]
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 user -> user:[4026531837]
+lrwxrwxrwx. 1 root root 0 Oct  2 14:22 uts -> uts:[4026532174]
+#+end_src
+
+Es existieren aktuell 6 Namensräume, die alle oben angezeigt werden.
+
+- IPC (Interprozess-Kommunikation) Hier können Container IPC-Mechanismen für z.B. Shared Memory und Messages Queues verwenden. 
+
+- MNT (Mountpunkte des Dateisystems): Dieser Namespace schränkt die Sicht auf das darunter liegende Dateisystem des Host ein. Durch teilen des NAmespace ist es möglich, dass Container Mounts teilen (shared_subtree).
+
+- NET (netzwerkressourcen): Jeder Container erhält sein eigene Netz-Devices mit zugehörigen Stack., IP-Adresse, Routing Table, Firewall, Ports etc.
+
+- PID (prozewss-IDs: Jeder Container hat seine eigenen PIDs, jeder Container kann also einen Prozess mit der ID 1 haben (PID 1 ist ein besonders priviligierder root-Prozess).
+
+- USER (Benutzer/Gruppen-IDs): Dadurch kann ein Prozess innerhalb eines Containers mit root-Rechten laufen, aber ausserhalb des Containers nur mit eingeschränkten Rechten.
+
+- UTS (Systemidentifikation): Ermöglicht es, dass jeder Container seinen eigenen Host-und Domänenenamen erhalten kann.
 
 * Einführung in Docker
 ** Warum Docker
 Docker ist eine Anwendung die es ermöglicht Anwendungen in Containern zu virtualisieren. Docker ist in diese Sicht nicht etwas neues, es gibt bereits seit sehr langer Zeit die Möglichkeit des Einsatzes von Containern unter Linux wie z.B. OpenVZ. Der Hauptunterschied zu anderen Virtualisierungen ist, dass nicht der Schwerpunkt auf die Virtualisierung von Betriebssystemen gelegt wird, sondern von Anwendungen. Das zeigt sich z.B. daran, dass Container normalerweise keine öffentliche IP-Adresse haben und nur über einen festgelegten Port über die IP des "Hostsystems" erreichbar sind. Auch auf hub.docker.com werden eher Anwendungen angeboten und nicht Betriebssysteme. Wenn ein Webserver gebraucht wird, ist es nicht interessant auf welchen Linux-Dervat er installiert wurde, sondern das er sicher läuft und die benötigten Dienste zur Verfügung stellt.
 Aber der Reihe nach.
 *** Vorteile von Docker
+
 - Docker ist unabhängig vom Betriebssystem. Es wird unterstützt von: 
+    
     - allen Linux Distributionen,
+    
     - Microsoft-Betriebssystemen (seit 2016),  
+    
     - OS X.
 
 - Vorteile gegenüber anderen Virtualisierungslösungen:
+    
     - Benötigt keine besondere Hardware oder CPU-Erweiterungen.
+    
     - Effizienter als herkömmliche Virtualisierungslösungen.
+    
     - Weitergabe von Containern sehr leicht möglich (nur ein Textfile).
+    
     - Einfache Überprüfung, wie der Container aufgesetzt wurde (alle Befehle stehen in dem Textfile).
+    
     - Kostenlos Nutzbar.
+    
     - Plattformunabhängige Container. Keine Abhängigkeiten zum Hostsystem.
+    
     - Einfaches Clustering von Systemen.
+    
     - Einfache Versionsverwaltung. Jeder Schritt kann rückgängig gemacht werden und jeder Schritt wird aufgezeichnet.
 
 ** Docker Begriffe
