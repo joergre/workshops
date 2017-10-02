@@ -553,5 +553,33 @@ def waehrungsrechner(kurs, euro):
     zloty = euro*kurs
     return zloty
     
-waehrungsrechner(4.3,100)    
+print(waehrungsrechner(4.3,100))    
 #+end_src
+
+* Fehler
+
+Fehler sind meschlich und nicht schlimm. Es kommt nur drauf an mit Ihnen sinnvoll umzugehen. Ferler werden auch Error oder Bug genannt. Die Bezeichnung Bug kommt daher, dass bei den Computern füher sich kleine Tiere zwischen den elektrischen Kontakten ihr Leben aushauchen konnten und so die Funktionsfähigkeit des Computers beeinträchtigten (siehe z.B. hier: https://de.wikipedia.org/wiki/Programmfehler#/media/File:H96566k.jpg oder auch https://de.wikipedia.org/wiki/Programmfehler)
+
+In Python gibt es 3 Kategorien von Fehlern: Logische Fehler, Syntax-Fehler und Ausführungsfehler (Exception). Wir konzentrieren uns zuerst auf die Syntax-Fehler, die den größten Teil darstellen. Dazu ein Programm mit dem tollen Namen fehler.py:
+
+#+begin_src
+print("1")
+int(10)
+int 9
+print(2)
+print "FBS"
+#+end_src
+
+Ausgabe:
+
+#+begin_src
+Traceback (most recent call last):
+  File "fehler.py", line 3
+    int 9
+        ^
+SyntaxError: invalid syntax
+#+end_src
+
+Die zweite Zeile teilt uns den Namen der betroffenden Datei mit, in diesem Fall fehler.py.
+
+
