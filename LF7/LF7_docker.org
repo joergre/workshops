@@ -1008,6 +1008,71 @@ db0da46e19e6        apache:v1           "/bin/sh -c 'apach..."   4 minutes ago  
 
 und kann jetzt auf http://localhost:32768 erreicht werden.
 
+* Speicherhandling
+
+Wir schauen uns jetzt an, wie wir Daten ausserhalb des Containers speichern können. Es sollten alle Befehle bekannt sein auser -v mydata
+
+#+begin_src bash
+docker run -it --name voltest -v /mydata ubuntu /bin/bash
+#+end_src
+
+Wir schauen uns die Laufwerke in unserem Container an:
+
+#+begin_src bash
+root@f2b84feb00eb:/# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          37G  176M   35G   1% /
+tmpfs           499M     0  499M   0% /dev
+tmpfs           499M     0  499M   0% /sys/fs/cgroup
+/dev/vda9        37G  176M   35G   1% /mydata
+shm              64M     0   64M   0% /dev/shm
+#+end_src
+
+Unser mydata ist ein Mount-Point geworden. um das besser zu verstehen, legen wir in unserem Container eine Datei in /mydata an:
+
+#+begin_src bash
+echo "FBS" > /mydata/fbs.txt
+#+end_src
+
+Auf dem Host-System suchen wir sie mit dem Befehl:
+
+#+begin_src bash
+find / -name fbs.txt
+#+end_src
+
+... Und sind verzückt. Wir finden die Datei:
+
+#+begin_src bash
+iZ0xigf3gifygguflsc3ciZ ~ # find / -name fbs.txt
+/var/lib/docker/volumes/afba68d0c90d5d3e37b04a8f70c1686436efd1b705cbd72ec6068c3acbae5955/_data/fbs.txt
+#+end_src
+
+Ein 'docker inspect' hätte uns zu dem gleichen Ergebnis geführt:
+
+#+begin_src bash
+iZ0xigf3gifygguflsc3ciZ ~ # docker inspect voltest|grep volume
+                "Source": "/var/lib/docker/volumes/afba68d0c90d5d3e37b04a8f70c1686436efd1b705cbd72ec6068c3acbae5955/_data",
+#+end_src
+
+Wir legen auf dem Host-System eine neue Datei in diesem Verzeichnis an:
+
+#+begin_src bash
+echo "Hier Host-System" > /var/lib/docker/volumes/afba68d0c90d5d3e37b04a8f70c1686436efd1b705cbd72ec6068c3acbae5955/_data/host.txt
+#+end_src
+
+Wir wechseln zu unserem Dokcer-Container und schauen nach, ob unsere Datei dort angekommen ist:
+
+#+begin_src bash
+root@f2b84feb00eb:/# cat /mydata/host.txt 
+Hier Host-System
+#+end_src
+
+
+
+
+
+
+
 
 
 
