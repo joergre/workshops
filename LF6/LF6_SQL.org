@@ -345,18 +345,24 @@ Dadurch hat man ohne Aufspaltung folgende Probleme bei Abfragen:
 
 Wir fügen als erstes eine Spalte 'Interpret' der Tabelle hinzu:
 
+#+begin_src sql
 ALTER TABLE CD_Lied ADD Interpret varchar(50);
+#+end_src sql
 
 ** Aufgabe
 Füge bitte ncoh die Spalte 'Track' der Tabelle hinzu varchar(10).
 
 Wir möchten die Spalte Track jetzt auf den Variablentyp int ändern:
 
+#+begin_src sql
 ALTER TABLE CD_Lied MODIFY Track int;
+#+end_src sql
 
 oder
 
+#+begin_src sql
 ALTER TABLE CD_Lied ALTER COLUMN Track int;
+#+end_src sql
 
 Die Befehle hängen von der eingesetzten MySQL-Version ab. 
 
@@ -368,19 +374,25 @@ Die Befehle hängen von der eingesetzten MySQL-Version ab.
 
 Um alle Daten aus einer Tabelle zu löschen könne wir folgenden Befehl ausführen (bitte nicht wirklich ausführen):
 
+#+begin_src sql
 DELETE * FROM CD_Lied
+#+end_src sql
 
 Der Befehl löscht nur die Daten, nicht aber die Tabelle an sich. Dieser Befehl wird sehr selt genutzt, meist wird ein Drop table verwendet.
 
-Meistens wird der Delte-Befehl eingeschränkt mit Hilfe von Bedingngen:
+Meistens wird der Delte-Befehl eingeschränkt mit Hilfe von Bedingungen:
 
+#+begin_src sql
 DELETE FROM CD_Lied WHERE Erscheinungsjahr = '2000';
+#+end_src sql
 
 Der Befehl löscht 'Anastacia – Not That Kind'.
 
 Wir können mit AND und OR auch komplexere Befehle aufbauen:
 
+#+begin_src sql
 DELETE FROM CD_Lied WHERE Erscheinungsjahr = '2001' AND Album = 'Anastacia – Freak of Nature';
+#+end_src sql
 
 * CREATE INDEX
 
