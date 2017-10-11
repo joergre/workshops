@@ -375,7 +375,7 @@ Die Befehle hängen von der eingesetzten MySQL-Version ab.
 Um alle Daten aus einer Tabelle zu löschen könne wir folgenden Befehl ausführen (bitte nicht wirklich ausführen):
 
 #+begin_src sql
-DELETE * FROM CD_Lied
+DELETE * FROM CD_Lied;
 #+end_src sql
 
 Der Befehl löscht nur die Daten, nicht aber die Tabelle an sich. Dieser Befehl wird sehr selt genutzt, meist wird ein Drop table verwendet.
@@ -401,11 +401,20 @@ Ein index ist eine Möglichkeit, den Zugriff einer Datenbank auf einzelne Felder
 Anlegen eines Index aus einer Spalte mit Zahlen:
 
 #+begin_src sql
-CREATE INDEX CDIndex ON CD (CD_ID)
+CREATE INDEX CDIndex ON CD (CD_ID);
 #+end_src
 
 Erstellen eines zusammengestzten Index:
 
 #+begin_src sql
-CREATE INDEX Index_Namen ON CD (CD_ID, Track)
+CREATE INDEX Index_Namen ON CD (CD_ID, Track);
 #+end_src
+
+* DELETE INDEX
+
+Ein Index wird gelöscht mit ALTER TABLE in Verbindung mit DROP:
+
+#+begin_src sql
+ALTER TABLE CD DROP INDEX  CDINDEX;
+#+end_src sql
+
