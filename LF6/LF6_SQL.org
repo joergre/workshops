@@ -415,6 +415,6 @@ CREATE INDEX Index_Namen ON CD (CD_ID, Track);
 Ein Index wird gelöscht mit ALTER TABLE in Verbindung mit DROP:
 
 #+begin_src sql
-ALTER TABLE CD DROP INDEX  CDINDEX;
+ALTER TABLE CD DROP INDEX  CDIndex;
 #+end_src sql
 
