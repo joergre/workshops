@@ -75,7 +75,7 @@ und folgende Zeile ganz oben einfügen:
 
 #+name: hallo_python
 #+begin_example
-#! /usr/bin/env python
+#!/usr/bin/env python
 #+end_example
 
 Das Programm wird mit folgendem Befehl aufgerufen:
@@ -94,7 +94,7 @@ Variablen sind Speicher für Werte wie Zahlen oder Zeichenketten. Wir ändern un
 
 #+name: hallo_var
 #+begin_example
-#! /usr/bin/env python
+#!/usr/bin/env python
 gruss = "Hallo Ferdinand-Braun-Schule!"
 print(gruss)
 #+end_example
@@ -104,14 +104,14 @@ Teste folgenden Code:
 
 #+name: gaense_string1
 #+begin_example
-#! /usr/bin/env python
+#!/usr/bin/env python
 gruss = "Hallo 'Ferdinand-Braun-Schule!'"
 print(gruss)
 #+end_example
 
 #+name: gaense_string2
 #+begin_example
-#! /usr/bin/env python
+#!/usr/bin/env python
 gruss = 'Hallo "Ferdinand-Braun-Schule!"'
 print(gruss)
 #+end_example
@@ -120,7 +120,7 @@ Zeichen werden immer in " oder ' gesetzt im Gegensatz zu Zahlen:
 
 #+name: hallo_string
 #+begin_example
-#! /usr/bin/env python
+#!/usr/bin/env python
 gruss = "Hallo Ferdinand-Braun-Schule!"
 wert = 72
 print(gruss)
@@ -135,7 +135,7 @@ Um mit dem Anwender eines Programms zu interagieren, gibt es die Möglichkeit Ta
 
 #+name: hallo_input
 #+begin_example
-#! /usr/bin/env python
+#!/usr/bin/env python
 gruss = input("Schreibe einen Gruss: ")
 print(gruss)
 #+end_example
