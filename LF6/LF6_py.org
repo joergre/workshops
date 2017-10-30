@@ -565,7 +565,7 @@ In Python gibt es 3 Kategorien von Fehlern: Logische Fehler, Syntax-Fehler und A
 #+begin_src
 print("1")
 int(10)
-int 9
+int 2
 print(2)
 print "FBS"
 #+end_src
@@ -575,11 +575,32 @@ Ausgabe:
 #+begin_src
 Traceback (most recent call last):
   File "fehler.py", line 3
-    int 9
+    int 2
         ^
 SyntaxError: invalid syntax
 #+end_src
 
-Die zweite Zeile teilt uns den Namen der betroffenden Datei mit, in diesem Fall fehler.py.
+Die zweite Zeile teilt uns den Namen der betroffenden Datei mit, in diesem Fall fehler.py. Nach dem Dateiname teilt Python eine Zeilennummer mit, in deren Umgebung der Fehler wahrscheinlich aufgetreten ist. In der letzten Zeile steht der Fehlertyp (SyntaxError) und ein Hinweis zum Fehler. Der Hinweis ist in diesem Fall so allgemein, dass er nicht unbedingt zum auffinden des  Fehlers führen wird. 'int' ist eine Funktion und Parameter einer Funktion werden in Klammern geschrieben. Also hier ist die Korrektur int(2).
 
+Wir korrigieren den Fehler und führen das Programm nochmal aus:
+
+#+begin_src
+print("1")
+int(10)
+int(2)
+print(2)
+print "FBS"
+#+end_src
+
+Die Ausgabe zeigt, dass der Code noch ein paar Probleme hat. Aber die Zeilennummer hat sich geändert, es handelt sich also nicht um den gleichen Fehler.
+
+#+begin_src
+root@proxmox:~# python3 fehler.py
+  File "fehler.py", line 5
+    print "FBS"
+              ^
+SyntaxError: Missing parentheses in call to 'print'
+#+end_src
+
+Es handelt sich wieder um einen Syntax-Fehler mit einem wesentlich besseren Hinweis: Missing parentheses (Fehlende Klammern). In diesem Fall wurden wieder die Funktionsklammern vergessen.
 
