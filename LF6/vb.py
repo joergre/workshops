@@ -10,7 +10,7 @@ print("Es ist zu unterscheiden zwischen dem Benutzer unter dem die Anwendung lä
 print("Die Anmeldung auf der Weboberfläche ist zu Beginn admin/admin und wird aufgerufen über IP/phpvirtualbox bzw. Servername/phpvirtualbox")
 print("Sie werden jetzt nach dem Passwort gefragt für den Benutzer vbox. Der Benutzer vbox ist der Benutzer unter dem die Anwendung VirtualBox ausgeführt wird.")
 
-print ( "This script installed VirtualBox and phpVirtualBox on the system")
+print ( "This script installs VirtualBox and phpVirtualBox on the system")
 print ( "It is necessary to distinguish between the user under which the application is running and the user who logs on to the web interface.")
 print ( "The registration on the web interface is called at the beginning admin / admin and is under IP/phpvirtualbox or ServerName/phpvirtualbox")
 print ( "You are now asked for the password for the user vbox. The user is the user vbox under which VirtualBox is running.")
